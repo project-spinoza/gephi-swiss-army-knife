@@ -8,4 +8,4 @@ The purpose of this project is to provide a simple and interactive platform for 
 The code is licensed using the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 
-[Roadmap](Roadmap)
+[Roadmap](https://github.com/project-spinoza/gephi-swiss-army-knife/wiki/Roadmap)
