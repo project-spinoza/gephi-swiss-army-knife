@@ -1,6 +1,9 @@
 # gephi-swiss-army-knife
 gephi-swiss-army-knife is a general grapher inspired by [Gephi](https://gephi.org/)<br>
 
+<br/><br/>
+![GSAK](screenshots/img1.png)  <br/><br/><br/>
+
 ### Purpose
 The purpose of this project is to provide a simple and interactive platform for visualization.
 
