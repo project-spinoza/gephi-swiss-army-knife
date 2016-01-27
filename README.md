@@ -8,6 +8,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
 ### Building + Running
+* cd PROJECT-ROOT-DIR
 * mvn clean compile package
 * cd target
 * java -jar gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar
