@@ -1,0 +1,286 @@
+<html>
+<head>
+	<title>${title}</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/easyui.css">
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.easyui.min.js"></script>
+    <meta charset="utf-8">
+</head>
+<body>
+
+	<div id="header" class="w100 db mza">
+
+        <a id="logo" href="#"><img src="./images/logo.png" style=""></a>
+            <div id="searchPanel" class="dib fr">
+                <input name="searchField" id="searchField" class="easyui-searchbox" data-options="prompt:'Search Keywords'"></input>
+                <select class="easyui-combobox" id="datasource" name="language">
+                    <option value="none" selected="selected">-Data Source-</option>
+                    <option value="elasticsearch">ElasticSearch</option>
+                    <option value="mongodb">MongoDB</option>
+                    <option value="mysql">MySQL</option>
+                    <option value="inputfile">InputFile</option>
+                    <option value ="graphfile">GraphFile</option>
+                </select> <br/>
+                 <a class="buttons-ui dib fr">Search</a>
+                <a class="buttons-ui dib fr">Configure Sources</a>
+            </div>
+	</div>
+	
+	<div class="ui-main">
+        <div class="easyui-layout" data-options="fit:true">
+
+            <div data-options="region:'west',split:true, maxWidth: 300, minWidth: 300" title="Nodes/Layout Operations" class="panel-left">
+
+                <div class="easyui-tabs partition-ranking-panel" class="w100">
+                   
+                    <div title="Partition" style="padding:1px">
+                        <div class="inline-tabs" class="w100">
+                            <a href="#" class="inline-tabs-anchor">&nbsp;Nodes &nbsp;|</a>
+                            <a href="#" class="inline-tabs-anchor">&nbsp;Edges</a>
+                            <div class="icon-btns-shrtcts">
+
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Statistics tab -->
+                <div title="Ranking" style="padding:10px">
+                    <ul class="easyui-tree" data-options="animate:true"></ul>
+                </div>
+             </div>
+
+
+            <div class="easyui-tabs layout-panel">
+
+                <!-- Layout tab -->
+                <div title="Layout" id="layouts-div" >
+                    <select name="layout" id="layouts-select" class="db">
+                        <option value="none" disabled="" selected="">-Layout Select-</option>
+                        <option value="cw-rotation">Clockwise Rotation</option>
+                        <option value="contraction">Contraction</option>
+                        <option value="ccw-rotation">Counter-Clockwise Rotation</option>
+                        <option value="expansion">Expansion</option>
+                        <option value="force-atlas">Force Atlas</option>
+                    </select>
+                    <button id="layout-run-btn"><img src="./images/run.png">Run</button>
+                    <div class="layouts-container">
+
+                        <!-- clockwise rotation properties -->
+                        <div id="rotation-layout-wrap">
+                        <table class="easyui-datagrid rotation-layout" title="Properties" style="width:270px"
+                                data-options="singleSelect:true">
+                            <thead>
+                                <tr>
+                                    <th field="angle" width="116">Property</th>
+                                    <th field="angle-val" width="116">Value</th>
+                                </tr>                          
+                            </thead>                           
+                            <tbody>                            
+                                <tr>                           
+                                    <td width="116">Angle</td>            
+                                    <td width="116">90</td>            
+                                </tr>        
+                            </tbody>                                                 
+                        </table>
+                        </div>
+
+                        <!-- contraction expension properties -->
+                        <div id="cont-expn-layout-wrap">
+                        <table class="easyui-datagrid cont-expn-layout" title="Properties" style="width:270px"
+                                data-options="singleSelect:true">
+                            <thead>
+                                <tr>
+                                    <th field="contr-expn" width="116">Property</th>
+                                    <th field="contr-expn-val" width="116">Value</th>
+                                </tr>                          
+                            </thead>                           
+                            <tbody>                            
+                                <tr>                           
+                                    <td width="116">Scale factor</td>            
+                                    <td width="116">0.8</td>            
+                                </tr>        
+                            </tbody>                                                 
+                        </table>
+                    </div>
+
+                        <!-- force atlas -->
+                    <div id="force-atlas-layout-wrap">
+                        <table class="easyui-datagrid force-atlas-layout" title="Properties" style="width:270px"
+                                data-options="singleSelect:true">
+                            <thead>
+                                <tr>
+                                    <th field="contr-expn" width="116">Property</th>
+                                    <th field="contr-expn-val" width="116">Value</th>
+                                </tr>                          
+                            </thead>                           
+                            <tbody>                            
+                                <tr>                           
+                                    <td width="116">Inertia</td>            
+                                    <td width="116">0.1</td>              
+                                </tr>        
+                                <tr>                           
+                                    <td width="116">Repulsion strength</td>            
+                                    <td width="116">200.0</td>              
+                                </tr>        
+                                <tr>                           
+                                    <td width="116">Attraction strength</td>            
+                                    <td width="116">10.0</td>              
+                                </tr>
+                                <tr>                           
+                                    <td width="116">Max Displacement</td>            
+                                    <td width="116">10.0</td>              
+                                </tr>        
+                                <tr>                           
+                                    <td width="116">Auto Stabilize function</td>            
+                                    <td width="116"><input type="checkbox" name="a-stabilize-fun" checked></td>              
+                                </tr> 
+                                <tr>                           
+                                    <td width="116">Autostab strength</td>            
+                                    <td width="116">80.0</td>              
+                                </tr>  
+                                <tr>                           
+                                    <td width="116">Autostab sensibility</td>            
+                                    <td width="116">0.2</td>              
+                                </tr>  
+                                <tr>                           
+                                    <td width="116">Gravity</td>            
+                                    <td width="116">30.0</td>              
+                                </tr> 
+                                <tr>                           
+                                    <td width="116">Attraction Distrib.</td>            
+                                    <td width="116"><input type="checkbox" name="attr-distrib"></td>              
+                                </tr> 
+                                <tr>                           
+                                    <td width="116">Adjust by size</td>            
+                                    <td width="116"><input type="checkbox" name="adjst-by-size"></td>              
+                                </tr>  
+                                <tr>                           
+                                    <td width="116">Speed</td>            
+                                    <td width="116">1.0</td>              
+                                </tr>
+                            </tbody>                                                 
+                        </table>
+                    </div>
+
+                    </div>
+                </div>
+             </div>
+
+
+            </div>
+
+            <div data-options="region:'east',split:true, maxWidth: 300, minWidth: 300" title="Network Operations" class="panel-right">
+
+       	        <div class="easyui-tabs" class="w100 h100">
+       		       <!-- Filters tab start -->
+	               <div title="Filters" style="padding:10px" data-options = "minHeight: 540">
+                       <div class="easyui-panel filters-pane" style="padding:5px; width:100%">
+                        <ul class="easyui-tree">
+                            <li><span>Library</span>
+                                <ul>
+                                    <li data-options="state:'closed'"><span>Attributes</span>
+                                        <ul>
+                                        	<li data-options="state:'closed'"><span>Equal</span>
+                		                        <ul>
+                		                            <li>Id (Edge)</li>
+                                                    <li>Id (Node)</li>
+                                                    <li>Label (Edge)</li>
+                                                    <li>Label (Edge)</li>
+                                                    <li>Weight Float (Edge)</li>
+                		                        </ul>
+                                        	</li>
+                                            <li data-options="state:'closed'"><span>Non-null</span>
+                                                <ul>
+                                                    <li>Id (Edge)</li>
+                                                    <li>Id (Node)</li>
+                                                    <li>Label (Edge)</li>
+                                                    <li>Label (Edge)</li>
+                                                    <li>Weight Float (Edge)</li>
+                                                </ul>
+                                            </li>
+                                            <li data-options="state:'closed'"><span>Range</span>
+                                                <ul>
+                                                    <li>Weight Float (Edge)</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li data-options="state:'closed'"><span>Edges</span>
+                                        <ul>
+                                            <li>Edge Weight</li>
+                                            <li>Self Loop</li>
+                                        </ul>
+                                    </li>
+                                    <li data-options="state:'closed'"><span>Operator</span>
+                                        <ul>
+                                            <li>INTERACTION</li>
+                                            <li>MAST (Edges)</li>
+                                            <li>NOT (Edges)</li>
+                                            <li>NOT (Nodes)</li>
+                                            <li>UNION</li>
+                                        </ul>
+                                    </li>
+                                    <li data-options=""><span>Topology</span>
+                                        <ul>
+                                            <li>Degree Range</li>
+                                            <li>Ego Network</li>
+                                            <li>Giant Component</li>
+                                            <li>In Degree Range</li>
+                                            <li>K-core</li>
+                                            <li>Mutual Degree Range</li>
+                                            <li>Neighbours Network</li>
+                                            <li>Our Degree Range</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Filters queries panel -->
+                    <div class="easyui-panel filter-queries" style="padding:5px; width:100%">
+                        <ul class="easyui-tree">
+                            <li>Queries</li>
+
+                        </ul>
+                    </div>
+
+                    <div class="filter-queries-params">
+
+                        <fieldset class="db fr">
+                            <legend class="legend">Parameters</legend>
+                        </fieldset>
+
+                    </div>
+                    <button>Select</button> <button>Filter</button>
+
+
+	        <!-- filters tab end -->
+	        </div>
+
+	        <!-- Statistics tab -->
+	        <div title="Statistics" style="padding:10px">
+	            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+	        </div>
+    	</div>
+
+
+                
+            </div>
+            <div data-options="region:'center'" class="panel-center" style="">
+                <img src="./images/graphdemo.png" style="width:100%; height:100%">
+            </div>
+        </div>
+	</div>
+
+    <script type="text/javascript" src="./js/script.js"></script>
+
+ <script>
+ // $( "body" ).mouseout(function( event ) {
+ //   alert( "clicked: " + event.target.className.split(" ")[1] );
+ // });
+ </script>
+</body>
+</html>
