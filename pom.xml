@@ -70,11 +70,18 @@
 			<version>2.3</version>
 		</dependency>
 
-        <!-- Google Guice dependency -->
+		<!-- Google Guice dependency -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
+		</dependency>
+
+		<!-- GephiTookit dependency -->
+		<dependency>
+			<groupId>gephi-toolkit</groupId>
+			<artifactId>gephi-toolkit</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 	</dependencies>
