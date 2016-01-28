@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.projectspinoza.gephiswissarmyknife.Server.GsakServer;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 
 /**
  * Main
@@ -16,10 +19,11 @@ public class Main
 {
 	@SuppressWarnings("unused")
 	private static Logger log = LogManager.getLogger(Main.class);
+	private static Injector injector = Guice.createInjector();
 	
     public static void main( String[] args ) {
-    	GsakServer server = new GsakServer();
+    	GsakServer server = injector.getInstance(GsakServer.class);
     	server.deployServer();
-    	server.deployRoutes();
+    	server.deployGsakRoutes();
     }
 }
