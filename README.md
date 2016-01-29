@@ -2,7 +2,8 @@
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
 <br/><br/>
-![GSAK](screenshots/img1.png)  <br/><br/><br/>
+![GSAK](screenshots/img1.jpg)  <br/><br/><br/>
+![GSAK](screenshots/img2.jpg)  <br/><br/><br/>
 
 ### Purpose
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
@@ -10,8 +11,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 ### Building + Running
 * cd PROJECT-ROOT-DIR
 * mvn clean compile package
-* cd target
-* java -jar gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar
+* java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar sample.gexf
 * navigate to (localhost:9090/graph)
 
 
