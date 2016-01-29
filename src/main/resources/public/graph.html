@@ -1,24 +1,70 @@
 <html>
 <head>
 	<title>${title}</title>
+    <meta charset="utf-8">
+
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" type="text/css" href="./css/easyui.css">
 	<script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/jquery.easyui.min.js"></script>
-    <meta charset="utf-8">
+
+    <!-- sigma libs -->
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="js/sigma.core.js"></script>
+        <script src="js/conrad.js"></script>
+        <script src="js/sigma.utils.js"></script>
+        <script src="js/sigma.polyfills.js"></script>
+        <script src="js/sigma.settings.js"></script>
+        <script src="js/sigma.classes.dispatcher.js"></script>
+        <script src="js/sigma.classes.configurable.js"></script>
+        <script src="js/sigma.classes.graph.js"></script>
+        <script src="js/sigma.classes.camera.js"></script>
+        <script src="js/sigma.classes.quad.js"></script>
+        <script src="js/sigma.classes.edgequad.js"></script>
+        <script src="js/sigma.captors.mouse.js"></script>
+        <script src="js/sigma.captors.touch.js"></script>
+        <script src="js/sigma.renderers.canvas.js"></script>
+        <script src="js/sigma.renderers.webgl.js"></script>
+        <script src="js/sigma.renderers.svg.js"></script>
+        <script src="js/sigma.renderers.def.js"></script>
+        <script src="js/sigma.webgl.nodes.def.js"></script>
+        <script src="js/sigma.webgl.nodes.fast.js"></script>
+        <script src="js/sigma.webgl.edges.def.js"></script>
+        <script src="js/sigma.webgl.edges.fast.js"></script>
+        <script src="js/sigma.webgl.edges.arrow.js"></script>
+        <script src="js/sigma.canvas.labels.def.js"></script>
+        <script src="js/sigma.canvas.hovers.def.js"></script>
+        <script src="js/sigma.canvas.nodes.def.js"></script>
+        <script src="js/sigma.canvas.edges.def.js"></script>
+        <script src="js/sigma.canvas.edges.curve.js"></script>
+        <script src="js/sigma.canvas.edges.arrow.js"></script>
+        <script src="js/sigma.canvas.edges.curvedArrow.js"></script>
+        <script src="js/sigma.canvas.edgehovers.def.js"></script>
+        <script src="js/sigma.canvas.edgehovers.curve.js"></script>
+        <script src="js/sigma.canvas.edgehovers.arrow.js"></script>
+        <script src="js/sigma.canvas.edgehovers.curvedArrow.js"></script>
+        <script src="js/sigma.canvas.extremities.def.js"></script>
+        <script src="js/sigma.svg.utils.js"></script>
+        <script src="js/sigma.svg.nodes.def.js"></script>
+        <script src="js/sigma.svg.edges.def.js"></script>
+        <script src="js/sigma.svg.edges.curve.js"></script>
+        <script src="js/sigma.svg.labels.def.js"></script>
+        <script src="js/sigma.svg.hovers.def.js"></script>
+        <script src="js/sigma.middlewares.rescale.js"></script>
+        <script src="js/sigma.middlewares.copy.js"></script>
+        <script src="js/sigma.misc.animation.js"></script>
+        <script src="js/sigma.misc.bindEvents.js"></script>
+        <script src="js/sigma.misc.bindDOMEvents.js"></script>
+        <script src="js/sigma.misc.drawHovers.js"></script>
+
 </head>
 <body>
 
  	<div id="header" class="db mza">
 
-
-
-
         <a id="logo" href="#"><img src="./images/logo.png" style=""></a>
             <div id="searchPanel" class="dib fr">
-                
-
-
 
                 <input name="searchField" id="searchField" class="easyui-searchbox" data-options="prompt:'Search Keywords'"></input>
                 <select class="easyui-combobox" id="datasource" name="language">
@@ -270,7 +316,7 @@
 
 	        <!-- Statistics tab -->
 	        <div title="Statistics" style="padding:10px">
-	            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+	            <ul class="easyui-tree" data-options="animate:true"></ul>
 	        </div>
     	</div>
 
@@ -278,7 +324,8 @@
                 
             </div>
             <div data-options="region:'center'" class="panel-center" style="">
-                <img src="./images/graphdemo.png" style="width:100%; height:100%">
+                <div id="container" style="width:100%; height:100%"></div>
+                <!-- <img src="./images/graphdemo.png" style="width:100%; height:100%"> -->
             </div>
         </div>
 	</div>

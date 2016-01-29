@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+var Gsetting1 = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+
+    var Gsetting = JSON.parse(Gsetting1);
+
 	function setEditableCol (col) {
 		col.editor = {
 		  type:'text',
@@ -48,29 +52,132 @@ $(document).ready(function(){
 	});
 
 	// editing clockwise cell rotation layout
-	$('.rotation-layout').datagrid({
-		onClickCell: function(index,field,value){
-			if (field == 'angle-val') {
-				$('.rotation-layout').datagrid('beginEdit', 0);	
-			}
-		}
-	});
+	// $('.rotation-layout').datagrid({
+	// 	onClickCell: function(index,field,value){
+	// 		if (field == 'angle-val') {
+	// 			$('.rotation-layout').datagrid('beginEdit', 0);	
+	// 		}
+	// 	}
+	// });
 
 	// editing contraction cell rotation layout
-	$('.cont-expn-layout').datagrid({
-		onClickCell: function(index,field,value){
-			if (field == 'contr-expn-val') {
-				$('.cont-expn-layout').datagrid('beginEdit', 0);	
-			}
-		}
-	});
+	// $('.cont-expn-layout').datagrid({
+	// 	onClickCell: function(index,field,value){
+	// 		if (field == 'contr-expn-val') {
+	// 			$('.cont-expn-layout').datagrid('beginEdit', 0);	
+	// 		}
+	// 	}
+	// });
 
-	var col = $('.rotation-layout').datagrid('getColumnOption', 'angle-val');
-	setEditableCol (col);
-	var col = $('.cont-expn-layout').datagrid('getColumnOption', 'contr-expn-val');
-	setEditableCol (col);
-
+	// var col = $('.rotation-layout').datagrid('getColumnOption', 'angle-val');
+	// setEditableCol (col);
+	// var col = $('.cont-expn-layout').datagrid('getColumnOption', 'contr-expn-val');
+	// setEditableCol (col);
 
 	//should be at the end of script.
 	hideChildLayouts ();
+
+$.ajax({
+type: "get",
+url: "http://localhost:"+9090+"/ajax",
+data:{},
+async : true, beforeSend: function(xhr) {},
+//on successfull ajax request
+success: function (graphData) {
+   nodesObject = JSON.parse(graphData);
+
+   nodesCount = nodesObject.nodes.nodes.length;
+   if(nodesObject.nodes.nodes.length > 0){
+	      showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
+	   }
+
+},
+//on error in ajax request
+error: function(a, b, c){
+	alert('error');
+}
+});
+
+
+function showGraph(givenData, givenContainer, givenSettings){
+    givenContainer.innerHTML = "";
+    s = new sigma( {
+            graph : givenData,
+            renderer: {
+              container:givenContainer,
+              type: 'canvas'
+            },
+            settings:givenSettings
+          });
+
+     totalEdges = s.graph.edges();
+
+   for (var i in totalEdges) {
+ 	   totalEdges[i].type = 'curve';
+ 	 }
+
+   s.graph.nodes().forEach(function(n) {
+      n.originalColor = n.color;
+      n.originalLabel = n.label;
+   });
+
+   s.graph.edges().forEach(function(e) {
+     e.originalColor = e.color;
+   });
+
+   s.bind('clickEdge rightClickEdge', function(e) {
+     console.log(e);
+   });
+
+   s.bind('overNode', function(e){
+
+      $("#nodeInfoTable").empty();
+      //papulate table
+      var attr = e.data.node.attributes;
+      var row = "<tr><td>" + 'ID:' + "</td><td>" + e.data.node.id; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'Label:' + "</td><td>" + e.data.node.label; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'OriginalLabel:' + "</td><td>" +  e.data.node.originalLabel; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'Color:' + "</td><td>" + e.data.node.color; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'B/w Centrality:' + "</td><td>" + attr["Betweenness Centrality"]; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'Closeness Centrality:' + "</td><td>" + attr["Closeness Centrality"]; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'PageRank:' + "</td><td>" + attr["PageRank"]; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'NeighborCount:' + "</td><td>" + attr["NeighborCount"]; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+      var row = "<tr><td>" + 'Eccentricity:' + "</td><td>" + attr["Eccentricity"]; + "</td></tr>";
+      $('#nodeInfoTable').append(row);
+
+      var nodeId = e.data.node.id;
+      toKeep = s.graph.neighbors(nodeId);
+      toKeep[nodeId] = e.data.node;
+
+      s.graph.nodes().forEach(function(n) {
+
+        if (toKeep[n.id]){
+          n.color = n.originalColor;
+          n.label = n.originalLabel;
+        } else{
+          n.color = 'blue';
+          n.label = "";
+        }
+    });
+
+    s.graph.edges().forEach(function(e) {
+      if (toKeep[e.source] && toKeep[e.target])
+        e.color ='green';
+      else
+       e.color = e.originalColor;
+    });
+    s.refresh();
+  });
+
+  s.refresh();
+   }
+
 });

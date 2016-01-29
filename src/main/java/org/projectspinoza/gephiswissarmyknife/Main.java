@@ -21,7 +21,11 @@ public class Main
 	private static Logger log = LogManager.getLogger(Main.class);
 	private static Injector injector = Guice.createInjector();
 	
+	//temp
+	public static String graphfile;
+	
     public static void main( String[] args ) {
+    	graphfile = args[0];
     	GsakServer server = injector.getInstance(GsakServer.class);
     	server.deployServer();
     	server.deployGsakRoutes();

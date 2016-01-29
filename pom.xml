@@ -84,6 +84,26 @@
 			<version>1.0</version>
 		</dependency>
 
+		<!-- SigmaExporter dependency -->
+		<dependency>
+			<groupId>uk-ac-ox-oii-sigmaexporter</groupId>
+			<artifactId>uk-ac-ox-oii-sigmaexporter</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- json dependency -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20151123</version>
+		</dependency>
+    <!-- gson dependency -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<resources>
