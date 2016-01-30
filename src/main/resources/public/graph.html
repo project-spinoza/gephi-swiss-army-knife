@@ -106,11 +106,13 @@
 
 
             <div class="easyui-tabs layout-panel">
-
                 <!-- Layout tab -->
                 <div title="Layout" id="layouts-div" >
                     <select name="layout" id="layouts-select" class="db">
                         <option value="none" disabled="" selected="">-Layout Select-</option>
+                        <option value="YifanHuLayout">YifanHuLayout</option> 
+                        <option value="ForceAtlasLayout">ForceAtlasLayout</option> 
+                        <option value="FruchtermanReingold">FruchtermanReingold</option>             
                         <option value="cw-rotation">Clockwise Rotation</option>
                         <option value="contraction">Contraction</option>
                         <option value="ccw-rotation">Counter-Clockwise Rotation</option>
@@ -324,7 +326,10 @@
                 
             </div>
             <div data-options="region:'center'" class="panel-center" style="">
-                <div id="container" style="width:100%; height:100%"></div>
+                <div id="container" style="width:100%; height:100%;">
+                    <input type="color" id="color-picker" name="favcolor" value="#ff0000">
+
+                </div>
                 <!-- <img src="./images/graphdemo.png" style="width:100%; height:100%"> -->
             </div>
         </div>

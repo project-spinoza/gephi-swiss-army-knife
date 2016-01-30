@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-var Gsetting1 = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var Gsetting1 = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#000", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 
     var Gsetting = JSON.parse(Gsetting1);
 
@@ -44,6 +44,12 @@ var Gsetting1 = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEd
 	    }
 	});
 
+   $("#color-picker").bind("change paste keyup", function() {
+
+      $('#container').css ('background', $('#color-picker').val());
+
+    });
+
 	//onclick method for search box
 	$('#header input.textbox-text.validatebox-text.textbox-prompt').click(function(){
 	    $('#searchField').searchbox({
@@ -77,30 +83,51 @@ var Gsetting1 = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEd
 	//should be at the end of script.
 	hideChildLayouts ();
 
-$.ajax({
-type: "get",
-url: "http://localhost:"+9090+"/ajax",
-data:{},
-async : true, beforeSend: function(xhr) {},
-//on successfull ajax request
-success: function (graphData) {
-   nodesObject = JSON.parse(graphData);
 
-   nodesCount = nodesObject.nodes.nodes.length;
-   if(nodesObject.nodes.nodes.length > 0){
-	      showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
-	   }
-
-},
-//on error in ajax request
-error: function(a, b, c){
-	alert('error');
-}
+$('#layout-run-btn').click (function () {
+  graphAjaxRequest (2);
 });
 
 
+graphAjaxRequest (1);
+
+
+function graphAjaxRequest (id) {
+
+  var val = $("#layouts-div select option:selected").text();  
+
+  if (id == 1) {
+    url_dyn = "http://localhost:"+9090+"/ajax"; 
+  }else {
+    url_dyn = "http://localhost:"+9090+"/layout?layout="+val; 
+  }
+   
+
+  $.ajax({
+    type: "get",
+    url: url_dyn,
+    data:{},
+    async : true, beforeSend: function(xhr) {},
+    //on successfull ajax request
+    success: function (graphData) {
+       nodesObject = JSON.parse(graphData);
+
+       nodesCount = nodesObject.nodes.nodes.length;
+       if(nodesObject.nodes.nodes.length > 0){
+            showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
+         }
+
+    },
+    //on error in ajax request
+    error: function(a, b, c){
+      alert('error loading graph');
+    }
+  });
+}
+
 function showGraph(givenData, givenContainer, givenSettings){
-    givenContainer.innerHTML = "";
+    $('#container').find("canvas").remove();    
+//    givenContainer.innerHTML = "";
     s = new sigma( {
             graph : givenData,
             renderer: {

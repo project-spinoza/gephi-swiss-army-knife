@@ -70,6 +70,13 @@ public class GsakServer {
         	return this.responseHandler.ajax(request, response);
         });
         
+        /*
+         * To be removed in next phase
+         * */
+        Spark.get("/layout", (request, response) -> {
+        	return this.responseHandler.layout(request, response);
+        });
+        
         
 	}
 

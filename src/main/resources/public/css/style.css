@@ -219,3 +219,13 @@ a#logo img {
 #layouts-div {
 	padding: 10px;
 }
+
+#container {
+	position: relative;
+}
+#color-picker {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 500;
+}

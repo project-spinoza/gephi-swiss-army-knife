@@ -9,6 +9,7 @@ import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.sigma.GraphWraper;
 import org.projectspinoza.gephiswissarmyknife.sigma.SigmaGraph;
+import org.projectspinoza.gephiswissarmyknife.temp.GraphLayout;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -54,6 +55,39 @@ public class ResponseHandler {
         attributes.put("title", "Gephi Swiss Army Knife"); 
         return freeMarkerEngine.render(new ModelAndView(attributes, "public/graph.html"));
 	}
+	
+	
+	public Object layout (Request request, Response response) {
+		
+		GraphLayout gLayout = new GraphLayout();
+	
+//		System.out.println(request.queryParams("layout"));
+		
+		gLayout.applayLayouts(this.gephiGraph.getGraphModel(), request.queryParams("layout"));
+		
+//		YifanHuLayout layout = new YifanHuLayout(null, new StepDisplacement(1f));
+//		layout.setGraphModel(gephiGraph.getGraphModel());
+//		layout.resetPropertiesValues();
+//		layout.setOptimalDistance(200f);
+//		layout.initAlgo();
+//
+//		for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+//			layout.goAlgo();
+//		}
+//		layout.endAlgo();
+		
+		
+		
+		
+        GraphWraper graphSigma = new SigmaGraph();        
+        graphSigma.build(this.gephiGraph.getGraph(), returnGraphsettings());
+        Map<String, Object> result = new HashMap<String, Object>();
+		result.put("nodes", graphSigma);
+		//System.out.println(new JSONObject(result).toString());
+		return new JSONObject(result).toString();
+
+	}
+	
 	
 	public Object ajax (Request request, Response response) {
 		this.gephiGraph.loadGraph(Main.graphfile, EdgeDefault.DIRECTED); 
