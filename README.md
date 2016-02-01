@@ -1,7 +1,7 @@
 # gephi-swiss-army-knife
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
-### icon
+<img src="screenshots/spinoza-developer.jpg" width="100" height="80"></img> we are on it!!!
 
 <br/><br/>
 <hr>
