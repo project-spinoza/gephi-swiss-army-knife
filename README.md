@@ -8,6 +8,14 @@ The purpose of this project is to provide a simple and interactive web based pla
 ### Purpose
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
+### Prerequisites
+Download and install maven [-download](https://maven.apache.org/download.cgi)
+
+### clone the repository
+`git clone https://github.com/project-spinoza/gephi-swiss-army-knife.git`
+<br>OR<br>
+Download zip file [-download](https://github.com/project-spinoza/gephi-swiss-army-knife/archive/master.zip)
+
 ### Build
 * Enter the following comman from the root directory of the gephi-swiss-army-knife<br>
   `mvn clean install`
