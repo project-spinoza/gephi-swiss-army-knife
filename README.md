@@ -3,7 +3,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 
 <br/><br/>
 ![GSAK](screenshots/gsak-1.png)  <br/><br/><br/>
-</hr>
+<hr>
 ![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
 <hr>
 ![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
