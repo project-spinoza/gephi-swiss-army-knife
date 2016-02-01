@@ -2,8 +2,9 @@
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
 <br/><br/>
-![GSAK](screenshots/img2.jpg)  <br/><br/><br/>
-![GSAK](screenshots/img3.jpg)  <br/><br/><br/>
+![GSAK](screenshots/gsak-1.png)  <br/><br/><br/>
+![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
+![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
 
 ### Purpose
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
