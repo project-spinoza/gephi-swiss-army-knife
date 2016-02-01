@@ -1,5 +1,7 @@
-# gephi-swiss-army-knife (under development)
+# gephi-swiss-army-knife
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
+
+### icon
 
 <br/><br/>
 <hr>
