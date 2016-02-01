@@ -4,7 +4,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 <img src="screenshots/spinoza-developer.jpg" width="100" height="80"></img> `we are on it!!!`
 
 <br/>
-
+<hr>
 ![GSAK](screenshots/gsak-1.png)  <br/><br/><br/>
 <hr>
 ![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
