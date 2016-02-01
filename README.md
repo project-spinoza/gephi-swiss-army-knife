@@ -9,15 +9,16 @@ The purpose of this project is to provide a simple and interactive web based pla
 The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
 
 ### Prerequisites
-Download and install maven [-download](https://maven.apache.org/download.cgi)
+Download and install maven [- download](https://maven.apache.org/download.cgi)
 
-### clone the repository
+### Clone the repository
+Run the following command<br>
 `git clone https://github.com/project-spinoza/gephi-swiss-army-knife.git`
 <br>OR<br>
-Download zip file [-download](https://github.com/project-spinoza/gephi-swiss-army-knife/archive/master.zip)
+Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-army-knife/archive/master.zip)
 
 ### Build
-* Enter the following comman from the root directory of the gephi-swiss-army-knife<br>
+* Enter the following command from the root directory of the repsository<br>
   `mvn clean install`
 
 ### Run
@@ -25,7 +26,7 @@ Download zip file [-download](https://github.com/project-spinoza/gephi-swiss-arm
 * Run `startup.bat` windows
 <br>OR<br>
 * Run `java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar sample.gexf`
-* navigate to (localhost:9090/graph)
+* navigate to `localhost:9090/graph`
 
 
 <br>
