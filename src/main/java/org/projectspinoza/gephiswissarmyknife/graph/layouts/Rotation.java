@@ -10,7 +10,7 @@ public class Rotation {
 	
 		private double angle;
 	 	protected GraphModel graphModel;
-	 	RotateLayout rotateLayout;
+	 	private RotateLayout rotateLayout;
 
 		public Rotation() {}
 	    

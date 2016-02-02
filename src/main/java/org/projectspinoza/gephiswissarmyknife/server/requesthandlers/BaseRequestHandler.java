@@ -28,9 +28,10 @@ public class BaseRequestHandler {
     private FreeMarkerEngine freeMarkerEngine;
     private Configuration freeMarkerConfiguration;
     private GephiGraph gephiGraph;
-    private LayoutsWrap layoutsReqHandler;
+    private LayoutsWrap layoutsWrap;
 	
-    @Inject
+
+	@Inject
 	public BaseRequestHandler(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig) {
 		this.freeMarkerEngine =  fMarkerEngine;
 		this.freeMarkerConfiguration = fMarkerConfig;
@@ -62,22 +63,8 @@ public class BaseRequestHandler {
 	public Object layout (Request request, Response response) {
 
 		//refined paths
-		switch (request.queryParams("layout")){
-		case "rotation":
-			layoutsReqHandler.applyLayout(request, response);
-			break;
-		}
-		
-		
-		
-		
-		//to be refined.
-		//GraphLayout gLayout = new GraphLayout();
-	
-		
-		
-		//gLayout.applayLayouts(this.gephiGraph.getGraphModel(), request.queryParams("layout"));
-		
+		layoutsWrap.applyLayout(request.queryParams("layout"), request.params());
+
         GraphWraper graphSigma = new SigmaGraph();        
         graphSigma.build(this.gephiGraph.getGraph(), returnGraphsettings());
         Map<String, Object> result = new HashMap<String, Object>();
@@ -88,6 +75,9 @@ public class BaseRequestHandler {
 	}
 	
 	
+	/*
+	 * TO BE REMOVED IN NEAR FUTURE
+	 * */
 	public Object ajax (Request request, Response response) {
 		this.gephiGraph.loadGraph(Main.graphfile, EdgeDefault.DIRECTED); 
         GraphWraper graphSigma = new SigmaGraph();        
@@ -145,6 +135,7 @@ public class BaseRequestHandler {
 	private void init() {
         freeMarkerConfiguration.setClassForTemplateLoading(GsakServer.class, "/");
         freeMarkerEngine.setConfiguration(freeMarkerConfiguration);
+        this.layoutsWrap.init();
 	}
 	
 	
@@ -157,13 +148,12 @@ public class BaseRequestHandler {
 		this.gephiGraph = gephiGraph;
 	}
 
-	public LayoutsWrap getLayoutsReqHandler() {
-		return layoutsReqHandler;
+    public LayoutsWrap getLayoutsWrap() {
+		return layoutsWrap;
 	}
-
-	@Inject
-	public void setLayoutsReqHandler(LayoutsWrap layoutsReqHandler) {
-		this.layoutsReqHandler = layoutsReqHandler;
+    
+    @Inject
+	public void setLayoutsWrap(LayoutsWrap layoutsWrap) {
+		this.layoutsWrap = layoutsWrap;
 	}
-	
 }
