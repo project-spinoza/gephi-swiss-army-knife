@@ -32,9 +32,10 @@ public class BaseRequestHandler {
 	
 
 	@Inject
-	public BaseRequestHandler(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig) {
+	public BaseRequestHandler(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig, LayoutsWrap layoutsWrap) {
 		this.freeMarkerEngine =  fMarkerEngine;
 		this.freeMarkerConfiguration = fMarkerConfig;
+		this.layoutsWrap = layoutsWrap;
 		init();
 	}
     
@@ -73,6 +74,8 @@ public class BaseRequestHandler {
 		return new JSONObject(result).toString();
 
 	}
+	
+	
 	
 	
 	/*

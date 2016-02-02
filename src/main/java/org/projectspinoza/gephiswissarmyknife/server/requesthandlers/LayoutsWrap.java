@@ -6,9 +6,6 @@ import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 
-import spark.Request;
-import spark.Response;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
