@@ -94,14 +94,13 @@ graphAjaxRequest (1);
 
 function graphAjaxRequest (id) {
 
-  var val = $("#layouts-div select option:selected").text();  
+  var val = $("#layouts-div select option:selected").val();  
 
   if (id == 1) {
     url_dyn = "http://localhost:"+9090+"/ajax"; 
   }else {
     url_dyn = "http://localhost:"+9090+"/layout?layout="+val; 
   }
-   
 
   $.ajax({
     type: "get",

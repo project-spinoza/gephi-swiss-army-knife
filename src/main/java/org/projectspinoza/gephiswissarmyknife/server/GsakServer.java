@@ -1,8 +1,9 @@
-package org.projectspinoza.gephiswissarmyknife.Server;
+package org.projectspinoza.gephiswissarmyknife.server;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
+import org.projectspinoza.gephiswissarmyknife.server.requesthandlers.BaseRequestHandler;
 
 import spark.Spark;
 
@@ -18,7 +19,7 @@ public class GsakServer {
 	private static Logger log = LogManager.getLogger(GsakServer.class);
 
 	private ConfigurationHolder configHolder;
-    private ResponseHandler responseHandler;
+    private BaseRequestHandler responseHandler;
     
 	@Inject
 	public GsakServer(ConfigurationHolder cHolder) {
@@ -80,12 +81,12 @@ public class GsakServer {
         
 	}
 
-	public ResponseHandler getResponseHandler() {
+	public BaseRequestHandler getResponseHandler() {
 		return responseHandler;
 	}
 
 	@Inject
-	public void setResponseHandler(ResponseHandler responseHandler) {
+	public void setResponseHandler(BaseRequestHandler responseHandler) {
 		this.responseHandler = responseHandler;
 	}
 }

@@ -17,7 +17,7 @@ import com.google.inject.Inject;
 
 public class GephiGraph {
 
-	private GraphModel graphModel;
+	private static GraphModel graphModel;
 	private GraphImporter graphImporter;
 	private Container container;
 	private Graph graph;
@@ -84,12 +84,12 @@ public class GephiGraph {
 		this.graphImporter = graphImporter;
 	}
 
-	public GraphModel getGraphModel() {
+	public static GraphModel getGraphModel() {
 		return graphModel;
 	}
 
 	public void setGraphModel(GraphModel graphModel) {
-		this.graphModel = graphModel;
+		GephiGraph.graphModel = graphModel;
 	}
 
 	public Graph getGraph() {
