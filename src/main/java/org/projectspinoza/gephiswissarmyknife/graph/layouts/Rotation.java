@@ -7,43 +7,45 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class Rotation {
-	
-		private double angle;
-	 	protected GraphModel graphModel;
-	 	private RotateLayout rotateLayout;
 
-		public Rotation() {}
-	    
-	    public void rotate () {
-	    	this.rotateLayout = (this.rotateLayout == null)? new RotateLayout(null, getAngle()):rotateLayout;
-	    	this.rotateLayout.setGraphModel(graphModel);
-	    	this.rotateLayout .setAngle(getAngle());
-	    	this.rotateLayout .goAlgo();
-	    	this.rotateLayout.endAlgo();
-	    }
+  private double angle;
+  protected GraphModel graphModel;
+  private RotateLayout rotateLayout;
 
-	    public RotateLayout getRotateLayout() {
-			return rotateLayout;
-		}
+  public Rotation() {
+  }
 
-		public void setRotateLayout(RotateLayout rotateLayout) {
-			this.rotateLayout = rotateLayout;
-		}
-	 	
-		public GraphModel getGraphModel() {
-			return graphModel;
-		}
+  public void rotate() {
+    this.rotateLayout = (this.rotateLayout == null) ? new RotateLayout(null,
+        getAngle()) : rotateLayout;
+    this.rotateLayout.setGraphModel(graphModel);
+    this.rotateLayout.setAngle(getAngle());
+    this.rotateLayout.goAlgo();
+    this.rotateLayout.endAlgo();
+  }
 
-		public void setGraphModel(GraphModel graphModel) {
-			this.graphModel = graphModel;
-		}
+  public RotateLayout getRotateLayout() {
+    return rotateLayout;
+  }
 
-		public void setAngle(double angle) {
-			this.angle = angle;
-		}
-		
-	    public Double getAngle() {
-	        return angle;
+  public void setRotateLayout(RotateLayout rotateLayout) {
+    this.rotateLayout = rotateLayout;
+  }
 
-	    }
+  public GraphModel getGraphModel() {
+    return graphModel;
+  }
+
+  public void setGraphModel(GraphModel graphModel) {
+    this.graphModel = graphModel;
+  }
+
+  public void setAngle(double angle) {
+    this.angle = angle;
+  }
+
+  public Double getAngle() {
+    return angle;
+
+  }
 }

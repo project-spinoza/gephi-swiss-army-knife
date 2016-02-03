@@ -21,52 +21,54 @@ import com.google.inject.Singleton;
 @Singleton
 public class GraphImporter {
 
-	private ImportController importController;
-	private ProjectController projectController;
-	private Workspace workspace;
+  private ImportController importController;
+  private ProjectController projectController;
+  private Workspace workspace;
 
-	public GraphImporter() {
-		this.importController = Lookup.getDefault().lookup(ImportController.class);
-		this.projectController = Lookup.getDefault().lookup(ProjectController.class);
-		init();
-	}
-	
-	public boolean importGraph (Container container, String graphFile, EdgeDefault edgesType) {
-		
-		try {
-			
-			File file = new File(graphFile);
-			container = this.importController.importFile(file);
-			container.getLoader().setEdgeDefault(edgesType);
-			this.importController.process(container, new DefaultProcessor(), this.workspace);
-			return (container.verify());
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
-		}	
-	}
-	
-	private void init() {
-		this.projectController.newProject();
-		setWorkspace(this.projectController.getCurrentWorkspace());
-	}
-	
+  public GraphImporter() {
+    this.importController = Lookup.getDefault().lookup(ImportController.class);
+    this.projectController = Lookup.getDefault()
+        .lookup(ProjectController.class);
+    init();
+  }
 
-	public ImportController getImportController() {
-		return importController;
-	}
+  public boolean importGraph(Container container, String graphFile,
+      EdgeDefault edgesType) {
 
-	public void setImportController(ImportController importController) {
-		this.importController = importController;
-	}
+    try {
 
-	public Workspace getWorkspace() {
-		return workspace;
-	}
+      File file = new File(graphFile);
+      container = this.importController.importFile(file);
+      container.getLoader().setEdgeDefault(edgesType);
+      this.importController.process(container, new DefaultProcessor(),
+          this.workspace);
+      return (container.verify());
 
-	public void setWorkspace(Workspace workspace) {
-		this.workspace = workspace;
-	}
-	
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return false;
+    }
+  }
+
+  private void init() {
+    this.projectController.newProject();
+    setWorkspace(this.projectController.getCurrentWorkspace());
+  }
+
+  public ImportController getImportController() {
+    return importController;
+  }
+
+  public void setImportController(ImportController importController) {
+    this.importController = importController;
+  }
+
+  public Workspace getWorkspace() {
+    return workspace;
+  }
+
+  public void setWorkspace(Workspace workspace) {
+    this.workspace = workspace;
+  }
+
 }

@@ -15,21 +15,21 @@ import com.google.inject.Injector;
  *
  */
 public class Main {
-	@SuppressWarnings("unused")
-	private static Logger log = LogManager.getLogger(Main.class);
-	private static Injector injector = Guice.createInjector();
+  @SuppressWarnings("unused")
+  private static Logger log = LogManager.getLogger(Main.class);
+  private static Injector injector = Guice.createInjector();
 
-	// temp
-	public static String graphfile;
+  // temp
+  public static String graphfile;
 
-	public static void main(String[] args) {
-		try {
-			graphfile = args[0];
-			GsakServer server = injector.getInstance(GsakServer.class);
-			server.deployServer();
-			server.deployGsakRoutes();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+  public static void main(String[] args) {
+    try {
+      graphfile = args[0];
+      GsakServer server = injector.getInstance(GsakServer.class);
+      server.deployServer();
+      server.deployGsakRoutes();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }

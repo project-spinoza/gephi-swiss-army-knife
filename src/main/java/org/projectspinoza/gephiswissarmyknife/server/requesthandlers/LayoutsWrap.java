@@ -11,59 +11,57 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class LayoutsWrap {
-	
-	private Rotation layoutRotate;
-	private Scale layoutScale;
-	
-	
-	public LayoutsWrap() {
 
-	}
-	
-	/*
-	 * Initialize all layout with basic configurations
-	 * */
-	protected void init () {
-		this.layoutRotate.setGraphModel(GephiGraph.getGraphModel());
-		this.layoutScale.setGraphModel(GephiGraph.getGraphModel());
-	}
-	
-	/*
-	 * For stand alone rotation operations
-	 * */
-	public void applyLayout (String layoutIdStr, Map<String, String> layoutParams) {
-		
-		switch (layoutIdStr) {
-		case "rotation":
-			this.layoutRotate.setAngle(Double.parseDouble(layoutParams.get("angle")));
-			this.layoutRotate.rotate();
-			break;
-		case "scale":
-			this.layoutScale.setScale(Double.parseDouble(layoutParams.get("scale")));
-			this.layoutScale.scale();
-			break;
-		default:
-			break;
-		}
-	}
+  private Rotation layoutRotate;
+  private Scale layoutScale;
 
-	public Rotation getLayoutRotate() {
-		return layoutRotate;
-	}
+  public LayoutsWrap() {
 
-	@Inject
-	public void setLayoutRotate(Rotation layoutRotate) {
-		this.layoutRotate = layoutRotate;
-	}
+  }
 
+  /*
+   * Initialize all layout with basic configurations
+   */
+  protected void init() {
+    this.layoutRotate.setGraphModel(GephiGraph.getGraphModel());
+    this.layoutScale.setGraphModel(GephiGraph.getGraphModel());
+  }
 
-	public Scale getLayoutScale() {
-		return layoutScale;
-	}
+  /*
+   * For stand alone rotation operations
+   */
+  public void applyLayout(String layoutIdStr, Map<String, String> layoutParams) {
 
-	@Inject
-	public void setLayoutScale(Scale layoutScale) {
-		this.layoutScale = layoutScale;
-	}
-	
+    switch (layoutIdStr) {
+    case "rotation":
+      this.layoutRotate.setAngle(Double.parseDouble(layoutParams.get("angle")));
+      this.layoutRotate.rotate();
+      break;
+    case "scale":
+      this.layoutScale.setScale(Double.parseDouble(layoutParams.get("scale")));
+      this.layoutScale.scale();
+      break;
+    default:
+      break;
+    }
+  }
+
+  public Rotation getLayoutRotate() {
+    return layoutRotate;
+  }
+
+  @Inject
+  public void setLayoutRotate(Rotation layoutRotate) {
+    this.layoutRotate = layoutRotate;
+  }
+
+  public Scale getLayoutScale() {
+    return layoutScale;
+  }
+
+  @Inject
+  public void setLayoutScale(Scale layoutScale) {
+    this.layoutScale = layoutScale;
+  }
+
 }
