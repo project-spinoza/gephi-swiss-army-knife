@@ -3,6 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.server.requesthandlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDefault;
 import org.json.JSONObject;
 import org.projectspinoza.gephiswissarmyknife.Main;
@@ -29,6 +30,7 @@ public class BaseRequestHandler {
     private Configuration freeMarkerConfiguration;
     private GephiGraph gephiGraph;
     private LayoutsWrap layoutsWrap;
+    private GraphWraper graphSigma;
 	
 
 	@Inject
@@ -62,20 +64,23 @@ public class BaseRequestHandler {
 	 * 
 	 * */
 	public Object layout (Request request, Response response) {
-
-		//refined paths
 		layoutsWrap.applyLayout(request.queryParams("layout"), request.params());
-
-        GraphWraper graphSigma = new SigmaGraph();        
-        graphSigma.build(this.gephiGraph.getGraph(), returnGraphsettings());
-        Map<String, Object> result = new HashMap<String, Object>();
-		result.put("nodes", graphSigma);
-		//System.out.println(new JSONObject(result).toString());
-		return new JSONObject(result).toString();
-
+		return getSigmaGraph(this.gephiGraph.getGraph());
 	}
 	
 	
+	/*
+	 * 
+	 * Convert Gephi graph to sigma graph 
+	 * @return Graph String
+	 * 
+	 * */
+	protected String getSigmaGraph(Graph graph) {
+        graphSigma.build(graph, returnGraphsettings());
+        Map<String, Object> result = new HashMap<String, Object>();
+		result.put("nodes", graphSigma);
+		return new JSONObject(result).toString();
+	}
 	
 	
 	/*
@@ -158,5 +163,14 @@ public class BaseRequestHandler {
     @Inject
 	public void setLayoutsWrap(LayoutsWrap layoutsWrap) {
 		this.layoutsWrap = layoutsWrap;
+	}
+
+	public GraphWraper getGraphSigma() {
+		return graphSigma;
+	}
+	
+	@Inject
+	public void setGraphSigma(GraphWraper graphSigma) {
+		this.graphSigma = graphSigma;
 	}
 }
