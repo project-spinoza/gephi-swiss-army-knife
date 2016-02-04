@@ -14,28 +14,25 @@ public class ForceAtlas {
 
   }
 
+  /*
+   * @return void
+   * Wrapper function for force atlas layouts..
+   * */
   public void applayLayout(Map<String, String> layoutParams) {
     forceAtlas(layoutParams);
   }
 
   private void forceAtlas(Map<String, String> layoutParams) {
-    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(
-        null) : this.forceAtlasLayout;
+    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
     this.forceAtlasLayout.setGraphModel(getGraphModel());
-    this.forceAtlasLayout.setInertia(Double.parseDouble(layoutParams
-        .get("intertia")));
-    this.forceAtlasLayout.setRepulsionStrength(Double.parseDouble(layoutParams
-        .get("repulsion_strength")));
-    this.forceAtlasLayout.setAttractionStrength(Double.parseDouble(layoutParams
-        .get("attraction_strength")));
-    this.forceAtlasLayout.setMaxDisplacement(Double.parseDouble(layoutParams
-        .get("max_displacement")));
-    this.forceAtlasLayout.setAdjustSizes(Boolean.parseBoolean(layoutParams
-        .get("adjust_sizes")));
-    this.forceAtlasLayout.setGravity(Double.parseDouble(layoutParams
-        .get("gravity")));
-    this.forceAtlasLayout
-        .setSpeed(Double.parseDouble(layoutParams.get("speed")));
+    this.forceAtlasLayout.resetPropertiesValues();
+    this.forceAtlasLayout.setInertia(Double.parseDouble(layoutParams.get("intertia")));
+    this.forceAtlasLayout.setRepulsionStrength(Double.parseDouble(layoutParams.get("repulsion_strength")));
+    this.forceAtlasLayout.setAttractionStrength(Double.parseDouble(layoutParams.get("attraction_strength")));
+    this.forceAtlasLayout.setMaxDisplacement(Double.parseDouble(layoutParams.get("max_displacement")));
+    this.forceAtlasLayout.setAdjustSizes(Boolean.parseBoolean(layoutParams.get("adjust_sizes")));
+    this.forceAtlasLayout.setGravity(Double.parseDouble(layoutParams.get("gravity")));
+    this.forceAtlasLayout.setSpeed(Double.parseDouble(layoutParams.get("speed")));
     this.forceAtlasLayout.setConverged(true);
     this.forceAtlasLayout.initAlgo();
     for (int i = 0; i < 100 && this.forceAtlasLayout.canAlgo(); i++) {
@@ -44,6 +41,30 @@ public class ForceAtlas {
     this.forceAtlasLayout.endAlgo();
   }
 
+  
+  /*
+   * for test purpose ==> testing layout without UI form elements
+   * */
+  private void forceAtlasTemp(Map<String, String> layoutParams) {
+    
+    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
+    this.forceAtlasLayout.setGraphModel(getGraphModel());
+    this.forceAtlasLayout.resetPropertiesValues();
+    this.forceAtlasLayout.setInertia(0.1);
+    this.forceAtlasLayout.setRepulsionStrength(200.0);
+    this.forceAtlasLayout.setAttractionStrength(10.0);
+    this.forceAtlasLayout.setMaxDisplacement(10.0);
+    this.forceAtlasLayout.setAdjustSizes(true);
+    this.forceAtlasLayout.setGravity(30.0);
+    this.forceAtlasLayout.setSpeed(1.0);
+    this.forceAtlasLayout.setConverged(true);
+    this.forceAtlasLayout.initAlgo();
+    for (int i = 0; i < 100 && this.forceAtlasLayout.canAlgo(); i++) {
+      this.forceAtlasLayout.goAlgo();
+    }
+    this.forceAtlasLayout.endAlgo();
+  }
+  
   public ForceAtlasLayout getForceAtlasLayout() {
     return forceAtlasLayout;
   }

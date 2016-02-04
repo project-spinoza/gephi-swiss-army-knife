@@ -2,7 +2,8 @@ package org.projectspinoza.gephiswissarmyknife.server.requesthandlers;
 
 import java.util.Map;
 
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.gephi.graph.api.GraphModel;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 
@@ -14,17 +15,11 @@ public class LayoutsWrap {
 
   private Rotation layoutRotate;
   private Scale layoutScale;
+  private ForceAtlas forceAtlas;
+  private GraphModel graphModel;
 
   public LayoutsWrap() {
 
-  }
-
-  /*
-   * Initialize all layout with basic configurations
-   */
-  protected void init() {
-    this.layoutRotate.setGraphModel(GephiGraph.getGraphModel());
-    this.layoutScale.setGraphModel(GephiGraph.getGraphModel());
   }
 
   /*
@@ -34,12 +29,18 @@ public class LayoutsWrap {
 
     switch (layoutIdStr) {
     case "rotation":
+      this.layoutRotate.setGraphModel(getGraphModel());
       this.layoutRotate.setAngle(Double.parseDouble(layoutParams.get("angle")));
       this.layoutRotate.rotate();
       break;
     case "scale":
+      this.layoutScale.setGraphModel(getGraphModel());
       this.layoutScale.setScale(Double.parseDouble(layoutParams.get("scale")));
       this.layoutScale.scale();
+      break;
+    case "force_atlas":
+      this.forceAtlas.setGraphModel(getGraphModel());
+      this.forceAtlas.applayLayout(layoutParams);
       break;
     default:
       break;
@@ -62,6 +63,23 @@ public class LayoutsWrap {
   @Inject
   public void setLayoutScale(Scale layoutScale) {
     this.layoutScale = layoutScale;
+  }
+
+  public ForceAtlas getForceAtlas() {
+    return forceAtlas;
+  }
+
+  @Inject
+  public void setForceAtlas(ForceAtlas forceAtlas) {
+    this.forceAtlas = forceAtlas;
+  }
+
+  public GraphModel getGraphModel() {
+    return graphModel;
+  }
+
+  public void setGraphModel(GraphModel graphModel) {
+    this.graphModel = graphModel;
   }
 
 }
