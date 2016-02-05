@@ -5,13 +5,16 @@ import java.util.Map;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class ForceAtlas {
 
   private ForceAtlasLayout forceAtlasLayout;
   private GraphModel graphModel;
 
-  public ForceAtlas() {
 
+  public ForceAtlas()  {
   }
 
   /*
@@ -19,13 +22,14 @@ public class ForceAtlas {
    * Wrapper function for force atlas layouts..
    * */
   public void applayLayout(Map<String, String> layoutParams) {
+    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
+    this.forceAtlasLayout.setGraphModel(getGraphModel());
+    this.forceAtlasLayout.resetPropertiesValues();
     forceAtlas(layoutParams);
   }
 
   private void forceAtlas(Map<String, String> layoutParams) {
-    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
-    this.forceAtlasLayout.setGraphModel(getGraphModel());
-    this.forceAtlasLayout.resetPropertiesValues();
+
     this.forceAtlasLayout.setInertia(Double.parseDouble(layoutParams.get("intertia")));
     this.forceAtlasLayout.setRepulsionStrength(Double.parseDouble(layoutParams.get("repulsion_strength")));
     this.forceAtlasLayout.setAttractionStrength(Double.parseDouble(layoutParams.get("attraction_strength")));

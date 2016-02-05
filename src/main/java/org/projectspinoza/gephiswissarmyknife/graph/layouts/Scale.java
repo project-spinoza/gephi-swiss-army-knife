@@ -3,6 +3,9 @@ package org.projectspinoza.gephiswissarmyknife.graph.layouts;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.scale.ScaleLayout;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class Scale {
 
   private double scale;
