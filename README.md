@@ -34,8 +34,8 @@ Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-ar
 
 <br>
 
-### Note: 
-* the project is under development
+### Note
+the project is under development
 
 <br>
 ### License
