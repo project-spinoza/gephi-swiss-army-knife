@@ -1,5 +1,5 @@
 # gephi-swiss-army-knife
-The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
+The purpose of this project is to provide a simple and interactive web based graph analysis and visualization platform, inspired by [Gephi](https://gephi.org/)<br>
 
 <img src="screenshots/spinoza-developer.jpg" width="100" height="80"></img> `we are on it!!!`
 
@@ -9,7 +9,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 <hr>
 
 ### Purpose
-The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
+The purpose of this project is to provide a simple and interactive web based graph analysis and visualization platform, inspired by [Gephi](https://gephi.org/)<br>
 
 ### Prerequisites
 Download and install maven [- download](https://maven.apache.org/download.cgi)
