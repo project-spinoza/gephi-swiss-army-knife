@@ -5,7 +5,7 @@ The purpose of this project is to provide a simple and interactive web based pla
 
 <br/>
 <hr>
-![GSAK](screenshots/gsak-1.png)  <br/><br/><br/>
+![GSAK](screenshots/final_gsak.jpg)  <br/><br/><br/>
 <hr>
 ![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
 
