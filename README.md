@@ -34,6 +34,10 @@ Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-ar
 
 <br>
 
+### Note: 
+* the project is under development
+
+<br>
 ### License
 The code is licensed using the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
