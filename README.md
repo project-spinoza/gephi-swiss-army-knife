@@ -31,18 +31,14 @@ Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-ar
 * Run `java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar sample.gexf`
 * navigate to `localhost:9090/graph`
 
-
-<br>
-
 ### Note
 the project is under development
 
-<br>
 ### License
 The code is licensed using the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 <br>
 [Roadmap](https://github.com/project-spinoza/gephi-swiss-army-knife/wiki/Roadmap)
-<br>
+
 ## Questions or Suggestions
 **Email** `project.spinoza@gmail.com`<br>
 **Issues** https://github.com/project-spinoza/gephi-swiss-army-knife/issues
