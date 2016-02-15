@@ -1,17 +1,15 @@
 # gephi-swiss-army-knife
-The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
+The purpose of this project is to provide a simple and interactive web based graph analysis and visualization platform, inspired by [Gephi](https://gephi.org/)<br>
 
 <img src="screenshots/spinoza-developer.jpg" width="100" height="80"></img> `we are on it!!!`
 
 <br/>
 <hr>
-![GSAK](screenshots/gsak-1.png)  <br/><br/><br/>
+![GSAK](screenshots/final_gsak.jpg)  <br/><br/><br/>
 <hr>
-![GSAK](screenshots/gsak-2.png)  <br/><br/><br/>
-
 
 ### Purpose
-The purpose of this project is to provide a simple and interactive web based platform for visualization, inspired by [Gephi](https://gephi.org/)<br>
+The purpose of this project is to provide a simple and interactive web based graph analysis and visualization platform, inspired by [Gephi](https://gephi.org/)<br>
 
 ### Prerequisites
 Download and install maven [- download](https://maven.apache.org/download.cgi)
@@ -33,11 +31,14 @@ Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-ar
 * Run `java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar sample.gexf`
 * navigate to `localhost:9090/graph`
 
-
-<br>
+### Note
+the project is under development
 
 ### License
 The code is licensed using the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
-
-
+<br>
 [Roadmap](https://github.com/project-spinoza/gephi-swiss-army-knife/wiki/Roadmap)
+
+## Questions or Suggestions
+**Email** `project.spinoza@gmail.com`<br>
+**Issues** https://github.com/project-spinoza/gephi-swiss-army-knife/issues
