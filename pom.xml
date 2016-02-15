@@ -57,19 +57,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Spark dependencies -->
-		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-core</artifactId>
-			<version>2.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-template-freemarker</artifactId>
-			<version>2.3</version>
-		</dependency>
-
 		<!-- Vertx dependency -->
 		<dependency>
 			<groupId>io.vertx</groupId>
