@@ -8,7 +8,7 @@ import org.gephi.io.importer.api.EdgeDefault;
 import org.json.JSONObject;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.server.GsakServer;
+import org.projectspinoza.gephiswissarmyknife.server.GsakServer_BAK;
 import org.projectspinoza.gephiswissarmyknife.sigma.GraphWraper;
 import org.projectspinoza.gephiswissarmyknife.sigma.SigmaGraph;
 
@@ -142,7 +142,7 @@ public class BaseRequestHandler {
 	
 	
 	private void init() {
-        freeMarkerConfiguration.setClassForTemplateLoading(GsakServer.class, "/");
+        freeMarkerConfiguration.setClassForTemplateLoading(GsakServer_BAK.class, "/");
         freeMarkerEngine.setConfiguration(freeMarkerConfiguration);
 	}
 	

@@ -2,7 +2,7 @@ package org.projectspinoza.gephiswissarmyknife;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.projectspinoza.gephiswissarmyknife.server.GsakServer;
+import org.projectspinoza.gephiswissarmyknife.server.GraphServer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -24,10 +24,9 @@ public class Main {
 
   public static void main(String[] args) {
     try {
-      graphfile = args[0];
-      GsakServer server = injector.getInstance(GsakServer.class);
-      server.deployServer();
-      server.deployGsakRoutes();
+      //graphfile = args[0];
+      GraphServer server = injector.getInstance(GraphServer.class);
+      server.deployServer(true);
     } catch (Exception e) {
       e.printStackTrace();
     }

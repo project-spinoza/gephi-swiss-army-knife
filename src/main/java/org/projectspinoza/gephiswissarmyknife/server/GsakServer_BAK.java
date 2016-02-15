@@ -13,16 +13,16 @@ import com.google.inject.Inject;
  * Spark Embedded server wrapper class.
  * 
  * */
-public class GsakServer {
+public class GsakServer_BAK {
 
   @SuppressWarnings("unused")
-  private static Logger log = LogManager.getLogger(GsakServer.class);
+  private static Logger log = LogManager.getLogger(GsakServer_BAK.class);
 
   private ConfigurationHolder configHolder;
   private BaseRequestHandler responseHandler;
 
   @Inject
-  public GsakServer(ConfigurationHolder cHolder) {
+  public GsakServer_BAK(ConfigurationHolder cHolder) {
     this.configHolder = cHolder;
   }
 
