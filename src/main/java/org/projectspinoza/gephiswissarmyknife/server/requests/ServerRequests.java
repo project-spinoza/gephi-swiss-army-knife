@@ -4,70 +4,59 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.gephi.graph.api.Graph;
-import org.gephi.io.importer.api.EdgeDefault;
 import org.json.JSONObject;
-import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.server.GsakServer_BAK;
 import org.projectspinoza.gephiswissarmyknife.sigma.GraphWraper;
-import org.projectspinoza.gephiswissarmyknife.sigma.SigmaGraph;
-
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.template.freemarker.FreeMarkerEngine;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import freemarker.template.Configuration;
-
 
 @Singleton
 public class ServerRequests {
-	
-    private FreeMarkerEngine freeMarkerEngine;
-    private Configuration freeMarkerConfiguration;
+//	
+//    private FreeMarkerEngine freeMarkerEngine;
+//    private Configuration freeMarkerConfiguration;
     private GephiGraph gephiGraph;
     private LayoutsWrap layoutsWrap;
     private GraphWraper graphSigma;
 	
 
-	@Inject
-	public ServerRequests(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig, LayoutsWrap layoutsWrap) {
-		this.freeMarkerEngine =  fMarkerEngine;
-		this.freeMarkerConfiguration = fMarkerConfig;
-		this.layoutsWrap = layoutsWrap;
-		init();
-	}
+//	@Inject
+//	public ServerRequests(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig, LayoutsWrap layoutsWrap) {
+//		this.freeMarkerEngine =  fMarkerEngine;
+//		this.freeMarkerConfiguration = fMarkerConfig;
+//		this.layoutsWrap = layoutsWrap;
+//		init();
+//	}
     
-	public Object indexResponse (Request request, Response response) {
-		return "Welcome to Gephi Swiss Army Knife<br/>"
-				+ "Graph Server:"
-				+ "<br/>"
-				+ "<a href='http://localhost:9090/graph'>http://localhost:9090/graph</a>";
-	}
+//	public Object indexResponse (Request request, Response response) {
+//		return "Welcome to Gephi Swiss Army Knife<br/>"
+//				+ "Graph Server:"
+//				+ "<br/>"
+//				+ "<a href='http://localhost:9090/graph'>http://localhost:9090/graph</a>";
+//	}
 	
 	
 	/*
 	 * graph base page
 	 * */
-	public Object gsakResponse (Request request, Response response) {
-        response.status(200);
-        response.type("text/html");
-        return freeMarkerEngine.render(new ModelAndView(null, "public/graph.html"));
-	}
+//	public Object gsakResponse (Request request, Response response) {
+//        response.status(200);
+//        response.type("text/html");
+//        return freeMarkerEngine.render(new ModelAndView(null, "public/graph.html"));
+//	}
 	
 	
 	/*
 	 * Gsak HTTP request path for handling Layouts Requests
 	 * 
 	 * */
-	public Object layout (Request request, Response response) {
-	  this.layoutsWrap.setGraphModel(GephiGraph.getGraphModel());
-		layoutsWrap.applyLayout(request.queryParams("layout"), request.params());
-		return getSigmaGraph(this.gephiGraph.getGraph());
-	}
+//	public Object layout (Request request, Response response) {
+//	  this.layoutsWrap.setGraphModel(GephiGraph.getGraphModel());
+//		layoutsWrap.applyLayout(request.queryParams("layout"), request.params());
+//		return getSigmaGraph(this.gephiGraph.getGraph());
+//	}
 	
 	
 	/*
@@ -87,15 +76,15 @@ public class ServerRequests {
 	/*
 	 * TO BE REMOVED IN NEAR FUTURE
 	 * */
-	public Object ajax (Request request, Response response) {
-		this.gephiGraph.loadGraph(Main.graphfile, EdgeDefault.DIRECTED); 
-        GraphWraper graphSigma = new SigmaGraph();        
-        graphSigma.build(this.gephiGraph.getGraph(), returnGraphsettings());
-        Map<String, Object> result = new HashMap<String, Object>();
-		result.put("nodes", graphSigma);
-		//System.out.println(new JSONObject(result).toString());
-		return new JSONObject(result).toString();
-	}
+//	public Object ajax (Request request, Response response) {
+//		this.gephiGraph.loadGraph(Main.graphfile, EdgeDefault.DIRECTED); 
+//        GraphWraper graphSigma = new SigmaGraph();        
+//        graphSigma.build(this.gephiGraph.getGraph(), returnGraphsettings());
+//        Map<String, Object> result = new HashMap<String, Object>();
+//		result.put("nodes", graphSigma);
+//		//System.out.println(new JSONObject(result).toString());
+//		return new JSONObject(result).toString();
+//	}
 	
 	
 	public Map<String, Object> returnGraphsettings(){
@@ -142,8 +131,8 @@ public class ServerRequests {
 	
 	
 	private void init() {
-        freeMarkerConfiguration.setClassForTemplateLoading(GsakServer_BAK.class, "/");
-        freeMarkerEngine.setConfiguration(freeMarkerConfiguration);
+//        freeMarkerConfiguration.setClassForTemplateLoading(GsakServer_BAK.class, "/");
+//        freeMarkerEngine.setConfiguration(freeMarkerConfiguration);
 	}
 	
 	
