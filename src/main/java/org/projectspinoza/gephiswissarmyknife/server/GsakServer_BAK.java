@@ -3,7 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
-import org.projectspinoza.gephiswissarmyknife.server.requesthandlers.BaseRequestHandler;
+import org.projectspinoza.gephiswissarmyknife.server.requests.ServerRequests;
 
 import spark.Spark;
 
@@ -19,7 +19,7 @@ public class GsakServer_BAK {
   private static Logger log = LogManager.getLogger(GsakServer_BAK.class);
 
   private ConfigurationHolder configHolder;
-  private BaseRequestHandler responseHandler;
+  private ServerRequests responseHandler;
 
   @Inject
   public GsakServer_BAK(ConfigurationHolder cHolder) {
@@ -79,12 +79,12 @@ public class GsakServer_BAK {
 
   }
 
-  public BaseRequestHandler getResponseHandler() {
+  public ServerRequests getResponseHandler() {
     return responseHandler;
   }
 
   @Inject
-  public void setResponseHandler(BaseRequestHandler responseHandler) {
+  public void setResponseHandler(ServerRequests responseHandler) {
     this.responseHandler = responseHandler;
   }
 }

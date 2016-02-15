@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.server.requesthandlers;
+package org.projectspinoza.gephiswissarmyknife.server.requests;
 
 import java.util.Map;
 

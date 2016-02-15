@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.server.requesthandlers;
+package org.projectspinoza.gephiswissarmyknife.server.requests;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import freemarker.template.Configuration;
 
 
 @Singleton
-public class BaseRequestHandler {
+public class ServerRequests {
 	
     private FreeMarkerEngine freeMarkerEngine;
     private Configuration freeMarkerConfiguration;
@@ -34,7 +34,7 @@ public class BaseRequestHandler {
 	
 
 	@Inject
-	public BaseRequestHandler(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig, LayoutsWrap layoutsWrap) {
+	public ServerRequests(FreeMarkerEngine fMarkerEngine, Configuration fMarkerConfig, LayoutsWrap layoutsWrap) {
 		this.freeMarkerEngine =  fMarkerEngine;
 		this.freeMarkerConfiguration = fMarkerConfig;
 		this.layoutsWrap = layoutsWrap;
