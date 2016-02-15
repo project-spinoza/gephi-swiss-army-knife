@@ -70,6 +70,19 @@
 			<version>2.3</version>
 		</dependency>
 
+		<!-- Vertx dependency -->
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-web</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<!-- Google Guice dependency -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -126,8 +139,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
