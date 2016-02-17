@@ -1,5 +1,7 @@
 package org.projectspinoza.gephiswissarmyknife.graph;
 
+import org.gephi.data.attributes.api.AttributeController;
+import org.gephi.data.attributes.api.AttributeModel;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
@@ -18,15 +20,21 @@ import com.google.inject.Inject;
 public class GephiGraph {
 
   private static GraphModel graphModel;
+  private static AttributeModel attributeModel;
   private GraphImporter graphImporter;
   private Container container;
   private Graph graph;
+  
+  public static enum GraphDim{
+    NODES,
+    EDGES
+  }
 
   @Inject
   public GephiGraph(GraphImporter graphImporter) {
-
-    this.setGraphModel(Lookup.getDefault().lookup(GraphController.class)
-        .getModel());
+    
+    this.setAttributeModel(Lookup.getDefault().lookup(AttributeController.class).getModel());
+    this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getModel());
     this.setGraphImporter(graphImporter);
   }
 
@@ -99,6 +107,14 @@ public class GephiGraph {
 
   public void setGraph(Graph graph) {
     this.graph = graph;
+  }
+
+  public AttributeModel getAttributeModel() {
+    return attributeModel;
+  }
+
+  public void setAttributeModel(AttributeModel attributeModel) {
+    GephiGraph.attributeModel = attributeModel;
   }
 
 }
