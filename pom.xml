@@ -82,6 +82,8 @@
 			<groupId>gephi-toolkit</groupId>
 			<artifactId>gephi-toolkit</artifactId>
 			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/lib/gephi-toolkit-1.0.jar</systemPath>
 		</dependency>
 
 		<!-- SigmaExporter dependency -->
@@ -89,6 +91,8 @@
 			<groupId>uk-ac-ox-oii-sigmaexporter</groupId>
 			<artifactId>uk-ac-ox-oii-sigmaexporter</artifactId>
 			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/lib/uk-ac-ox-oii-sigmaexporter.jar</systemPath>
 		</dependency>
 
 		<!-- json dependency -->
