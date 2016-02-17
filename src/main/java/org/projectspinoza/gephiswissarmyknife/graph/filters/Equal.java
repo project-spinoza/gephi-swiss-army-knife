@@ -38,7 +38,15 @@ public class Equal {
   }
 
   /*
+   * @return void
    * 
+   * Type: Filter
+   * 
+   * Function: filters Graph Nodes whose id matches the specified ID
+   * 
+   * OR
+   * 
+   * Contains the specified ID when 'useRegex' is set to true.
    * 
    * */
   public void idNodeFilter(String id, boolean useRegex) {
