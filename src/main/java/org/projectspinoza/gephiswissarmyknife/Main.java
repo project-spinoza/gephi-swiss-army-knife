@@ -2,8 +2,6 @@ package org.projectspinoza.gephiswissarmyknife;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.graph.GraphImporter;
 import org.projectspinoza.gephiswissarmyknife.server.GraphServer;
 
 import com.google.inject.Guice;

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.gephi.graph.api.Graph;
 
-import com.google.inject.ImplementedBy;
-
 import uk.ac.ox.oii.sigmaexporter.model.GraphElement;
+
+import com.google.inject.ImplementedBy;
 
 @ImplementedBy(SigmaGraph.class)
 public interface GraphWraper {

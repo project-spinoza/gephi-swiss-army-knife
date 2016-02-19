@@ -1,0 +1,53 @@
+.Queries_panel ul {
+    padding: 0em;
+}
+
+.Queries_panel ul li, .Queries_panel li ul li {
+    position:relative;
+    top:0;
+    bottom:0;
+    padding-bottom: 7px;
+
+}
+
+.Queries_panel ul li ul {
+    margin-left: 4em;
+}
+
+.Queries_panel li {
+    list-style-type: none;
+}
+
+.Queries_panel li a {
+    padding:0 0 0 10px;
+    position: relative;
+    top:1em;
+	margin-right:10px;
+}
+
+.Queries_panel li a:hover {
+    text-decoration: none;
+}
+
+.Queries_panel > a.addBorderBefore:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 28px;
+    position: absolute;
+    left: -47px;
+    top:-16px;
+    border-left: 1px solid gray;
+}
+
+.Queries_panel li:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 0;
+    position: relative;
+    left: 0em;
+    top:1em;
+    border-top: 1px solid gray;
+}
+
