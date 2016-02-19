@@ -24,18 +24,12 @@ public class GephiGraph {
   private GraphImporter graphImporter;
   private Container container;
   private Graph graph;
-  
-  public static enum GraphDim{
-    NODES,
-    EDGES
-  }
 
-  @Inject
-  public GephiGraph(GraphImporter graphImporter) {
-    
+
+  public GephiGraph() {
     this.setAttributeModel(Lookup.getDefault().lookup(AttributeController.class).getModel());
     this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getModel());
-    this.setGraphImporter(graphImporter);
+    this.getGraphImporter();
   }
 
   /*
@@ -89,6 +83,7 @@ public class GephiGraph {
     return graphImporter;
   }
 
+  @Inject
   public void setGraphImporter(GraphImporter graphImporter) {
     this.graphImporter = graphImporter;
   }

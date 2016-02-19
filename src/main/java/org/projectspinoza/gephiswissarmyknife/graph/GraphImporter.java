@@ -27,8 +27,7 @@ public class GraphImporter {
 
   public GraphImporter() {
     this.importController = Lookup.getDefault().lookup(ImportController.class);
-    this.projectController = Lookup.getDefault()
-        .lookup(ProjectController.class);
+    this.projectController = Lookup.getDefault().lookup(ProjectController.class);
     init();
   }
 

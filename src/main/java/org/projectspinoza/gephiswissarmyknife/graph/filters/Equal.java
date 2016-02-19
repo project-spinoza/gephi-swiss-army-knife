@@ -10,7 +10,6 @@ import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
 import org.openide.util.Lookup;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph.GraphDim;
 
 public class Equal {
   
