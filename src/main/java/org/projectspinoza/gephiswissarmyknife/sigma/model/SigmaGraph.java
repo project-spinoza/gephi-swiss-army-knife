@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.gephi.graph.api.Attributes;
-import org.gephi.graph.api.Graph;
-import org.gephi.graph.api.Node;
-
 public class SigmaGraph implements Serializable{
     
     private static final long serialVersionUID = -6468681022457314329L;
@@ -19,25 +15,6 @@ public class SigmaGraph implements Serializable{
         this.nodes = new HashSet<SigmaNode>();
         this.edges = new HashSet<SigmaEdge>();
     }
-    
-    public static SigmaGraph buildGraph (Graph graph){
-      
-      Node[] nodes = graph.getNodes().toArray();
-      
-      SigmaNode sigmaNode;
-      
-      for (Node node : nodes) {
-        sigmaNode = new SigmaNode(node.getId()+"");
-        
-        
-        
-      }
-      
-      return null;
-    }
-    
-    
-    
     
     public Set<SigmaNode> getNodes() {
         return nodes;
