@@ -22,7 +22,9 @@ public class Equal {
   private EqualNumberFilter EqualNumberfilter;
   
   public EqualNumberFilter getEqualNumberfilter() {
-	return EqualNumberfilter;
+    graphModel.
+    return EqualNumberfilter;
+	
 }
 
 public void setEqualNumberfilter(EqualNumberFilter equalNumberfilter) {
@@ -61,7 +63,7 @@ public EqualStringFilter getEqualStrfilter() {
    * */
   public void idNodeFilter(String id, boolean useRegex) {
     this.attributeColumn = attributeModel.getNodeTable().getColumn("id");
-    this.EqualStrfilter = new EqualStringFilter(attributeColumn);
+    this.EqualStrfilter = new EqualStringFilter();
     this.EqualStrfilter.setColumn(attributeColumn);
     this.EqualStrfilter.setPattern(id);
     this.EqualStrfilter.setUseRegex(useRegex);

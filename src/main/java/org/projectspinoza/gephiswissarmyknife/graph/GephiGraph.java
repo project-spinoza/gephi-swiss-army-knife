@@ -1,12 +1,10 @@
 package org.projectspinoza.gephiswissarmyknife.graph;
 
-import org.gephi.data.attributes.api.AttributeController;
-import org.gephi.data.attributes.api.AttributeModel;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.io.importer.api.Container;
-import org.gephi.io.importer.api.EdgeDefault;
+import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.openide.util.Lookup;
 
 import com.google.inject.Inject;
@@ -20,15 +18,13 @@ import com.google.inject.Inject;
 public class GephiGraph {
 
   private static GraphModel graphModel;
-  private static AttributeModel attributeModel;
   private GraphImporter graphImporter;
   private Container container;
   private Graph graph;
 
 
   public GephiGraph() {
-    this.setAttributeModel(Lookup.getDefault().lookup(AttributeController.class).getModel());
-    this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getModel());
+    this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getGraphModel());
     this.getGraphImporter();
   }
 
@@ -37,17 +33,14 @@ public class GephiGraph {
    * and Container values are set and can be retrieved using getter setter
    */
 
-  public Graph loadGraph(String graphFile, EdgeDefault edgesType) {
+  public Graph loadGraph(String graphFile, EdgeDirectionDefault edgeType) {
 
     boolean graphImported = false;
 
-    switch (edgesType) {
+    switch (edgeType) {
     case DIRECTED:
-      graphImported = this.graphImporter.importGraph(this.container, graphFile,
-          EdgeDefault.DIRECTED);
-      this.graph = (graphImported == true) ? graphModel.getDirectedGraph()
-          : null;
-
+      graphImported = this.graphImporter.importGraph(this.container, graphFile,EdgeDirectionDefault.DIRECTED);
+      this.graph = (graphImported == true) ? graphModel.getDirectedGraph(): null;
       System.out.println("Nodes: " + graph.getNodeCount());
       System.out.println("Edges: " + graph.getEdgeCount());
 
@@ -55,15 +48,15 @@ public class GephiGraph {
 
     case UNDIRECTED:
       graphImported = this.graphImporter.importGraph(this.container, graphFile,
-          EdgeDefault.UNDIRECTED);
+          EdgeDirectionDefault.UNDIRECTED);
       this.graph = (graphImported == true) ? graphModel.getUndirectedGraph()
           : null;
       break;
 
     case MIXED:
       graphImported = this.graphImporter.importGraph(this.container, graphFile,
-          EdgeDefault.MIXED);
-      this.graph = (graphImported == true) ? graphModel.getMixedGraph() : null;
+          EdgeDirectionDefault.MIXED);
+      this.graph = (graphImported == true) ? graphModel.getGraph() : null;
       break;
     default:
       break;
@@ -103,13 +96,4 @@ public class GephiGraph {
   public void setGraph(Graph graph) {
     this.graph = graph;
   }
-
-  public AttributeModel getAttributeModel() {
-    return attributeModel;
-  }
-
-  public void setAttributeModel(AttributeModel attributeModel) {
-    GephiGraph.attributeModel = attributeModel;
-  }
-
 }

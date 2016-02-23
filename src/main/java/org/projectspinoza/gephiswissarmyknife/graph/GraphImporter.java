@@ -3,7 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.graph;
 import java.io.File;
 
 import org.gephi.io.importer.api.Container;
-import org.gephi.io.importer.api.EdgeDefault;
+import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
 import org.gephi.project.api.ProjectController;
@@ -31,14 +31,13 @@ public class GraphImporter {
     init();
   }
 
-  public boolean importGraph(Container container, String graphFile,
-      EdgeDefault edgesType) {
+  public boolean importGraph(Container container, String graphFile, EdgeDirectionDefault edgeType) {
 
     try {
 
       File file = new File(graphFile);
       container = this.importController.importFile(file);
-      container.getLoader().setEdgeDefault(edgesType);
+      container.getLoader().setEdgeDefault(edgeType);
       this.importController.process(container, new DefaultProcessor(),
           this.workspace);
       return (container.verify());

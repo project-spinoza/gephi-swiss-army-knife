@@ -1,6 +1,5 @@
 package org.projectspinoza.gephiswissarmyknife.graph.statistics;
 
-import org.gephi.data.attributes.api.AttributeModel;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.statistics.plugin.ClusteringCoefficient;
 import org.gephi.statistics.plugin.ConnectedComponents;
@@ -18,7 +17,6 @@ import com.google.inject.Singleton;
 public class Statistics {
   
   private GraphModel graphModel;
-  private AttributeModel attributeModel;
   private ConnectedComponents connectedComponents;
   private ClusteringCoefficient clusteringCoefficient;
   private Degree degree;
@@ -33,48 +31,48 @@ public class Statistics {
   
   public void connectedComponents(){
     connectedComponents = new ConnectedComponents();
-    connectedComponents.execute(this.graphModel, this.attributeModel);
+    connectedComponents.execute(this.graphModel);
   }
   
   public void avgClusterCoeficients(){
     clusteringCoefficient = new ClusteringCoefficient();
-    clusteringCoefficient.execute(this.graphModel, this.attributeModel);
+    clusteringCoefficient.execute(this.graphModel);
   }
   
   public void averageDegree(){
     degree = new Degree();
-    degree.execute(this.graphModel, this.attributeModel);
+    degree.execute(this.graphModel);
   }
   
   public void eigenVectorCentrality(){
     eigenvectorCentrality = new EigenvectorCentrality();
-    eigenvectorCentrality.execute(this.graphModel, this.attributeModel);
+    eigenvectorCentrality.execute(this.graphModel);
   }
   
   public double graphDensity(){
     graphDensity = new GraphDensity();
-    graphDensity.execute(this.graphModel, this.attributeModel);
+    graphDensity.execute(this.graphModel);
     return graphDensity.getDensity();
   }
   
   public void averageWeightedDegree(){
     weightedDegree = new WeightedDegree();
-    weightedDegree.execute(this.graphModel, this.attributeModel);
+    weightedDegree.execute(this.graphModel);
   }
   
   public void calculateHits(){
     hits = new Hits();
-    hits.execute(this.graphModel, this.attributeModel);
+    hits.execute(this.graphModel);
   }
 
   public void modularityClass (){
     modularity = new Modularity();
-    modularity.execute(this.graphModel, this.attributeModel);
+    modularity.execute(this.graphModel);
   }
   
   public void pageRank(){
     pagerank = new PageRank();
-    pagerank.execute(this.graphModel, this.attributeModel);
+    pagerank.execute(this.graphModel);
   }
   
   public GraphModel getGraphModel() {
@@ -83,14 +81,6 @@ public class Statistics {
 
   public void setGraphModel(GraphModel graphModel) {
     this.graphModel = graphModel;
-  }
-
-  public AttributeModel getAttributeModel() {
-    return attributeModel;
-  }
-
-  public void setAttributeModel(AttributeModel attributeModel) {
-    this.attributeModel = attributeModel;
   }
   
   public ConnectedComponents getConnectedComponents() {
