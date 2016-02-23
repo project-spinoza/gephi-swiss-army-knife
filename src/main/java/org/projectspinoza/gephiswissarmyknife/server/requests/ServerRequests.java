@@ -3,10 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.server.requests;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.gephi.graph.api.Graph;
-import org.json.JSONObject;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.sigma.GraphWraper;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -19,7 +16,7 @@ public class ServerRequests {
 //    private Configuration freeMarkerConfiguration;
     private GephiGraph gephiGraph;
     private LayoutsWrap layoutsWrap;
-    private GraphWraper graphSigma;
+//    private GraphWraper graphSigma;
 	
 
 //	@Inject
@@ -65,12 +62,12 @@ public class ServerRequests {
 	 * @return Graph String
 	 * 
 	 * */
-	protected String getSigmaGraph(Graph graph) {
-        graphSigma.build(graph, returnGraphsettings());
-        Map<String, Object> result = new HashMap<String, Object>();
-		result.put("nodes", graphSigma);
-		return new JSONObject(result).toString();
-	}
+//	protected String getSigmaGraph(Graph graph) {
+//        graphSigma.build(graph, returnGraphsettings());
+//        Map<String, Object> result = new HashMap<String, Object>();
+//		result.put("nodes", graphSigma);
+//		return new JSONObject(result).toString();
+//	}
 	
 	
 	/*
@@ -154,12 +151,12 @@ public class ServerRequests {
 		this.layoutsWrap = layoutsWrap;
 	}
 
-	public GraphWraper getGraphSigma() {
-		return graphSigma;
-	}
-	
-	@Inject
-	public void setGraphSigma(GraphWraper graphSigma) {
-		this.graphSigma = graphSigma;
-	}
+//	public GraphWraper getGraphSigma() {
+//		return graphSigma;
+//	}
+//	
+//	@Inject
+//	public void setGraphSigma(GraphWraper graphSigma) {
+//		this.graphSigma = graphSigma;
+//	}
 }
