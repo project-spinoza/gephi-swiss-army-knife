@@ -3,10 +3,19 @@ package org.projectspinoza.gephiswissarmyknife.server;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 
+import java.util.HashMap;
+
+import org.gephi.graph.api.Graph;
+import org.gephi.io.importer.api.EdgeDirectionDefault;
+import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
+import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
+import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
 import com.google.inject.Inject;
 
@@ -59,7 +68,7 @@ public class GraphServer {
   private void deployGsakRoutes() {
     
     // static resources CSS/JS files
-    router.getWithRegex(".*/css/.*|.*/js/.*|.*/images/.*").handler(
+    router.getWithRegex(".*/css/.*|.*/js/.*|.*/images/.*|.*/assets/.*").handler(
         StaticHandler.create("public").setCachingEnabled(false));
     
 
@@ -77,6 +86,22 @@ public class GraphServer {
     
     router.getWithRegex("/graph.*").method(HttpMethod.GET).handler(routingContext -> {
       routingContext.response().sendFile("public/index.html");
+    });
+    
+    router.getWithRegex("/graph.*").method(HttpMethod.GET).handler(routingContext -> {
+      routingContext.response().sendFile("public/index.html");
+    });
+    
+    /*
+     * Temp route for demo
+     * */
+    router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
+      GephiGraph gephiGraph = new GephiGraph();
+      Graph graph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
+      SigmaGraph sigmaGraph = Utils.toSigmaGraph(graph);
+      HashMap<String, Object> result = new HashMap<String, Object>();
+      result.put("nodes", sigmaGraph);
+      routingContext.response().end(new JsonObject(result).toString());
     });
     
   }

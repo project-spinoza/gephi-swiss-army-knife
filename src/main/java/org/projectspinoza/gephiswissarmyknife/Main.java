@@ -26,7 +26,7 @@ public class Main {
   public static void main(String[] args) {
    
     try {
-      //graphfile = args[0];
+      graphfile = args[0];
       GraphServer server = injector.getInstance(GraphServer.class);
       server.deployServer(true);
     } catch (Exception e) {

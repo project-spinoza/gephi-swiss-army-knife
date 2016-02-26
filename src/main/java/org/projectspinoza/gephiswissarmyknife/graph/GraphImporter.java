@@ -6,7 +6,6 @@ import org.gephi.io.importer.api.Container;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
-import org.gephi.project.api.ProjectController;
 import org.gephi.project.api.Workspace;
 import org.openide.util.Lookup;
 
@@ -22,13 +21,10 @@ import com.google.inject.Singleton;
 public class GraphImporter {
 
   private ImportController importController;
-  private ProjectController projectController;
   private Workspace workspace;
 
   public GraphImporter() {
-    this.importController = Lookup.getDefault().lookup(ImportController.class);
-    this.projectController = Lookup.getDefault().lookup(ProjectController.class);
-    init();
+     this.importController = Lookup.getDefault().lookup(ImportController.class);
   }
 
   public boolean importGraph(Container container, String graphFile, EdgeDirectionDefault edgeType) {
@@ -46,11 +42,6 @@ public class GraphImporter {
       ex.printStackTrace();
       return false;
     }
-  }
-
-  private void init() {
-    this.projectController.newProject();
-    setWorkspace(this.projectController.getCurrentWorkspace());
   }
 
   public ImportController getImportController() {
