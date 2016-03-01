@@ -1,17 +1,23 @@
+body {
+  color: #bababa !important;
+  font-family: Century Gothic !important;
+  font-size: 13px !important;
+  line-height: 1.42857;
+}
 body.gsak-home{
   background: #1d1d1d;
+}
+body.gsak-home h1, body.gsak-home h2, body.gsak-home h3, 
+body.gsak-home h4, body.gsak-home h5, body.gsak-home h6, 
+body.gsak-home .h1, body.gsak-home .h2, body.gsak-home .h3, body.gsak-home .h4, 
+body.gsak-home .h5, body.gsak-home .h6 {
+  font-family: Century Gothic;
 }
 input, select {
   outline: none;
 }
 input:focus, select:focus{
   outline:none;
-}
-body {
-  color: #bababa !important;
-  font-family: Century Gothic !important;
-  font-size: 13px !important;
-  line-height: 1.42857;
 }
 li, a, div, span, input, button, h5, p, th, td {
   font-size: 13px !important;
@@ -27,8 +33,7 @@ body .user-menu-left-container {
 }
 body .user-menu-container {
   float: left;
-  height: 100%;
-  position: fixed;
+  position: absolute;
   z-index: 100;
   padding-top:88px;
 }
@@ -56,12 +61,9 @@ body .user-menu-left-container-right {
   width: 282px;
 }
 body .user-menu-container-right {
-  color: #ffffff;
   float: right;
-  font-family: helvetica !important;
-  height: 100%;
   padding-top: 88px;
-  position: fixed;
+  position: absolute;
   right:0px;
   z-index: 100;
 }
@@ -171,11 +173,11 @@ select option{
 }
 .main-header .select-container{
   float:left;
-  width:345px;
+  width:384px;
 }
 .main-header .setting-container{
   float:left;
-  width:161px;
+  width:165px;
   padding-right: 22px;
   text-align: right;
 }
@@ -411,6 +413,96 @@ select option{
   border:0px;
   background:transparent;
 }
+#jstree_demo_div{
+  height: 396px;
+  overflow: auto;
+}
+#Queries_panel{
+  height: 200px;
+  overflow: auto;
+}
+#parameters_panel{
+  height: 200px;
+  overflow: auto;
+}
+.gsak-home .panel-group:last-child{
+  margin-bottom:0px;
+}
+#parameters_panel .parameters-contents{
+  padding-left:10px;
+}
+/********** Custom css for scrollbar **********/
+.gsak-home .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background: #bababa;
+  border-radius: 0px;
+  width: 7px;
+}
+.gsak-home .mCSB_scrollTools .mCSB_draggerRail {
+  background-color:transparent;
+}
+/********** End of custom css scrollbar *******/
+
+/******************************************************* Tree css ******************************************/
+#tree_id{
+  padding-left:10px;
+}
+.tree ul {
+    list-style: none outside none;
+}
+.tree li a {
+    line-height: 25px;
+}
+.tree > ul > li > a {
+    color: #3B4C56;
+    display: block;
+    font-weight: normal;
+    position: relative;
+    text-decoration: none;
+}
+.tree li.parent > a {
+    padding: 0 0 0 28px;
+}
+.tree li.parent > a:before {
+    background-image: url("images/plus_minus_icons.png");
+    background-position: 25px center;
+     content: ""; 
+    display: block;
+    height: 21px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    vertical-align: middle;
+    width: 23px;
+}
+.tree ul li.active > a:before {
+    background-position: 0 center;
+}
+.tree ul li ul {
+    border-left: 1px solid #D9DADB;
+    display: none;
+    margin: 0 0 0 12px;
+    overflow: hidden;
+    padding: 0 0 0 25px;
+}
+.tree ul li ul li {
+    position: relative;
+}
+.tree ul li ul li:before {
+    border-bottom: 1px dashed #E2E2E3;
+    content: "";
+    left: -20px;
+    position: absolute;
+    top: 12px;
+    width: 15px;
+}
+
+
+
+
+
+
+
+
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #bababa;

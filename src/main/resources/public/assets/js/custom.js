@@ -1,5 +1,54 @@
+// Window load function .
+(function($){
+	$(window).load(function(){
+		$.mCustomScrollbar.defaults.scrollButtons.enable=true; //enable scrolling buttons by default
+		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default						
+		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
+		$("#Queries_panel").mCustomScrollbar();// Queries_panel
+		$("#parameters_panel").mCustomScrollbar();// Parameters_panel
+	});
+})(jQuery);	
+// End of Window load function .
+
 // A $( document ).ready() block.
 $( document ).ready(function() {
+	
+					$( '.tree li' ).each( function() {
+						if( $( this ).children( 'ul' ).length > 0 ) {
+								$( this ).addClass( 'parent' );     
+						}
+				});
+				
+				$( '.tree li.parent > a' ).click( function( ) {
+						$( this ).parent().toggleClass( 'active' );
+						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
+				});
+	// Nicescroll to Network operations.
+	/*$("#collapse_network").niceScroll({
+		touchbehavior:false,
+		cursorcolor:"#bababa",
+		zindex:9000,
+		cursoropacitymax:1,
+		cursorwidth:7,
+		background:"#434343",
+		autohidemode:true,
+		cursorborderradius:"0px",
+		cursorborder:"0px",
+		}); */
+	// Dtree 
+	//$(".tree").treemenu({delay:300}).openActive();
+	// Nicescroll to whole page
+	$("html").niceScroll({
+		touchbehavior:false,
+		cursorcolor:"#bababa",
+		zindex:9000,
+		cursoropacitymax:1,
+		cursorwidth:7,
+		background:"#1d1d1d",
+		autohidemode:true,
+		cursorborderradius:"0px",
+		cursorborder:"0px",
+		});
 	// Decorating Checkbox
 	$('#collapse3 input').iCheck({
 		radioClass: 'iradio_square-grey',

@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="assets/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/css/skins/skin-blue.min.css">
 	<link rel="stylesheet" href="assets/css/custom.css">
-	<link rel="stylesheet" href="assets/js/icheck/grey.css">
+	<link rel="stylesheet" href="assets/css/icheck/grey.css">
+	<link rel="stylesheet" href="assets/css/mCustomScrollbar/jquery.mCustomScrollbar.css">
+	<!-- lightweight tree -->
+	<link href="assets/css/lightweight_tree/jquery.treemenu.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/plugin/lightweight_tree/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -87,7 +91,7 @@
 					<div class="panel-body layout_panel">
 						<div class="layout-select">
 							<select>
-								<option value="rotation">Clockwise Rotation</option>
+								<option value="rotation">Rotation</option>
 								<option value="scale">Scale</option>
 							</select> 
 						</div>
@@ -242,39 +246,48 @@
               <div id="collapse_Queries" class="panel-collapse collapse in">
                 <div id="Queries_panel" class="panel-body Queries_panel">
                 	<ul id="tree_id" class="tree">
-					    <li><a href="">Home</a></li>
-					    <li><span>Category</span>
-					      <ul>
-					        <li><a href="#">jQuery</a>
-					          <ul>
-					            <li><a href="#">jQuery</a></li>
-					            <li><a href="#">jQuery UI</a></li>
-					            <li><a href="#">jQuery Mobile</a></li>
-					          </ul>
-					        </li>
-					        <li><a href="#">JavaScript</a>
-					          <ul>
-					            <li><a class="active" href="#">AngularJS</a></li>
-					            <li><a href="#">React</a></li>
-					            <li><a href="#">Backbone</a></li>
-					          </ul>
-					        </li>
-					        <li><a href="#suits">Golang</a></li>
-					      </ul>
-					    </li>
-					    <li><a href="#about">About</a>
-					      <ul>
-					        <li><a href="#">Contact</a></li>
-					        <li><a href="#">Blog</a></li>
-					        <li><a href="#">Jobs</a>
-					          <ul>
-					            <li><a href="#jobs1">Job 1</a></li>
-					            <li><a href="#jobs2">Job 2</a></li>
-					            <li><a href="#jobs3">Job 3</a></li>
-					          </ul>
-					        </li>
-					      </ul>
-					    </li>
+<div class="tree">
+		
+<ul>
+		<li><a>First Level</a>
+			<ul>
+				<li><a>Second Level</a></li>
+				<li><a>Second Level</a></li>
+				<li><a>Second Level</a></li>
+			</ul>
+		</li>
+		<li><a>First Level</a>
+			<ul>
+				<li><a>Second Level</a>
+					<ul>
+						<li><a>Third Level</a></li>
+						<li><a>Third Level</a></li>
+						<li><a>Third Level</a>
+							<ul>
+								<li><a>Fourth Level</a></li>
+								<li><a>Fourth Level</a></li>
+								<li><a>Fourth Level</a>
+									<ul>
+										<li><a>Fifth Level</a></li>
+										<li><a>Fifth Level</a></li>
+										<li><a>Fifth Level</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a>Second Level</a></li>
+			</ul>
+		</li>
+		<li><a>First Level</a>
+			<ul>
+				<li><a>Second Level</a></li>
+				<li><a>Second Level</a></li>
+			</ul>
+		</li>
+</ul>
+</div>
 					  </ul>
                 </div>
               </div>
@@ -290,8 +303,8 @@
 					</h4>
 				</div>
 				<div id="collapse_parameters" class="panel-collapse collapse in">
-					<div id="content-l" class="panel-body parameter_panel">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<div id="parameters_panel" class="panel-body parameter_panel">
+						<div class="parameters-contents">
 							<h5>2{1,298.7%}]</h5>
 							<h5>2{1,298.7%}]</h5>                	
 							<h5>2{1,298.7%}]</h5>
@@ -353,7 +366,7 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper" style="height: 565px; display: block;" id ="container">
         <!-- Content Header (Page header) -->
-                	<img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
+         <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
       </div><!-- /.content-wrapper -->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
@@ -367,10 +380,15 @@
     <!-- AdminLTE App -->
     <!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/custom.js"></script>
-		<!-- icheck -->
+	<!-- icheck -->
 	<script src="assets/js/icheck/icheck.js"></script>
-
-		<!-- sigma libs -->
+	<!-- Nicescroll -->
+	<script src="assets/js/nicescroll/jquery.nicescroll.js"></script>
+	<script src="assets/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Dtree -->
+	<script src="assets/js/lightweight_tree/jquery.treemenu.js"></script> 
+	
+			<!-- sigma libs -->
     <script src="assets/sigmajs/sigma.core.js"></script>
     <script src="assets/sigmajs/conrad.js"></script>
     <script src="assets/sigmajs/sigma.utils.js"></script>
@@ -420,6 +438,5 @@
 
 	<!-- GSAK ajax-server script -->
 	<script src="assets/js/script.js"></script>
-
   </body>
 </html>
