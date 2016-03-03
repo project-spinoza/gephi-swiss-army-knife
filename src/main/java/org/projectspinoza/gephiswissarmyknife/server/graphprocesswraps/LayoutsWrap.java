@@ -46,8 +46,7 @@ public class LayoutsWrap {
       this.layoutScale.setScale(Double.parseDouble(layoutParams.get("scale")));
       this.layoutScale.scale();
       break;
-    case "force_atlas":
-      this.forceAtlas.setGraphModel(getGraphModel());
+    case "ForceAtlas":
       this.forceAtlas.applyLayout((Map<String, String>) layoutParams);
       break; 
     case "FruchtermanReingold":

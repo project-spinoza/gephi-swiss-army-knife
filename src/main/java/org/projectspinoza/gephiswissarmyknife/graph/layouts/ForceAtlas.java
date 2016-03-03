@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
+import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 import com.google.inject.Singleton;
 
@@ -23,7 +24,7 @@ public class ForceAtlas {
    * */
   public void applyLayout(Map<String, String> layoutParams) {
     this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
-    this.forceAtlasLayout.setGraphModel(getGraphModel());
+    this.forceAtlasLayout.setGraphModel(GephiGraph.getGraphModel());
     this.forceAtlasLayout.resetPropertiesValues();
     forceAtlas(layoutParams);
   }

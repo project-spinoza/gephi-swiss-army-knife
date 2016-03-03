@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
-import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
