@@ -1,9 +1,15 @@
 package org.projectspinoza.gephiswissarmyknife.server.graphprocesswraps;
 
+import io.vertx.core.MultiMap;
+
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.gephi.graph.api.GraphModel;
+import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.FruchtermanReingoldLayout;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 
@@ -16,18 +22,20 @@ public class LayoutsWrap {
   private Rotation layoutRotate;
   private Scale layoutScale;
   private ForceAtlas forceAtlas;
+  private FruchtermanReingoldLayout fruchtermanReingoldLayout;
   private GraphModel graphModel;
 
   public LayoutsWrap() {
-
+    this.graphModel = GephiGraph.getGraphModel();
   }
 
   /*
    * For stand alone rotation operations
    */
-  public void applyLayout(String layoutIdStr, Map<String, String> layoutParams) {
+  @SuppressWarnings("unchecked")
+  public void applyLayout(MultiMap layoutParams) {
 
-    switch (layoutIdStr) {
+    switch (layoutParams.get("layout")) {
     case "rotation":
       this.layoutRotate.setGraphModel(getGraphModel());
       this.layoutRotate.setAngle(Double.parseDouble(layoutParams.get("angle")));
@@ -40,13 +48,24 @@ public class LayoutsWrap {
       break;
     case "force_atlas":
       this.forceAtlas.setGraphModel(getGraphModel());
-      this.forceAtlas.applayLayout(layoutParams);
+      this.forceAtlas.applyLayout((Map<String, String>) layoutParams);
+      break; 
+    case "FruchtermanReingold":
+      this.fruchtermanReingoldLayout.applyLahout(multiMapToHashMap(layoutParams));
       break;
     default:
       break;
     }
   }
 
+  private Map<String, String> multiMapToHashMap (MultiMap mMap) {
+    Map <String, String> map = new HashMap<String, String>();
+    for (Entry<String, String> entity : mMap.entries()) {
+      map.put(entity.getKey(), entity.getValue());
+    }
+    return map;
+  }
+  
   public Rotation getLayoutRotate() {
     return layoutRotate;
   }
@@ -80,6 +99,15 @@ public class LayoutsWrap {
 
   public void setGraphModel(GraphModel graphModel) {
     this.graphModel = graphModel;
+  }
+
+  public FruchtermanReingoldLayout getFruchtermanReingoldLayout() {
+    return fruchtermanReingoldLayout;
+  }
+
+  @Inject
+  public void setFruchtermanReingoldLayout(FruchtermanReingoldLayout fruchtermanReingoldLayout) {
+    this.fruchtermanReingoldLayout = fruchtermanReingoldLayout;
   }
 
 }

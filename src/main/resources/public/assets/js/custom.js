@@ -6,6 +6,7 @@
 		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
 		$("#Queries_panel").mCustomScrollbar();// Queries_panel
 		$("#parameters_panel").mCustomScrollbar();// Parameters_panel
+		$("#layout-contents").mCustomScrollbar();// Layout contents
 	});
 })(jQuery);	
 // End of Window load function .
@@ -23,23 +24,13 @@ $( document ).ready(function() {
 						$( this ).parent().toggleClass( 'active' );
 						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
 				});
-	// Nicescroll to Network operations.
-	/*$("#collapse_network").niceScroll({
-		touchbehavior:false,
-		cursorcolor:"#bababa",
-		zindex:9000,
-		cursoropacitymax:1,
-		cursorwidth:7,
-		background:"#434343",
-		autohidemode:true,
-		cursorborderradius:"0px",
-		cursorborder:"0px",
-		}); */
-	// Dtree 
-	//$(".tree").treemenu({delay:300}).openActive();
+    // Easy tree
+	$('#networkoperations-folder').easytree();
+	
 	// Nicescroll to whole page
 	$("html").niceScroll({
 		touchbehavior:false,
+		horizrailenabled:false,
 		cursorcolor:"#bababa",
 		zindex:9000,
 		cursoropacitymax:1,
@@ -58,20 +49,20 @@ $( document ).ready(function() {
     console.log( "ready!" );
 	$(".user-nav-slide").click(function () {
 		if ($(".user-menu-container").hasClass("closed")) {
-			$(".user-menu-container").animate({"margin-left": "0px"});
+			$(".user-menu-container").animate({"left": "0px"});
 			$(".user-menu-container").removeClass("closed");
 		} else {
-			$(".user-menu-container").animate({"margin-left": "-282px"});
+			$(".user-menu-container").animate({"left": "-282px"});
 			$(".user-menu-container").addClass("closed");
 		}
 	});
 		// Right sidebar
 	$(".user-nav-slide-right").click(function () {
 		if ($(".user-menu-container-right").hasClass("closed")) {
-			$(".user-menu-container-right").animate({"margin-right": "0px"});
+			$(".user-menu-container-right").animate({"right": "0px"});
 			$(".user-menu-container-right").removeClass("closed");
 		} else {
-				$(".user-menu-container-right").animate({"margin-right": "-282px"});
+				$(".user-menu-container-right").animate({"right": "-282px"});
 				$(".user-menu-container-right").addClass("closed");
 		}
 	});
@@ -79,16 +70,126 @@ $( document ).ready(function() {
 	$(".layout_panel select").change(function(){
         $(this).find("option:selected").each(function(){
             if($(this).attr("value")=="rotation"){
-                //$(".box").not(".Rotate").hide();
                 $(".Rotate").show();
 				$(".Scale").hide();
+				$(".forceAtlas").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".labelAdjust").hide();
+				$(".noverLap").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
             }
             else if($(this).attr("value")=="scale"){
-                //$(".box").not(".Scale").hide();
-                //$(".Scale").show();
-				$(".Rotate").hide();
 				$(".Scale").show();
+				$(".Rotate").hide();
+				$(".forceAtlas").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".labelAdjust").hide();
+				$(".noverLap").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
             }
+			else if($(this).attr("value")=="forceatlas"){
+				$(".forceAtlas").show();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".labelAdjust").hide();
+				$(".noverLap").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="fruchtermanReigngold"){
+				$(".fruchtermanReigngold").show();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".labelAdjust").hide();
+				$(".noverLap").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="labelAdjust"){
+				$(".labelAdjust").show();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".noverLap").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="noverLap"){
+				$(".noverLap").show();
+				$(".labelAdjust").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".openOrd").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="openOrd"){
+				$(".openOrd").show();
+				$(".noverLap").hide();
+				$(".labelAdjust").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".randomLayout").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="randomLayout"){
+				$(".randomLayout").show();
+				$(".openOrd").hide();
+				$(".noverLap").hide();
+				$(".labelAdjust").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".yifanHu").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="yifanHu"){
+				$(".yifanHu").show();
+				$(".randomLayout").hide();
+				$(".openOrd").hide();
+				$(".noverLap").hide();
+				$(".labelAdjust").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+				$(".yifanhuProportional").hide();
+            }
+			else if($(this).attr("value")=="yifanhuProportional"){
+				$(".yifanhuProportional").show();
+				$(".yifanHu").hide();
+				$(".randomLayout").hide();
+				$(".openOrd").hide();
+				$(".noverLap").hide();
+				$(".labelAdjust").hide();
+				$(".fruchtermanReigngold").hide();
+				$(".forceAtlas").hide();
+				$(".Rotate").hide();
+				$(".Scale").hide();
+            }
+			
             else{
                 //$(".box").hide();
 				console.log("No value is selected");

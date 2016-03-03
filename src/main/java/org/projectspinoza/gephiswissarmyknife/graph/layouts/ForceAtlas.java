@@ -21,7 +21,7 @@ public class ForceAtlas {
    * @return void
    * Wrapper function for force atlas layouts..
    * */
-  public void applayLayout(Map<String, String> layoutParams) {
+  public void applyLayout(Map<String, String> layoutParams) {
     this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
     this.forceAtlasLayout.setGraphModel(getGraphModel());
     this.forceAtlasLayout.resetPropertiesValues();

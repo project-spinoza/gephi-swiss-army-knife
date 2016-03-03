@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
+import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 import com.google.inject.Singleton;
 
@@ -14,6 +15,7 @@ public class FruchtermanReingoldLayout {
   private GraphModel graphModel;
   
   public FruchtermanReingoldLayout() {
+    this.graphModel = GephiGraph.getGraphModel();
   }
   
   /*
@@ -21,16 +23,16 @@ public class FruchtermanReingoldLayout {
    * wraper public method for frchtermanreingold layout
    * 
    * */
-  public void applayLahout( Map<String, String> layoutParams ) {
+  public void applyLahout( Map<String, String> layoutParams ) {
     this.fruchtermanReingold = (this.fruchtermanReingold == null)? new FruchtermanReingold(null): this.fruchtermanReingold;
-    this.fruchtermanReingold.setGraphModel(this.graphModel);
+    this.fruchtermanReingold.setGraphModel(GephiGraph.getGraphModel());
     this.fruchtermanReingold.resetPropertiesValues();
     fruchtermanReigGold(layoutParams);
   }
   
   private void fruchtermanReigGold (Map<String, String> layoutParams) {
-    
-    this.fruchtermanReingold.setArea((float)Double.parseDouble(layoutParams.get("area")));
+
+    this.fruchtermanReingold.setArea(Float.parseFloat(layoutParams.get("area")));
     this.fruchtermanReingold.setSpeed(Double.parseDouble(layoutParams.get("speed")));
     this.fruchtermanReingold.setGravity(Double.parseDouble(layoutParams.get("gravity")));
     

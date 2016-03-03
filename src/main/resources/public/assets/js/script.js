@@ -6,7 +6,29 @@ $( document ).ready(function() {
 var sigmaSettings = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#000", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 
-requestAjax ("http://localhost:9090/ajax");
+/*
+*
+*Layouts Submit Operations
+*/
+
+$(".layout_form").submit(function (e) {
+
+    e.preventDefault();
+//    var formId = this.id;
+      alert($(".layout_form").serialize());
+    requestAjax ("http://localhost:9090/layout", $("#" + this.id).serialize());
+});
+
+
+
+
+
+/*
+*
+*Load Test graph
+*/
+requestAjax ("http://localhost:9090/ajax", {});
+
 
 
 /*
@@ -14,11 +36,11 @@ requestAjax ("http://localhost:9090/ajax");
 * Usage: sends ajax request to given URL
 */
 
-function requestAjax (ajaxURL) {
+function requestAjax (ajaxURL, formData) {
 
 	/*<![CDATA[*/
    $.ajax({
-      type: "get", url: ajaxURL, data:{},
+      type: "get", url: ajaxURL, data:formData,
       async : true, beforeSend: function(xhr) {},
       //on successfull ajax request
       success: function (graphData) {

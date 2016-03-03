@@ -16,6 +16,7 @@
 	<!-- lightweight tree -->
 	<link href="assets/css/lightweight_tree/jquery.treemenu.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/plugin/lightweight_tree/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<link type="text/css" class="skins" rel="stylesheet" href="assets/css/easytree/ui.easytree.css">
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -91,14 +92,23 @@
 					<div class="panel-body layout_panel">
 						<div class="layout-select">
 							<select>
-								<option value="rotation">Rotation</option>
+								<option value="rotation">Rotate</option>
 								<option value="scale">Scale</option>
+								<option value="forceatlas">Force Atlas</option>
+								<option value="fruchtermanReigngold">Fruchterman Reigngold</option>
+								<option value="labelAdjust">Label Adjust</option>
+								<option value="noverLap">Noverlap</option>
+								<option value="openOrd">OpenOrd</option>
+								<option value="randomLayout">Random Layout</option>
+								<option value="yifanHu">Yifan Hu</option>
+								<option value="yifanhuProportional">Yifan Hu Proportional</option>
 							</select> 
 						</div>
-												<!-- clockwise rotation container -->
+						<div id="layout-contents">
+						<!-- clockwise rotation container -->
 						<div class="rotation-container Rotate">
-						    <form action="">
-								<div class="rotate-label">Properties</div>
+						    <form action="/layout" method="get" class="layout_form" id="rotate">
+								<div class="rotate-label layout-label">Rotate</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
 										<thead>
@@ -111,7 +121,8 @@
 											<tr>       
 												<td>Rotate</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="90" placeholder="90" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="hidden" value="rotate" name="layout">
 												</td>
 											</tr>
 										</tbody>
@@ -122,8 +133,8 @@
 						</div> <!-- end of clockwise rotation container -->
 						<!-- scale container -->
 						<div class="scale-container Scale">
-							<form action="">
-								<div class="scale-label">Properties</div>
+							<form action="" id="scale">
+								<div class="scale-label layout-label">Scale</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
 										<thead>
@@ -142,10 +153,451 @@
 										</tbody>
 									</table>
 								</div>
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right ">
 							</form>
 						</div>
 						<!-- end of scale container -->
+						<!-- Force Atlas container -->
+						<div class="force-atlas-container forceAtlas">
+							<form action="">
+								<div class="force-atlas-label layout-label">Force Atlas</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Insertia</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Repulsion strength</td>
+												<td>
+													<input type="text" value="1.0" placeholder="200.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Attraction strength</td>
+												<td>
+													<input type="text" value="1.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Maximum displacement</td>
+												<td>
+													<input type="text" value="1.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Auto stabalize function</td>
+												<td>
+													<input type="checkbox" name="autostabalizecheckbox" value="showlabel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Autostab Strength</td>
+												<td>
+													<input type="text" value="1.0" placeholder="80.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Autostab Sensibility</td>
+												<td>
+													<input type="text" value="1.0" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Gravity</td>
+												<td>
+													<input type="text" value="1.0" placeholder="30.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Attraction Distrib.</td>
+												<td>
+													<input type="checkbox" name="autostabalizecheckbox" value="showlabel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Adjust by Sizes</td>
+												<td>
+													<input type="checkbox" name="autostabalizecheckbox" value="showlabel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="30.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div>
+						<!-- End of Force Atlas container -->
+						<!-- Start of Fruchterman Reigngold -->
+						<div class="fruchterman-reigngold-container fruchtermanReigngold">
+							<form action="/layout" method="get" class="layout_form" id="FruchtermanReingoldLayout">
+								<div class="fruchterman-reigngold-label layout-label">Fruchterman Reigngold</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Area</td>
+												<td>
+													<input type="text" value="100000.0" placeholder="100000.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="area">
+												</td>
+											</tr>
+											<tr>
+												<td>Gravity</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="gravity">
+												</td>
+											
+											</tr>
+											<tr>
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="FruchtermanReingold" name="layout">
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div>
+						<!-- End of Fruchterman Reigngold -->
+						<!-- Start of Label Adjust -->
+						<div class="label-adjust-container labelAdjust">
+							<form action="">
+								<div class="scale-label layout-label">Label Adjust</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Include Node size</td>
+												<td>
+													<input type="checkbox" name="includenodesize" value="showlabel">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div>
+						<!-- End of Label Adjust -->
+						<!-- Start of noverlap -->
+						<div class="noverlap-container noverLap">
+						    <form action="">
+								<div class="noverlap-label layout-label">Noverlap</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="3.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Ratio</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Margin</td>
+												<td>
+													<input type="text" value="5.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div>
+						<!-- End of noverlap -->
+						<!-- Start of OpenOrd -->
+						<div class="open-ord-container openOrd">
+						    <form action="">
+								<div class="open-ord-label layout-label">Stages</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Liquid (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Expansion (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Cooldown (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Crunch (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Simmer (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Edge Cut</td>
+												<td>
+													<input type="text" value="0.8" placeholder="0.8" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Num Threads</td>
+												<td>
+													<input type="text" value="3" placeholder="3" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Num Iterations</td>
+												<td>
+													<input type="text" value="750" placeholder="750" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Fixed time</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Random seed</td>
+												<td>
+													<input type="text" value="-90976657116214861" placeholder="-90976657116214861" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div>
+						<!-- End of OpenOrd -->
+						<!-- Start of Random Layout -->
+						<div class="random-layout-container randomLayout">
+						    <form action="">
+								<div class="random-layout-label layout-label">Properties</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Space Size</td>
+												<td>
+													<input type="text" value="50.0" placeholder="5.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div> 
+						<!-- End of Random Layout -->
+						<!-- Start of Yifan Hu -->
+						<div class="yifan-hu-container yifanHu">
+						    <form action="">
+								<div class="rotate-label layout-label">Yifan Hu</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Quadtree Max Level</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Theta</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Optimal distance</td>
+												<td>
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Relative Strength</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Initial Step size</td>
+												<td>
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Step ratio</td>
+												<td>
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Adaptive Cooling</td>
+												<td>
+													<input type="checkbox" name="includenodesize" value="showlabel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Convergence Threshold</td>
+												<td>
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div> 
+						<!-- End of Yifan Hu -->
+						<!-- Start of Yifan Hu Proportional -->
+						<div class="yifan-hu-proportional-container yifanhuProportional">
+						    <form action="">
+								<div class="yifanhu-proportional-label layout-label">Yifan Hu Proportional</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Quadtree Max Level</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Theta</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Optimal distance</td>
+												<td>
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Relative Strength</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Initial Step size</td>
+												<td>
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Step ratio</td>
+												<td>
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+											<tr>       
+												<td>Adaptive Cooling</td>
+												<td>
+													<input type="checkbox" name="includenodesize" value="showlabel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Convergence Threshold</td>
+												<td>
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+							</form>
+						</div> 
+						<!-- End of Yifan Hu Proportional -->
+						</div> <!-- End of layoutcontents -->
+						
                     </div>
                 </div>
             </div>
@@ -203,32 +655,110 @@
 					<div id="jstree_demo_div" class="panel-body network_panel_body">
 						<div id="jstree">
 					    <!-- in this example the tree is populated from inline HTML -->
+                         <div id="networkoperations-folder">
+    <ul>
+        <li class="isFolder isExpanded" title="Bookmarks">
+            Library
+            <ul>
+               <li class="isFolder" title="Bookmarks">
+			   Attributes
+				   <ul>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Equal
 							<ul>
-								<li>Root node 1
-									<ul>
-										<li id="child_node_1">Child node 1</li>
-										<li>Child node 2</li>
-										<li>Child node 2</li>
-										<li>Child node 2</li>
-										<li>Child node 2</li>
-									</ul>
-								</li>
-								<li>Root node 2
-								<ul>
-									<li id="child_node_2">Child node 1
-										<ul>
-											<li id="child_node_3">Child node 1</li>
-											<li>Child node 2</li>
-										</ul>
-									</li>
-									<li>Child node 2</li>
-									<li>Child node 2</li>
-									<li>Child node 2</li>
-									<li>Child node 2</li>
-									<li>Child node 2</li>
-								</ul>
-								</li>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
 							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Inter Edges
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Intra Edges
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Non-null
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Partition
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Partition Count
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+						<li class="isFolder isExpanded" title="Bookmarks">
+							Range
+							<ul>
+								<li><a href="http://www.google.com" target="_blank">Modularity class</a></li>
+							</ul>
+						</li>
+				   </ul>
+			   </li>
+			   <li class="isFolder isExpanded">
+				<ul>
+				Dynamic
+				</ul>
+			   
+			   </li>
+			   <li class="isFolder">
+				<ul>
+				Edges
+					<li><a href="http://www.google.com" target="_blank">Edge Type</a></li>
+					<li><a href="http://www.google.com" target="_blank">Edge Weight</a></li>
+					<li><a href="http://www.google.com" target="_blank">Mutual Edge</a></li>
+					<li><a href="http://www.google.com" target="_blank">Self Loop</a></li>
+				</ul>
+			   
+			   </li>
+			   <li class="isFolder">
+				<ul>
+				Operator
+					<li><a href="http://www.google.com" target="_blank">Intersection</a></li>
+					<li><a href="http://www.google.com" target="_blank">Mask (edges)</a></li>
+					<li><a href="http://www.google.com" target="_blank">Not (edges)</a></li>
+					<li><a href="http://www.google.com" target="_blank">Not (nodes)</a></li>
+					<li><a href="http://www.google.com" target="_blank">Union</a></li>
+				</ul>
+			   
+			   </li>
+			   <li class="isFolder">
+				<ul>
+				Topology
+					<li><a href="http://www.google.com" target="_blank">Degree Range</a></li>
+					<li><a href="http://www.google.com" target="_blank">Ego Network</a></li>
+					<li><a href="http://www.google.com" target="_blank">Giant Component</a></li>
+					<li><a href="http://www.google.com" target="_blank">Has Self-loop</a></li>
+					<li><a href="http://www.google.com" target="_blank">In Degree Range</a></li>
+					<li><a href="http://www.google.com" target="_blank">K-core</a></li>
+					<li><a href="http://www.google.com" target="_blank">Mutual Degree Range</a></li>
+					<li><a href="http://www.google.com" target="_blank">Neighbors Network</a></li>
+					<li><a href="http://www.google.com" target="_blank">Out Degree Range</a></li>
+				</ul>
+			   
+			   </li>
+			   <li class="isFolder">
+				<ul>
+				  Saved Queries
+				</ul>
+			   </li>
+			   
+            </ul>
+        </li>
+    </ul>
+</div>
 					  </div>
 				</div>
               </div>
@@ -309,16 +839,6 @@
 							<h5>2{1,298.7%}]</h5>                	
 							<h5>2{1,298.7%}]</h5>
 							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
 						</div>                                    	
 					</div>
                 </div>
@@ -364,7 +884,7 @@
       </header>
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="height: 565px; display: block;" id ="container">
+      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">
         <!-- Content Header (Page header) -->
          <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
       </div><!-- /.content-wrapper -->
@@ -387,6 +907,7 @@
 	<script src="assets/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 	<!-- Dtree -->
 	<script src="assets/js/lightweight_tree/jquery.treemenu.js"></script> 
+	<script src="assets/js/easytree/jquery.easytree.js"></script>
 	
 			<!-- sigma libs -->
     <script src="assets/sigmajs/sigma.core.js"></script>

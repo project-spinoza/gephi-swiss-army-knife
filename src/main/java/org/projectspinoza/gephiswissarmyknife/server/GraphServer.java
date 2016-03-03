@@ -5,15 +5,18 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.StaticHandler;
 
 import java.util.HashMap;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
+import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.projectspinoza.gephiswissarmyknife.server.graphprocesswraps.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
@@ -25,6 +28,10 @@ public class GraphServer {
   private Vertx vertx;
   private HttpServer server;
   private Router router;
+  private LayoutsWrap layoutsWrap;
+  private Graph gephiGraph;
+  private SigmaGraph sigmaGraph;
+  
 
   public GraphServer() {
     setVertx(Vertx.vertx());
@@ -88,8 +95,9 @@ public class GraphServer {
       routingContext.response().sendFile("public/index.html");
     });
     
-    router.getWithRegex("/graph.*").method(HttpMethod.GET).handler(routingContext -> {
-      routingContext.response().sendFile("public/index.html");
+    router.getWithRegex("/layout.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.layoutsWrap.applyLayout(routingContext.request().params());
+      responseSigmaGraph (GephiGraph.getGraphModel().getGraphVisible(), routingContext);
     });
     
     /*
@@ -97,13 +105,17 @@ public class GraphServer {
      * */
     router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
       GephiGraph gephiGraph = new GephiGraph();
-      Graph graph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
-      SigmaGraph sigmaGraph = Utils.toSigmaGraph(graph);
-      HashMap<String, Object> result = new HashMap<String, Object>();
-      result.put("nodes", sigmaGraph);
-      routingContext.response().end(new JsonObject(result).toString());
+      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
+      responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
+  }
+  
+  private void responseSigmaGraph (Graph graph, RoutingContext routingContext) {
+    this.sigmaGraph = Utils.toSigmaGraph(this.gephiGraph );
+    HashMap<String, Object> result = new HashMap<String, Object>();
+    result.put("nodes", this.sigmaGraph);
+    routingContext.response().end(new JsonObject(result).toString());
   }
   
 
@@ -130,6 +142,31 @@ public class GraphServer {
 
   public void setVertx(Vertx vertx) {
     this.vertx = vertx;
+  }
+
+  public LayoutsWrap getLayoutsWrap() {
+    return layoutsWrap;
+  }
+
+  @Inject
+  public void setLayoutsWrap(LayoutsWrap layoutsWrap) {
+    this.layoutsWrap = layoutsWrap;
+  }
+
+  public Graph getGephiGraph() {
+    return gephiGraph;
+  }
+
+  public void setGephiGraph(Graph gephiGraph) {
+    this.gephiGraph = gephiGraph;
+  }
+
+  public SigmaGraph getSigmaGraph() {
+    return sigmaGraph;
+  }
+
+  public void setSigmaGraph(SigmaGraph sigmaGraph) {
+    this.sigmaGraph = sigmaGraph;
   }
 
 }

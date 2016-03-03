@@ -1,3 +1,6 @@
+html{
+  overflow-x:hidden !important;
+}
 body {
   color: #bababa !important;
   font-family: Century Gothic !important;
@@ -304,14 +307,6 @@ select option{
 .rotation-container{
   margin-top:10px;
 }
-.rotation-container .rotate-label{
-  height: 31px;
-  background: #282828;
-  color: #ffffff;
-  text-transform:uppercase;
-  padding-left: 10px;
-  padding-top: 6px;
-}
 .panel #collapse2 .table-responsive table {
   border-collapse: collapse !important;
   background-color: #3b3b3b;
@@ -342,14 +337,6 @@ select option{
 }
 .scale-container {
   margin-top: 10px;
-}
-.scale-container .scale-label {
-  background: #282828 none repeat scroll 0 0;
-  color: #ffffff;
-  height: 31px;
-  padding-left: 10px;
-  padding-top: 6px;
-  text-transform: uppercase;
 }
 .table.table-bordered {
   margin-bottom:10px;
@@ -405,7 +392,7 @@ select option{
   line-height: 23px;
   vertical-align: top;
 }
-.rotation-container.Rotate .table input{
+#collapse2 .table input{
   border:0px;
   background:transparent;
 }
@@ -414,7 +401,7 @@ select option{
   background:transparent;
 }
 #jstree_demo_div{
-  height: 396px;
+  height: 250px;
   overflow: auto;
 }
 #Queries_panel{
@@ -422,14 +409,29 @@ select option{
   overflow: auto;
 }
 #parameters_panel{
-  height: 200px;
+  height: 113px;
   overflow: auto;
+}
+#layout-contents{
+  height: 200px;
+  overflow:auto;
 }
 .gsak-home .panel-group:last-child{
   margin-bottom:0px;
 }
 #parameters_panel .parameters-contents{
   padding-left:10px;
+}
+#collapse2 .layout-label{
+  background: #282828 none repeat scroll 0 0;
+  color: #ffffff;
+  height: 31px;
+  padding-left: 10px;
+  padding-top: 6px;
+  text-transform: uppercase;
+}
+body.gsak-home .mCSB_container_wrapper > .mCSB_container {
+  padding-right: 0px;
 }
 /********** Custom css for scrollbar **********/
 .gsak-home .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
@@ -447,56 +449,115 @@ select option{
   padding-left:10px;
 }
 .tree ul {
-    list-style: none outside none;
+  list-style: none outside none;
 }
 .tree li a {
-    line-height: 25px;
+  line-height: 25px;
 }
 .tree > ul > li > a {
-    color: #3B4C56;
-    display: block;
-    font-weight: normal;
-    position: relative;
-    text-decoration: none;
+  color: #3B4C56;
+  display: block;
+  font-weight: normal;
+  position: relative;
+  text-decoration: none;
 }
 .tree li.parent > a {
-    padding: 0 0 0 28px;
+  padding: 0 0 0 28px;
 }
 .tree li.parent > a:before {
-    background-image: url("images/plus_minus_icons.png");
-    background-position: 25px center;
-     content: ""; 
-    display: block;
-    height: 21px;
-    left: 0;
-    position: absolute;
-    top: 2px;
-    vertical-align: middle;
-    width: 23px;
+  background-image: url("images/plus_minus_icons.png");
+  background-position: 25px center;
+  content: ""; 
+  display: block;
+  height: 21px;
+  left: 0;
+  position: absolute;
+  top: 2px;
+  vertical-align: middle;
+  width: 23px;
 }
 .tree ul li.active > a:before {
-    background-position: 0 center;
+  background-position: 0 center;
 }
 .tree ul li ul {
-    border-left: 1px solid #D9DADB;
-    display: none;
-    margin: 0 0 0 12px;
-    overflow: hidden;
-    padding: 0 0 0 25px;
+  border-left: 1px solid #D9DADB;
+  display: none;
+  margin: 0 0 0 12px;
+  overflow: hidden;
+  padding: 0 0 0 25px;
 }
 .tree ul li ul li {
-    position: relative;
+  position: relative;
 }
 .tree ul li ul li:before {
-    border-bottom: 1px dashed #E2E2E3;
-    content: "";
-    left: -20px;
-    position: absolute;
-    top: 12px;
-    width: 15px;
+  border-bottom: 1px dashed #E2E2E3;
+  content: "";
+  left: -20px;
+  position: absolute;
+  top: 12px;
+  width: 15px;
 }
 
-
+/********************** CSS for folder menu drop down ************************************/
+#networkoperations-folder .easytree-container{
+  font-family: Century Gothic;
+  font-size: 13px; 
+  background:transparent;
+  border:0px;
+}
+#networkoperations-folder .easytree-ico-ef span.easytree-icon {
+  background-image:url('../../images/folder.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+#networkoperations-folder .easytree-ico-cf span.easytree-icon {
+  background-image:url('../../images/folder.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+#networkoperations-folder span.easytree-expander {
+  background-image:url('../../images/folder-closed.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+#networkoperations-folder .easytree-exp-e span.easytree-expander, #networkoperations-folder .easytree-exp-ed span.easytree-expander, 
+#networkoperations-folder .easytree-exp-el span.easytree-expander, #networkoperations-folder .easytree-exp-edl span.easytree-expander {
+  background-image:url('../../images/folder-open.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+#networkoperations-folder .easytree-exp-n span.easytree-expander, #networkoperations-folder .easytree-exp-nl span.easytree-expander {
+  background-image: none;
+  cursor: default;
+}
+#networkoperations-folder span.easytree-node.easytree-active, #networkoperations-folder span.easytree-node.easytree-selected{
+  background-color:transparent;
+  border:0px;
+}
+#networkoperations-folder span.easytree-node:hover{
+  background-color: transparent;
+  border-color: transparent;
+}
+#networkoperations-folder .easytree-title{
+  font-size:13px;
+  color: #bababa;
+}
+#networkoperations-folder span.easytree-node {
+  border: 0px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+#networkoperations-folder span.easytree-icon {
+  background-image:url('../../images/filter.png');
+  background-repeat:no-repeat;
+  background-position:center bottom;
+}
+#networkoperations-folder{
+  padding-left:3px;
+}
+.gsak-home .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+  height: 7px;
+}
 
 
 

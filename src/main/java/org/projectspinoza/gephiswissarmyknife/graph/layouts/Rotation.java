@@ -20,7 +20,9 @@ public class Rotation {
         getAngle()) : rotateLayout;
     this.rotateLayout.setGraphModel(graphModel);
     this.rotateLayout.setAngle(getAngle());
-    this.rotateLayout.goAlgo();
+    for (int i = 0; i < 100 && this.rotateLayout.canAlgo(); i++) {
+      this.rotateLayout.goAlgo();
+    }
     this.rotateLayout.endAlgo();
   }
 
