@@ -48,30 +48,6 @@ public class ForceAtlas {
     this.forceAtlasLayout.endAlgo();
   }
 
-  
-  /*
-   * for test purpose ==> testing layout without UI form elements
-   * */
-//  private void forceAtlasTemp(Map<String, String> layoutParams) {
-//    
-//    this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
-//    this.forceAtlasLayout.setGraphModel(getGraphModel());
-//    this.forceAtlasLayout.resetPropertiesValues();
-//    this.forceAtlasLayout.setInertia(0.1);
-//    this.forceAtlasLayout.setRepulsionStrength(200.0);
-//    this.forceAtlasLayout.setAttractionStrength(10.0);
-//    this.forceAtlasLayout.setMaxDisplacement(10.0);
-//    this.forceAtlasLayout.setAdjustSizes(true);
-//    this.forceAtlasLayout.setGravity(30.0);
-//    this.forceAtlasLayout.setSpeed(1.0);
-//    this.forceAtlasLayout.setConverged(true);
-//    this.forceAtlasLayout.initAlgo();
-//    for (int i = 0; i < 100 && this.forceAtlasLayout.canAlgo(); i++) {
-//      this.forceAtlasLayout.goAlgo();
-//    }
-//    this.forceAtlasLayout.endAlgo();
-//  }
-//  
   public ForceAtlasLayout getForceAtlasLayout() {
     return forceAtlasLayout;
   }

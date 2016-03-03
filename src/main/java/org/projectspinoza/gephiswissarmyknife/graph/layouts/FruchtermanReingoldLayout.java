@@ -23,7 +23,7 @@ public class FruchtermanReingoldLayout {
    * wraper public method for frchtermanreingold layout
    * 
    * */
-  public void applyLahout( Map<String, String> layoutParams ) {
+  public void applyLayout( Map<String, String> layoutParams ) {
     this.fruchtermanReingold = (this.fruchtermanReingold == null)? new FruchtermanReingold(null): this.fruchtermanReingold;
     this.fruchtermanReingold.setGraphModel(GephiGraph.getGraphModel());
     this.fruchtermanReingold.resetPropertiesValues();

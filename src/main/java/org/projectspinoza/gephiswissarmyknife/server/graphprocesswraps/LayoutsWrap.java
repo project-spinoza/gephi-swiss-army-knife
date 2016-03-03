@@ -10,6 +10,7 @@ import org.gephi.graph.api.GraphModel;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.FruchtermanReingoldLayout;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.LabelAdjustLayout;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 
@@ -23,6 +24,7 @@ public class LayoutsWrap {
   private Scale layoutScale;
   private ForceAtlas forceAtlas;
   private FruchtermanReingoldLayout fruchtermanReingoldLayout;
+  private LabelAdjustLayout labelAdjust;
   private GraphModel graphModel;
 
   public LayoutsWrap() {
@@ -49,7 +51,12 @@ public class LayoutsWrap {
       this.forceAtlas.applyLayout(multiMapToHashMap(layoutParams));
       break; 
     case "FruchtermanReingold":
-      this.fruchtermanReingoldLayout.applyLahout(multiMapToHashMap(layoutParams));
+      this.fruchtermanReingoldLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.fruchtermanReingoldLayout.applyLayout(multiMapToHashMap(layoutParams));
+      break;
+    case "LabelAdjust":
+      this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
+      this.labelAdjust.applyLayout(multiMapToHashMap(layoutParams));
       break;
     default:
       break;
@@ -106,6 +113,15 @@ public class LayoutsWrap {
   @Inject
   public void setFruchtermanReingoldLayout(FruchtermanReingoldLayout fruchtermanReingoldLayout) {
     this.fruchtermanReingoldLayout = fruchtermanReingoldLayout;
+  }
+
+  public LabelAdjustLayout getLabelAdjust() {
+    return labelAdjust;
+  }
+
+  @Inject
+  public void setLabelAdjust(LabelAdjustLayout labelAdjust) {
+    this.labelAdjust = labelAdjust;
   }
 
 }

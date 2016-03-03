@@ -305,7 +305,7 @@
 						<!-- End of Fruchterman Reigngold -->
 						<!-- Start of Label Adjust -->
 						<div class="label-adjust-container labelAdjust">
-							<form action="">
+							<form action="/layout" method="get" class="layout_form" id="LabelAdjust">
 								<div class="scale-label layout-label">Label Adjust</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -319,18 +319,19 @@
 											<tr>       
 												<td>Speed</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
 												</td>
 											</tr>
 											<tr>       
 												<td>Include Node size</td>
 												<td>
-													<input type="checkbox" name="includenodesize" value="showlabel">
+													<input type="checkbox" name="includenodesize" value="true">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="LabelAdjust" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div>
