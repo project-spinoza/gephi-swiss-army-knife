@@ -15,7 +15,7 @@ $(".layout_form").submit(function (e) {
 
     e.preventDefault();
 //    var formId = this.id;
-      alert($(".layout_form").serialize());
+      alert($("#" + this.id).serialize());
     requestAjax ("http://localhost:9090/layout", $("#" + this.id).serialize());
 });
 

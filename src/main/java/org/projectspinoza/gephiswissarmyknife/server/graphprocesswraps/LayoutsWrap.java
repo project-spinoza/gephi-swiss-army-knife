@@ -32,7 +32,6 @@ public class LayoutsWrap {
   /*
    * For stand alone rotation operations
    */
-  @SuppressWarnings("unchecked")
   public void applyLayout(MultiMap layoutParams) {
 
     switch (layoutParams.get("layout")) {
@@ -47,7 +46,7 @@ public class LayoutsWrap {
       this.layoutScale.scale();
       break;
     case "ForceAtlas":
-      this.forceAtlas.applyLayout((Map<String, String>) layoutParams);
+      this.forceAtlas.applyLayout(multiMapToHashMap(layoutParams));
       break; 
     case "FruchtermanReingold":
       this.fruchtermanReingoldLayout.applyLahout(multiMapToHashMap(layoutParams));

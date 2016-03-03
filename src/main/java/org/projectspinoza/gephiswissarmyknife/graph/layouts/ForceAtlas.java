@@ -35,7 +35,9 @@ public class ForceAtlas {
     this.forceAtlasLayout.setRepulsionStrength(Double.parseDouble(layoutParams.get("repulsion_strength")));
     this.forceAtlasLayout.setAttractionStrength(Double.parseDouble(layoutParams.get("attraction_strength")));
     this.forceAtlasLayout.setMaxDisplacement(Double.parseDouble(layoutParams.get("max_displacement")));
-    this.forceAtlasLayout.setAdjustSizes(Boolean.parseBoolean(layoutParams.get("adjust_sizes")));
+    if (layoutParams.containsKey("adjust_sizes")) {
+      this.forceAtlasLayout.setAdjustSizes(Boolean.parseBoolean(layoutParams.get("adjust_sizes")));
+    }
     this.forceAtlasLayout.setGravity(Double.parseDouble(layoutParams.get("gravity")));
     this.forceAtlasLayout.setSpeed(Double.parseDouble(layoutParams.get("speed")));
     this.forceAtlasLayout.setConverged(true);
