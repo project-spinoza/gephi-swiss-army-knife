@@ -338,7 +338,7 @@
 						<!-- End of Label Adjust -->
 						<!-- Start of noverlap -->
 						<div class="noverlap-container noverLap">
-						    <form action="">
+						    <form action="/layout" method="get" class="layout_form" id="NoverLap">
 								<div class="noverlap-label layout-label">Noverlap</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -352,24 +352,25 @@
 											<tr>       
 												<td>Speed</td>
 												<td>
-													<input type="text" value="3.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
 												</td>
 											</tr>
 											<tr>       
 												<td>Ratio</td>
 												<td>
-													<input type="text" value="1.2" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="ratio">
 												</td>
 											</tr>
 											<tr>       
 												<td>Margin</td>
 												<td>
-													<input type="text" value="5.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="margin">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="NoverLap" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div>

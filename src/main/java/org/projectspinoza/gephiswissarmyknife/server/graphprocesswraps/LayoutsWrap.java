@@ -11,6 +11,7 @@ import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.FruchtermanReingoldLayout;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.LabelAdjustLayout;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.NoverLap;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 
@@ -25,6 +26,7 @@ public class LayoutsWrap {
   private ForceAtlas forceAtlas;
   private FruchtermanReingoldLayout fruchtermanReingoldLayout;
   private LabelAdjustLayout labelAdjust;
+  private NoverLap noverLapLayout;
   private GraphModel graphModel;
 
   public LayoutsWrap() {
@@ -58,9 +60,14 @@ public class LayoutsWrap {
       this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
       this.labelAdjust.applyLayout(multiMapToHashMap(layoutParams));
       break;
+    case "NoverLap":
+      this.noverLapLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.noverLapLayout.applyLayout(multiMapToHashMap(layoutParams));
+      break;
     default:
       break;
     }
+    
   }
 
   private Map<String, String> multiMapToHashMap (MultiMap mMap) {
@@ -122,6 +129,15 @@ public class LayoutsWrap {
   @Inject
   public void setLabelAdjust(LabelAdjustLayout labelAdjust) {
     this.labelAdjust = labelAdjust;
+  }
+
+  public NoverLap getNoverLapLayout() {
+    return noverLapLayout;
+  }
+
+  @Inject
+  public void setNoverLapLayout(NoverLap noverLapLayout) {
+    this.noverLapLayout = noverLapLayout;
   }
 
 }
