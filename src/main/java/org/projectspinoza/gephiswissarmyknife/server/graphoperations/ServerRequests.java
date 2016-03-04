@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.server.graphprocesswraps;
+package org.projectspinoza.gephiswissarmyknife.server.graphoperations;
 
 import java.util.HashMap;
 import java.util.Map;

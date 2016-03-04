@@ -17,7 +17,7 @@ public class OpenOrd {
   
   /*
    * @return void
-   * wraper public method for noverLap layout
+   * wraper public method for OpenOrd layout
    * 
    * */
   public void applyLayout(Map<String, String> layoutParams ) {

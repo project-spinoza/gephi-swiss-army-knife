@@ -15,7 +15,7 @@ import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.server.graphprocesswraps.LayoutsWrap;
+import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 

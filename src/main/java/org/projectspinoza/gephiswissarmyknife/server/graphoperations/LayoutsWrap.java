@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.server.graphprocesswraps;
+package org.projectspinoza.gephiswissarmyknife.server.graphoperations;
 
 import io.vertx.core.MultiMap;
 
@@ -13,8 +13,10 @@ import org.projectspinoza.gephiswissarmyknife.graph.layouts.FruchtermanReingoldL
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.LabelAdjustLayout;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.NoverLap;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.OpenOrd;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.Random;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -29,6 +31,8 @@ public class LayoutsWrap {
   private LabelAdjustLayout labelAdjust;
   private NoverLap noverLapLayout;
   private OpenOrd openOrd;
+  private Random randomLayout;
+  private YifanHu yifanHuLayout;
   private GraphModel graphModel;
 
   public LayoutsWrap() {
@@ -70,6 +74,15 @@ public class LayoutsWrap {
       this.openOrd.setGraphModel(GephiGraph.getGraphModel());
       this.openOrd.applyLayout(multiMapToHashMap(layoutParams));
       break;
+    case "RandomLayout":
+      this.randomLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.randomLayout.applyLayout(multiMapToHashMap(layoutParams));
+      break;
+    case "YafinHu":
+      System.out.println("yifan hu layout call received.");
+      this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.yifanHuLayout.applyLayout(multiMapToHashMap(layoutParams));
+      break;      
     default:
       break;
     }
@@ -153,6 +166,24 @@ public class LayoutsWrap {
   @Inject
   public void setOpenOrd(OpenOrd openOrd) {
     this.openOrd = openOrd;
+  }
+
+  public Random getRandomLayout() {
+    return randomLayout;
+  }
+
+  @Inject
+  public void setRandomLayout(Random randomLayout) {
+    this.randomLayout = randomLayout;
+  }
+
+  public YifanHu getYifanHuLayout() {
+    return yifanHuLayout;
+  }
+
+  @Inject
+  public void setYifanHuLayout(YifanHu yifanHuLayout) {
+    this.yifanHuLayout = yifanHuLayout;
   }
 
 }

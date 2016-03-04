@@ -353,19 +353,19 @@
 											<tr>       
 												<td>Speed</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+													<input type="text" value="3.0" placeholder="3.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
 												</td>
 											</tr>
 											<tr>       
 												<td>Ratio</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="ratio">
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="ratio">
 												</td>
 											</tr>
 											<tr>       
 												<td>Margin</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="margin">
+													<input type="text" value="5.0" placeholder="5.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="margin">
 												</td>
 											</tr>
 										</tbody>
@@ -410,13 +410,13 @@
 											<tr>       
 												<td>Crunch (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="crunch">
+													<input type="text" value="10" placeholder="10" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="crunch">
 												</td>
 											</tr>
 											<tr>       
 												<td>Simmer (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="simmer">
+													<input type="text" value="15" placeholder="15" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="simmer">
 												</td>
 											</tr>
 											<tr>       
@@ -459,7 +459,7 @@
 						<!-- End of OpenOrd -->
 						<!-- Start of Random Layout -->
 						<div class="random-layout-container randomLayout">
-						    <form action="">
+						    <form action="/layout" method="get" class="layout_form" id="RandomLayout">
 								<div class="random-layout-label layout-label">Properties</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -473,19 +473,20 @@
 											<tr>       
 												<td>Space Size</td>
 												<td>
-													<input type="text" value="50.0" placeholder="5.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="500.0" placeholder="500.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="space_size">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="RandomLayout" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div> 
 						<!-- End of Random Layout -->
 						<!-- Start of Yifan Hu -->
 						<div class="yifan-hu-container yifanHu">
-						    <form action="">
+						    <form action="/layout" method="get" class="layout_form" id="YafinHu">
 								<div class="rotate-label layout-label">Yifan Hu</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -499,54 +500,55 @@
 											<tr>       
 												<td>Quadtree Max Level</td>
 												<td>
-													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="quadtreeMaxLevel">
 												</td>
 											</tr>
 											<tr>       
 												<td>Theta</td>
 												<td>
-													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="theta">
 												</td>
 											</tr>
 											<tr>       
-												<td>Optimal distance</td>
+												<td>Optimal Distance</td>
 												<td>
-													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="optimalDistance">
 												</td>
 											</tr>
 											<tr>       
 												<td>Relative Strength</td>
 												<td>
-													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="relativeStrength">
 												</td>
 											</tr>
 											<tr>       
 												<td>Initial Step size</td>
 												<td>
-													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="initialStepSize">
 												</td>
 											</tr>
 											<tr>       
 												<td>Step ratio</td>
 												<td>
-													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="stepRatio">
 												</td>
 											</tr>
 											<tr>       
 												<td>Adaptive Cooling</td>
 												<td>
-													<input type="checkbox" name="includenodesize" value="showlabel">
+													<input type="checkbox" name="adaptiveCooling" value="true">
 												</td>
 											</tr>
 											<tr>       
 												<td>Convergence Threshold</td>
 												<td>
-													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="convergenceThreshold">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="YafinHu" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div> 
