@@ -378,7 +378,7 @@
 						<!-- End of noverlap -->
 						<!-- Start of OpenOrd -->
 						<div class="open-ord-container openOrd">
-						    <form action="">
+						    <form action="/layout" method="get" class="layout_form" id="OpenOrd">
 								<div class="open-ord-label layout-label">Stages</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -392,66 +392,67 @@
 											<tr>       
 												<td>Liquid (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="liquid">
 												</td>
 											</tr>
 											<tr>       
 												<td>Expansion (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="expansion">
 												</td>
 											</tr>
 											<tr>       
 												<td>Cooldown (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="cooldown">
 												</td>
 											</tr>
 											<tr>       
 												<td>Crunch (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="crunch">
 												</td>
 											</tr>
 											<tr>       
 												<td>Simmer (%)</td>
 												<td>
-													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="simmer">
 												</td>
 											</tr>
 											<tr>       
 												<td>Edge Cut</td>
 												<td>
-													<input type="text" value="0.8" placeholder="0.8" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.8" placeholder="0.8" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="edgeCut">
 												</td>
 											</tr>
 											<tr>       
 												<td>Num Threads</td>
 												<td>
-													<input type="text" value="3" placeholder="3" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="3" placeholder="3" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="numThreads">
 												</td>
 											</tr>
 											<tr>       
 												<td>Num Iterations</td>
 												<td>
-													<input type="text" value="750" placeholder="750" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="750" placeholder="750" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="numIterations">
 												</td>
 											</tr>
 											<tr>       
 												<td>Fixed time</td>
 												<td>
-													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="fixedTime">
 												</td>
 											</tr>
 											<tr>       
 												<td>Random seed</td>
 												<td>
-													<input type="text" value="-90976657116214861" placeholder="-90976657116214861" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="-90976657116214861" placeholder="-90976657116214861" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="randomSeed">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="OpenOrd" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div>
