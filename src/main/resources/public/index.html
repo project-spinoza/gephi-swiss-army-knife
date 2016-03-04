@@ -126,7 +126,7 @@
 						<div id="layout-contents">
 						<!-- clockwise rotation container -->
 						<div class="rotation-container Rotate">
-						    <form action="/layout" method="get" class="layout_form" id="rotate">
+						    <form action="/layout" method="get" class="layout_form" id="Rotation">
 								<div class="rotate-label layout-label">Rotate</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -141,18 +141,18 @@
 												<td>Rotate</td>
 												<td>
 													<input type="text" value="90" placeholder="90" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
-													<input type="hidden" value="rotate" name="layout">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="Rotation" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div> <!-- end of clockwise rotation container -->
 						<!-- scale container -->
 						<div class="scale-container Scale">
-							<form action="" id="scale">
+							<form action="/layout" method="get" class="layout_form" id="Scale">
 								<div class="scale-label layout-label">Scale</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -166,12 +166,13 @@
 											<tr>       
 												<td>Scale</td>
 												<td>
-													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="scale">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="Scale" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right ">
 							</form>
 						</div>

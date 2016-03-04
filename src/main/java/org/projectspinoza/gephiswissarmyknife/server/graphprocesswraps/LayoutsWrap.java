@@ -39,12 +39,12 @@ public class LayoutsWrap {
   public void applyLayout(MultiMap layoutParams) {
 
     switch (layoutParams.get("layout")) {
-    case "rotation":
+    case "Rotation":
       this.layoutRotate.setGraphModel(getGraphModel());
       this.layoutRotate.setAngle(Double.parseDouble(layoutParams.get("angle")));
       this.layoutRotate.rotate();
       break;
-    case "scale":
+    case "Scale":
       this.layoutScale.setGraphModel(getGraphModel());
       this.layoutScale.setScale(Double.parseDouble(layoutParams.get("scale")));
       this.layoutScale.scale();
