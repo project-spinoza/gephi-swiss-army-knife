@@ -79,7 +79,6 @@ public class LayoutsWrap {
       this.randomLayout.applyLayout(multiMapToHashMap(layoutParams));
       break;
     case "YafinHu":
-      System.out.println("yifan hu layout call received.");
       this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
       this.yifanHuLayout.applyLayout(multiMapToHashMap(layoutParams));
       break;      

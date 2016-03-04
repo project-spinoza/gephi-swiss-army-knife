@@ -30,7 +30,7 @@ public class YifanHu {
   
   private void yifanHuAlgo (Map<String, String> layoutParams) {
     
-    this.yifanHuLayout.setQuadTreeMaxLevel(Integer.parseInt(layoutParams.get("quadtreeMaxLevel")));
+    this.yifanHuLayout.setQuadTreeMaxLevel((int) Double.parseDouble(layoutParams.get("quadtreeMaxLevel")));
     this.yifanHuLayout.setBarnesHutTheta(Float.parseFloat(layoutParams.get("theta")));
     this.yifanHuLayout.setOptimalDistance(Float.parseFloat(layoutParams.get("optimalDistance")));
     this.yifanHuLayout.setRelativeStrength(Float.parseFloat(layoutParams.get("relativeStrength")));
