@@ -17,10 +17,10 @@ public class Random {
     this.randomLayout = (this.randomLayout == null) ? new RandomLayout(null, 0.0) : this.randomLayout;
     this.randomLayout.setGraphModel(this.graphModel);
     this.randomLayout.resetPropertiesValues();
-    randomLayout(layoutParams);
+    randomLayoutAlgo(layoutParams);
   }
   
-  private void randomLayout(Map <String, String> layoutParams) {
+  private void randomLayoutAlgo(Map <String, String> layoutParams) {
     this.randomLayout.setConverged(true);
     this.randomLayout.setSize(Double.parseDouble(layoutParams.get("space_size")));
     this.randomLayout.initAlgo();

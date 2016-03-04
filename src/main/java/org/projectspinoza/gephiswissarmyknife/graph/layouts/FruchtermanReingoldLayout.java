@@ -27,10 +27,10 @@ public class FruchtermanReingoldLayout {
     this.fruchtermanReingold = (this.fruchtermanReingold == null)? new FruchtermanReingold(null): this.fruchtermanReingold;
     this.fruchtermanReingold.setGraphModel(GephiGraph.getGraphModel());
     this.fruchtermanReingold.resetPropertiesValues();
-    fruchtermanReigGold(layoutParams);
+    fruchtermanReigGoldAlgo(layoutParams);
   }
   
-  private void fruchtermanReigGold (Map<String, String> layoutParams) {
+  private void fruchtermanReigGoldAlgo (Map<String, String> layoutParams) {
 
     this.fruchtermanReingold.setArea(Float.parseFloat(layoutParams.get("area")));
     this.fruchtermanReingold.setSpeed(Double.parseDouble(layoutParams.get("speed")));

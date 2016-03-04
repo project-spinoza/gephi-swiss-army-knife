@@ -23,10 +23,10 @@ public class NoverLap {
     this.noverlapLayout = (this.noverlapLayout == null)? new NoverlapLayout(null): this.noverlapLayout;
     this.noverlapLayout.setGraphModel(GephiGraph.getGraphModel());
     this.noverlapLayout.resetPropertiesValues();
-    fruchtermanReigGold(layoutParams);
+    OpenOrdAlgo (layoutParams);
   }
   
-  private void fruchtermanReigGold (Map<String, String> layoutParams) {
+  private void OpenOrdAlgo (Map<String, String> layoutParams) {
     
     this.noverlapLayout.setRatio(Double.parseDouble(layoutParams.get("ratio")));
     this.noverlapLayout.setSpeed(Double.parseDouble(layoutParams.get("speed")));

@@ -18,10 +18,10 @@ public class LabelAdjustLayout {
     this.labelAdjust = (this.labelAdjust == null) ? new LabelAdjust(null): this.labelAdjust;
     this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
     this.labelAdjust.resetPropertiesValues();
-    layoutLabelAdust(layoutParams);
+    LabelAdustAlgo(layoutParams);
   }
   
-  private void layoutLabelAdust(Map<String, String> layoutParams) {
+  private void LabelAdustAlgo(Map<String, String> layoutParams) {
     this.labelAdjust.setSpeed(Double.parseDouble(layoutParams.get("speed")));
     if (layoutParams.containsKey("includenodesize")) {
       this.labelAdjust.setAdjustBySize(true); 

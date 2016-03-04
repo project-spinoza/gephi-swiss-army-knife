@@ -26,10 +26,10 @@ public class ForceAtlas {
     this.forceAtlasLayout = (this.forceAtlasLayout == null) ? new ForceAtlasLayout(null) : this.forceAtlasLayout;
     this.forceAtlasLayout.setGraphModel(GephiGraph.getGraphModel());
     this.forceAtlasLayout.resetPropertiesValues();
-    forceAtlas(layoutParams);
+    forceAtlasAlgo(layoutParams);
   }
 
-  private void forceAtlas(Map<String, String> layoutParams) {
+  private void forceAtlasAlgo(Map<String, String> layoutParams) {
 
     this.forceAtlasLayout.setInertia(Double.parseDouble(layoutParams.get("intertia")));
     this.forceAtlasLayout.setRepulsionStrength(Double.parseDouble(layoutParams.get("repulsion_strength")));
