@@ -104,7 +104,7 @@ public class GraphServer {
      * */
     router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
       GephiGraph gephiGraph = new GephiGraph();
-      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
+      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED); 
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     

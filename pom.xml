@@ -77,6 +77,7 @@
 			<version>4.0</version>
 		</dependency>
 
+        <!-- Gephi dependency -->
 		<dependency>
 			<groupId>org.gephi</groupId>
 			<artifactId>gephi-toolkit</artifactId>
