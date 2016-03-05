@@ -17,6 +17,7 @@ import org.projectspinoza.gephiswissarmyknife.graph.layouts.Random;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHuProportionalLayout;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -33,6 +34,7 @@ public class LayoutsWrap {
   private OpenOrd openOrd;
   private Random randomLayout;
   private YifanHu yifanHuLayout;
+  private YifanHuProportionalLayout yifanHuProportionalLayout;
   private GraphModel graphModel;
 
   public LayoutsWrap() {
@@ -81,11 +83,14 @@ public class LayoutsWrap {
     case "YafinHu":
       this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
       this.yifanHuLayout.applyLayout(multiMapToHashMap(layoutParams));
-      break;      
+      break; 
+    case "YafinHuProportional":
+      this.yifanHuProportionalLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.yifanHuProportionalLayout.applyLayout(multiMapToHashMap(layoutParams));
+      break; 
     default:
       break;
     }
-    
   }
 
   private Map<String, String> multiMapToHashMap (MultiMap mMap) {
@@ -183,6 +188,15 @@ public class LayoutsWrap {
   @Inject
   public void setYifanHuLayout(YifanHu yifanHuLayout) {
     this.yifanHuLayout = yifanHuLayout;
+  }
+
+  public YifanHuProportionalLayout getYifanHuProportionalLayout() {
+    return yifanHuProportionalLayout;
+  }
+
+  @Inject
+  public void setYifanHuProportionalLayout(YifanHuProportionalLayout yifanHuProportionalLayout) {
+    this.yifanHuProportionalLayout = yifanHuProportionalLayout;
   }
 
 }

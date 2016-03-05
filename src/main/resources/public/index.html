@@ -555,9 +555,9 @@
 						<!-- End of Yifan Hu -->
 						<!-- Start of Yifan Hu Proportional -->
 						<div class="yifan-hu-proportional-container yifanhuProportional">
-						    <form action="">
+						    <form action="/layout" method="get" class="layout_form" id="YafinHuProportional">
 								<div class="yifanhu-proportional-label layout-label">Yifan Hu Proportional</div>
-								<div class="table-responsive">          
+									<div class="table-responsive">          
 									<table class=" table table-bordered">
 										<thead>
 											<tr>       
@@ -569,54 +569,55 @@
 											<tr>       
 												<td>Quadtree Max Level</td>
 												<td>
-													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="quadtreeMaxLevel">
 												</td>
 											</tr>
 											<tr>       
 												<td>Theta</td>
 												<td>
-													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="theta">
 												</td>
 											</tr>
 											<tr>       
-												<td>Optimal distance</td>
+												<td>Optimal Distance</td>
 												<td>
-													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="optimalDistance">
 												</td>
 											</tr>
 											<tr>       
 												<td>Relative Strength</td>
 												<td>
-													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="relativeStrength">
 												</td>
 											</tr>
 											<tr>       
 												<td>Initial Step size</td>
 												<td>
-													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="initialStepSize">
 												</td>
 											</tr>
 											<tr>       
 												<td>Step ratio</td>
 												<td>
-													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="stepRatio">
 												</td>
 											</tr>
 											<tr>       
 												<td>Adaptive Cooling</td>
 												<td>
-													<input type="checkbox" name="includenodesize" value="showlabel">
+													<input type="checkbox" name="adaptiveCooling" value="true">
 												</td>
 											</tr>
 											<tr>       
 												<td>Convergence Threshold</td>
 												<td>
-													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="convergenceThreshold">
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<input type="hidden" value="YafinHuProportional" name="layout">
 								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
 							</form>
 						</div> 
