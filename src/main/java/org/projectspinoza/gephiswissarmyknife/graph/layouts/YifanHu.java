@@ -37,7 +37,7 @@ public class YifanHu {
     this.yifanHuLayout.setInitialStep(Float.parseFloat(layoutParams.get("initialStepSize")));
     this.yifanHuLayout.setStepRatio(Float.parseFloat(layoutParams.get("stepRatio")));
     if (layoutParams.containsKey("adaptiveCooling")) {
-      this.yifanHuLayout.setAdaptiveCooling(Boolean.parseBoolean(layoutParams.get("numThreads")));      
+      this.yifanHuLayout.setAdaptiveCooling(Boolean.parseBoolean(layoutParams.get("adaptiveCooling")));      
     }
     this.yifanHuLayout.setConvergenceThreshold(Float.parseFloat(layoutParams.get("convergenceThreshold")));
 

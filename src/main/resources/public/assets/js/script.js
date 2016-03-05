@@ -12,15 +12,9 @@ var Gsetting = JSON.parse(sigmaSettings);
 */
 
 $(".layout_form").submit(function (e) {
-
     e.preventDefault();
-//    var formId = this.id;
-      alert($("#" + this.id).serialize());
     requestAjax ("http://localhost:9090/layout", $("#" + this.id).serialize());
 });
-
-
-
 
 
 /*
@@ -28,7 +22,6 @@ $(".layout_form").submit(function (e) {
 *Load Test graph
 */
 requestAjax ("http://localhost:9090/ajax", {});
-
 
 
 /*

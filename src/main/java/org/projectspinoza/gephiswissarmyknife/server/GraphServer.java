@@ -8,16 +8,21 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.StaticHandler;
 
+
 import java.util.HashMap;
+import java.util.Map;
+
 
 import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
+
 
 import com.google.inject.Inject;
 
@@ -104,7 +109,20 @@ public class GraphServer {
      * */
     router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
       GephiGraph gephiGraph = new GephiGraph();
-      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED); 
+      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
+      
+      Map <String, String> yifanParams = new HashMap<String, String>();
+      yifanParams.put("quadtreeMaxLevel", "10.0");
+      yifanParams.put("theta", "1.2");
+      yifanParams.put("optimalDistance", "100.0");
+      yifanParams.put("relativeStrength", "0.2");
+      yifanParams.put("initialStepSize", "20.0");
+      yifanParams.put("stepRatio", "0.95");
+      yifanParams.put("adaptiveCooling", "true");
+      yifanParams.put("convergenceThreshold", "1.0E-4");
+      //YifanLayout
+      new YifanHu().applyLayout(yifanParams);
+      
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     

@@ -25,7 +25,7 @@ public class Utils {
   
   private static void createSigmaNodes(Graph graph, SigmaGraph sigmaGraph){
 //      String nodeSizeBy = settings.get("nsb").toString();
-      Node[] nodeArray = graph.getNodes().toArray();
+      Node[] nodeArray = graph.getNodes().toArray();      
       for (int i = 0; i < nodeArray.length; i++) {
 
           Node n = nodeArray[i];
@@ -34,14 +34,34 @@ public class Utils {
           double x = n.x();
           double y = n.y();
           double size = n.size();
-              
+
+          /*
+           * assigning Nodes sizes by pageranks
+           * 
+           * */
+//        Statistics statistics = new Statistics();
+//        statistics.setGraphModel(GephiGraph.getGraphModel());
+//        statistics.pageRank();
+//        size = (Double) nodeArray[i].getAttribute("pageranks");
+          
+          
 //          if (nodeSizeBy.equals("pr")) {
 //                  size = (Double) nodeArray[i].getAttribute("pagerank");
 //          } else if (nodeSizeBy.equals("exp_pr")) {
 //                  size = (Double) nodeArray[i].getAttribute("pagerank");
 //                  size = Math.exp(size);
 //          }
-          String color = "rgb(" + (int) (n.r() * 255) + "," + (int) (n.g() * 255) + "," + (int) (n.b() * 255) + ")";
+          
+          int R = (int)(Math.random()*256);
+          int G = (int)(Math.random()*256);
+          int B= (int)(Math.random()*256);
+          String color = "rgb(" + R + "," + G + "," + B + ")";
+          
+          /*
+           * Skipping origin nodes colors
+           * 
+           * */
+//          String color = "rgb(" + (int) (n.r()) + "," + (int) (n.g()) + "," + (int) (n.b()) + ")";
           
           SigmaNode sigmaNode = new SigmaNode(id);
           sigmaNode.setLabel(label);
@@ -74,8 +94,19 @@ public class Utils {
 
           SigmaEdge sigmaEdge = new SigmaEdge(sourceId, targetId);
           sigmaEdge.setSize(e.getWeight());
-          String color = "rgb(" + (int) (e.r() * 255) + "," + (int) (e.g() * 255) + "," + (int) (e.b() * 255) + ")";
           
+          /*
+           * To be used when graph setting need to be passed from UI
+           * 
+           * */
+//        String color = "rgb(" + (int) (e.r()) + "," + (int) (e.g()) + "," + (int) (e.b()) + ")";
+
+          
+          /*
+           * Temp edge colors
+           * */
+        String color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+       
               if (e.r() == -1 || e.g() == -1 || e.b() == -1) {
                   Color result = colorMixer.getColor(null, e.getSource().getColor(), e.getTarget().getColor());
                   color = "rgb(" + result.getRed() + "," + result.getGreen() + "," + result.getBlue() + ")";
