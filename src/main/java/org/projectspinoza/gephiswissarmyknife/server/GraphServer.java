@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.gephi.graph.api.Graph;
-import org.gephi.graph.api.Node;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
@@ -107,10 +106,10 @@ public class GraphServer {
     
     /*
      * Graph statistics Route
+     * 
      * */
     router.getWithRegex("/statistics.*").method(HttpMethod.GET).handler(routingContext -> {
-      this.statisticsWrap.applyStatistics(routingContext.request().params());
-      String resp = responseGraphStatistics(GephiGraph.getGraphModel().getGraphVisible(), routingContext);
+      String resp = this.statisticsWrap.applyStatistics(routingContext.request().params());
       routingContext.response().end(resp);
     });
     
@@ -137,58 +136,6 @@ public class GraphServer {
     
   }
   
-  
-  /*
-   * @return String JSON.
-   * Counts nodes for each degree, indegree, and outdegree value
-   * 
-   * */
-  private String responseGraphStatistics (Graph graph, RoutingContext routingContext) {
-    Map <String, Object> degreeMap = new HashMap<String, Object>();
-    Map <String, Object> inDegreeMap = new HashMap<String, Object>();
-    Map <String, Object> outDegreeMap = new HashMap<String, Object>();
-    
-    double sumDegree = 0;
-    
-    for (Node n : graph.getNodes()) {
-      String dKey = n.getAttribute("degree").toString();
-      String indKey = n.getAttribute("indegree").toString();
-      String outdKey = n.getAttribute("outdegree").toString();
-      
-      sumDegree = sumDegree + Double.parseDouble(dKey);
-      
-      //Degree Calculation
-      if (degreeMap.containsKey(dKey)){
-        int d = Integer.parseInt(degreeMap.get(dKey).toString());
-        degreeMap.put(dKey, d+1);
-      }else {
-        degreeMap.put(dKey, 1);
-      }
-      
-      //In-Degree Calculation
-      if (inDegreeMap.containsKey(indKey)){
-        int id = Integer.parseInt(inDegreeMap.get(indKey).toString());
-        inDegreeMap.put(indKey, id+1);
-      }else {
-        inDegreeMap.put(indKey, 1);
-      }
-      
-      //Out-Degree Calculation
-      if (outDegreeMap.containsKey(outdKey)){
-        int od = Integer.parseInt(outDegreeMap.get(outdKey).toString());
-        outDegreeMap.put(outdKey, od+1);
-      }else {
-        outDegreeMap.put(outdKey, 1);
-      }
-    }
-
-    JsonObject root = new JsonObject();
-    root.put("degree", new JsonObject(degreeMap));
-    root.put("indegree", new JsonObject(inDegreeMap));
-    root.put("outdegree", new JsonObject(outDegreeMap));
-    root.put("avgdegree", sumDegree/graph.getNodeCount());
-    return root.toString();
-  }
   
   
   private void responseSigmaGraph (Graph graph, RoutingContext routingContext) {

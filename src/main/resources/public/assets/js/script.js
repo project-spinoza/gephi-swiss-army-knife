@@ -1,11 +1,22 @@
 $( document ).ready(function() {
 
+sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+var k,
+neighbors = {},
+index = this.allNeighborsIndex[nodeId] || {};
+for (k in index)
+  neighbors[k] = this.nodesIndex[k];
+  return neighbors;
+});
+
+
 /*
 * GLOBAL variables/settings
 */
 var sigmaSettings = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#000", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
+
 
 /*
 *
@@ -59,8 +70,6 @@ function requestAjax (ajaxURL, formData, callBackFun) {
 }
 
 
-
-
 /*
 * @retrun none
 * Usage: Statistics callback
@@ -74,6 +83,14 @@ function graphStatisticsHandler (statsData, formData){
 
   switch (statistics_id) {
     case "averageDegree":
+      $('span#canvasTitle').text("Average Degree");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
+      averageDegree(statsData);
+    break;
+
+    case "averageWeightedDegree":
+      $('span#canvasTitle').text("Average Weighted Degree");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
       averageDegree(statsData);
     break;
   }
@@ -82,34 +99,41 @@ function graphStatisticsHandler (statsData, formData){
 function averageDegree (statsData) {
 
   var jsonParsed = $.parseJSON(statsData);
-
-  $('span#canvasTitle').text("Average Degree Statistics");
-  $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
-  $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Average Degree: '+jsonParsed.avgdegree+'</h6>');
+  $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">'+jsonParsed.avgdegree+'</h6>');
 
   //degree graph
   $("#chartContainer").append('<div id="degree_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
-  var graphPoint = [];
-  $.each(jsonParsed.degree, function(k, v) {
-   graphPoint.push({ x: parseFloat(v), y: parseFloat(k) });
-  });
-  canvasGraph("degree_graph_canvas", "Degree Distribution", graphPoint, "Count", "Value");
+  var graphPoint = getSortedGraphPoints(jsonParsed.degree);
+  canvasGraph("degree_graph_canvas", "Degree Distribution", graphPoint, "Value", "Count");
 
   //In-degree graph
   $("#chartContainer").append('<div id="indegree_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
-  var graphPoint = [];
-  $.each(jsonParsed.indegree, function(k, v) {
-   graphPoint.push({ x: parseFloat(v), y: parseFloat(k) });
-  });
-  canvasGraph("indegree_graph_canvas", "In-Degree Distribution", graphPoint, "Count", "Value");
+  var graphPoint = getSortedGraphPoints(jsonParsed.indegree);
+  canvasGraph("indegree_graph_canvas", "In-Degree Distribution", graphPoint, "Value", "Count");
 
   //Out-degree graph
   $("#chartContainer").append('<div id="outdegree_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
-  var graphPoint = [];
-  $.each(jsonParsed.outdegree, function(k, v) {
-   graphPoint.push({ x: parseFloat(v), y: parseFloat(k) });
+  var graphPoint = getSortedGraphPoints(jsonParsed.outdegree);
+  canvasGraph("outdegree_graph_canvas", "Out-Degree Distribution", graphPoint, "Value", "Count");
+}
+
+
+function getSortedGraphPoints (jsonParsedData) {
+  var keysUnsorted = [];
+  $.each(jsonParsedData, function(k, v) {
+   keysUnsorted.push(parseFloat(k));
   });
-  canvasGraph("outdegree_graph_canvas", "Out-Degree Distribution", graphPoint, "Count", "Value");
+  keysUnsorted.sort(function(a, b){return a-b});
+
+  var graphPoint = [];
+  for (i = 0 ; i < keysUnsorted.length; i++){
+    $.each(jsonParsedData, function(k, v) {
+      if (keysUnsorted[i] == parseFloat(k)) {
+        graphPoint.push({ x: keysUnsorted[i], y: jsonParsedData[k] });
+      }
+    });
+  }
+  return graphPoint;
 }
 
 function canvasGraph (container, gtitle, data, xLabel, yLabel){
@@ -214,7 +238,7 @@ function showGraph(givenData, givenContainer, givenSettings){
           n.color = n.originalColor;
           n.label = n.originalLabel;
         } else{
-          n.color = 'blue';
+          n.color = '#cccccc';
           n.label = "";
         }
     });

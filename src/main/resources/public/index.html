@@ -906,7 +906,6 @@
 											<input type="hidden" value="averageDegree" name="statistics">
 										</form>
 										<div class="popup" data-popup="popup-1">
-
 										    <div class="popup-inner">
 										    <div class="popup-heading"><span id="canvasTitle"></span><a class="popup-close" data-popup-close="popup-1" href="#">x</a></div>
 										    <div class="popup-in">
@@ -921,8 +920,12 @@
 								<tr>       
 									<td class="td-wd-txt">Avg. Weighted Degree</td>
 									<td class="td-wd-button">
-										<input id="avg_weight_degree_stats" data-popup-open="popup-2" class="btn btn-primary" type="button" name="run" value="Run">
-										<div class="popup" data-popup="popup-2">
+									<form action="/statistics" method="get" class="statistics_form" id="averageWeightedDegree">
+										<input id="avg_weight_degree_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="averageWeightedDegree" name="statistics">
+									</form>
+
+<!-- 										<div class="popup" data-popup="popup-2">
 
 										    <div class="popup-inner">
 										    <div class="popup-heading">Average Weight Degree Graph<a class="popup-close" data-popup-close="popup-2" href="#">x</a></div>
@@ -935,7 +938,7 @@
 										        
 										        </div>
 										    </div>
-										</div>
+										</div> -->
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
