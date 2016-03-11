@@ -1,6 +1,11 @@
 package org.projectspinoza.gephiswissarmyknife.utils;
 
+import io.vertx.core.MultiMap;
+
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -114,5 +119,13 @@ public class Utils {
           sigmaEdge.setColor(color);
           sigmaGraph.addEdge(sigmaEdge);
       }
+  }
+  
+  public static Map<String, String> multiMapToHashMap (MultiMap mMap) {
+    Map <String, String> map = new HashMap<String, String>();
+    for (Entry<String, String> entity : mMap.entries()) {
+      map.put(entity.getKey(), entity.getValue());
+    }
+    return map;
   }
 }

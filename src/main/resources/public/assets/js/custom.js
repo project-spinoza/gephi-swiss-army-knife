@@ -7,6 +7,9 @@
 		$("#Queries_panel").mCustomScrollbar();// Queries_panel
 		$("#parameters_panel").mCustomScrollbar();// Parameters_panel
 		$("#layout-contents").mCustomScrollbar();// Layout contents
+		$("#network_overview_panel").mCustomScrollbar();// Network Overview
+		$("#dynamic_panel").mCustomScrollbar();// Network Overview
+		$(".popup-in").mCustomScrollbar();//  popup-box statistics
 	});
 })(jQuery);	
 // End of Window load function .
@@ -197,5 +200,11 @@ $( document ).ready(function() {
         });
     }).change();
 	
-	
+	//Jquery for custom Lightbox NNN ////
+			
+    $('[data-popup-close]').on('click', function(e)  {
+        var targeted_popup_class = jQuery(this).attr('data-popup-close');
+        $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+	        e.preventDefault();
+	    });
 });  // End of document ready function .

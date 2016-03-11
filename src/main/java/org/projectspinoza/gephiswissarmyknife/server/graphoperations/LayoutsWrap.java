@@ -2,10 +2,6 @@ package org.projectspinoza.gephiswissarmyknife.server.graphoperations;
 
 import io.vertx.core.MultiMap;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.gephi.graph.api.GraphModel;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
@@ -18,6 +14,7 @@ import org.projectspinoza.gephiswissarmyknife.graph.layouts.Rotation;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.Scale;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHuProportionalLayout;
+import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -42,7 +39,7 @@ public class LayoutsWrap {
   }
 
   /*
-   * For stand alone rotation operations
+   * For stand alone Layout operations
    */
   public void applyLayout(MultiMap layoutParams) {
 
@@ -58,47 +55,39 @@ public class LayoutsWrap {
       this.layoutScale.scale();
       break;
     case "ForceAtlas":
-      this.forceAtlas.applyLayout(multiMapToHashMap(layoutParams));
+      this.forceAtlas.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     case "FruchtermanReingold":
       this.fruchtermanReingoldLayout.setGraphModel(GephiGraph.getGraphModel());
-      this.fruchtermanReingoldLayout.applyLayout(multiMapToHashMap(layoutParams));
+      this.fruchtermanReingoldLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "LabelAdjust":
       this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
-      this.labelAdjust.applyLayout(multiMapToHashMap(layoutParams));
+      this.labelAdjust.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "NoverLap":
       this.noverLapLayout.setGraphModel(GephiGraph.getGraphModel());
-      this.noverLapLayout.applyLayout(multiMapToHashMap(layoutParams));
+      this.noverLapLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "OpenOrd":
       this.openOrd.setGraphModel(GephiGraph.getGraphModel());
-      this.openOrd.applyLayout(multiMapToHashMap(layoutParams));
+      this.openOrd.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "RandomLayout":
       this.randomLayout.setGraphModel(GephiGraph.getGraphModel());
-      this.randomLayout.applyLayout(multiMapToHashMap(layoutParams));
+      this.randomLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "YafinHu":
       this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
-      this.yifanHuLayout.applyLayout(multiMapToHashMap(layoutParams));
+      this.yifanHuLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     case "YafinHuProportional":
       this.yifanHuProportionalLayout.setGraphModel(GephiGraph.getGraphModel());
-      this.yifanHuProportionalLayout.applyLayout(multiMapToHashMap(layoutParams));
+      this.yifanHuProportionalLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     default:
       break;
     }
-  }
-
-  private Map<String, String> multiMapToHashMap (MultiMap mMap) {
-    Map <String, String> map = new HashMap<String, String>();
-    for (Entry<String, String> entity : mMap.entries()) {
-      map.put(entity.getKey(), entity.getValue());
-    }
-    return map;
   }
   
   public Rotation getLayoutRotate() {

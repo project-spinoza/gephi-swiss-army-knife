@@ -8,21 +8,20 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.StaticHandler;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.gephi.graph.api.Graph;
+import org.gephi.graph.api.Node;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
+import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
-
 
 import com.google.inject.Inject;
 
@@ -33,6 +32,7 @@ public class GraphServer {
   private HttpServer server;
   private Router router;
   private LayoutsWrap layoutsWrap;
+  private StatisticsWrap statisticsWrap;
   private Graph gephiGraph;
   private SigmaGraph sigmaGraph;
   
@@ -103,6 +103,17 @@ public class GraphServer {
       this.layoutsWrap.applyLayout(routingContext.request().params());
       responseSigmaGraph (GephiGraph.getGraphModel().getGraphVisible(), routingContext);
     });
+
+    
+    /*
+     * Graph statistics Route
+     * */
+    router.getWithRegex("/statistics.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.statisticsWrap.applyStatistics(routingContext.request().params());
+      String resp = responseGraphStatistics(GephiGraph.getGraphModel().getGraphVisible(), routingContext);
+      routingContext.response().end(resp);
+    });
+    
     
     /*
      * Temp route for demo
@@ -110,7 +121,6 @@ public class GraphServer {
     router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
       GephiGraph gephiGraph = new GephiGraph();
       this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
-      
       Map <String, String> yifanParams = new HashMap<String, String>();
       yifanParams.put("quadtreeMaxLevel", "10.0");
       yifanParams.put("theta", "1.2");
@@ -122,11 +132,64 @@ public class GraphServer {
       yifanParams.put("convergenceThreshold", "1.0E-4");
       //YifanLayout
       new YifanHu().applyLayout(yifanParams);
-      
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
   }
+  
+  
+  /*
+   * @return String JSON.
+   * Counts nodes for each degree, indegree, and outdegree value
+   * 
+   * */
+  private String responseGraphStatistics (Graph graph, RoutingContext routingContext) {
+    Map <String, Object> degreeMap = new HashMap<String, Object>();
+    Map <String, Object> inDegreeMap = new HashMap<String, Object>();
+    Map <String, Object> outDegreeMap = new HashMap<String, Object>();
+    
+    double sumDegree = 0;
+    
+    for (Node n : graph.getNodes()) {
+      String dKey = n.getAttribute("degree").toString();
+      String indKey = n.getAttribute("indegree").toString();
+      String outdKey = n.getAttribute("outdegree").toString();
+      
+      sumDegree = sumDegree + Double.parseDouble(dKey);
+      
+      //Degree Calculation
+      if (degreeMap.containsKey(dKey)){
+        int d = Integer.parseInt(degreeMap.get(dKey).toString());
+        degreeMap.put(dKey, d+1);
+      }else {
+        degreeMap.put(dKey, 1);
+      }
+      
+      //In-Degree Calculation
+      if (inDegreeMap.containsKey(indKey)){
+        int id = Integer.parseInt(inDegreeMap.get(indKey).toString());
+        inDegreeMap.put(indKey, id+1);
+      }else {
+        inDegreeMap.put(indKey, 1);
+      }
+      
+      //Out-Degree Calculation
+      if (outDegreeMap.containsKey(outdKey)){
+        int od = Integer.parseInt(outDegreeMap.get(outdKey).toString());
+        outDegreeMap.put(outdKey, od+1);
+      }else {
+        outDegreeMap.put(outdKey, 1);
+      }
+    }
+
+    JsonObject root = new JsonObject();
+    root.put("degree", new JsonObject(degreeMap));
+    root.put("indegree", new JsonObject(inDegreeMap));
+    root.put("outdegree", new JsonObject(outDegreeMap));
+    root.put("avgdegree", sumDegree/graph.getNodeCount());
+    return root.toString();
+  }
+  
   
   private void responseSigmaGraph (Graph graph, RoutingContext routingContext) {
     this.sigmaGraph = Utils.toSigmaGraph(this.gephiGraph );
@@ -184,6 +247,15 @@ public class GraphServer {
 
   public void setSigmaGraph(SigmaGraph sigmaGraph) {
     this.sigmaGraph = sigmaGraph;
+  }
+
+  public StatisticsWrap getStatisticsWrap() {
+    return statisticsWrap;
+  }
+
+  @Inject
+  public void setStatisticsWrap(StatisticsWrap statisticsWrap) {
+    this.statisticsWrap = statisticsWrap;
   }
 
 }

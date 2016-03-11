@@ -254,6 +254,7 @@ select option{
   padding-left:10px;
   padding-right:10px;
   padding-top:10px;
+
 }
 .panel-group.panel-appearance  .degree-select {
   background-color: #3b3b3b;
@@ -436,8 +437,8 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 /********** Custom css for scrollbar **********/
 .gsak-home .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
   background: #bababa;
-  border-radius: 0px;
-  width: 7px;
+  border-radius: 6px;
+  width: 3px;
 }
 .gsak-home .mCSB_scrollTools .mCSB_draggerRail {
   background-color:transparent;
@@ -558,12 +559,277 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .gsak-home .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
   height: 7px;
 }
+/***********************CSS NNN*******************************/
+.filstat{
+  margin-bottom: 1px;
+}
+.filstat .nav-tabs{
+  border-bottom: none !important;
+}
+.table-stat td{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.table-stat .td-wd-txt{
+  width: 165px;
+}
+.table-stat .td-wd-help{
+  width: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.table-stat .td-wd-button{
+  width: 30px;
+}
+#network_overview_panel{
+  height: 150px;
+  overflow: auto;
+}
+#node_overview_panel{
+  height: 120px;
+  overflow: auto;
+}
+#dynamic_panel{
+  height: 113px;
+  overflow: auto;
+}
+#network_overview_panel .statistics-contents{
+  padding-left:10px;
+}
+.gsak-home .mCSB_container_wrapper{
+  margin-right: 15px;
+}
+.table-stat .btn{
+   font-size: 11px !important;
+    padding: 2px 5px;
+} 
+.btn-help-td{
+  height: 10px;
+  width: 10px;
+  background-color: #bababa;
+  border-radius: 50%;
+  margin:0 auto;
 
+}
+.td-wd-help{
+  width: 20px;
+}
+.gsak-home .table-stat  .btn-primary {
+  background-color: #bababa;
+  border-color: #ccc;
+}
+.gsak-home #light-box-scroll{
+  height: 400px;
+  overflow: auto;
+}
 
+/*************custom lightbox css NNN****************/
+.popup {
+  width:100%;
+  height:100%;
+  display:none;
+  position:fixed;
+  top:0px;
+  left:0px;
+  background:rgba(0,0,0,0.75);
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 2147483647; /* z-index needs to be >= elements on the site. */
+}
+ 
+/* Inner */
+.popup-inner {
+  max-width:750px;
+  min-width:750px;
+  width:90%;
+  padding:10px;
+  position:absolute;
+  top:55%;
+  left:50%;
+  -webkit-transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%);
+  box-shadow:0px 2px 6px rgba(0,0,0,1);
+  border-radius:3px;
+  background: #434343;
+}
+.popup-in{
+  overflow: auto;
+  height: 500px;
+  width: 740px !important;
+}
+/* Close Button */
+.popup-close {
+  /* position: centering vertical and horizontal */
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  /* dimensions: 25px x 25px */
+  line-height: 25px;
+  background-color: #282828;
+  /* styling */
+  cursor: pointer;
+  text-align: center;
+  font-family: Century Gothic !important;
+  background: #fff; /* Set the background in case it overlaps the content */
+  background: rgba(40, 40, 40, 0.3);
+  color: #fff !important;
+}
+.popup-heading{
+    /* position: centering vertical and horizontal */
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 750px;
+  height: 25px;
+  /* dimensions: 25px x 25px */
+  line-height: 25px;
+  background-color: #282828;
+  /* styling */
+  cursor: pointer;
+  text-align: left;
+  font-family: Century Gothic !important;
+  font-weight: 100; 
+  color: #fff;
+  padding-left: 10px;
+ }
+ /****************************css end for lightbox *******************/
+ .load-help-td{
+  display: none;
+  height: 10px;
+  width: 10px;
+ }
+ .force-atlas-container{
+  margin-top: 10px;
+ }
+ .fruchterman-reigngold-container{
+  margin-top: 10px;
+ }
+ .label-adjust-container{
+  margin-top: 10px;
+ }
+ .noverlap-container{
+  margin-top: 10px;
+ }
+ .open-ord-container{
+  margin-top: 10px;
+ }
+ .random-layout-container{
+  margin-top: 10px;
+ }
+  .yifan-hu-container{
+  margin-top: 10px;
+ }
+  .yifan-hu-proportional-container{
+  margin-top: 10px;
+ }
+ /*************************Css for dropdown NNN*************************************/
+ .dropcontainer {
+  position:relative;
+  font-size: 13px;
+  color: #bababa;
+  } 
 
+.trigger {
+  color: #bababa;
+  font-size: 13px;
+  width: 50%;
+  height: 31px;
+  background: #fff url(../../images/select.png) 95% center no-repeat;
+  display: block;
+  border: 1px solid #3b3b3b;
+  background-color: #3b3b3b;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height:32px;
+  padding-left:5px;
+  float:right;
+  margin-right:8px;
 
+  }
 
+.trigger:hover {
+  color: #bababa;
+  background: #282828 url(../../images/select.png) 95% center no-repeat;
+  }
 
+.activetrigger {
+  color: #bababa;
+  padding: 5px;
+  font-size: 13px;
+  width: 50%;
+  background: #fff url(../../images/select.png) 95% center no-repeat;
+  display: block;
+  background-color: #3b3b3b;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 31px;
+  line-height:32px;
+    padding-left:5px;
+    float:right;
+    margin-right:8px;
+    margin-top:3px;
+  }
+
+.activetrigger:hover {
+  background: #282828 url(../../images/select.png) 95% center no-repeat;
+  color: #777;
+  }
+
+.activetrigger:active {
+  background: #282828 url(../../images/select.png) 95% center no-repeat;
+  color: #777;
+  }
+
+.dropcontainer ul {
+  font-size: 13px;
+  height: 31px;
+  border: 1px solid #3b3b3b;
+  border-top: none;
+  background-color: #3b3b3b;
+  list-style-type: none;
+  margin: 0;
+  width: 50%;
+  z-index: 100;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height:32px;
+    padding-left:0;
+    float:right;
+    margin-right:8px;
+  }
+
+.dropcontainer ul li {
+  background-color: #3b3b3b;
+  padding: 5px;
+  height: 31px;
+  }
+
+.dropcontainer ul li:hover {
+  background: #282828;
+  outline: none;
+  }
+
+.dropcontainer ul li:first-child {
+  display: none;
+  }
+
+.dropcontainer ul li:last-child {
+  border-bottom: none;
+  }
+
+.dropdownhidden {
+  display: none;
+  }
+
+.dropdownvisible {
+  height: auto;
+  }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #bababa;
