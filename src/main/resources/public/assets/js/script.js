@@ -52,7 +52,7 @@ requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
 * Usage: sends ajax request to given URL
 */
 function requestAjax (ajaxURL, formData, callBackFun) {
-	/*<![CDATA[*/
+  /*<![CDATA[*/
    $.ajax({
       type: "get", url: ajaxURL, data:formData,
       async : true, beforeSend: function(xhr) {},
@@ -62,7 +62,7 @@ function requestAjax (ajaxURL, formData, callBackFun) {
       },
       //on error in ajax request
       error: function(a, b, c){
-      	alert ('Error requested graph Operation.');
+        alert ('Error requested graph Operation.');
         return false;
       }
    });

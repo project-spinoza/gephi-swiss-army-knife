@@ -4,12 +4,12 @@
 		$.mCustomScrollbar.defaults.scrollButtons.enable=true; //enable scrolling buttons by default
 		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default						
 		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
-		$("#Queries_panel").mCustomScrollbar();// Queries_panel
 		$("#parameters_panel").mCustomScrollbar();// Parameters_panel
 		$("#layout-contents").mCustomScrollbar();// Layout contents
 		$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		$("#dynamic_panel").mCustomScrollbar();// Network Overview
-		$(".popup-in").mCustomScrollbar();//  popup-box statistics
+		$(".popup-in").mCustomScrollbar();//  popup-box statistics 
+	    //$("#queries_panel").mCustomScrollbar();//queries panel
 	});
 })(jQuery);	
 // End of Window load function .
@@ -27,6 +27,11 @@ $( document ).ready(function() {
 						$( this ).parent().toggleClass( 'active' );
 						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
 				});
+	//select box 
+	$("#selectdata").selectBoxIt();
+	$("#selectdeg").selectBoxIt();
+	$("#selectlayout-boxit").selectBoxIt();
+	$("#select-labelsizeboxit").selectBoxIt();
     // Easy tree
 	$('#networkoperations-folder').easytree();
 	
@@ -207,4 +212,27 @@ $( document ).ready(function() {
         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 	        e.preventDefault();
 	    });
+    //Drag and Drop filter queries
+
+    $(".filterdrag").draggable({
+        helper: "clone",
+        cursor: 'move',
+        revert: 'invalid',
+        opacity: "0.5"
+    });
+	//$("#queries_panel").mCustomScrollbar();//queries panel
+	$("#queries_panel").mCustomScrollbar();//queries panel
+    $("#filter_querycontainer").droppable({
+        accept: $(".filterdrag"),
+        hoverClass: "dropHover",
+        drop: function (ev, ui) {
+        	$(this).find(".replace_me").remove();
+            var me = ui.draggable.clone()
+            ui.draggable.draggable("disable")
+            me.appendTo(this)
+                .addClass("filternewClass");
+        }
+
+    });
+
 });  // End of document ready function .
