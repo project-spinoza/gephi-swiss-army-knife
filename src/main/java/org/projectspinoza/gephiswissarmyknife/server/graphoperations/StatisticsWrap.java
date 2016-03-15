@@ -5,6 +5,8 @@ import io.vertx.core.json.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
@@ -18,6 +20,7 @@ import com.google.inject.Singleton;
 public class StatisticsWrap {
 
   private Statistics statistics;
+  JsonObject rootRespJson;
 
   public StatisticsWrap() {
   }
@@ -27,26 +30,115 @@ public class StatisticsWrap {
    */
   public String applyStatistics(MultiMap layoutParams) {
     String responseJson = "";
+    this.statistics.setGraphModel(GephiGraph.getGraphModel());
+    
     switch (layoutParams.get("statistics")) {
     case "averageDegree":
-      this.statistics.setGraphModel(GephiGraph.getGraphModel());
       this.statistics.averageDegree();
       responseJson = averageDegreeStatistics(GephiGraph.getGraphModel().getGraphVisible(), false);
       break;
       
     case "averageWeightedDegree":
-      this.statistics.setGraphModel(GephiGraph.getGraphModel());
       this.statistics.averageWeightedDegree();
       responseJson = averageDegreeStatistics(GephiGraph.getGraphModel().getGraphVisible(), true);
+      break;
+    case "graphDensity":
+      double gDensity = this.statistics.graphDensity();
+      rootRespJson = new JsonObject();
+      rootRespJson.put("density", "Density: " + gDensity);
+      responseJson = rootRespJson.toString();
+      break;
+    case "Modularity":
+      this.statistics.modularityClass(); //calculate modularity with default params
+      this.rootRespJson = new JsonObject();
+      responseJson = colStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "modularity_class", this.rootRespJson);
+      break;
+    case "pageRank":
+      this.statistics.pageRank(); //calculate pagerank with default params
+      this.rootRespJson = new JsonObject();
+      responseJson = colStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "pageranks", this.rootRespJson);
+      break;
+    case "connectedComponents":
+      this.statistics.connectedComponents();
+      responseJson = connectedComponentsStatistics(GephiGraph.getGraphModel().getGraphVisible());
+      break;
+      
+    case "avgClusterCoeficients":
+      this.statistics.avgClusterCoeficients();
+      Node[] n1 = GephiGraph.getGraphModel().getGraphVisible().getNodes().toArray();
+
+      Set<String> a1 = n1[3].getAttributeKeys();
+      
+      for (String g : a1) {
+        System.out.println(g);
+      }
       break;
       
     default:
       break;
     }
-    
     return responseJson;
   }
+  
+  
+  /*
+   * @return String JSON. Counts nodes for modularity class
+   * 
+   */
+  public String colStatisticsJson(Graph graph, String col, JsonObject rootRespJson) {
+    Map<String, Object> modularity = new HashMap<String, Object>();
 
+    for (Node n : graph.getNodes()) {
+      String mKey = n.getAttribute(col).toString();
+      if (modularity.containsKey(mKey)) {
+        int d = Integer.parseInt(modularity.get(mKey).toString());
+        modularity.put(mKey, d + 1);
+      } else {
+        modularity.put(mKey, 1);
+      }
+    }
+    rootRespJson.put(col, new JsonObject(modularity));
+    
+    return rootRespJson.toString();
+    
+  }
+
+  public String connectedComponentsStatistics(Graph graph) {
+    Map <Integer, Integer> componentsMap = new HashMap<Integer, Integer>();
+    Map <String, Integer> componentsMapFinal = new HashMap<String, Integer>();
+    double stronglyConnected = 0;
+    
+    //calculating the weekly connected components.
+    for (Node node : GephiGraph.getGraphModel().getGraphVisible().getNodes()) {
+      int componentId = Integer.parseInt(node.getAttribute("componentnumber").toString());
+      if (componentsMap.containsKey(componentId)) {
+        int val = componentsMap.get(componentId);
+        componentsMap.put(componentId, val+1);
+      }else {
+        componentsMap.put(componentId, 1);
+      }
+      
+      if (Double.parseDouble(node.getAttribute("strongcompnum").toString()) != 0d){
+        stronglyConnected++;
+      }
+    }
+    for (Entry<Integer, Integer> entityOut : componentsMap.entrySet()) {
+      int valComp = entityOut.getValue();
+      int counter = 1;
+      for (Entry<Integer, Integer> entityInn : componentsMap.entrySet()) {
+        if ((valComp == entityInn.getValue())&& (entityOut.getKey() != entityInn.getKey()) && !componentsMapFinal.containsKey(String.valueOf(valComp))) {
+          counter++;
+        }
+      }
+      componentsMapFinal.put(String.valueOf(valComp), counter);
+    }
+   rootRespJson = new JsonObject();
+   rootRespJson.put("connected_components", componentsMapFinal);
+   rootRespJson.put("weekly_connected_components", componentsMap.size());
+   rootRespJson.put("strongly_connected_components", stronglyConnected);
+   return rootRespJson.toString();
+  }
+  
   /*
    * @return String JSON. Counts nodes for each degree, indegree, and outdegree
    * value
@@ -105,19 +197,18 @@ public class StatisticsWrap {
       }
     }
 
-    JsonObject root = new JsonObject();
-    root.put("degree", new JsonObject(degreeMap));
-    root.put("indegree", new JsonObject(inDegreeMap));
-    root.put("outdegree", new JsonObject(outDegreeMap));
+    rootRespJson = new JsonObject();
+    rootRespJson.put("degree", new JsonObject(degreeMap));
+    rootRespJson.put("indegree", new JsonObject(inDegreeMap));
+    rootRespJson.put("outdegree", new JsonObject(outDegreeMap));
     
     if (isWeighted) {
-      root.put("avgdegree", "Average Weighted Degree: "+ sumDegree / graph.getNodeCount());      
+      rootRespJson.put("avgdegree", "Average Weighted Degree: "+ sumDegree / graph.getNodeCount());      
     }else {
-      root.put("avgdegree", "Average Degree: "+ sumDegree / graph.getNodeCount());
+      rootRespJson.put("avgdegree", "Average Degree: "+ sumDegree / graph.getNodeCount());
     }
     
-    return root.toString();
-    
+    return rootRespJson.toString();
   }
 
   public Statistics getStatistics() {

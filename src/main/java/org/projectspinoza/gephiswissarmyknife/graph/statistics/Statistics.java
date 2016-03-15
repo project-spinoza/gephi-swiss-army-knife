@@ -67,11 +67,17 @@ public class Statistics {
 
   public void modularityClass (){
     modularity = new Modularity();
+    modularity.setRandom(true);
+    modularity.setUseWeight(true);
+    modularity.setResolution(1.0);
     modularity.execute(this.graphModel);
   }
   
   public void pageRank(){
     pagerank = new PageRank();
+    pagerank.setEpsilon(0.001);
+    pagerank.setProbability(0.85);
+    pagerank.setUseEdgeWeight(false);
     pagerank.execute(this.graphModel);
   }
   

@@ -924,56 +924,46 @@
 										<input id="avg_weight_degree_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
 										<input type="hidden" value="averageWeightedDegree" name="statistics">
 									</form>
-
-<!-- 										<div class="popup" data-popup="popup-2">
-
-										    <div class="popup-inner">
-										    <div class="popup-heading">Average Weight Degree Graph<a class="popup-close" data-popup-close="popup-2" href="#">x</a></div>
-										    	<div class="popup-in">
-										        <h2>Wow! This is Awesome!</h2>
-										        
-										        <p>Donec in volutpat nisi. In quam lectus, aliquet rhoncus cursus a, congue et arcu. Vestibulum tincidunt neque id nisi pulvinar aliquam. Nulla luctus luctus ipsum at ultricies. Nullam nec velit dui. Nullam sem eros, pulvinar sed pellentesque ac, feugiat et turpis. Donec gravida ipsum cursus massa malesuada tincidunt. Nullam finibus nunc mauris, quis semper neque ultrices in. Ut ac risus eget eros imperdiet posuere nec eu lectus.
-										        content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposas their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)</p>
-										        <p><a data-popup-close="popup-2" href="#">Close</a></p>
-										        
-										        </div>
-										    </div>
-										</div> -->
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
 								<tr>       
-									<td class="td-wd-txt">Network Diameter</td>
-									<td class="td-wd-button">
-										<input id="network_diameter_stats" class="btn btn-primary" type="button" name="run" value="Run">
-									</td>
-									<td class="td-wd-help"><div class="load-help-td"><img src='assets/css/images/loader.gif'></div><div class="btn-help-td"></div></td>
-								</tr>
-								<tr>       
 									<td class="td-wd-txt">Graph Density</td>
 									<td class="td-wd-button">
-										<input id="graph_density_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="graphDensity">
+										<input id="graph_density_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="graphDensity" name="statistics">
+									</form>
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
 								<tr>       
 									<td class="td-wd-txt">Modularity</td>
 									<td class="td-wd-button">
-										<input id="modularity_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="Modularity">
+										<input id="modularity_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="Modularity" name="statistics">
+									</form>
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
 								<tr>       
 									<td class="td-wd-txt">Page Rank</td>
 									<td class="td-wd-button">
-										<input id="page_rank_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="pageRank">
+										<input id="page_rank_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="pageRank" name="statistics">
+									</form>
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
 								<tr>       
 									<td class="td-wd-txt">Connected Components</td>
 									<td class="td-wd-button">
-										<input id="connected_comp_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="connectedComponents">
+										<input id="connected_comp_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="connectedComponents" name="statistics">
+									</form>
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
@@ -1002,7 +992,10 @@
 									<tr>       
 										<td class="td-wd-txt">Avg. Clustering Coefficient</td>
 										<td class="td-wd-button">
-											<input id="avg_clustering_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="avgClusterCoeficients">
+											<input id="avg_clustering_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+											<input type="hidden" value="avgClusterCoeficients" name="statistics">
+									</form>
 										</td>
 										<td class="td-wd-help"><div class="btn-help-td"></div></td>
 									</tr>
@@ -1050,54 +1043,7 @@
             </div>
           </div>
 		  <!-- End of Panel parameters -->
-		  <div class="panel-group">
-			<div class="panel panel-default margin10">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapse_dynamic">Dynamic 
-						</a>
-					</h4>
-				</div>
-				<div id="collapse_dynamic" class="panel-collapse collapse in">
-					<div id="dynamic_panel" class="panel-body parameter_panel">
-						<div class="statistics-contents">
-							<table class="table-responsive table-stat">
-								
-								<tr>       
-									<td class="td-wd-txt">#Nodes</td>
-									<td class="td-wd-button">
-										<input id="nodes_stats" class="btn btn-primary" type="button" name="run" value="Run">
-									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
-								</tr>
-								<tr>       
-									<td class="td-wd-txt">#Edges</td>
-									<td class="td-wd-button">
-										<input id="edges_stats" class="btn btn-primary" type="button" name="run" value="Run">
-									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
-								</tr>
-								<tr>       
-									<td class="td-wd-txt">Degree</td>
-									<td class="td-wd-button">
-										<input id="degree_stats" class="btn btn-primary" type="button" name="run" value="Run">
-									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
-								</tr>
-								<tr>       
-									<td class="td-wd-txt">Clustering Coefficient</td>
-									<td class="td-wd-button">
-										<input id="clustering_coeff_stats" class="btn btn-primary" type="button" name="run" value="Run">
-									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
-								</tr>
-							</table>
-						</div>                                    	
-					</div>
-                </div>
-            </div>
-          </div>
-		  <!-- End of Panel parameters -->
+
 						</div>   
 					</div>
 			

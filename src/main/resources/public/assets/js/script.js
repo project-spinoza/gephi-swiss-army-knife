@@ -75,7 +75,7 @@ function requestAjax (ajaxURL, formData, callBackFun) {
 * Usage: Statistics callback
 */
 function graphStatisticsHandler (statsData, formData){  
-  var statistics_id = formData.split('=')[1];
+  var statistics_id = formData.split('=')[1]; //get hidden field ID
 
   $("#chartContainer").empty();
   var targeted_popup_class = $("#"+statistics_btn).attr('data-popup-open');
@@ -93,8 +93,73 @@ function graphStatisticsHandler (statsData, formData){
       $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
       averageDegree(statsData);
     break;
+    case "graphDensity":
+      $('span#canvasTitle').text("Graph Density");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
+      graphDensity (statsData);
+    break;
+    case "Modularity":
+      $('span#canvasTitle').text("Modularity");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Parameters:</h3>');
+      $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Randomize: On</h6>');
+      $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Use edge weights: On</h6>');
+      $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Resolution: 1.0</h6>');
+      modularityClass (statsData);
+    break;
+    case "pageRank":
+      $('span#canvasTitle').text("PageRank");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Parameters:</h3>');
+      $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Epsilon = 0.001</h6>');
+      $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Probability = 0.85</h6>');
+      pageRank (statsData);
+    break;
+
+    case "connectedComponents":
+      $('span#canvasTitle').text("Connected Components");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
+      connectedComponents (statsData);
+    break;
+    case "avgClusterCoeficients":
+      $('span#canvasTitle').text("Avg. Cluster Coeficients");
+      // $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Parameters:</h3>');
+      // $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Epsilon = 0.001</h6>');
+      // $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Probability = 0.85</h6>');
+//      pageRank (statsData);
+    break;
   }
 }
+
+function connectedComponents (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Number of Weakly Connected Components: '+jsonParsed.weekly_connected_components+'</h6>');
+  $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Number of Stronlgy Connected Components: '+jsonParsed.strongly_connected_components+'</h6>');
+  //modularity graph
+  $("#chartContainer").append('<div id="connectedcomponents_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.connected_components);
+  canvasGraph("connectedcomponents_graph_canvas", "Connected Components Report", graphPoint, "Value", "Count");  
+}
+
+function pageRank (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  //modularity graph
+  $("#chartContainer").append('<div id="pagerank_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.pageranks);
+  canvasGraph("pagerank_graph_canvas", "PageRank Distribution", graphPoint, "Value", "Count");  
+}
+
+function modularityClass (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  //modularity graph
+  $("#chartContainer").append('<div id="modularity_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.modularity_class);
+  canvasGraph("modularity_graph_canvas", "Modularity", graphPoint, "Value", "Count");
+}
+
+function graphDensity (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">'+jsonParsed.density+'</h6>');
+}
+
 
 function averageDegree (statsData) {
 
@@ -129,7 +194,7 @@ function getSortedGraphPoints (jsonParsedData) {
   for (i = 0 ; i < keysUnsorted.length; i++){
     $.each(jsonParsedData, function(k, v) {
       if (keysUnsorted[i] == parseFloat(k)) {
-        graphPoint.push({ x: keysUnsorted[i], y: jsonParsedData[k] });
+        graphPoint.push({ x: keysUnsorted[i], y: jsonParsedData[k], color: "#ff0000"});
       }
     });
   }
@@ -204,53 +269,53 @@ function showGraph(givenData, givenContainer, givenSettings){
      console.log(e);
    });
 
-   s.bind('overNode', function(e){
+  //  s.bind('overNode', function(e){
 
-      $("#nodeInfoTable").empty();
-      //papulate table
-      var attr = e.data.node.attributes;
-      var row = "<tr><td>" + 'ID:' + "</td><td>" + e.data.node.id; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'Label:' + "</td><td>" + e.data.node.label; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'OriginalLabel:' + "</td><td>" +  e.data.node.originalLabel; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'Color:' + "</td><td>" + e.data.node.color; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'B/w Centrality:' + "</td><td>" + attr["Betweenness Centrality"]; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'Closeness Centrality:' + "</td><td>" + attr["Closeness Centrality"]; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'PageRank:' + "</td><td>" + attr["PageRank"]; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'NeighborCount:' + "</td><td>" + attr["NeighborCount"]; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
-      var row = "<tr><td>" + 'Eccentricity:' + "</td><td>" + attr["Eccentricity"]; + "</td></tr>";
-      $('#nodeInfoTable').append(row);
+  //     $("#nodeInfoTable").empty();
+  //     //papulate table
+  //     var attr = e.data.node.attributes;
+  //     var row = "<tr><td>" + 'ID:' + "</td><td>" + e.data.node.id; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'Label:' + "</td><td>" + e.data.node.label; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'OriginalLabel:' + "</td><td>" +  e.data.node.originalLabel; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'Color:' + "</td><td>" + e.data.node.color; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'B/w Centrality:' + "</td><td>" + attr["Betweenness Centrality"]; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'Closeness Centrality:' + "</td><td>" + attr["Closeness Centrality"]; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'PageRank:' + "</td><td>" + attr["PageRank"]; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'NeighborCount:' + "</td><td>" + attr["NeighborCount"]; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
+  //     var row = "<tr><td>" + 'Eccentricity:' + "</td><td>" + attr["Eccentricity"]; + "</td></tr>";
+  //     $('#nodeInfoTable').append(row);
 
-      var nodeId = e.data.node.id;
-      var toKeep = s.graph.neighbors(nodeId);
-      toKeep[nodeId] = e.data.node;
+  //     var nodeId = e.data.node.id;
+  //     var toKeep = s.graph.neighbors(nodeId);
+  //     toKeep[nodeId] = e.data.node;
 
-      s.graph.nodes().forEach(function(n) {
+  //     s.graph.nodes().forEach(function(n) {
 
-        if (toKeep[n.id]){
-          n.color = n.originalColor;
-          n.label = n.originalLabel;
-        } else{
-          n.color = '#cccccc';
-          n.label = "";
-        }
-    });
+  //       if (toKeep[n.id]){
+  //         n.color = n.originalColor;
+  //         n.label = n.originalLabel;
+  //       } else{
+  //         n.color = '#cccccc';
+  //         n.label = "";
+  //       }
+  //   });
 
-    s.graph.edges().forEach(function(e) {
-      if (toKeep[e.source] && toKeep[e.target])
-        e.color ='green';
-      else
-       e.color = e.originalColor;
-    });
-    s.refresh();
-  });
+  //   s.graph.edges().forEach(function(e) {
+  //     if (toKeep[e.source] && toKeep[e.target])
+  //       e.color ='green';
+  //     else
+  //      e.color = e.originalColor;
+  //   });
+  //   s.refresh();
+  // });
 
   s.refresh();
    }
