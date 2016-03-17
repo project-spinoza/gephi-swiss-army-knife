@@ -46,6 +46,7 @@ public class Statistics {
   
   public void eigenVectorCentrality(){
     eigenvectorCentrality = new EigenvectorCentrality();
+    eigenvectorCentrality.setNumRuns(100);
     eigenvectorCentrality.execute(this.graphModel);
   }
   

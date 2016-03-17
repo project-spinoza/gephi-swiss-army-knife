@@ -17,8 +17,10 @@
 	<link href="assets/css/lightweight_tree/jquery.treemenu.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/plugin/lightweight_tree/jquerysctipttop.css" rel="stylesheet" type="text/css">
 	<link type="text/css" class="skins" rel="stylesheet" href="assets/css/easytree/ui.easytree.css">
-
+	<!-- Selectbox css -->
 	<link rel="stylesheet" href="assets/css/selectBoxIt/jquery.selectBoxIt.css">
+	<!-- Selectbox css -->
+	<link rel="stylesheet" href="assets/css/rangeSlide/jquery.range.css">
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -45,7 +47,8 @@
 	<!-- Jquery for Select -->
 	<script src="assets/js/selectBoxIt/jquery-ui.js"></script>
 	<script src="assets/js/selectBoxIt/jquery.selectBoxIt.js"></script>
-
+	<!-- Jquery for Slider-->
+	<script src="assets/js/rangeSlide/jquery.range.js"></script>
 	
 
   </head>
@@ -706,47 +709,34 @@
                <li class="isFolder" title="Bookmarks">
 			   Attributes
 				   <ul> 
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="equal_filter" class="isFolder isExpanded" >
 							Equal
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Modularity class</a></li>
 							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="inter_edges_filter"  class="isFolder isExpanded">
 							Inter Edges
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
-							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="intra_edges_filter" class="isFolder isExpanded">
 							Intra Edges
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank">Modularity class</a></li>
-							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="non_null_filter" class="isFolder isExpanded">
 							Non-null
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> </li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#non_null_mod_class" > Modularity class</a> </li>
 							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="partition_filter" class="isFolder isExpanded" >
 							Partition
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
-							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="partition_count_filter" class="isFolder isExpanded" >
 							Partition Count
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
-							</ul>
 						</li>
-						<li class="isFolder isExpanded" title="Bookmarks">
+						<li id="range_filter" class="isFolder isExpanded">
 							Range
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
-								<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Modularity class</a></li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class</a></li>
 
 							</ul>
 						</li>
@@ -758,49 +748,49 @@
 				</ul>
 			   
 			   </li>
-			   <li class="isFolder">
+			   <li id="edges_filter" class="isFolder">
 				<ul>
 				Edges
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Edge Type</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Edge Weight</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Mutual Edge</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Self Loop</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#edge_type_edges_filter"> Edge Type</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#edge_weight_edges_filter"> Edge Weight</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#mutual_edge_edges_filter"> Mutual Edge</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#self_loop_edges_filter"> Self Loop</a></li>
 				</ul>
 			   
 			   </li>
-			   <li class="isFolder">
+			   <li id="operator_filter" class="isFolder">
 				<ul>
 				Operator
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Intersection</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Mask (edges)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Not (edges)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Not (nodes)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Union</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#intersection_operator_filter"> Intersection</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#mask_edge_operator_filter"> Mask (edges)</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#not_edge_operator_filter"> Not (edges)</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#not_node_operator_filter"> Not (nodes)</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#union__operatorfilter"> Union</a></li>
 				</ul>
 			   
 			   </li>
-			   <li class="isFolder">
+			   <li id="topology_filter" class="isFolder">
 				<ul>
 				Topology
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Degree Range</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Ego Network</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Giant Component</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Has Self-loop</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> In Degree Range</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> K-core</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Mutual Degree Range</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Neighbors Network</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#" target="_blank"> Out Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#deg_range_topology_filter"> Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#ego_net_topology_filter"> Ego Network</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#giant_topology_filter"> Giant Component</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#selfloop_topology_filter"> Has Self-loop</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#in_deg_topology_filter"> In Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#kcore_topology_filter"> K-core</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#out_degree_range_topology_filter"> Out Degree Range</a></li>
 					
 				</ul>
 			   
 			   </li>
-			   <li class="isFolder">
+			   <li id="saved_queries_filter" class="isFolder">
 
 				<ul>
 				  Saved Queries
-				  <li id="test2" class="ui-widget-content filterdrag"><a href="#" target="_blank">Test Filter</a></li>
-
+				  <li id="test1" class="ui-widget-content filterdrag"><a href="#contentone" class="clicky">Test Filter 1</a></li>
+				  <li id="test2" class="ui-widget-content filterdrag"><a href="#contentwo" class="clicky">Test Filter 2</a></li>
 				</ul>
 			   </li>
 			   
@@ -824,7 +814,7 @@
 					
 				</div>
 
-              <div id="collapse_Queries" class="panel-collapse collapse in">
+               <div id="collapse_Queries" class="panel-collapse collapse in">
               	<div id="queries_panel" class="panel-body parameter_panel">
 					<div class="parameters-contents">
                 	<div id="filter_querycontainer" class="ui-widget-content"><ul><li class="replace_me">Drag Filter here to run Queries</li></ul></div>
@@ -846,11 +836,30 @@
 				<div id="collapse_parameters" class="panel-collapse collapse in">
 					<div id="parameters_panel" class="panel-body parameter_panel">
 						<div class="parameters-contents">
-							<div id="test2-para"></div>
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>                	
-							<h5>2{1,298.7%}]</h5>
-							<h5>2{1,298.7%}]</h5>
+
+							<div id="parameter_load">Query Parameters will load here..</div>
+							<div id="equal_mod_class" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal Settings</h6></div>
+								<div class="">
+									<form>
+										<table class="table-responsive table-parameter">
+											<tr>
+												<td>Value</td>
+												<td><input type="number" max="8" min="0" value="0"></input></td>
+											</tr>
+											<tr>
+												<td>Minimum</td>
+												<td>0</td>
+											</tr>
+											<tr>
+												<td>Maximum</td>
+												<td>8</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="contentwo" class="parameter_load_class2"><form><input type="hidden" class="range-slider" value="8" /></form></div>
 						</div>                                    	
 					</div>
                 </div>
@@ -979,7 +988,10 @@
 									<tr>       
 										<td class="td-wd-txt">EigenVector Centrality</td>
 										<td class="td-wd-button">
-											<input id="eigenvector_centrality_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="eigenVectorCentrality">
+											<input id="eigenvector_centrality_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+											<input type="hidden" value="eigenVectorCentrality" name="statistics">
+									</form>
 										</td>
 										<td class="td-wd-help"><div class="btn-help-td"></div></td>
 									</tr>
@@ -1064,8 +1076,14 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper" style="height: 695px; display: block;" id ="container">
+
+
+	<!-- Content Header (Page header) -->
+        <!--<img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">-->
+
 	<!-- Content Header (Page header) -->
         <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
+
       </div><!-- /.content-wrapper -->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
@@ -1122,10 +1140,6 @@
 	<script src="assets/js/canvasjs/jquery.canvasjs.min.js"></script>
 	<!-- GSAK ajax-server script -->
 	<script src="assets/js/script.js"></script>
-<<<<<<< HEAD
-	  
-=======
-
 	<script type="text/javascript">
 //$(function () {
 // 	//Better to construct options first and then pass it as a parameter
@@ -1155,8 +1169,6 @@
 
 // });
 
-
 </script>
->>>>>>> origin/master
   </body>
 </html>

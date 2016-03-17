@@ -38,7 +38,7 @@ body .user-menu-container {
   float: left;
   position: absolute;
   z-index: 100;
-  padding-top:88px;
+  margin-top:88px;
 }
 body .user-menu-left-container {
   background-color: #353535;
@@ -56,7 +56,7 @@ body .user-nav-slide {
   height: 36px;
   left: 280px;
   position: absolute;
-  top: 99px;
+  top: 10px;
   width: 20px;
 }
 /************************ Right sidebar ****************************/
@@ -65,7 +65,7 @@ body .user-menu-left-container-right {
 }
 body .user-menu-container-right {
   float: right;
-  padding-top: 88px;
+  margin-top: 88px;
   position: absolute;
   right:0px;
   z-index: 100;
@@ -87,7 +87,7 @@ body .user-nav-slide-right {
   height: 36px;
   right: 280px;
   position: absolute;
-  top: 99px;
+  top: 10px;
   width: 20px;
 }
 /************ New CSS ******************/
@@ -165,10 +165,10 @@ a {
   text-align: center;
 }
 .user-menu-container.closed .user-nav-slide{
-  background-image: url("../../images/slider_1.png");	
+  background-image: url("../../images/slider_1.png"); 
 }
 .user-menu-container-right.closed .user-nav-slide-right{
-  background-image: url("../../images/slider_1.png");	
+  background-image: url("../../images/slider_1.png"); 
 }
 .gsak-home .panel-group .panel{
   border:0px;
@@ -352,27 +352,26 @@ a {
   background:transparent;
 }
 #jstree_demo_div{
-  height: 250px;
+  height: 220px;
   overflow: auto;
 }
 #queries_panel{
-  height: 200px;
+  height: 130px;
   overflow: auto;
   
 }
 #parameters_panel{
-  height: 113px;
-  overflow: auto;
+  height: 160px;
 }
 #layout-contents{
-  height: 200px;
+  height: 160px;
   overflow:auto;
 }
 .gsak-home .panel-group:last-child{
   margin-bottom:0px;
 }
 #parameters_panel .parameters-contents{
-  padding-left:10px;
+  padding-left:5px;
 }
 #collapse2 .layout-label{
   background: #282828 none repeat scroll 0 0;
@@ -525,12 +524,14 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .gsak-home .table-stat{
   background-color: #3d3d3d;
 }
+
 .table-stat td{
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 3px;
 }
 .table-stat .td-wd-txt{
-  width: 165px;
+  width: 175px;
 }
 .table-stat .td-wd-help{
   width: 30px;
@@ -540,20 +541,53 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .table-stat .td-wd-button{
   width: 30px;
 }
+.gsak-home .table-parameter td{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-left: 1px solid #434343;
+}
+.gsak-home .table-parameter{
+  background-color: #3d3d3d;
+  width: 100%;
+}
+.gsak-home .table-parameter tr{
+  background-color: #3d3d3d;
+  border-bottom: 1px solid #434343;
+  
+}
+.gsak-home .table-parameter input{
+  background-color: #434343;
+  border: none;
+}
+.gsak-home .table-parameter input[type=number] {-moz-appearance: textfield;}
+.parameter_load_class{
+  display: none;
+}
+.parameter_load_class2{
+  display: none;
+}
+.heading_parameter{
+  background: #282828 none repeat scroll 0 0;
+  color: #ffffff;
+  height: 31px;
+  padding-left: 10px;
+  padding-top: 1px;
+  text-transform: uppercase;
+}
 #network_overview_panel{
-  height: 150px;
-  overflow: auto;
+  height: 216px;
 }
 #node_overview_panel{
-  height: 120px;
-  overflow: auto;
+  height: 130px;
 }
 #dynamic_panel{
-  height: 113px;
-  overflow: auto;
+}
+#edge_overview_panel{
+  height: 130px;
 }
 #network_overview_panel .statistics-contents{
-  padding-left:10px;
+  
 }
 .gsak-home .mCSB_container_wrapper{
   margin-right: 15px;
@@ -612,7 +646,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   background: #434343;
 }
 .popup-in{
-  overflow: auto;
+  overflow-y: scroll;
   height: 500px;
   width: 740px !important;
 }
@@ -696,12 +730,15 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   width: 242px !important;
 }
 .gsak-home #select-labelsizeboxitSelectBoxItContainer #select-labelsizeboxitSelectBoxIt{
-  width: 92px !important;
+  width: 100px !important;
 }
 .gsak-home .selectboxit-list {
   background-color:#3b3b3b;
   color:#ffffff;
   border:0px;
+}
+.gsak-home #select-depth_egoSelectBoxItContainer #select-depth_egoSelectBoxIt{
+  width: 92px !important;
 }
 .gsak-home .selectboxit-default-arrow {
   border:0px;
@@ -750,7 +787,6 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   width: 100%;
   height: 500px;
   padding: 0px;
-  margin-top: 15px !important;
 }
 .filterdrag {
   position: relative;
@@ -768,6 +804,11 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 #filter_querycontainer span.easytree-node:hover {
     background-color: #434343;
 }
+
+#filter_querycontainer span.easytree-node.easytree-active, #filter_querycontainer span.easytree-node.easytree-selected {
+    background-color: #434343;
+    border-color: #dedede;
+}
 #filter_querycontainer span.easytree-icon{
   background-image: url("../../images/filter.png");
   background-position: center bottom;
@@ -783,7 +824,11 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 #filter_querycontainer .replace_me li {
   left: 0;
 }
-
+/***********************/
+#selectlayout-boxitSelectBoxItOptions{
+  height: 100px;
+  overflow: auto;
+}
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #bababa;

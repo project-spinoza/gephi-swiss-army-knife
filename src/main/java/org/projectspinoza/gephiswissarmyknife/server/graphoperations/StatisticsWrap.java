@@ -6,7 +6,6 @@ import io.vertx.core.json.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
@@ -50,13 +49,11 @@ public class StatisticsWrap {
       break;
     case "Modularity":
       this.statistics.modularityClass(); //calculate modularity with default params
-      this.rootRespJson = new JsonObject();
-      responseJson = colStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "modularity_class", this.rootRespJson);
+      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "modularity_class");
       break;
     case "pageRank":
       this.statistics.pageRank(); //calculate pagerank with default params
-      this.rootRespJson = new JsonObject();
-      responseJson = colStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "pageranks", this.rootRespJson);
+      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "pageranks");
       break;
     case "connectedComponents":
       this.statistics.connectedComponents();
@@ -65,15 +62,18 @@ public class StatisticsWrap {
       
     case "avgClusterCoeficients":
       this.statistics.avgClusterCoeficients();
-      Node[] n1 = GephiGraph.getGraphModel().getGraphVisible().getNodes().toArray();
-
-      Set<String> a1 = n1[3].getAttributeKeys();
-      
-      for (String g : a1) {
-        System.out.println(g);
-      }
+//      Node[] n1 = GephiGraph.getGraphModel().getGraphVisible().getNodes().toArray();
+//
+//      Set<String> a1 = n1[3].getAttributeKeys();
+//      
+//      for (String g : a1) {
+//        System.out.println(g);
+//      }
       break;
-      
+    case "eigenVectorCentrality":
+      this.statistics.eigenVectorCentrality();
+      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eigencentrality");
+      break;
     default:
       break;
     }
@@ -85,22 +85,21 @@ public class StatisticsWrap {
    * @return String JSON. Counts nodes for modularity class
    * 
    */
-  public String colStatisticsJson(Graph graph, String col, JsonObject rootRespJson) {
-    Map<String, Object> modularity = new HashMap<String, Object>();
+  public String colValNodesStatisticsJson(Graph graph, String col) {
+    Map<String, Object> colMap = new HashMap<String, Object>();
 
     for (Node n : graph.getNodes()) {
       String mKey = n.getAttribute(col).toString();
-      if (modularity.containsKey(mKey)) {
-        int d = Integer.parseInt(modularity.get(mKey).toString());
-        modularity.put(mKey, d + 1);
+      if (colMap.containsKey(mKey)) {
+        int d = Integer.parseInt(colMap.get(mKey).toString());
+        colMap.put(mKey, d + 1);
       } else {
-        modularity.put(mKey, 1);
+        colMap.put(mKey, 1);
       }
     }
-    rootRespJson.put(col, new JsonObject(modularity));
-    
-    return rootRespJson.toString();
-    
+    this.rootRespJson = new JsonObject();
+    this.rootRespJson.put(col, new JsonObject(colMap));
+    return this.rootRespJson.toString();
   }
 
   public String connectedComponentsStatistics(Graph graph) {

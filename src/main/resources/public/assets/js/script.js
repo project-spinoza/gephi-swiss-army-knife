@@ -13,7 +13,7 @@ for (k in index)
 /*
 * GLOBAL variables/settings
 */
-var sigmaSettings = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#000", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var sigmaSettings = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 
@@ -126,7 +126,21 @@ function graphStatisticsHandler (statsData, formData){
       // $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Probability = 0.85</h6>');
 //      pageRank (statsData);
     break;
+
+    case "eigenVectorCentrality":
+      $('span#canvasTitle').text("EigenVector Centrality Report");
+      $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
+      eigencentralityStatis (statsData);
+    break;
   }
+}
+
+function eigencentralityStatis (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  //eigencentrality graph 
+  $("#chartContainer").append('<div id="eigencentrality_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.eigencentrality);
+  canvasGraph("eigencentrality_graph_canvas", "EigenVector Centrality", graphPoint, "Score", "Count");  
 }
 
 function connectedComponents (statsData) {
@@ -141,7 +155,7 @@ function connectedComponents (statsData) {
 
 function pageRank (statsData) {
   var jsonParsed = $.parseJSON(statsData);
-  //modularity graph
+  //pageRank graph
   $("#chartContainer").append('<div id="pagerank_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
   var graphPoint = getSortedGraphPoints(jsonParsed.pageranks);
   canvasGraph("pagerank_graph_canvas", "PageRank Distribution", graphPoint, "Value", "Count");  
