@@ -44,7 +44,7 @@ $(".statistics_form").submit(function (e) {
 *
 *Load Test graph
 */
-requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
+//requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
 
 
 /*
@@ -134,7 +134,27 @@ function graphStatisticsHandler (statsData, formData){
       $('span#canvasTitle').text("Graph Distance Report");
       avgPathLength (statsData);
     break;
+    case "hits":
+      $('span#canvasTitle').text("HITS Metric Report");
+      hits (statsData);
+    break;
   }
+}
+
+function hits (statsData) {
+
+  var jsonParsed = $.parseJSON(statsData);
+
+  //degree graph
+  $("#chartContainer").append('<div id="hub_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.hub);
+  canvasGraph("hub_graph_canvas", "Hub Distribution", graphPoint, "Score", "Count");
+
+  //In-degree graph
+  $("#chartContainer").append('<div id="authority_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.authority);
+  canvasGraph("authority_graph_canvas", "Authority Distribution", graphPoint, "Score", "Count");
+
 }
 
 function avgPathLength (statsData) {

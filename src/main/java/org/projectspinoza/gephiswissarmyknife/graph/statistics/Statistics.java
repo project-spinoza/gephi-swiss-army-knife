@@ -72,6 +72,7 @@ public class Statistics {
   
   public void calculateHits(){
     hits = new Hits();
+    hits.setEpsilon(1.0E-4);
     hits.execute(this.graphModel);
   }
 

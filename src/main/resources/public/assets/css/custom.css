@@ -370,9 +370,6 @@ a {
 .gsak-home .panel-group:last-child{
   margin-bottom:0px;
 }
-#parameters_panel .parameters-contents{
-  padding-left:5px;
-}
 #collapse2 .layout-label{
   background: #282828 none repeat scroll 0 0;
   color: #ffffff;
@@ -507,7 +504,8 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   padding-left:3px;
 }
 .gsak-home .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
-  height: 7px;
+  height: 3px;
+  width: 70px;
 }
 /***********************CSS NNN*******************************/
 .filstat{
@@ -576,7 +574,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   text-transform: uppercase;
 }
 #network_overview_panel{
-  height: 216px;
+  height: 247px;
 }
 #node_overview_panel{
   height: 130px;
@@ -647,7 +645,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 .popup-in{
   overflow-y: scroll;
-  height: 500px;
+  height: 250px;
   width: 740px !important;
 }
 /* Close Button */
@@ -786,7 +784,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   float: left;
   width: 100%;
   height: 500px;
-  padding: 0px;
+  padding-left: 7px;
 }
 .filterdrag {
   position: relative;

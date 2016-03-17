@@ -712,7 +712,7 @@
 						<li id="equal_filter" class="isFolder isExpanded" >
 							Equal
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Modularity class</a></li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Modularity class (Equal)</a></li>
 							</ul>
 						</li>
 						<li id="inter_edges_filter"  class="isFolder isExpanded">
@@ -724,7 +724,7 @@
 						<li id="non_null_filter" class="isFolder isExpanded">
 							Non-null
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#non_null_mod_class" > Modularity class</a> </li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#non_null_mod_class" > Modularity class (Non Null)</a> </li>
 							</ul>
 						</li>
 						<li id="partition_filter" class="isFolder isExpanded" >
@@ -736,7 +736,7 @@
 						<li id="range_filter" class="isFolder isExpanded">
 							Range
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class</a></li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class (Range)</a></li>
 
 							</ul>
 						</li>
@@ -778,8 +778,8 @@
 					<li id="" class="ui-widget-content filterdrag"><a href="#selfloop_topology_filter"> Has Self-loop</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#in_deg_topology_filter"> In Degree Range</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#kcore_topology_filter"> K-core</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a  href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a id="neighbrs_net_topology_filter_id" href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#out_degree_range_topology_filter"> Out Degree Range</a></li>
 					
 				</ul>
@@ -838,14 +838,14 @@
 						<div class="parameters-contents">
 
 							<div id="parameter_load">Query Parameters will load here..</div>
-							<div id="equal_mod_class" class="parameter_load_class">
+							<div id="equal_mod_class_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal Settings</h6></div>
 								<div class="">
 									<form>
 										<table class="table-responsive table-parameter">
 											<tr>
 												<td>Value</td>
-												<td><input type="number" max="8" min="0" value="0"></input></td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
 												<td>Minimum</td>
@@ -859,7 +859,63 @@
 									</form>
 								</div>
 							</div>
-							<div id="contentwo" class="parameter_load_class2"><form><input type="hidden" class="range-slider" value="8" /></form></div>
+
+							<div id="range_mod_class_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Range Modularity Class Settings</h6></div>
+								<div class="">
+									<form><input type="hidden" class="range-slider" value="8" /></form>
+								</div>
+							</div>
+
+							<div id="mask_edge_operator_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Mask (Edges) Settings</h6></div>
+								<div>
+								<form action="">
+									<table class="table-responsive table-parameter">
+											<tr>
+												<td><input type="radio" name="any_mask" value="any_mask"> any</td>
+												<td><input type="radio" name="source_mask" value="source_mask"> source</td>
+											</tr>
+											<tr>
+												<td><input type="radio" name="both_mask" value="both_mask"> both</td>
+												<td><input type="radio" name="target_mask" value="target_mask"> target</td>
+											</tr>
+									</table>
+								</form>
+								</div>
+							</div>
+							<div id="ego_net_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Mask (Edges) Settings</h6></div>
+								<div>
+								<form action="">
+									<table class="table-responsive table-parameter">
+											<tr>
+												<td>Node ID:</td>
+												<td><input type="text" name="node_id_ego" value=""></td>
+												<td><input type="button" name="ok_ego" value="OK" class=""> </td>
+											</tr>
+											<tr>
+												<td>Depth:</td>
+												<td><select id="select-depth_ego">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="">Max</option>
+								                   </select> 
+								                </td>
+											</tr>
+											<tr>
+												<td>Withself</td>
+												<td>
+													<input type="checkbox" name="withself_ego" value="true">
+												</td>
+											</tr>
+									</table>
+								</form>
+								</div>
+							</div>
+
+							<div id="contentwo_cont" class="parameter_load_class"></div>
 						</div>                                    	
 					</div>
                 </div>
@@ -953,6 +1009,16 @@
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>
+								<tr>       
+								 	<td class="td-wd-txt">HITS</td>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="hits">
+											<input id="hits_centrality_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+											<input type="hidden" value="hits" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									</tr>
 							</table>
 						</div>		
 						</div>                                    	
@@ -995,6 +1061,7 @@
 										</td>
 										<td class="td-wd-help"><div class="btn-help-td"></div></td>
 									</tr>
+
 										
 								</table>
 							</div>

@@ -4,7 +4,7 @@
 		$.mCustomScrollbar.defaults.scrollButtons.enable=true; //enable scrolling buttons by default
 		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default						
 		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
-		$("#parameters_panel").mCustomScrollbar();// Parameters_panel
+		//$("#parameters_panel").mCustomScrollbar();// Parameters_panel
 		$("#layout-contents").mCustomScrollbar();// Layout contents
 		//$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		//$("#dynamic_panel").mCustomScrollbar();// Network Overview
@@ -33,6 +33,7 @@ $( document ).ready(function() {
 	$("#selectdeg").selectBoxIt();
 	$("#selectlayout-boxit").selectBoxIt();
 	$("#select-labelsizeboxit").selectBoxIt();
+	$("#select-depth_ego").selectBoxIt();
     // Easy tree
 	$('#networkoperations-folder').easytree();
 	
@@ -255,11 +256,23 @@ $( document ).ready(function() {
    		//$("#contentwo").css({"display":"none"});
 	//});
 
-    //Parameter load 
+    //Parameter load content
     $("#queries_panel").on('click', 'a', function() {
-  	  var content_id = $(this).attr('href');
-
-        $('#parameter_load').hide().html($(content_id).html()).show(500);
+  	  //var content_id = $(this).attr('href');
+      //$('#parameter_load').hide().html($(content_id).html()).show(500);
+        if($(this).attr('href')=="#equal_mod_class"){
+            $("#equal_mod_class_cont").show();
+            $('#range_mod_class_cont, #parameter_load, #mask_edge_operator_filter_cont').hide();
+        }
+        else if($(this).attr('href')=="#range_mod_class"){
+			$("#range_mod_class_cont").show();
+            $('#equal_mod_class_cont, #parameter_load, #mask_edge_operator_filter_cont').hide();
+        } 
+        else if($(this).attr('href')=="#mask_edge_operator_filter"){
+			$("#mask_edge_operator_filter_cont").show();
+            $('#equal_mod_class_cont, #parameter_load, #range_mod_class_cont').hide();
+        }
+            
     });
 
 });  // End of document ready function.

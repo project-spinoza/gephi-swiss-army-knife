@@ -6,7 +6,6 @@ import io.vertx.core.json.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
@@ -30,6 +29,7 @@ public class StatisticsWrap {
    */
   public String applyStatistics(MultiMap layoutParams) {
     String responseJson = "";
+    JsonObject root;
     this.statistics.setGraphModel(GephiGraph.getGraphModel());
     
     switch (layoutParams.get("statistics")) {
@@ -65,6 +65,7 @@ public class StatisticsWrap {
       this.statistics.avgClusterCoeficients();
       responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "clustering");
       break;
+      
     case "eigenVectorCentrality":
       this.statistics.eigenVectorCentrality();
       responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eigencentrality");
@@ -72,16 +73,22 @@ public class StatisticsWrap {
       
     case "avgPathLength":
       this.statistics.graphDistance();
-      JsonObject root = new JsonObject();
-     
+      root = new JsonObject();
       JsonObject eccentricity = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eccentricity")).getJsonObject("eccentricity");
       JsonObject closnesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "closnesscentrality")).getJsonObject("closnesscentrality");
       JsonObject betweenesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "betweenesscentrality")).getJsonObject("betweenesscentrality");
-     
       root.put("eccentricity", eccentricity);
       root.put("closnesscentrality", closnesscentrality);
       root.put("betweenesscentrality", betweenesscentrality);
-      
+      responseJson = root.toString();
+      break;
+    case "hits":
+      this.statistics.calculateHits();
+      root = new JsonObject();
+      JsonObject authority = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "authority")).getJsonObject("authority");
+      JsonObject hub = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "hub")).getJsonObject("hub");
+      root.put("authority", authority);
+      root.put("hub", hub);      
       responseJson = root.toString();
       break;
     default:
