@@ -5,7 +5,12 @@ The purpose of this project is to provide a simple and interactive web based gra
 
 <br/>
 <hr>
-![GSAK](screenshots/final_gsak.jpg)  <br/><br/><br/>
+![GSAK](screenshots/final_gsak.jpg)  <br/>
+<hr>
+
+<br/>
+<hr>
+![GSAK](screenshots/gsak_degree_dist.png)  <br/><br/><br/>
 <hr>
 
 ### Purpose
