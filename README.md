@@ -5,7 +5,7 @@ The purpose of this project is to provide a simple and interactive web based gra
 
 <br/>
 <hr>
-#### GSAK Layout
+#### Layout
 ![GSAK](screenshots/final_gsak.jpg)  <br/>
 
 <br/>
