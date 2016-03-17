@@ -5,7 +5,13 @@ The purpose of this project is to provide a simple and interactive web based gra
 
 <br/>
 <hr>
-![GSAK](screenshots/final_gsak.jpg)  <br/><br/><br/>
+#### Layout
+![GSAK](screenshots/final_gsak.jpg)  <br/>
+
+<br/>
+<hr>
+#### Degree Distribution Network Overview 
+![GSAK](screenshots/gsak_degree_dist.png)  <br/><br/><br/>
 <hr>
 
 ### Purpose
