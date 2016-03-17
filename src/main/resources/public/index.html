@@ -1020,7 +1020,10 @@
 								<tr>       
 									<td class="td-wd-txt">Avg. Path Length</td>
 									<td class="td-wd-button">
-										<input id="avg_path_length_stats" class="btn btn-primary" type="button" name="run" value="Run">
+									<form action="/statistics" method="get" class="statistics_form" id="avgPathLength">
+										<input id="avg_path_length_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<input type="hidden" value="avgPathLength" name="statistics">
+									</form>
 									</td>
 									<td class="td-wd-help"><div class="btn-help-td"></div></td>
 								</tr>

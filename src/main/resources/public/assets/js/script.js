@@ -121,10 +121,7 @@ function graphStatisticsHandler (statsData, formData){
     break;
     case "avgClusterCoeficients":
       $('span#canvasTitle').text("Avg. Cluster Coeficients");
-      // $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Parameters:</h3>');
-      // $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Epsilon = 0.001</h6>');
-      // $("#chartContainer").append('<h6 style="margin: 0px 0 20px 0; color:#bababa">Probability = 0.85</h6>');
-//      pageRank (statsData);
+      clustering (statsData);
     break;
 
     case "eigenVectorCentrality":
@@ -132,7 +129,41 @@ function graphStatisticsHandler (statsData, formData){
       $("#chartContainer").append('<h3 style="margin: 20px 0 10px 0; color:#bababa">Results:</h3>');
       eigencentralityStatis (statsData);
     break;
+
+    case "avgPathLength":
+      $('span#canvasTitle').text("Graph Distance Report");
+      avgPathLength (statsData);
+    break;
   }
+}
+
+function avgPathLength (statsData) {
+
+  var jsonParsed = $.parseJSON(statsData);
+
+  //degree graph
+  $("#chartContainer").append('<div id="betweenesscentrality_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.betweenesscentrality);
+  canvasGraph("betweenesscentrality_graph_canvas", "Between Esscentrality_graph_canvas Distribution", graphPoint, "Value", "Count");
+
+  //In-degree graph
+  $("#chartContainer").append('<div id="closnesscentrality_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.closnesscentrality);
+  canvasGraph("closnesscentrality_graph_canvas", "Closness Centrality Distribution", graphPoint, "Value", "Count");
+
+  //Out-degree graph
+  $("#chartContainer").append('<div id="eccentricity_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.eccentricity);
+  canvasGraph("eccentricity_graph_canvas", "Eccentricity Distribution", graphPoint, "Value", "Count");
+}
+
+
+function clustering (statsData) {
+  var jsonParsed = $.parseJSON(statsData);
+  //eigencentrality graph 
+  $("#chartContainer").append('<div id="clustering_graph_canvas" style="height: 300px; min-width: 100% !important; margin: 20px 0 20px 0;"></div>');
+  var graphPoint = getSortedGraphPoints(jsonParsed.clustering);
+  canvasGraph("clustering_graph_canvas", "Clustering Coefficient Distribution", graphPoint, "Score", "Count");  
 }
 
 function eigencentralityStatis (statsData) {

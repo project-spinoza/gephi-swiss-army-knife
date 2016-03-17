@@ -6,6 +6,7 @@ import io.vertx.core.json.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
@@ -62,17 +63,26 @@ public class StatisticsWrap {
       
     case "avgClusterCoeficients":
       this.statistics.avgClusterCoeficients();
-//      Node[] n1 = GephiGraph.getGraphModel().getGraphVisible().getNodes().toArray();
-//
-//      Set<String> a1 = n1[3].getAttributeKeys();
-//      
-//      for (String g : a1) {
-//        System.out.println(g);
-//      }
+      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "clustering");
       break;
     case "eigenVectorCentrality":
       this.statistics.eigenVectorCentrality();
       responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eigencentrality");
+      break;
+      
+    case "avgPathLength":
+      this.statistics.graphDistance();
+      JsonObject root = new JsonObject();
+     
+      JsonObject eccentricity = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eccentricity")).getJsonObject("eccentricity");
+      JsonObject closnesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "closnesscentrality")).getJsonObject("closnesscentrality");
+      JsonObject betweenesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "betweenesscentrality")).getJsonObject("betweenesscentrality");
+     
+      root.put("eccentricity", eccentricity);
+      root.put("closnesscentrality", closnesscentrality);
+      root.put("betweenesscentrality", betweenesscentrality);
+      
+      responseJson = root.toString();
       break;
     default:
       break;

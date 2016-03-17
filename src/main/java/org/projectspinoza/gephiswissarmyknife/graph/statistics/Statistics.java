@@ -6,6 +6,7 @@ import org.gephi.statistics.plugin.ConnectedComponents;
 import org.gephi.statistics.plugin.Degree;
 import org.gephi.statistics.plugin.EigenvectorCentrality;
 import org.gephi.statistics.plugin.GraphDensity;
+import org.gephi.statistics.plugin.GraphDistance;
 import org.gephi.statistics.plugin.Hits;
 import org.gephi.statistics.plugin.Modularity;
 import org.gephi.statistics.plugin.PageRank;
@@ -26,8 +27,15 @@ public class Statistics {
   private Hits hits;
   private Modularity modularity;
   private PageRank pagerank;
+  private GraphDistance graphDistance;
+  
   
   public Statistics() {}
+  
+  public void graphDistance () {
+    graphDistance = new GraphDistance();
+    graphDistance.execute(this.graphModel);
+  }
   
   public void connectedComponents(){
     connectedComponents = new ConnectedComponents();
@@ -36,6 +44,7 @@ public class Statistics {
   
   public void avgClusterCoeficients(){
     clusteringCoefficient = new ClusteringCoefficient();
+    clusteringCoefficient.setDirected(false);
     clusteringCoefficient.execute(this.graphModel);
   }
   
@@ -160,6 +169,14 @@ public class Statistics {
 
   public void setPagerank(PageRank pagerank) {
     this.pagerank = pagerank;
+  }
+
+  public GraphDistance getGraphDistance() {
+    return graphDistance;
+  }
+
+  public void setGraphDistance(GraphDistance graphDistance) {
+    this.graphDistance = graphDistance;
   }
 
 }
