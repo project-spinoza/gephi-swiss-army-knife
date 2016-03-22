@@ -93,7 +93,7 @@
 										</div>
 									</div>
 									<div>
-									<h5 class="margin20 col-xs-12 col-sm-12 col-md-12 col-lg-12">Color <img alt="" src="images/color_bar.png" class=" pull-right margin5 img-responsive  col-xs-9 col-sm-9 col-md-9 col-lg-9"></h5>
+									<h5 class="margin20 col-xs-12 col-sm-12 col-md-12 col-lg-12">Color</h5>
 									</div>
 								</div>   
 							</div>  
@@ -120,7 +120,7 @@
 				</div>
 				<div class="panel-collapse collapse in" id="collapse2">
 					<div class="panel-body layout_panel">
-						<div class="layout-selectm">
+						<div class="layout-select">
 							<select id="selectlayout-boxit">
 								<option value="rotation">Rotate</option>
 								<option value="scale">Scale</option>
@@ -709,34 +709,37 @@
                <li class="isFolder" title="Bookmarks">
 			   Attributes
 				   <ul> 
-						<li id="equal_filter" class="isFolder isExpanded" >
+						<li id="equal_filter" class="isFolder" >
 							Equal
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Modularity class (Equal)</a></li>
+								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Equal (Modularity class)</a></li>
+							</ul>
+							<ul>
+								<li id="" class="ui-widget-content filterdrag"><a href="#equal_degree_class" > Equal (Degree)</a></li>
 							</ul>
 						</li>
-						<li id="inter_edges_filter"  class="isFolder isExpanded">
+						<li id="inter_edges_filter"  class="isFolder">
 							Inter Edges
 						</li>
-						<li id="intra_edges_filter" class="isFolder isExpanded">
+						<li id="intra_edges_filter" class="isFolder">
 							Intra Edges
 						</li>
-						<li id="non_null_filter" class="isFolder isExpanded">
+						<li id="non_null_filter" class="isFolder">
 							Non-null
 							<ul>
 								<li id="" class="ui-widget-content filterdrag"><a href="#non_null_mod_class" > Modularity class (Non Null)</a> </li>
 							</ul>
 						</li>
-						<li id="partition_filter" class="isFolder isExpanded" >
+						<li id="partition_filter" class="isFolder" >
 							Partition
 						</li>
-						<li id="partition_count_filter" class="isFolder isExpanded" >
+						<li id="partition_count_filter" class="isFolder" >
 							Partition Count
 						</li>
-						<li id="range_filter" class="isFolder isExpanded">
+						<li id="range_filter" class="isFolder">
 							Range
 							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class (Range)</a></li>
+								<li id="testright" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class (Range)</a></li>
 
 							</ul>
 						</li>
@@ -779,7 +782,7 @@
 					<li id="" class="ui-widget-content filterdrag"><a href="#in_deg_topology_filter"> In Degree Range</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#kcore_topology_filter"> K-core</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a  href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a id="neighbrs_net_topology_filter_id" href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a id="" href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#out_degree_range_topology_filter"> Out Degree Range</a></li>
 					
 				</ul>
@@ -789,8 +792,6 @@
 
 				<ul>
 				  Saved Queries
-				  <li id="test1" class="ui-widget-content filterdrag"><a href="#contentone" class="clicky">Test Filter 1</a></li>
-				  <li id="test2" class="ui-widget-content filterdrag"><a href="#contentwo" class="clicky">Test Filter 2</a></li>
 				</ul>
 			   </li>
 			   
@@ -817,7 +818,8 @@
                <div id="collapse_Queries" class="panel-collapse collapse in">
               	<div id="queries_panel" class="panel-body parameter_panel">
 					<div class="parameters-contents">
-                	<div id="filter_querycontainer" class="ui-widget-content"><ul><li class="replace_me">Drag Filter here to run Queries</li></ul></div>
+                	<div id="filter_querycontainer" class="ui-widget-content"><ul class="replace_me"><li>Drag Filter here to run Queries</li></ul></div>
+					
                 	</div>
                 </div>
                 
@@ -838,11 +840,12 @@
 						<div class="parameters-contents">
 
 							<div id="parameter_load">Query Parameters will load here..</div>
+
 							<div id="equal_mod_class_cont" class="parameter_load_class">
-								<div class="heading_parameter"><h6>Equal Settings</h6></div>
-								<div class="">
+								<div class="heading_parameter"><h6>Equal (Modularity) Settings</h6></div>
+								<div class="class="table-responsive"">
 									<form>
-										<table class="table-responsive table-parameter">
+										<table class="table table-parameter">
 											<tr>
 												<td>Value</td>
 												<td><input type="number" max="8" min="0" value="0"></td>
@@ -856,14 +859,54 @@
 												<td>8</td>
 											</tr>
 										</table>
+										<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+									</form>
+								</div>
+							</div>
+							<div id="equal_degree_class_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (Degree) Settings</h6></div>
+								<div class="table-responsive">
+									<form>
+										<table class="table table-parameter">
+											<tr>
+												<td>Value</td>
+												<td><input type="number" max="36" min="1" value="1"></td>
+											</tr>
+											<tr>
+												<td>Minimum</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td>Maximum</td>
+												<td>36</td>
+											</tr>
+										</table>
+										<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
 									</form>
 								</div>
 							</div>
 
 							<div id="range_mod_class_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Range Modularity Class Settings</h6></div>
-								<div class="">
-									<form><input type="hidden" class="range-slider" value="8" /></form>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden"  id="range-slider-range" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="edge_weight_edges_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Edge Weight Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden" id="range-slider-edge" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
 								</div>
 							</div>
 
@@ -884,15 +927,28 @@
 								</form>
 								</div>
 							</div>
+
+							<div id="deg_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden" id="range-slider-degree" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
+
 							<div id="ego_net_topology_filter_cont" class="parameter_load_class">
-								<div class="heading_parameter"><h6>Mask (Edges) Settings</h6></div>
+								<div class="heading_parameter"><h6>Ego Network Settings</h6></div>
 								<div>
 								<form action="">
 									<table class="table-responsive table-parameter">
 											<tr>
 												<td>Node ID:</td>
-												<td><input type="text" name="node_id_ego" value=""></td>
-												<td><input type="button" name="ok_ego" value="OK" class=""> </td>
+												<td><input id="ego_id" type="text" name="node_id_ego" value=""></td>
+												<td><input type="button" name="ok_ego" value="OK" class="btn"> </td>
 											</tr>
 											<tr>
 												<td>Depth:</td>
@@ -915,7 +971,78 @@
 								</div>
 							</div>
 
-							<div id="contentwo_cont" class="parameter_load_class"></div>
+							<div id="in_deg_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>In Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden" id="range-slider-in-degree" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="kcore_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>K core Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="number" id="kcore_id" class="" max="99" min="10" value="10" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="mutualdeg_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Mutual Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden" id="range-slider-mutual-degree" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="neighbrs_net_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Neihbors Network Settings</h6></div>
+								<div>
+								<form action="">
+									<table class="table-responsive table-parameter">
+											<tr>
+												<td>Depth:</td>
+												<td><select id="select-depth_neighbor">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="">Max</option>
+								                   </select> 
+								                </td>
+											</tr>
+											<tr>
+												<td>Withself</td>
+												<td>
+													<input class="" type="checkbox" name="withself_neighbor" value="true">
+												</td>
+											</tr>
+									</table>
+								</form>
+								</div>
+							</div>
+							<div id="out_degree_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Out Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form>
+										 	<input type="hidden" id="range-slider-out-degree" class="range-slider" value="1" />
+											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+										</form>
+									</div>
+								</div>
+							</div>
 						</div>                                    	
 					</div>
                 </div>
@@ -939,12 +1066,10 @@
 						<div class="table-responsive">          
 							<table class="table-responsive table-stat">
 								<div id="myModal" class="modal fade" role="dialog">
-  
 								<tr>       
-									<td class="td-wd-txt">Average Degree</td>
 									<td class="td-wd-button">
 										<form action="/statistics" method="get" class="statistics_form" id="averageDegree">
-											<input type="submit" id="average_degree_stats" data-popup-open="popup-1" class="btn btn-primary" name="run" value="Run">
+											<div class="runbtn"><INPUT type="submit" id="average_degree_stats" data-popup-open="popup-1" name="run" value=""></div>
 											<input type="hidden" value="averageDegree" name="statistics">
 										</form>
 										<div class="popup" data-popup="popup-1">
@@ -956,69 +1081,63 @@
 										    </div>
 										</div>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Average Degree</td>		
 								</tr>
-	
-								<tr>       
-									<td class="td-wd-txt">Avg. Weighted Degree</td>
+								<tr>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="averageWeightedDegree">
-										<input id="avg_weight_degree_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<div class="runbtn"><INPUT type="submit" id="avg_weight_degree_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="averageWeightedDegree" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Avg. Weighted Degree</td>
 								</tr>
-								<tr>       
-									<td class="td-wd-txt">Graph Density</td>
+								<tr>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="graphDensity">
-										<input id="graph_density_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<div class="runbtn"><INPUT type="submit" id="graph_density_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="graphDensity" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Graph Density</td>
 								</tr>
-								<tr>       
-									<td class="td-wd-txt">Modularity</td>
+								<tr>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="Modularity">
-										<input id="modularity_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<div class="runbtn"><INPUT type="submit" id="modularity_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="Modularity" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Modularity</td>
 								</tr>
-								<tr>       
-									<td class="td-wd-txt">Page Rank</td>
+								<tr>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="pageRank">
-										<input id="page_rank_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										
+										<div class="runbtn"><INPUT type="submit" id="page_rank_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="pageRank" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Page Rank</td>
 								</tr>
-								<tr>       
-									<td class="td-wd-txt">Connected Components</td>
+								<tr>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="connectedComponents">
-										<input id="connected_comp_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<div class="runbtn"><INPUT type="submit" id="connected_comp_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="connectedComponents" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Connected Components</td>
 								</tr>
-								<tr>       
-								 	<td class="td-wd-txt">HITS</td>
+								<tr> 	
 									<td class="td-wd-button">
-									<form action="/statistics" method="get" class="statistics_form" id="hits">
-											<input id="hits_centrality_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<form action="/statistics" method="get" class="statistics_form" id="hits">
+											<div class="runbtn"><INPUT type="submit" id="hits_centrality_stats" data-popup-open="popup-1" name="run" value=""></div>
 											<input type="hidden" value="hits" name="statistics">
-									</form>
+										</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
-									</tr>
+									<td class="td-wd-txt">HITS</td>
+								</tr>
 							</table>
 						</div>		
 						</div>                                    	
@@ -1040,29 +1159,24 @@
 						<div class="statistics-contents">
 							<div class="table-responsive">          
 								<table class="table-responsive table-stat">
-									
 									<tr>       
+										<td class="td-wd-button">
+											<form action="/statistics" method="get" class="statistics_form" id="avgClusterCoeficients">
+												<div class="runbtn"><INPUT type="submit" id="avg_clustering_stats" data-popup-open="popup-1" name="run" value=""></div>
+												<input type="hidden" value="avgClusterCoeficients" name="statistics">
+											</form>
+										</td>
 										<td class="td-wd-txt">Avg. Clustering Coefficient</td>
-										<td class="td-wd-button">
-									<form action="/statistics" method="get" class="statistics_form" id="avgClusterCoeficients">
-											<input id="avg_clustering_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
-											<input type="hidden" value="avgClusterCoeficients" name="statistics">
-									</form>
-										</td>
-										<td class="td-wd-help"><div class="btn-help-td"></div></td>
 									</tr>
-									<tr>       
+									<tr>
+										<td class="td-wd-button">
+											<form action="/statistics" method="get" class="statistics_form" id="eigenVectorCentrality">
+												<div class="runbtn"><INPUT type="submit" id="eigenvector_centrality_stats" data-popup-open="popup-1" name="run" value=""></div>
+												<input type="hidden" value="eigenVectorCentrality" name="statistics">
+											</form>
+										</td>       
 										<td class="td-wd-txt">EigenVector Centrality</td>
-										<td class="td-wd-button">
-									<form action="/statistics" method="get" class="statistics_form" id="eigenVectorCentrality">
-											<input id="eigenvector_centrality_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
-											<input type="hidden" value="eigenVectorCentrality" name="statistics">
-									</form>
-										</td>
-										<td class="td-wd-help"><div class="btn-help-td"></div></td>
-									</tr>
-
-										
+									</tr>	
 								</table>
 							</div>
 						</div>                                    	
@@ -1085,14 +1199,13 @@
 							<table class="table-responsive table-stat">
 										
 								<tr>       
-									<td class="td-wd-txt">Avg. Path Length</td>
 									<td class="td-wd-button">
 									<form action="/statistics" method="get" class="statistics_form" id="avgPathLength">
-										<input id="avg_path_length_stats" data-popup-open="popup-1" class="btn btn-primary" type="submit" name="run" value="Run">
+										<div class="runbtn"><INPUT type="submit" id="avg_path_length_stats" data-popup-open="popup-1" name="run" value=""></div>
 										<input type="hidden" value="avgPathLength" name="statistics">
 									</form>
 									</td>
-									<td class="td-wd-help"><div class="btn-help-td"></div></td>
+									<td class="td-wd-txt">Avg. Path Length</td>
 								</tr>
 											
 							</table>
@@ -1240,5 +1353,6 @@
 // });
 
 </script>
+
   </body>
 </html>

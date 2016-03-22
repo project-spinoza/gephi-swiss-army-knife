@@ -44,7 +44,7 @@ $(".statistics_form").submit(function (e) {
 *
 *Load Test graph
 */
-//requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
+requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
 
 
 /*
@@ -55,7 +55,7 @@ function requestAjax (ajaxURL, formData, callBackFun) {
   /*<![CDATA[*/
    $.ajax({
       type: "get", url: ajaxURL, data:formData,
-      async : true, beforeSend: function(xhr) {},
+      async : true, timeout: 20*1000,  beforeSend: function(xhr) {},
       //on successfull ajax request
       success: function (graphData) {
         callBackFun(graphData, formData);

@@ -1,6 +1,7 @@
 .slider-container {
   width: 300px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: red;
 }
 .slider-container .back-bar {
   height: 10px;
@@ -66,26 +67,12 @@
 .theme-green .back-bar {
   height: 5px;
   border-radius: 2px;
-  background-color: #eeeeee;
-  background-color: #e7e7e7;
-  background-image: -moz-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#dddddd));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
-  background-image: linear-gradient(to bottom, #eeeeee, #dddddd);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeeeee', endColorstr='#ffdddddd', GradientType=0);
+  background-color: #434343;
+  
 }
 .theme-green .back-bar .selected-bar {
   border-radius: 2px;
-  background-color: #a1fad0;
-  background-image: -moz-linear-gradient(top, #bdfade, #76fabc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bdfade), to(#76fabc));
-  background-image: -webkit-linear-gradient(top, #bdfade, #76fabc);
-  background-image: -o-linear-gradient(top, #bdfade, #76fabc);
-  background-image: linear-gradient(to bottom, #bdfade, #76fabc);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbdfade', endColorstr='#ff76fabc', GradientType=0);
+  background-color: #1fca64;
 }
 .theme-green .back-bar .pointer {
   width: 14px;
