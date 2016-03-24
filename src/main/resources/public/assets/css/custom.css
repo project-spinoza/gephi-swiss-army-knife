@@ -365,7 +365,7 @@ a {
   
 }
 #parameters_panel{
-  height: 200px;
+  height: 170px;
 }
 #layout-contents{
   height: 160px;
@@ -615,7 +615,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 .popup-in{
   overflow-y: scroll;
-  height: 250px;
+  height: 450px; 
   width: 740px !important;
 }
 /* Close Button */
@@ -855,10 +855,13 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   text-transform: uppercase;
 }
 .parameter_content_range{
-  height: 150px;
+  height: 110px;
   border: 1px solid #3b3b3b;
   background-color: #3b3b3b;
   padding: 20px 10px 20px 10px;
+}
+.equal_filter_div{
+  background-color: #3b3b3b;
 }
 .gsak-home .parameter_content_range .slider-container {
   margin: 20px auto 0;

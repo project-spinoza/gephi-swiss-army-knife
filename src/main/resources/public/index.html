@@ -843,7 +843,7 @@
 
 							<div id="equal_mod_class_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (Modularity) Settings</h6></div>
-								<div class="class="table-responsive"">
+								<div class="table-responsive equal_filter_div">
 									<form>
 										<table class="table table-parameter">
 											<tr>
@@ -859,13 +859,12 @@
 												<td>8</td>
 											</tr>
 										</table>
-										<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
 									</form>
 								</div>
 							</div>
 							<div id="equal_degree_class_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (Degree) Settings</h6></div>
-								<div class="table-responsive">
+								<div class="table-responsive equal_filter_div">
 									<form>
 										<table class="table table-parameter">
 											<tr>
@@ -881,7 +880,6 @@
 												<td>36</td>
 											</tr>
 										</table>
-										<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
 									</form>
 								</div>
 							</div>
@@ -892,7 +890,6 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden"  id="range-slider-range" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
 										</form>
 									</div>
 								</div>
@@ -904,7 +901,6 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden" id="range-slider-edge" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
 										</form>
 									</div>
 								</div>
@@ -914,7 +910,7 @@
 								<div class="heading_parameter"><h6>Mask (Edges) Settings</h6></div>
 								<div>
 								<form action="">
-									<table class="table-responsive table-parameter">
+									<table class="table-responsive table-parameter equal_filter_div">
 											<tr>
 												<td><input type="radio" name="any_mask" value="any_mask"> any</td>
 												<td><input type="radio" name="source_mask" value="source_mask"> source</td>
@@ -934,7 +930,7 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden" id="range-slider-degree" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+											
 										</form>
 									</div>
 								</div>
@@ -944,7 +940,7 @@
 								<div class="heading_parameter"><h6>Ego Network Settings</h6></div>
 								<div>
 								<form action="">
-									<table class="table-responsive table-parameter">
+									<table class="table-responsive table-parameter equal_filter_div">
 											<tr>
 												<td>Node ID:</td>
 												<td><input id="ego_id" type="text" name="node_id_ego" value=""></td>
@@ -977,7 +973,7 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden" id="range-slider-in-degree" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+											
 										</form>
 									</div>
 								</div>
@@ -989,7 +985,7 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="number" id="kcore_id" class="" max="99" min="10" value="10" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+											
 										</form>
 									</div>
 								</div>
@@ -1001,7 +997,7 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden" id="range-slider-mutual-degree" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+											
 										</form>
 									</div>
 								</div>
@@ -1011,7 +1007,7 @@
 								<div class="heading_parameter"><h6>Neihbors Network Settings</h6></div>
 								<div>
 								<form action="">
-									<table class="table-responsive table-parameter">
+									<table class="table-responsive table-parameter equal_filter_div">
 											<tr>
 												<td>Depth:</td>
 												<td><select id="select-depth_neighbor">
@@ -1038,7 +1034,7 @@
 									<div class="parameter_content_range ">
 										<form>
 										 	<input type="hidden" id="range-slider-out-degree" class="range-slider" value="1" />
-											<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter">
+											
 										</form>
 									</div>
 								</div>
@@ -1049,6 +1045,8 @@
             </div>
           </div>
 		  <!-- End of Panel parameters -->
+
+			<div class="filter_btn_div"><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
 						</div>
 						<div class="tab-pane fade " id="statistics">
 						
