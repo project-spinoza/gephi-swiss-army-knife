@@ -365,11 +365,14 @@ a {
   
 }
 #parameters_panel{
-  height: 170px;
+  height: 165px;
 }
 #layout-contents{
   height: 160px;
   overflow:auto;
+}
+.input_layout{
+  padding: 0;
 }
 .gsak-home .panel-group:last-child{
   margin-bottom:0px;
@@ -545,15 +548,15 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 
 #network_overview_panel{
-  height: 247px;
+  height: 227px;
 }
 #node_overview_panel{
-  height: 130px;
+  height: 80px;
 }
 #dynamic_panel{
 }
 #edge_overview_panel{
-  height: 130px;
+  height: 50px;
 }
 #network_overview_panel .statistics-contents{} 
 #statistics .runbtn{
@@ -562,7 +565,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 #statistics div.runbtn input{
   
     width: 20px;
-    background:url(images/run-ic.png);
+    background:url(images/play.png);
     background-position: center center;
     background-repeat: no-repeat;
     cursor:pointer;
@@ -614,8 +617,8 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   background: #434343;
 }
 .popup-in{
-  overflow-y: scroll;
-  height: 450px; 
+ /* overflow-y: scroll;*/
+  height: 450px;
   width: 740px !important;
 }
 /* Close Button */
@@ -925,11 +928,115 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 #filter_querycontainer .removebtn{
   cursor: pointer;
-  width: 10px;
+  width: 14px;
+  height: 10px;
+  background-image: url("images/cross.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
 }
 #filter_querycontainer .removebtn:hover{
   color: #de7387;
   
+}
+/*****************Css for color picker********************************/
+    #attributes{
+     height: 100px;
+     position: relative;
+    }
+    .grad_ex {
+      width: 200px;
+      height: 10px;
+      top: 15px;
+      bottom: 20px;
+      position: absolute;
+      margin: 0 auto;
+    }
+
+    #controlled-grad {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      left: 400px;
+      top: 300px;
+    }
+
+    .left-grad {
+      position: absolute;
+      width: 500px;
+      height: 200px;
+    }
+/********************css for popup datasource***********/
+.conf-db-pop{
+  margin-top: 30px;
+}
+.conf-db-pop input[type="text"], textarea {
+  background-color: #3b3b3b !important;
+  border:0 !important;
+   width: 200px !important;
+  height: 31px;
+}
+.conf-db-pop input[type="password"], textarea {
+  background-color: #3b3b3b !important;
+  border:0 !important;
+   width: 200px !important;
+  height: 31px;
+}
+
+.gsak-home #savedb_idSelectBoxIt{
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home #savehost_idSelectBoxIt{
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home #savehost_idSelectBoxItContainer{
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home #savedb_idSelectBoxItContainer{
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home #savedb_idSelectBoxIt #savedb_idSelectBoxIt:option {
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home #savehost_idSelectBoxIt #savehost_idSelectBoxIt:option{
+  width: 200px !important;
+  height: 31px;
+}
+.gsak-home .conf-db-pop table tr td{
+  border-top: none;
+}
+.gsak-home .popup-table label{
+  display: block;
+}
+.gsak-home .popup-table .popup-td-wd{
+  width: 200px !important;
+  
+}
+/**********css for fileupload***************/
+.gsak-home .conf-db-pop .jFiler-input-dragDrop{
+  background-color: #3b3b3b;
+}
+.gsak-home .conf-db-pop .jFiler-input-choose-btn{
+  background-color: #3c8dbc;
+}
+.gsak-home .jFiler-items-grid .jFiler-item .jFiler-item-container{
+  background-color: #3b3b3b;
+  border:none !important;
+  margin-left: 275px;
+}
+.gsak-home .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb{
+  border: 1px solid #434343;
+}
+
+.gsak-home  .jFiler-input-choose-btn {
+  color: #fff !important;
+  font-family: Century Gothic !important;
+  font-weight: normal;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
