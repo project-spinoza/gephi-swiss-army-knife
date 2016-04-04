@@ -304,10 +304,11 @@ function graphJsonHandler (graphData){
   }
 }
 
+var s;
 function showGraph(givenData, givenContainer, givenSettings){
     $('#container').find("canvas").remove();      
 //    givenContainer.innerHTML = "";
-    var s = new sigma( {
+    s = new sigma( {
             graph : givenData,
             renderer: {
               container:givenContainer,
@@ -395,4 +396,42 @@ function waitUntilValChange(variable, value) {
     }
 }
 
+$('#zoomin-btn').click(function(e){
+
+  $('#zoomin-btn').css('background','#4090d6');
+  var height = parseInt( $('.zoomslider-inner').height());
+
+  if (height < 100) {
+    $('.zoomslider-inner').height(height+10);
+  }
+
+  var c = s.camera;
+  // Zoom in - animation :
+  sigma.misc.animation.camera(c, {
+    ratio: c.ratio / c.settings('zoomingRatio')
+  }, {
+    duration: 300
+  });
+    e.preventDefault();
+    $('#zoomin-btn').css('background','#1d1d1d');
+});
+$('#zoomout-btn').click(function(e){
+
+   $('#zoomout-btn').css('background','#4090d6');
+
+  var height = parseInt($('.zoomslider-inner').height());
+
+  if (height > 0) {
+    $('.zoomslider-inner').height(height-10);
+  }
+    var c = s.camera;
+  // Zoom out - animation :
+sigma.misc.animation.camera(c, {
+  ratio: c.ratio * c.settings('zoomingRatio')
+}, {
+  duration: 300
+});
+  e.preventDefault();
+  $('#zoomout-btn').css('background','#1d1d1d');
+});
 });

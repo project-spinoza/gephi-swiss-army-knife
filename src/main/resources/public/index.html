@@ -62,7 +62,53 @@
 	<script src="assets/js/colorpicker/js/colorpicker.js"></script>
 	<script src="assets/js/jquery.gradientPicker.js"></script>
 	
+<style type="text/css">
 
+.zoom-container {
+	position: absolute;
+	max-width: 55px;
+	height: 165px;
+	padding: 5px 15px;
+	left: 315px;
+	top: 100px;
+	z-index: 5;
+}
+
+.zoomslider-outer {
+	width: 5px;
+	height: 100px;
+	background: #ccc;
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.zoomslider-inner {
+	min-width: 5px;
+	height: 0px;
+	background: #4090d6;
+	position: absolute;
+	bottom: 0;
+}
+.zoom-btn {
+	border: 1px solid #fff;
+	color: #fff;
+	font-size: 15px;
+	display: block;
+	text-align: center;
+	min-height: 18px;
+	min-width: 20px;
+	margin: 0 auto;
+}
+#zoomout-btn {
+	padding-bottom: 1px;
+}
+.zoom-btn:hover {
+	cursor: pointer;
+}
+
+</style>
   </head>
 
   <body class="skin-blue sidebar-mini gsak-home">
@@ -1418,7 +1464,14 @@
       </header>
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">    
+      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">   
+      	<div class="zoom-container">
+		<a class="zoom-btn" id="zoomin-btn">+</a>
+		<div class="zoomslider-outer">
+			<div class="zoomslider-inner"></div>
+		</div>
+		<a class="zoom-btn" id="zoomout-btn">-</span></a>
+		</div>
     
 			<!--<div id="controlled-grad">
 				<div class="left-grad"></div>
