@@ -77,7 +77,7 @@
 			<version>4.0</version>
 		</dependency>
 
-        <!-- Gephi dependency -->
+		<!-- Gephi dependency -->
 		<dependency>
 			<groupId>org.gephi</groupId>
 			<artifactId>gephi-toolkit</artifactId>
@@ -97,6 +97,26 @@
 			<version>2.3.1</version>
 		</dependency>
 
+		<!-- ElasticSearch dependencies -->
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<!-- mysql dependencies -->
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-sql-common</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<!-- monogdb dependencies -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.1.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
