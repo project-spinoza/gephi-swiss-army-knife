@@ -13,7 +13,7 @@ for (k in index)
 /*
 * GLOBAL variables/settings
 */
-var sigmaSettings = '{ "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 
@@ -305,6 +305,7 @@ function graphJsonHandler (graphData){
 }
 
 var s;
+var cameraSigmaGraph;
 function showGraph(givenData, givenContainer, givenSettings){
     $('#container').find("canvas").remove();      
 //    givenContainer.innerHTML = "";
@@ -323,6 +324,7 @@ function showGraph(givenData, givenContainer, givenSettings){
      totalEdges[i].type = 'curve';
    }
 
+   cameraSigmaGraph = s.camera;
    s.graph.nodes().forEach(function(n) {
       n.originalColor = n.color;
       n.originalLabel = n.label;
@@ -333,7 +335,7 @@ function showGraph(givenData, givenContainer, givenSettings){
    });
 
    s.bind('clickEdge rightClickEdge', function(e) {
-     console.log(e);
+   //  console.log(e);
    });
 
   //  s.bind('overNode', function(e){
@@ -388,6 +390,18 @@ function showGraph(givenData, givenContainer, givenSettings){
    }
 
 
+function sigmaGraphZoom (zIO, zRatio) {
+  if (zIO) {
+    cameraSigmaGraph.goTo({
+      ratio: zRatio
+    });
+  } else {
+    cameraSigmaGraph.goTo({
+      ratio: zRatio
+    });
+  }
+}
+
 
 function waitUntilValChange(variable, value) {
     if(value === variable) {
@@ -396,42 +410,88 @@ function waitUntilValChange(variable, value) {
     }
 }
 
-$('#zoomin-btn').click(function(e){
 
-  $('#zoomin-btn').css('background','#4090d6');
-  var height = parseInt( $('.zoomslider-inner').height());
 
-  if (height < 100) {
-    $('.zoomslider-inner').height(height+10);
-  }
+/*************************************************************
+              VERTICAL SLIDER JS
+*************************************************************/
+var zoomValCurrent;
+var zoomValPrevious = 3;
 
-  var c = s.camera;
-  // Zoom in - animation :
-  sigma.misc.animation.camera(c, {
-    ratio: c.ratio / c.settings('zoomingRatio')
-  }, {
-    duration: 300
+  $(function() {
+    $( "#slider-vertical" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 3,
+      slide: function( event, ui ) {
+          zoomValCurrent = ui.value;
+          zoomCalculator ();
+      }
+    });
   });
-    e.preventDefault();
-    $('#zoomin-btn').css('background','#1d1d1d');
-});
-$('#zoomout-btn').click(function(e){
 
-   $('#zoomout-btn').css('background','#4090d6');
 
-  var height = parseInt($('.zoomslider-inner').height());
+function zoomCalculator () {
 
-  if (height > 0) {
-    $('.zoomslider-inner').height(height-10);
+  if (zoomValCurrent > zoomValPrevious) {
+    var zoomRatio = cameraSigmaGraph.ratio;
+    for (var i=0; i < (zoomValCurrent - zoomValPrevious); i++) {
+      zoomRatio = zoomRatio / cameraSigmaGraph.settings('zoomingRatio');
+    }
+    sigmaGraphZoom(true, zoomRatio);
+  }else if (zoomValCurrent < zoomValPrevious) {
+    var zoomRatio = cameraSigmaGraph.ratio;
+    for (var i=0; i < (zoomValPrevious - zoomValCurrent); i++) {
+      zoomRatio = zoomRatio * cameraSigmaGraph.settings('zoomingRatio');
+    }
+    sigmaGraphZoom(false, zoomRatio);
   }
-    var c = s.camera;
-  // Zoom out - animation :
-sigma.misc.animation.camera(c, {
-  ratio: c.ratio * c.settings('zoomingRatio')
-}, {
-  duration: 300
+  zoomValPrevious = zoomValCurrent;
+}
+
+$('#zoomin-btn').click (function (e){
+  var sVal = parseInt($("#slider-vertical").slider("value"));
+  if (sVal < 10) {
+    $("#slider-vertical").slider("value", sVal+1)
+    zoomValCurrent = sVal+1;
+    zoomCalculator();
+  }
 });
-  e.preventDefault();
-  $('#zoomout-btn').css('background','#1d1d1d');
+
+$('#zoomout-btn').click (function (e){
+  var sVal = parseInt($("#slider-vertical").slider("value"));
+  if (sVal > 0) {
+    $("#slider-vertical").slider("value", sVal-1)
+    zoomValCurrent = sVal-1;
+    zoomCalculator();
+  }
 });
+
+
+ //Firefox
+ $('#container').bind('DOMMouseScroll', function(e){
+     if(e.originalEvent.detail > 0) {
+         $('#zoomout-btn').click();
+     }else {
+         //scroll up
+         $('#zoomin-btn').click();
+     }
+     return false;
+ });
+
+ //IE, Opera, Safari
+ $('#container').bind('mousewheel', function(e){
+     if(e.originalEvent.deltaY > 0) {
+         //scroll down
+         $('#zoomout-btn').click();
+     }else {
+         //scroll up
+         $('#zoomin-btn').click();
+     }
+     return false;
+ });
+
 });

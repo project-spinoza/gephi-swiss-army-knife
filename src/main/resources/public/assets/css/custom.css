@@ -1038,6 +1038,139 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   font-family: Century Gothic !important;
   font-weight: normal;
 }
+
+/***********************css for zoom slider**************/
+.zoom-container {
+  position: absolute;
+  max-width: 55px;
+  height: 165px;
+  padding: 5px 15px;
+  right: 296px;
+  top: 99px;
+  z-index: 5;
+}
+.fullscreen_icon {
+    cursor: pointer;
+    padding: 0 3px;
+    
+}
+.scroll-btn-zoom{
+}
+.zoomslider-outer {
+  
+  width: 3px;
+  height: 100px;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.zoom-btn {
+ // border: 1px solid #fff;
+  color: #fff;
+  display: block;
+  text-align: center;
+  min-height: 18px;
+  min-width: 20px;
+  margin: 0 auto;
+  cursor: pointer !important;
+  margin-left: 5px !important;
+  position: absolute !important;
+
+   
+}
+#zoomout-btn {
+  padding-bottom: 1px;
+  top: 120px;
+
+
+}
+.zoom-btn:hover {
+  cursor: pointer;
+}
+#slider-vertical .glyphicon-plus{
+  font-weight: normal;
+  font-size: 13px; 
+}
+#slider-vertical .glyphicon-minus{
+  font-size: 13px; 
+}
+.ui-widget-header {
+  border: 1px solid #aaaaaa;
+  background: #cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+  color: #222222;
+}
+/*.ui-widget-content {
+  border: 1px solid #aaaaaa;
+  background: #ff0000 url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+ 
+}*/
+
+.ui-slider {
+  position: relative;
+  text-align: left;
+}
+.ui-slider  {
+  position: absolute;
+  z-index: 2;
+  width: 1.0em;
+  height: 1.0em;
+  cursor: pointer;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* support: IE8 - See #6727 */
+.ui-slider.ui-state-disabled 
+.ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+.ui-slider-vertical {
+  width: .3em;
+  height: 100px;
+  background-color: #434343;
+}
+.ui-slider-vertical {
+  left: 16px;
+  margin-left: 0;
+  margin-bottom: -.6em;
+
+}
+.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+  background-color: #3c8dbc;
+}
+.ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+  background-color: #3c8dbc;
+}
+.ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+  background-color: #3c8dbc;
+}
+/*********************** CSS for full screen *************************/
+.full-screen .user-menu-container{
+  display: none;
+}
+.full-screen .user-menu-container-right{
+  display: none;
+}
+.full-screen .main-header{
+  display: none;
+}
+.full-screen .zoom-container{
+  right: 10px;
+}
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #bababa;

@@ -27,6 +27,9 @@
 	<!-- file upload in popup css -->
 	<link rel="stylesheet" href="assets/css/jqueryfiler/jquery.filer.css">
 	<link rel="stylesheet" href="assets/css/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css">
+
+	
+
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -62,53 +65,7 @@
 	<script src="assets/js/colorpicker/js/colorpicker.js"></script>
 	<script src="assets/js/jquery.gradientPicker.js"></script>
 	
-<style type="text/css">
 
-.zoom-container {
-	position: absolute;
-	max-width: 55px;
-	height: 165px;
-	padding: 5px 15px;
-	left: 315px;
-	top: 100px;
-	z-index: 5;
-}
-
-.zoomslider-outer {
-	width: 5px;
-	height: 100px;
-	background: #ccc;
-	position: relative;
-	display: block;
-	margin: 0 auto;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-.zoomslider-inner {
-	min-width: 5px;
-	height: 0px;
-	background: #4090d6;
-	position: absolute;
-	bottom: 0;
-}
-.zoom-btn {
-	border: 1px solid #fff;
-	color: #fff;
-	font-size: 15px;
-	display: block;
-	text-align: center;
-	min-height: 18px;
-	min-width: 20px;
-	margin: 0 auto;
-}
-#zoomout-btn {
-	padding-bottom: 1px;
-}
-.zoom-btn:hover {
-	cursor: pointer;
-}
-
-</style>
   </head>
 
   <body class="skin-blue sidebar-mini gsak-home">
@@ -1295,10 +1252,11 @@
     	 	<div class="margin30 select-container-test col-sm-12">
 				<div class="header-selecttest custom-select col-sm-8">
 					<select id="selectdata">
-						<option value="">Select DataSource</option>
-						<option value="config_pop_database">Configure Databases</option>
-						<option value="config_pop_elasticsearch">Configure ElasticSearch</option>
-						<option value="config_file_upload">Upload File</option>
+						<option value="" selected="selected" disabled="disabled">Select DataSource</option>
+						<option value="config_pop_elasticsearch">ElasticSearch</option>
+						<option value="config_pop_database">MySql</option>
+						<option value="config_pop_database">MongoDB</option>
+						<option value="config_file_upload">Graph File</option>
                    </select> 
 				</div>
 				
@@ -1322,13 +1280,10 @@
 		       		<div class="conf-db-pop">
 		       		<form>
 		       			<table class="popup-table table table-responsive">
+		       		
 		       				<tr>
 			       				<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				<td class="popup-td-wd">
-			       					<label>Select Save DB</label>
+			       					<label>Saved DB</label>
 			       					<select id="savedb_id">
 										<option value="database_1">Database 1</option>
 										<option value="database_2">Database 2</option>
@@ -1338,34 +1293,38 @@
 			       					<label>Host</label>
 			       					<input type="text" value="" id=""></input>
 			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port </label>	
+			       				<input type="text" value="" id=""></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Name</label>	
+			       				<input type="text" value="" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Username</label>	
+			       				<input type="text" value="" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Password</label>
+			       					<input type="password" value="" id=""></input>
+			       				</td>
 		       				</tr>
 		       				<tr>
 			       				<td class="popup-td-wd">
 			       				<label>Database</label>	
 			       				<input type="text" value="" id=""></input>
 			       				</td>
-			       				<td class="popup-td-wd">
-			       				<label>Port </label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
+			       				
 			       				<td class="popup-td-wd">
 			       					<label>Database Table</label>
 			       					<input type="text" value="" id=""></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Username</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				
 			       				<td class="popup-td-wd">
 			       					<label>Column</label>
 			       					<input type="text" value="" id=""></input>
-			       				</td>
-			       				<td class="popup-td-wd">
-			       					<label>Password</label>
-			       					<input type="password" value="" id=""></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
@@ -1391,10 +1350,6 @@
 		       			<table class="popup-table table table-responsive">
 		       				<tr>
 			       				<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				<td class="popup-td-wd">
 			       					<label>Saved Host</label>
 			       					<select id="savehost_id">
 										<option value="host_1">Host 1</option>
@@ -1405,16 +1360,21 @@
 			       					<label>Host</label>
 			       					<input type="text" value="" id=""></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Index</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Port</label>	
 			       				<input type="text" value="" id=""></input>
 			       				</td>
+		       				</tr>
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Name</label>	
+			       				<input type="text" value="" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Index</label>	
+			       				<input type="text" value="" id=""></input>
+			       				</td>
+			       				
 			       				<td class="popup-td-wd">
 			       					<label>Type</label>
 			       					<input type="text" value="" id=""></input>
@@ -1464,24 +1424,23 @@
       </header>
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">   
-      	<div class="zoom-container">
-		<a class="zoom-btn" id="zoomin-btn">+</a>
-		<div class="zoomslider-outer">
-			<div class="zoomslider-inner"></div>
+      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">
+      	  
+		<div class="zoom-container">
+			<div class="fullscreen_icon" title="">
+				<img src="assets/css/images/zo.png">
+			</div>  
+			<div class="scroll-btn-zoom">
+				<a class="zoom-btn" id="zoomin-btn"><span class="">+</span></a>
+			<div class="zoomslider-outer">
+				<div id="slider-vertical" style="height:100px;"></div>
+			</div>
+				<a class="zoom-btn" id="zoomout-btn"><span class="">-</span></a>
+			</div>
 		</div>
-		<a class="zoom-btn" id="zoomout-btn">-</span></a>
-		</div>
-    
-			<!--<div id="controlled-grad">
-				<div class="left-grad"></div>
-			</div>-->
-	<!-- Content Header (Page header) -->
-        <!--<img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">-->
-
 	<!-- Content Header (Page header) -->
         <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
-
+        
       </div><!-- /.content-wrapper -->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
@@ -1538,35 +1497,5 @@
 	<script src="assets/js/canvasjs/jquery.canvasjs.min.js"></script>
 	<!-- GSAK ajax-server script -->
 	<script src="assets/js/script.js"></script>
-	<script type="text/javascript">
-//$(function () {
-// 	//Better to construct options first and then pass it as a parameter
-// 	var options = {
-// 		title: {
-// 			text: "Spline Chart using jQuery Plugin"
-// 		},
-//                 animationEnabled: true,
-// 		data: [
-// 		{
-// 			type: "spline", //change it to line, area, column, pie, etc
-// 			dataPoints: [
-// 				{ x: 10, y: 10 },
-// 				{ x: 20, y: 12 },
-// 				{ x: 30, y: 8 },
-// 				{ x: 40, y: 14 },
-// 				{ x: 50, y: 6 },
-// 				{ x: 60, y: 24 },
-// 				{ x: 70, y: -4 },
-// 				{ x: 80, y: 10 }
-// 			]
-// 		}
-// 		]
-// 	};
-
-// 	$("#chartContainer").CanvasJSChart(options);
-
-// });
-
-</script>
   </body>
 </html>

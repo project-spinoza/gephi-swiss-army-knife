@@ -595,5 +595,4 @@ $(".degree-selectm #selectdeg").change(function(){
             }
             
     });
-
 });  // End of document ready function.
