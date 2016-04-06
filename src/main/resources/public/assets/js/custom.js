@@ -595,4 +595,8 @@ $(".degree-selectm #selectdeg").change(function(){
             }
             
     });
+//jquery for full screen
+$(".fullscreen_icon").click(function(){
+	$("body").toggleClass("full-screen");
+});
 });  // End of document ready function.

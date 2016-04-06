@@ -1170,6 +1170,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 .full-screen .zoom-container{
   right: 10px;
+  top: 10px;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
