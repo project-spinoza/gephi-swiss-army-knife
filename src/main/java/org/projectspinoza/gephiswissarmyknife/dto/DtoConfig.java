@@ -4,7 +4,7 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class DtoConfig {
-
+  
   // mysql cred properties
   private String mysqlHost;
   private int mysqlPort;
@@ -32,13 +32,18 @@ public class DtoConfig {
   private String elasticsearchIndex;
   private String elasticsearchIndexType;
 
-  // input file
-  private String fileName;
+  // input file (standard Graph Format)
+  private String graphfileName;
+  
+  // raw Text file
+  private String textfileName;
 
   // custom
   private String dataSource;
   private String searchValue;
 
+  DtoConfig() {}
+  
   public String getMysqlUserPassword() {
     return mysqlUserPassword;
   }
@@ -89,9 +94,6 @@ public class DtoConfig {
 
   public void setSearchValue(String searchValue) {
     this.searchValue = searchValue;
-  }
-
-  private DtoConfig() {
   }
 
   public String getMysqlHost() {
@@ -210,15 +212,6 @@ public class DtoConfig {
     return mysqlUserName;
   }
 
-  public String getFileName() {
-    return fileName;
-  }
-
-  public void setFileName(String fileName) {
-    this.fileName = fileName;
-  }
-
-
   @Override
   public String toString() {
     return "Configuration [mysqlHost=" + mysqlHost + ", mysqlPort=" + mysqlPort
@@ -234,7 +227,8 @@ public class DtoConfig {
         + elasticsearchPort + ", elasticSearchClusterName="
         + elasticSearchClusterName + ", elasticsearchIndex="
         + elasticsearchIndex + ", elasticsearchIndexType="
-        + elasticsearchIndexType + ", fileName=" + fileName
+        + elasticsearchIndexType + ", graphfileName=" + graphfileName
+        + ", textfileName = " + textfileName
         + ", nodecentralitythreshHold=" + ", pagerankthreshHold="
         + ", neighborcountThreshHold=" + ", edgecolorBy=" + ", edgeType="
         + ", nodeSizeBy=" + ", backColor=" + ", layoutAlgoName="
@@ -246,6 +240,22 @@ public class DtoConfig {
         + ", fruchtermanReingoldLayoutSpeed="
         + ", fruchtermanReingoldLayoutGravity=" + ", dataSource=" + dataSource
         + ", searchValue=" + searchValue + "]";
+  }
+
+  public String getGraphfileName() {
+    return graphfileName;
+  }
+
+  public void setGraphfileName(String graphfileName) {
+    this.graphfileName = graphfileName;
+  }
+
+  public String getTextfileName() {
+    return textfileName;
+  }
+
+  public void setTextfileName(String textfileName) {
+    this.textfileName = textfileName;
   }
 
 }

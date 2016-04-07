@@ -169,7 +169,7 @@ public class DataImporter {
 		BufferedReader reader = null;
 		String[] search_keywords = settingsConf.getSearchValue().split("\\s");
  		try {
-			reader = new BufferedReader(new FileReader(new File(settingsConf.getFileName())));
+			reader = new BufferedReader(new FileReader(new File(settingsConf.getGraphfileName())));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String tweet_text = null;

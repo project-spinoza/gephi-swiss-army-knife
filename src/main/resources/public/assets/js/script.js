@@ -42,9 +42,17 @@ $(".statistics_form").submit(function (e) {
 
 /*
 *
+*Statistics Submit Operations
+*/
+$("#graphFileForm").submit(function (e) {
+    e.preventDefault();
+    //requestAjax ("http://localhost:9090/graphfileUpload", $("#graphFileForm").serialize(), tempf);
+});
+
+/*
+*
 *Load Test graph
 */
-
 //requestAjax ("http://52.5.222.145:9090/ajax", {}, graphJsonHandler);
 requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
 
