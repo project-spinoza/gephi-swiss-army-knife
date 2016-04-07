@@ -37,7 +37,7 @@ import com.mongodb.client.MongoDatabase;
 public class DataImporter {
 	
 	
-	private Configuration settingsConf;
+	private DtoConfig settingsConf;
 	
 	private TransportClient elasticSearchClient;
 	private Settings clientSettings;

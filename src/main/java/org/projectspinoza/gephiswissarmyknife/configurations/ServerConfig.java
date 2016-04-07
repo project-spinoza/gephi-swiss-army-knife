@@ -3,7 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.configurations;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ConfigurationHolder {
+public class ServerConfig {
 
   private String host = "0.0.0.0";
   private int port = 9090;

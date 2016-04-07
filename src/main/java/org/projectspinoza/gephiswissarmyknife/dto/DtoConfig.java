@@ -3,7 +3,7 @@ package org.projectspinoza.gephiswissarmyknife.dto;
 import com.google.inject.Singleton;
 
 @Singleton
-public class Configuration {
+public class DtoConfig {
 
   // mysql cred properties
   private String mysqlHost;
@@ -91,7 +91,7 @@ public class Configuration {
     this.searchValue = searchValue;
   }
 
-  private Configuration() {
+  private DtoConfig() {
   }
 
   public String getMysqlHost() {

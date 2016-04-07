@@ -14,7 +14,7 @@ import java.util.Map;
 import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.Main;
-import org.projectspinoza.gephiswissarmyknife.configurations.ConfigurationHolder;
+import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
@@ -26,7 +26,7 @@ import com.google.inject.Inject;
 
 public class GraphServer {
 
-  private ConfigurationHolder configHolder;
+  private ServerConfig configHolder;
   private Vertx vertx;
   private HttpServer server;
   private Router router;
@@ -154,12 +154,12 @@ public class GraphServer {
     this.server = server;
   }
 
-  public ConfigurationHolder getConfigHolder() {
+  public ServerConfig getConfigHolder() {
     return configHolder;
   }
 
   @Inject
-  public void setConfigHolder(ConfigurationHolder configHolder) {
+  public void setConfigHolder(ServerConfig configHolder) {
     this.configHolder = configHolder;
   }
 
