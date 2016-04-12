@@ -2,9 +2,11 @@ package org.projectspinoza.gephiswissarmyknife.server;
 
 
 
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerFileUpload;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -12,16 +14,12 @@ import io.vertx.ext.web.handler.StaticHandler;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.commons.io.FilenameUtils;
 import org.gephi.graph.api.Graph;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
-import org.projectspinoza.gephiswissarmyknife.Main;
 import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
-import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
@@ -39,7 +37,6 @@ public class GraphServer {
   private StatisticsWrap statisticsWrap;
   private Graph gephiGraph;
   private SigmaGraph sigmaGraph;
-  private File fupRen;
   private DtoConfig dtoConfig;
   private GephiGraph gephiGraphWs;
   
@@ -106,7 +103,7 @@ public class GraphServer {
       request.response().end("Welcome to Twitter-Grapher");
     });
     
-    router.getWithRegex("/graph.*").method(HttpMethod.GET).handler(routingContext -> {
+    router.getWithRegex("/gsak.*").method(HttpMethod.GET).handler(routingContext -> {
       routingContext.response().sendFile("public/index.html");
     });
     
@@ -126,33 +123,62 @@ public class GraphServer {
     });
     
     /*
-     * Loading Graph from Data Sources; Route
+     * Get graph from uploaded file
      * 
      * */
-    router.getWithRegex("/graphfileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
+    router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraphWs = new GephiGraph();
+      this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
+      responseSigmaGraph(this.gephiGraph, routingContext);
+    });
+    
+    /*
+     * Upload file route
+     * 
+     * */
+    router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
+      File uploadsDir = new File ("uploads");
+      try {
+        if (!uploadsDir.exists()) {
+          uploadsDir.mkdir();
+        }
+      } catch (SecurityException se) {
+        System.out.println("Permission denied to create uploads directroy.");
+      }
       uploadGraphFile(routingContext);
+    });
+    
+    /*
+     * Upload file route
+     * 
+     * */
+    router.getWithRegex("/removeUpload.*").method(HttpMethod.GET).handler(routingContext -> {
+      File uploadDel = new File ("uploads/"+ routingContext.request().getParam("file"));
+      if (uploadDel.exists()) {
+        uploadDel.delete();
+      }
     });
     
     /*
      * Temp route for demo
      * */
-    router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
-      GephiGraph gephiGraph = new GephiGraph();
-      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
-      Map <String, String> yifanParams = new HashMap<String, String>();
-      yifanParams.put("quadtreeMaxLevel", "10.0");
-      yifanParams.put("theta", "1.2");
-      yifanParams.put("optimalDistance", "100.0");
-      yifanParams.put("relativeStrength", "0.2");
-      yifanParams.put("initialStepSize", "20.0");
-      yifanParams.put("stepRatio", "0.95");
-      yifanParams.put("adaptiveCooling", "true");
-      yifanParams.put("convergenceThreshold", "1.0E-4");
-      //YifanLayout
-      new YifanHu().applyLayout(yifanParams);
-      responseSigmaGraph(this.gephiGraph, routingContext);
-    });
-    
+//    router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
+//      GephiGraph gephiGraph = new GephiGraph();
+//      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
+//      Map <String, String> yifanParams = new HashMap<String, String>();
+//      yifanParams.put("quadtreeMaxLevel", "10.0");
+//      yifanParams.put("theta", "1.2");
+//      yifanParams.put("optimalDistance", "100.0");
+//      yifanParams.put("relativeStrength", "0.2");
+//      yifanParams.put("initialStepSize", "20.0");
+//      yifanParams.put("stepRatio", "0.95");
+//      yifanParams.put("adaptiveCooling", "true");
+//      yifanParams.put("convergenceThreshold", "1.0E-4");
+//      //YifanLayout
+//      new YifanHu().applyLayout(yifanParams);
+//      responseSigmaGraph(this.gephiGraph, routingContext);
+//    });
+//    
   }
   
   
@@ -166,40 +192,25 @@ public class GraphServer {
   
 
   private void uploadGraphFile (RoutingContext routingContext){
-    
+
     routingContext.request().setExpectMultipart(true);
-    
-    routingContext.request().uploadHandler(upload -> {
-      
-      upload.exceptionHandler(cause -> {
-        routingContext.request().response().setChunked(true).end("UploadFailed");
-      });
-      
-      upload.endHandler(v -> {
-        routingContext.request().response().setChunked(true).end("Successfully uploaded to " + upload.filename());
-      });
-      
-      upload.streamToFileSystem("uploads/"+upload.filename());
-      
-      String fUploadName = System.currentTimeMillis() % 1000 +FilenameUtils.getExtension(upload.filename());
-      fupRen = new File("uploads/"+fUploadName);
-      
-      while (fupRen.exists()){
-        fUploadName = System.currentTimeMillis() % 1000 +FilenameUtils.getExtension(upload.filename());
-        fupRen = new File("uploads/"+fUploadName);
+
+    routingContext.request().uploadHandler(new Handler<HttpServerFileUpload>() {
+      @Override
+      public void handle(final HttpServerFileUpload upload) {
+        upload.exceptionHandler(new Handler<Throwable>() {
+          @Override
+          public void handle(Throwable event) {}
+        });
+        upload.endHandler(new Handler<Void>() {
+          @Override
+          public void handle(Void event) {
+            routingContext.request().response().end("1");
+          }
+        });
+        upload.streamToFileSystem("uploads/" + upload.filename());
+        dtoConfig.setGraphfileName(upload.filename());
       }
-      
-      //Rename File
-      new File("uploads/"+upload.filename()).renameTo(fupRen);
-      
-      getDtoConfig().setGraphfileName(fupRen.getName());
-      System.out.println(fupRen.getName());
-      /*
-       * Read and send Graph from file
-       * */
-      gephiGraphWs = new GephiGraph();
-      this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+fupRen.getName(), EdgeDirectionDefault.DIRECTED);
-      responseSigmaGraph(this.gephiGraph, routingContext);
     });
   }
   

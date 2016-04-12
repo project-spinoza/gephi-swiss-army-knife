@@ -95,21 +95,9 @@ body .user-nav-slide-right {
   background-color: #434343;
   min-height: 88px;
 }
-.main-header .site-logo {
-  float: left;
-  color: #ffffff;
-  margin-bottom: 3px;
-  margin-top: 16px;
-  padding-left: 0px;
-  width: 100px;
-}
 .main-header .site-name {
-  color: #ffffff;
-  font-size: 36px !important;
-  line-height: 35px;
   margin-bottom: 3px;
   margin-top: 16px;
-  padding-left: 13px;
 }
 .main-header .site-slogan {
   color: #bababa;
@@ -626,7 +614,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 .popup-in{
  /* overflow-y: scroll;*/
-  height: 450px;
+  height: 480px;
   width: 740px !important;
 }
 /* Close Button */
@@ -1051,23 +1039,23 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .zoom-container {
   position: absolute;
   max-width: 55px;
-  height: 165px;
-  padding: 5px 15px;
-  right: 296px;
-  top: 99px;
+  height: 200px;
+  right: 302px;
+  top: 155px;
   z-index: 5;
 }
 .fullscreen_icon {
     cursor: pointer;
-    padding: 0 3px;
-    
+    background-image: url("images/fullsc.png");
+    width: 32px;
+    height: 30px;
 }
 .scroll-btn-zoom{
 }
 .zoomslider-outer {
   
-  width: 3px;
-  height: 100px;
+  width: 4px;
+  height: 184px;
   position: relative;
   display: block;
   margin: 0 auto;
@@ -1075,7 +1063,6 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   margin-bottom: 5px;
 }
 .zoom-btn {
- // border: 1px solid #fff;
   color: #fff;
   display: block;
   text-align: center;
@@ -1083,30 +1070,18 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   min-width: 20px;
   margin: 0 auto;
   cursor: pointer !important;
-  margin-left: 5px !important;
-  position: absolute !important;
-
-   
+  position: absolute !important;  
 }
 #zoomout-btn {
   padding-bottom: 1px;
-  top: 120px;
-
-
+  top: 200px;
 }
 .zoom-btn:hover {
   cursor: pointer;
 }
-#slider-vertical .glyphicon-plus{
-  font-weight: normal;
-  font-size: 13px; 
-}
-#slider-vertical .glyphicon-minus{
-  font-size: 13px; 
-}
 .ui-widget-header {
   border: 1px solid #aaaaaa;
-  background: #cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+  background: #cccccc;
   color: #222222;
 }
 /*.ui-widget-content {
@@ -1114,7 +1089,6 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   background: #ff0000 url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
  
 }*/
-
 .ui-slider {
   position: relative;
   text-align: left;
@@ -1142,16 +1116,17 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .ui-slider.ui-state-disabled .ui-slider-range {
   filter: inherit;
 }
+#slider-vertical{
+  height: 184px;
+}
 .ui-slider-vertical {
-  width: .3em;
-  height: 100px;
+  width: .4em;
+  height: 184px;
   background-color: #434343;
 }
 .ui-slider-vertical {
-  left: 16px;
-  margin-left: 0;
+  left: 13px;
   margin-bottom: -.6em;
-
 }
 .ui-slider-vertical .ui-slider-range {
   left: 0;
@@ -1176,9 +1151,12 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .full-screen .main-header{
   display: none;
 }
-.full-screen .zoom-container{
-  right: 10px;
-  top: 10px;
+
+.full-screen .fullscreen_icon{
+    cursor: pointer;
+    background-image: url("images/closefullsc.png");
+    width: 32px;
+    height: 30px;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

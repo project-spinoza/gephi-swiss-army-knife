@@ -74,15 +74,22 @@ $( document ).ready(function() {
 		// Right sidebar
 	$(".user-nav-slide-right").click(function () {
 		if ($(".user-menu-container-right").hasClass("closed")) {
-			$(".user-menu-container-right").animate({"right": "0px"});
+			$(".user-menu-container-right").animate({"right": "0px"},function(){
+				$(".zoom-container").css("right","302px");
+				
+				});
+			
 			$(".user-menu-container-right").removeClass("closed");
-		} else {
-				$(".user-menu-container-right").animate({"right": "-282px"});
-				$(".user-menu-container-right").addClass("closed");
+
+		} 
+		else {
+				$(".user-menu-container-right").animate({"right": "-282px"},function(){
+					$(".zoom-container").css("right","20px");
+				});
+				$(".user-menu-container-right").addClass("closed");		
 		}
 	});
 	/********************color picker jquery start********************************/
-
 var $left = $(".left-grad");
 					$("#ex1").gradientPicker({
 						change: function(points, styles) {
@@ -254,6 +261,9 @@ $(".degree-selectm #selectdeg").change(function(){
     }).change();
 
 /**********************jquery for datasource popups*****************************************/
+	$('.setting-text').click(function(e){
+		e.preventDefault();
+	});
     $("#selectdata").change(function(){
         $(this).find("option:selected").each(function(){
             if($(this).attr("value")=="config_pop_database"){
@@ -267,6 +277,7 @@ $(".degree-selectm #selectdeg").change(function(){
             		$(".pop-custom-db").css("display","block");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
             		//alert('teststs');
             	});
 
@@ -277,6 +288,7 @@ $(".degree-selectm #selectdeg").change(function(){
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","block");
             		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
             		//alert('teststs');
             	});
             }
@@ -286,41 +298,36 @@ $(".degree-selectm #selectdeg").change(function(){
             		$(".pop-custom-file").css("display","block");
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
+            		//alert('teststs');
+            		  
+            	});
+            }
+             else if ($(this).attr("value")=="file_upload_data") {
+            	$(".setting-text").attr('data-popup-open','popup-config-file-up');
+            	$(".setting-text" ).click( function( ){
+            		$(".pop-custom-file-up").css("display","block");
+            		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-es").css("display","none");
             		//alert('teststs');
             		  
             	});
             }
     	});
 	});
-	 /***********************file upload popup start****************/
-	 
-$('#filer_input').filer({
-    changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-folder"></i></div><div class="jFiler-input-text"><h3>Click on this box</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
-    showThumbs: true,
-    theme: "dragdropbox",
-    templates: {
-        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
-        item: '<li class="jFiler-item">\
-                    <div class="jFiler-item-container">\
-                        <div class="jFiler-item-inner">\
-                            <div class="jFiler-item-thumb">\
-                                <div class="jFiler-item-status"></div>\
-                                <div class="jFiler-item-info">\
-                                    <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
-                                    <span class="jFiler-item-others">{{fi-size2}}</span>\
-                                </div>\
-                                {{fi-image}}\
-                            </div>\
-                            <div class="jFiler-item-assets jFiler-row">\
-                                <ul class="list-inline pull-left"></ul>\
-                                <ul class="list-inline pull-right">\
-                                    <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
-                                </ul>\
-                            </div>\
-                        </div>\
-                    </div>\
-                </li>',
-        itemAppend: '<li class="jFiler-item">\
+	 /*********************** file upload popup start****************/
+	$('#graphFileUploadForm input[type="submit"]').prop('disabled', true);
+    $("#filer_input").filer({
+        limit: 1,
+        maxSize: null,
+        extensions: null,
+        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
+        showThumbs: true,
+        theme: "dragdropbox",
+        templates: {
+            box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+            item: '<li class="jFiler-item">\
                         <div class="jFiler-item-container">\
                             <div class="jFiler-item-inner">\
                                 <div class="jFiler-item-thumb">\
@@ -333,7 +340,7 @@ $('#filer_input').filer({
                                 </div>\
                                 <div class="jFiler-item-assets jFiler-row">\
                                     <ul class="list-inline pull-left">\
-                                        <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        <li>{{fi-progressBar}}</li>\
                                     </ul>\
                                     <ul class="list-inline pull-right">\
                                         <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
@@ -342,15 +349,217 @@ $('#filer_input').filer({
                             </div>\
                         </div>\
                     </li>',
-        itemAppendToEnd: false,
-        removeConfirmation: true,
-        _selectors: {
-            list: '.jFiler-items-list',
-            item: '.jFiler-item',
-            remove: '.jFiler-item-trash-action'
+            itemAppend: '<li class="jFiler-item">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-info">\
+                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                        </div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+            progressBar: '<div class="bar"></div>',
+            itemAppendToEnd: false,
+            removeConfirmation: true,
+            _selectors: {
+                list: '.jFiler-items-list',
+                item: '.jFiler-item',
+                progressBar: '.bar',
+                remove: '.jFiler-item-trash-action'
+            }
+        },
+        dragDrop: {
+            dragEnter: null,
+            dragLeave: null,
+            drop: null,
+        },
+        uploadFile: {
+            url: "/fileUpload",
+            data: null,
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            beforeSend: function(){},
+            success: function(data, el){
+            	$('#graphFileUploadForm input[type="submit"]').prop('disabled', false);
+                var parent = el.find(".jFiler-jProgressBar").parent();
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                    $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");    
+                });
+            },
+            error: function(el){
+                var parent = el.find(".jFiler-jProgressBar").parent();
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                });
+            },
+            statusCode: null,
+            onProgress: null,
+            onComplete: null
+        },
+        files: null,
+        addMore: false,
+        clipBoardPaste: true,
+        excludeName: null,
+        beforeRender: null,
+        afterRender: null,
+        beforeShow: null,
+        beforeSelect: null,
+        onSelect: null,
+        afterShow: null,
+        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
+        	$('#graphFileUploadForm input[type="submit"]').prop('disabled', true);
+            var file = file.name;
+            $.get('/removeUpload', {file: file});
+        },
+        onEmpty: null,
+        options: null,
+        captions: {
+            button: "Choose Files",
+            feedback: "Choose files To Upload",
+            feedback2: "files were chosen",
+            drop: "Drop file here to Upload",
+            removeConfirmation: "Are you sure you want to remove this file?",
+            errors: {
+                filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
+                filesType: "Only Images are allowed to be uploaded.",
+                filesSize: "{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.",
+                filesSizeAll: "Files you've choosed are too large! Please upload files up to {{fi-maxSize}} MB."
+            }
         }
-    }
-});
+    });
+
+	 /***********************file upload popup end****************/
+	 /*********************** Graph file upload popup start****************/
+    $("#filer_input_graph").filer({
+        limit: 1,
+        maxSize:1,
+        extensions: null,
+        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
+        showThumbs: true,
+        theme: "dragdropbox",
+        templates: {
+            box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+            item: '<li class="jFiler-item">\
+                        <div class="jFiler-item-container">\
+                            <div class="jFiler-item-inner">\
+                                <div class="jFiler-item-thumb">\
+                                    <div class="jFiler-item-status"></div>\
+                                    <div class="jFiler-item-info">\
+                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                    </div>\
+                                    {{fi-image}}\
+                                </div>\
+                                <div class="jFiler-item-assets jFiler-row">\
+                                    <ul class="list-inline pull-left">\
+                                        <li>{{fi-progressBar}}</li>\
+                                    </ul>\
+                                    <ul class="list-inline pull-right">\
+                                        <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </li>',
+            itemAppend: '<li class="jFiler-item">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-info">\
+                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                        </div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+            progressBar: '<div class="bar"></div>',
+            itemAppendToEnd: false,
+            removeConfirmation: true,
+            _selectors: {
+                list: '.jFiler-items-list',
+                item: '.jFiler-item',
+                progressBar: '.bar',
+                remove: '.jFiler-item-trash-action'
+            }
+        },
+        dragDrop: {
+            dragEnter: null,
+            dragLeave: null,
+            drop: null,
+        },
+        uploadFile: {
+            url: "./php/upload.php",
+            data: null,
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            beforeSend: function(){},
+            success: function(data, el){
+                var parent = el.find(".jFiler-jProgressBar").parent();
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                    $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");    
+                });
+            },
+            error: function(el){
+                var parent = el.find(".jFiler-jProgressBar").parent();
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                });
+            },
+            statusCode: null,
+            onProgress: null,
+            onComplete: null
+        },
+        files: null,
+        addMore: false,
+        clipBoardPaste: true,
+        excludeName: null,
+        beforeRender: null,
+        afterRender: null,
+        beforeShow: null,
+        beforeSelect: null,
+        onSelect: null,
+        afterShow: null,
+        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){},
+        onEmpty: null,
+        options: null,
+        captions: {
+            button: "Choose Files",
+            feedback: "Choose files To Upload",
+            feedback2: "files were chosen",
+            drop: "Drop file here to Upload",
+            removeConfirmation: "Are you sure you want to remove this file?",
+            errors: {
+                filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
+                filesType: "Only Images are allowed to be uploaded.",
+                filesSize: "{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.",
+                filesSizeAll: "Files you've choosed are too large! Please upload files up to {{fi-maxSize}} MB."
+            }
+        }
+    });
 
 	 /***********************file upload popup end****************/
 	//Jquery for custom Lightbox NNN ////
@@ -529,12 +738,23 @@ $('#filer_input').filer({
         }
         else{
               
-				console.log("No value is selected");
+				//console.log("No value is selected");
             }
             
     });
 //jquery for full screen
 $(".fullscreen_icon").click(function(){
 	$("body").toggleClass("full-screen");
+	if ($("body").hasClass("full-screen")) {
+		$(".zoom-container").css({"top":"10px","right":"30px"});
+	}
+	else if (!$("body").hasClass("full-screen")){
+		$(".zoom-container").css({"top":"155px","right":"302px"});
+		$(".user-menu-container-right").animate({"right": "0px"},function(){
+				$(".user-menu-container-right").removeClass("closed");
+				$(".zoom-container").css("right","302px");	
+				});
+	}
 });
+
 });  // End of document ready function.

@@ -1255,6 +1255,7 @@
 						<option value="config_pop_elasticsearch">ElasticSearch</option>
 						<option value="config_pop_database">MySql</option>
 						<option value="config_pop_database">MongoDB</option>
+						<option value="file_upload_data">File</option>
 						<option value="config_file_upload">Graph File</option>
                    </select> 
 				</div>
@@ -1262,7 +1263,7 @@
 				<div class="setting-container-test col-sm-4">
 					<h5>
 						<img alt="" src="images/setting.png" class="setting-img">
-						<a href="#" class="setting-text" >Configure Sources</a>
+						<a href="#" class="setting-text">Configure Sources</a>
 					</h5>
             </div>
             </div>
@@ -1404,16 +1405,33 @@
 		        </div>
 		    </div>
 		</div>
-		<!-- File Upload popups content -->
+			<!-- File Upload popups content -->
+		<div class="popup pop-custom-file-up" data-popup="popup-config-file-up" >
+		    <div class="popup-inner">
+			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file-up" href="#">x</a></div>
+			    <div class="popup-in">
+			       <div   style="">
+			       	<div class="conf-db-pop">
+			       		<form action="" method="post" enctype="multipart/form-data">
+			              <input type="file" name="files[]" id="filer_input_graph" multiple="multiple">
+			              <input style="margin-left: 340px;" type="submit" value="Submit" class="btn btn-primary">
+				        </form>
+			       	</div>
+			       </div>
+			    </div>
+		    </div>
+		</div>
+		<!-- Graph File Upload popups content -->
 		<div class="popup pop-custom-file" data-popup="popup-config-file" >
 		    <div class="popup-inner">
 			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file" href="#">x</a></div>
 			    <div class="popup-in">
 			       <div   style="">
 			       	<div class="conf-db-pop">
-			       		<form action="/graphfileUpload" method="post" enctype="multipart/form-data" id="graphFileForm">
-			              <input type="file" name="files" id="filer_input" multiple="multiple">
-			              <input style="margin-left: 340px;" type="submit" value="Upload" class="btn btn-primary">
+			       		<form action="" method="post" enctype="multipart/form-data" id="graphFileUploadForm">
+			              <input type="file" name="files[]" id="filer_input" multiple="multiple">
+			              <img src="./images/ringloader.gif" id="graphLoader" style="width:20px;height:20px; display:none; margin:0 auto; margin-bottom: 5px">
+			              <input style="margin-left: 306px;" type="submit" value="Generate Graph" class="btn btn-primary">
 				        </form>
 			       	</div>
 			       </div>
@@ -1427,18 +1445,17 @@
       	  
 		<div class="zoom-container">
 			<div class="fullscreen_icon" title="">
-				<img src="assets/css/images/zo.png">
 			</div>  
 			<div class="scroll-btn-zoom">
-				<a class="zoom-btn" id="zoomin-btn"><span class="">+</span></a>
+				<a class="zoom-btn" id="zoomin-btn"><span class=""><img src="assets/css/images/plus.png"></span></a>
 			<div class="zoomslider-outer">
-				<div id="slider-vertical" style="height:100px;"></div>
+				<div id="slider-vertical"></div>
 			</div>
-				<a class="zoom-btn" id="zoomout-btn"><span class="">-</span></a>
+				<a class="zoom-btn" id="zoomout-btn"><span class=""><img src="assets/css/images/minus.png"></span></a>
 			</div>
 		</div>
 	<!-- Content Header (Page header) -->
-        <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;">
+        <!-- <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;"> -->
         
       </div><!-- /.content-wrapper -->
       <div class="control-sidebar-bg"></div>

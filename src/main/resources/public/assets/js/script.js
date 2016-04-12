@@ -24,7 +24,7 @@ var statistics_btn;
 */
 $(".layout_form").submit(function (e) {
     e.preventDefault();
-    requestAjax ("http://localhost:9090/layout", $("#" + this.id).serialize(), graphJsonHandler);
+    requestAjax ("/layout", $("#" + this.id).serialize(), graphJsonHandler);
 });
 
 /*
@@ -36,25 +36,29 @@ $(".statistics_form").submit(function (e) {
 //var temp = $("#" + this.id).serialize();
  //  alert(temp);
     statistics_btn = $(this).find("input[type=submit]").attr('id');
-    requestAjax ("http://localhost:9090/statistics", $("#" + this.id).serialize(), graphStatisticsHandler);
+    requestAjax ("/statistics", $("#" + this.id).serialize(), graphStatisticsHandler);
 });
-
 
 /*
 *
 *Statistics Submit Operations
 */
-$("#graphFileForm").submit(function (e) {
-    e.preventDefault();
-    //requestAjax ("http://localhost:9090/graphfileUpload", $("#graphFileForm").serialize(), tempf);
+$("#graphFileUploadForm").submit(function (e) {
+  e.preventDefault();
+  $("#graphLoader").css('display','block');
+  requestAjax ("/extractGraph", {}, function(graphData) {
+    graphJsonHandler(graphData);
+    $(".popup-close").click();
+    $("#graphLoader").css('display','none');
+  });
 });
 
 /*
 *
 *Load Test graph
 */
-//requestAjax ("http://52.5.222.145:9090/ajax", {}, graphJsonHandler);
-requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
+
+//requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
 
 /*
 * @retrun ajax response
@@ -302,7 +306,6 @@ function canvasGraph (container, gtitle, data, xLabel, yLabel){
 * Usage: Forward parsed graph data received from server to Showgraph
 */
 function graphJsonHandler (graphData){
-  $("#graphLoaderImg").css("display", "none");
   nodesObject = JSON.parse(graphData);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
