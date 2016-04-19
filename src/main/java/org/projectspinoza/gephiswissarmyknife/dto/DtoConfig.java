@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class DtoConfig {
   
+  static DtoConfig dtoConfig;
   // mysql cred properties
   private String mysqlHost;
   private int mysqlPort;
@@ -42,7 +43,15 @@ public class DtoConfig {
   private String dataSource;
   private String searchValue;
 
-  DtoConfig() {}
+  private DtoConfig() {
+  }
+  
+  public static DtoConfig getInstance () {
+    if (dtoConfig == null){
+      dtoConfig = new DtoConfig();
+    }
+    return dtoConfig;
+  }
   
   public String getMysqlUserPassword() {
     return mysqlUserPassword;

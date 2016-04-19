@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.dto;
+package org.projectspinoza.gephiswissarmyknife.utils;
 
 import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonObject;
@@ -28,6 +28,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
@@ -39,11 +40,13 @@ public class DataImporter {
 	
 	private DtoConfig settingsConf;
 	
-	private TransportClient elasticSearchClient;
+  private TransportClient elasticSearchClient;
 	private Settings clientSettings;
 	List<String> responseListStrContainer = null;
 
-	public DataImporter() {}
+	public DataImporter() {
+	  settingsConf = DtoConfig.getInstance();
+	}
 
 	public List<String> importDataList() throws IOException {
 
@@ -169,7 +172,7 @@ public class DataImporter {
 		BufferedReader reader = null;
 		String[] search_keywords = settingsConf.getSearchValue().split("\\s");
  		try {
-			reader = new BufferedReader(new FileReader(new File(settingsConf.getGraphfileName())));
+			reader = new BufferedReader(new FileReader(new File("uploads/"+settingsConf.getTextfileName())));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String tweet_text = null;
@@ -189,6 +192,7 @@ public class DataImporter {
 				}
 			}
 		} catch (IOException e) {
+		  e.printStackTrace();
 		} finally {
 			if (reader != null) {
 				reader.close();
@@ -246,9 +250,18 @@ public class DataImporter {
 
 	public TransportClient getElasticSearchClient() {
 		return elasticSearchClient;
-	}
+  }
 
-	public void setElasticSearchClient(TransportClient elasticSearchClient) {
-		this.elasticSearchClient = elasticSearchClient;
-	}
+  public void setElasticSearchClient(TransportClient elasticSearchClient) {
+    this.elasticSearchClient = elasticSearchClient;
+  }
+
+  public DtoConfig getSettingsConf() {
+    return settingsConf;
+  }
+
+  public void setSettingsConf(DtoConfig settingsConf) {
+    this.settingsConf = settingsConf;
+  }
+
 }

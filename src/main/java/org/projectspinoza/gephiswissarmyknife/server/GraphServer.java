@@ -20,6 +20,7 @@ import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
@@ -44,6 +45,8 @@ public class GraphServer {
   public GraphServer() {
     setVertx(Vertx.vertx());
     router = Router.router(vertx);
+    this.gephiGraphWs = new GephiGraph();
+    dtoConfig = DtoConfig.getInstance();
   }
 
   /*
@@ -127,29 +130,34 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
-      this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
     /*
-     * Upload file route
+     * Upload graph file route
+     * 
+     * */
+    router.getWithRegex("/graphFileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
+      uploadGraphFile(routingContext, true);
+    });
+
+    /*
+     * general file Upload route
      * 
      * */
     router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
-      File uploadsDir = new File ("uploads");
-      try {
-        if (!uploadsDir.exists()) {
-          uploadsDir.mkdir();
-        }
-      } catch (SecurityException se) {
-        System.out.println("Permission denied to create uploads directroy.");
-      }
-      uploadGraphFile(routingContext);
+      uploadGraphFile(routingContext, false);
+      //TEMP to be removed
+      dtoConfig.setDataSource("inputfile");
+      dtoConfig.setSearchValue("data");
+      GraphGenerator graphGen = new GraphGenerator();
+      graphGen.setGraphModel(GephiGraph.getGraphModel());
+      graphGen.createGraph();
     });
     
     /*
-     * Upload file route
+     * remove uploaded file route
      * 
      * */
     router.getWithRegex("/removeUpload.*").method(HttpMethod.GET).handler(routingContext -> {
@@ -157,6 +165,15 @@ public class GraphServer {
       if (uploadDel.exists()) {
         uploadDel.delete();
       }
+      routingContext.response().end();
+    });
+    
+    /*
+     * search
+     * 
+     * */
+    router.getWithRegex("/search.*").method(HttpMethod.POST).handler(routingContext -> {
+      
     });
     
     /*
@@ -191,27 +208,43 @@ public class GraphServer {
   }
   
 
-  private void uploadGraphFile (RoutingContext routingContext){
+  private void uploadGraphFile(RoutingContext routingContext, boolean isGraphFile) {
 
-    routingContext.request().setExpectMultipart(true);
-
-    routingContext.request().uploadHandler(new Handler<HttpServerFileUpload>() {
-      @Override
-      public void handle(final HttpServerFileUpload upload) {
-        upload.exceptionHandler(new Handler<Throwable>() {
-          @Override
-          public void handle(Throwable event) {}
-        });
-        upload.endHandler(new Handler<Void>() {
-          @Override
-          public void handle(Void event) {
-            routingContext.request().response().end("1");
-          }
-        });
-        upload.streamToFileSystem("uploads/" + upload.filename());
-        dtoConfig.setGraphfileName(upload.filename());
+    File uploadsDir = new File("uploads");
+    try {
+      if (!uploadsDir.exists()) {
+        uploadsDir.mkdir();
       }
-    });
+
+      routingContext.request().setExpectMultipart(true);
+
+      routingContext.request().uploadHandler(
+          new Handler<HttpServerFileUpload>() {
+            @Override
+            public void handle(final HttpServerFileUpload upload) {
+              upload.exceptionHandler(new Handler<Throwable>() {
+                @Override
+                public void handle(Throwable event) {
+                }
+              });
+              upload.endHandler(new Handler<Void>() {
+                @Override
+                public void handle(Void event) {
+                  routingContext.request().response().end("1");
+                }
+              });
+              upload.streamToFileSystem("uploads/" + upload.filename());
+              if (isGraphFile) {
+                dtoConfig.setGraphfileName(upload.filename());
+              } else {
+                dtoConfig.setTextfileName(upload.filename());
+              }
+            }
+          });
+
+    } catch (SecurityException se) {
+      System.out.println("Permission denied to create uploads directroy.");
+    }
   }
   
   
@@ -279,7 +312,6 @@ public class GraphServer {
     return dtoConfig;
   }
 
-  @Inject
   public void setDtoConfig(DtoConfig dtoConfig) {
     this.dtoConfig = dtoConfig;
   }

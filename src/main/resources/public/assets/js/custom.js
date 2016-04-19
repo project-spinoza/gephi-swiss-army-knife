@@ -267,12 +267,9 @@ $(".degree-selectm #selectdeg").change(function(){
     $("#selectdata").change(function(){
         $(this).find("option:selected").each(function(){
             if($(this).attr("value")=="config_pop_database"){
-            	//alert('this is datasource2');
             	$(".setting-text").attr('data-popup-open','popup-config-database');
-            	
-            	//$("#selectdataSelectBoxItText").attr('data-popup-open','popup-database');
-            	//$(".pop-custom").show();
-            	//console.log($(this).attr('data-popup-open'));
+            	$('#search-form input[type="text"]').prop('disabled', false);
+            	$('#search-form input[type="submit"]').removeAttr("disabled");
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","block");
             		$(".pop-custom-es").css("display","none");
@@ -283,6 +280,8 @@ $(".degree-selectm #selectdeg").change(function(){
 
             }
             else if ($(this).attr("value")=="config_pop_elasticsearch") {
+            	$('#search-form input[type="text"]').prop('disabled', false);
+            	$('#search-form input[type="submit"]').removeAttr("disabled");
             	$(".setting-text").attr('data-popup-open','popup-config-es');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","none");
@@ -292,25 +291,26 @@ $(".degree-selectm #selectdeg").change(function(){
             		//alert('teststs');
             	});
             }
+             else if ($(this).attr("value")=="file_upload_data") {
+            	$(".setting-text").attr('data-popup-open','popup-config-file-up');
+            	$('#search-form input[type="text"]').prop('disabled', false);
+            	$('#search-form input[type="submit"]').removeAttr("disabled");
+            	$(".setting-text" ).click( function( ){
+            		$(".pop-custom-file-up").css("display","block");
+            		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-es").css("display","none");  
+            	});
+            }
             else if ($(this).attr("value")=="config_file_upload") {
+            	$('#search-form input[type="text"]').prop('disabled', true);
+            	$('#search-form input[type="submit"]').attr("disabled", "disabled"); 
             	$(".setting-text").attr('data-popup-open','popup-config-file');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file").css("display","block");
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
-            		//alert('teststs');
-            		  
-            	});
-            }
-             else if ($(this).attr("value")=="file_upload_data") {
-            	$(".setting-text").attr('data-popup-open','popup-config-file-up');
-            	$(".setting-text" ).click( function( ){
-            		$(".pop-custom-file-up").css("display","block");
-            		$(".pop-custom-file").css("display","none");
-            		$(".pop-custom-db").css("display","none");
-            		$(".pop-custom-es").css("display","none");
-            		//alert('teststs');
             		  
             	});
             }
@@ -387,7 +387,7 @@ $(".degree-selectm #selectdeg").change(function(){
             drop: null,
         },
         uploadFile: {
-            url: "/fileUpload",
+            url: "/graphFileUpload",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -445,7 +445,7 @@ $(".degree-selectm #selectdeg").change(function(){
 	 /*********************** Graph file upload popup start****************/
     $("#filer_input_graph").filer({
         limit: 1,
-        maxSize:1,
+        maxSize: null,
         extensions: null,
         changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
         showThumbs: true,
@@ -512,7 +512,7 @@ $(".degree-selectm #selectdeg").change(function(){
             drop: null,
         },
         uploadFile: {
-            url: "./php/upload.php",
+            url: "/fileUpload",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -543,7 +543,10 @@ $(".degree-selectm #selectdeg").change(function(){
         beforeSelect: null,
         onSelect: null,
         afterShow: null,
-        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){},
+        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
+            var file = file.name;
+            $.get('/removeUpload', {file: file});
+        },
         onEmpty: null,
         options: null,
         captions: {
