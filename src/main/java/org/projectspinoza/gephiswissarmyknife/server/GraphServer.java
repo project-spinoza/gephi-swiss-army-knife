@@ -41,12 +41,11 @@ public class GraphServer {
   private DtoConfig dtoConfig;
   private GephiGraph gephiGraphWs;
   
-
   public GraphServer() {
     setVertx(Vertx.vertx());
     router = Router.router(vertx);
     this.gephiGraphWs = new GephiGraph();
-    dtoConfig = DtoConfig.getInstance();
+    dtoConfig = new DtoConfig();
   }
 
   /*
@@ -88,11 +87,6 @@ public class GraphServer {
     // static resources CSS/JS files
     router.getWithRegex(".*/css/.*|.*/js/.*|.*/images/.*|.*/assets/.*").handler(
         StaticHandler.create("public").setCachingEnabled(false));
-    
-    /*
-     * Upload Files Directory
-     * */
-   // router.route().handler(BodyHandler.create().setUploadsDirectory(System.getProperty("./uploads")));
 
     /*
      * GSAK specific Routes
@@ -103,7 +97,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/").method(HttpMethod.GET).handler(request -> {
-      request.response().end("Welcome to Twitter-Grapher");
+      request.response().end("Welcome to <a href=\"/gsak\">Twitter-Grapher.</a>");
     });
     
     router.getWithRegex("/gsak.*").method(HttpMethod.GET).handler(routingContext -> {
@@ -148,12 +142,6 @@ public class GraphServer {
      * */
     router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
       uploadGraphFile(routingContext, false);
-      //TEMP to be removed
-      dtoConfig.setDataSource("inputfile");
-      dtoConfig.setSearchValue("data");
-      GraphGenerator graphGen = new GraphGenerator();
-      graphGen.setGraphModel(GephiGraph.getGraphModel());
-      graphGen.createGraph();
     });
     
     /*
@@ -173,29 +161,14 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/search.*").method(HttpMethod.POST).handler(routingContext -> {
-      
-    });
-    
-    /*
-     * Temp route for demo
-     * */
-//    router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
-//      GephiGraph gephiGraph = new GephiGraph();
-//      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
-//      Map <String, String> yifanParams = new HashMap<String, String>();
-//      yifanParams.put("quadtreeMaxLevel", "10.0");
-//      yifanParams.put("theta", "1.2");
-//      yifanParams.put("optimalDistance", "100.0");
-//      yifanParams.put("relativeStrength", "0.2");
-//      yifanParams.put("initialStepSize", "20.0");
-//      yifanParams.put("stepRatio", "0.95");
-//      yifanParams.put("adaptiveCooling", "true");
-//      yifanParams.put("convergenceThreshold", "1.0E-4");
-//      //YifanLayout
-//      new YifanHu().applyLayout(yifanParams);
-//      responseSigmaGraph(this.gephiGraph, routingContext);
-//    });
-//    
+      dtoConfig.setDataSource(routingContext.request().getParam("datasource"));
+      dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
+      GraphGenerator graphGen = new GraphGenerator();
+      graphGen.setGraphModel(GephiGraph.getGraphModel());
+      this.gephiGraph = graphGen.createGraph();
+      System.out.println("#Node: " +this.gephiGraph.getNodeCount());
+      responseSigmaGraph(this.gephiGraph, routingContext);
+   });   
   }
   
   

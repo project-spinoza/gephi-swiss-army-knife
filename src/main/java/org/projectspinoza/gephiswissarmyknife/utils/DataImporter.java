@@ -45,7 +45,7 @@ public class DataImporter {
 	List<String> responseListStrContainer = null;
 
 	public DataImporter() {
-	  settingsConf = DtoConfig.getInstance();
+	  settingsConf = new DtoConfig();
 	}
 
 	public List<String> importDataList() throws IOException {

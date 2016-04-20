@@ -266,9 +266,10 @@ $(".degree-selectm #selectdeg").change(function(){
 	});
     $("#selectdata").change(function(){
         $(this).find("option:selected").each(function(){
-            if($(this).attr("value")=="config_pop_database"){
+            if($(this).attr("value")=="mysql"){
             	$(".setting-text").attr('data-popup-open','popup-config-database');
             	$('#search-form input[type="text"]').prop('disabled', false);
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: Mysql");
             	$('#search-form input[type="submit"]').removeAttr("disabled");
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","block");
@@ -279,9 +280,24 @@ $(".degree-selectm #selectdeg").change(function(){
             	});
 
             }
-            else if ($(this).attr("value")=="config_pop_elasticsearch") {
+            if($(this).attr("value")=="mongodb"){
+            	$(".setting-text").attr('data-popup-open','popup-config-database');
+            	$('#search-form input[type="text"]').prop('disabled', false);
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: MongoDB");
+            	$('#search-form input[type="submit"]').removeAttr("disabled");
+            	$(".setting-text" ).click( function( ){
+            		$(".pop-custom-db").css("display","block");
+            		$(".pop-custom-es").css("display","none");
+            		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
+            		//alert('teststs');
+            	});
+
+            }
+            else if ($(this).attr("value")=="elasticsearch") {
             	$('#search-form input[type="text"]').prop('disabled', false);
             	$('#search-form input[type="submit"]').removeAttr("disabled");
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: ElasticSearch");
             	$(".setting-text").attr('data-popup-open','popup-config-es');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","none");
@@ -291,10 +307,11 @@ $(".degree-selectm #selectdeg").change(function(){
             		//alert('teststs');
             	});
             }
-             else if ($(this).attr("value")=="file_upload_data") {
+             else if ($(this).attr("value")=="inputfile") {
             	$(".setting-text").attr('data-popup-open','popup-config-file-up');
             	$('#search-form input[type="text"]').prop('disabled', false);
             	$('#search-form input[type="submit"]').removeAttr("disabled");
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: File");
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file-up").css("display","block");
             		$(".pop-custom-file").css("display","none");
@@ -302,9 +319,12 @@ $(".degree-selectm #selectdeg").change(function(){
             		$(".pop-custom-es").css("display","none");  
             	});
             }
-            else if ($(this).attr("value")=="config_file_upload") {
+            else if ($(this).attr("value")=="graphfile") {
+
             	$('#search-form input[type="text"]').prop('disabled', true);
-            	$('#search-form input[type="submit"]').attr("disabled", "disabled"); 
+            	$('#search-form input[type="submit"]').attr("disabled", "disabled");
+            	$('#search-form input[type="submit"]').css("background-color","#f5ab28");
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: Graph File"); 
             	$(".setting-text").attr('data-popup-open','popup-config-file');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file").css("display","block");
@@ -400,9 +420,9 @@ $(".degree-selectm #selectdeg").change(function(){
                 });
             },
             error: function(el){
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
-                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                	var parent = el.find(".jFiler-jProgressBar").parent();
+                	el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                	$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
             },
             statusCode: null,
@@ -443,6 +463,7 @@ $(".degree-selectm #selectdeg").change(function(){
 
 	 /***********************file upload popup end****************/
 	 /*********************** Graph file upload popup start****************/
+	$('#textfileUploadForm input[type="submit"]').prop('disabled', true);
     $("#filer_input_graph").filer({
         limit: 1,
         maxSize: null,
@@ -518,15 +539,16 @@ $(".degree-selectm #selectdeg").change(function(){
             enctype: 'multipart/form-data',
             beforeSend: function(){},
             success: function(data, el){
+            	$('#textfileUploadForm input[type="submit"]').prop('disabled', false);
                 var parent = el.find(".jFiler-jProgressBar").parent();
                 el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
                     $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
             },
             error: function(el){
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
-                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                	var parent = el.find(".jFiler-jProgressBar").parent();
+                	el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                	$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
             },
             statusCode: null,

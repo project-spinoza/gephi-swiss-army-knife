@@ -14,11 +14,11 @@ import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
+import org.projectspinoza.gephiswissarmyknife.graph.layouts.YifanHu;
 import org.projectspinoza.gephiswissarmyknife.utils.DataImporter;
 
 public class GraphGenerator {
-  
-  private Graph graph;
+
   private GraphModel graphModel;
   
   Map<String, List<Object>> nodesMap;
@@ -37,22 +37,38 @@ public class GraphGenerator {
       e.printStackTrace();
     }
     // clear the existing graph
-    graph.clear();
+    this.graphModel.getGraph().clear();
     for (String tweet : tweets) {
       List<String[]> edges = buildEdges(tweet);
       hashTagGraph(edges);
     }
     
     for (Entry<String, List<Object>> entity : nodesMap.entrySet()) {
-      Node  n = (Node) entity.getValue().get(0);
-
-      System.out.println(n.getAttribute("id")+ "\t"+entity.getKey());
-      graph.addNode(n);
+      this.graphModel.getGraph().addNode((Node) entity.getValue().get(0));
     }
     for (Entry<String, List<Object>> entity : edgesMap.entrySet()) {
-      graph.addEdge((Edge) entity.getValue().get(0));
+      this.graphModel.getGraph().addEdge((Edge) entity.getValue().get(0));
     }
-    return graph;
+    nodesMap.clear();
+    edgesMap.clear();
+    
+    /*
+     * Default Layout
+     * 
+     * */
+    Map<String, String> yifanParams = new HashMap<String, String>();
+    yifanParams.put("quadtreeMaxLevel", "10.0");
+    yifanParams.put("theta", "1.2");
+    yifanParams.put("optimalDistance", "100.0");
+    yifanParams.put("relativeStrength", "0.2");
+    yifanParams.put("initialStepSize", "20.0");
+    yifanParams.put("stepRatio", "0.95");
+    yifanParams.put("adaptiveCooling", "true");
+    yifanParams.put("convergenceThreshold", "1.0E-4");
+    // YifanLayout
+    new YifanHu().applyLayout(yifanParams);
+    
+    return this.graphModel.getGraph();
   }
 	
 	private void hashTagGraph (List<String[]> nodes) {    
@@ -64,47 +80,53 @@ public class GraphGenerator {
 	    if (nodesMap.containsKey(node[0])) {
 	      List <Object> list = nodesMap.get(node[0]);
 	      source = (Node) list.get(0);
-	      int size = Integer.parseInt(list.get(1).toString())+1;
+	      int size = Integer.parseInt(list.get(1).toString())+2;
 	      source.setSize(size);
 	      list.add(0,source);
 	      list.add(1,size);
 	      nodesMap.put(node[0], list);
 	    }else {
 	       source = graphModel.factory().newNode(node[0]);
-	       
+	       source.setLabel(node[0]);
+         source.setX((float) (Math.random() * ( 200 - 0 )));
+         source.setY((float) (Math.random() * ( 200 - 0 )));
 	       source.setSize(1f);
 	       List <Object> list = new ArrayList<Object>();
 	       list.add(0,source);
-	       list.add(1,1);
+	       list.add(1,2);
 	       nodesMap.put(node[0], list);
 	    }
 	    
       if (nodesMap.containsKey(node[1])) {
         List <Object> list = nodesMap.get(node[1]);
         target = (Node) list.get(0);
-        int size = Integer.parseInt(list.get(1).toString())+1;
+        int size = Integer.parseInt(list.get(1).toString())+2;
         target.setSize(size);
         list.add(0,target);
         list.add(1,size);
         nodesMap.put(node[1], list);
       }else {
         target = graphModel.factory().newNode(node[1]);
+        target.setLabel(node[1]);
+        target.setX((float) (Math.random() * ( 200 - 0 )));
+        target.setY((float) (Math.random() * ( 200 - 0 )));
         target.setSize(1f);
         List <Object> list = new ArrayList<Object>();
         list.add(0,target);
-        list.add(1,1);
+        list.add(1,2);
         nodesMap.put(node[1], list);
      }
       if (edgesMap.containsKey(node[0]+"-"+node[1])) {
         List <Object> list = edgesMap.get(node[0]+"-"+node[1]);
         edge = (Edge) list.get(0);
-        int weight = Integer.parseInt(list.get(1).toString())+1;
+        int weight = Integer.parseInt(list.get(1).toString())+2;
         edge.setWeight(weight);
         list.add(0,edge);
         list.add(1,weight);
         edgesMap.put(node[0]+"-"+node[1], list);
       }else {
         edge = graphModel.factory().newEdge(source, target,1, true);
+        edge.setLabel(node[0]+"-"+node[1]);
         edge.setWeight(1f);
         List <Object> list = new ArrayList<Object>();
         list.add(0,edge);
@@ -176,7 +198,6 @@ public class GraphGenerator {
 
   public void setGraphModel(GraphModel graphModel) {
     this.graphModel = graphModel;
-    this.graph = graphModel.getGraph();
   }
 
 }
