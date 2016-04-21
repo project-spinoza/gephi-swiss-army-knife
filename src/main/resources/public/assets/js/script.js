@@ -16,6 +16,8 @@ for (k in index)
 var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
+var isMysqlConnected = false;
+var isMongoDbConnected = false;
 
 
 /*
@@ -62,6 +64,39 @@ $("#graphFileUploadForm").submit(function (e) {
 $("#textfileUploadForm").submit(function (e) {
   e.preventDefault();
   $(".popup-close").click();
+});
+
+/*
+*
+*Database mysql connecting form submit
+*/
+$("#mysqldbForm").submit(function (e) {
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    alert(Boolean(resp));
+    isMysqlConnected = Boolean(resp);
+    if (isMysqlConnected) {
+      if ($('#mysqlFormSubmit').val() == 'Connect') {
+        $('#mysqlFormSubmit').val("Disconnect");  
+      }else {
+        $('#mysqlFormSubmit').val("Connect");
+      }
+    } else {
+      alert("Error connecting Database.")
+    }
+  });
+});
+
+
+/*
+*
+*Database mongodb connecting form submit
+*/
+$("#mongodbForm").submit(function (e) {
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    alert(resp)
+  });
 });
 
 /*

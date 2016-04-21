@@ -273,6 +273,7 @@ $(".degree-selectm #selectdeg").change(function(){
             	$('#search-form input[type="submit"]').removeAttr("disabled");
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
@@ -281,12 +282,13 @@ $(".degree-selectm #selectdeg").change(function(){
 
             }
             if($(this).attr("value")=="mongodb"){
-            	$(".setting-text").attr('data-popup-open','popup-config-database');
+            	$(".setting-text").attr('data-popup-open','popup-config-database-mongo');
             	$('#search-form input[type="text"]').prop('disabled', false);
             	$('#search-form input[type="text"]').attr("placeholder", "Search Source: MongoDB");
             	$('#search-form input[type="submit"]').removeAttr("disabled");
             	$(".setting-text" ).click( function( ){
-            		$(".pop-custom-db").css("display","block");
+            		$(".pop-custom-mongodb").css("display","block");
+            		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
@@ -301,6 +303,7 @@ $(".degree-selectm #selectdeg").change(function(){
             	$(".setting-text").attr('data-popup-open','popup-config-es');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-es").css("display","block");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
@@ -314,6 +317,7 @@ $(".degree-selectm #selectdeg").change(function(){
             	$('#search-form input[type="text"]').attr("placeholder", "Search Source: File");
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file-up").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");  
@@ -328,6 +332,7 @@ $(".degree-selectm #selectdeg").change(function(){
             	$(".setting-text").attr('data-popup-open','popup-config-file');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file-up").css("display","none");

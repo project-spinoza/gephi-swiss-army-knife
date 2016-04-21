@@ -40,6 +40,7 @@ public class GraphServer {
   private SigmaGraph sigmaGraph;
   private DtoConfig dtoConfig;
   private GephiGraph gephiGraphWs;
+  private GraphGenerator graphGen;
   
   public GraphServer() {
     setVertx(Vertx.vertx());
@@ -157,13 +158,30 @@ public class GraphServer {
     });
     
     /*
+     * Database connections
+     * 
+     * */
+    router.getWithRegex("/connectDB.*").method(HttpMethod.POST).handler(routingContext -> {
+      if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mysql")){
+        System.out.println("Mysql Submitted");
+        routingContext.response().end("true");
+      }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mongodb")){
+        System.out.println("Monogdb submitted");
+        routingContext.response().end("true");
+      }else {
+        routingContext.response().end("Unknown DB server.!");
+      }
+      
+    });
+    
+    /*
      * search
      * 
      * */
     router.getWithRegex("/search.*").method(HttpMethod.POST).handler(routingContext -> {
       dtoConfig.setDataSource(routingContext.request().getParam("datasource"));
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
-      GraphGenerator graphGen = new GraphGenerator();
+      this.graphGen = new GraphGenerator();
       graphGen.setGraphModel(GephiGraph.getGraphModel());
       this.gephiGraph = graphGen.createGraph();
       System.out.println("#Node: " +this.gephiGraph.getNodeCount());

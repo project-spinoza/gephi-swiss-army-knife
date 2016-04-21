@@ -1304,74 +1304,121 @@
             
    		 </div>	
     </div>
-    <!-- Database popups content -->
+    <!-- Database (mysql) popups content -->
     <div class="popup pop-custom-db" data-popup="popup-config-database" >
 		<div class="popup-inner">
-		    <div class="popup-heading"><span id="">Configure Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
+		    <div class="popup-heading"><span id="">Configure Mysql Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
 		    <div class="popup-in">
 		       <div style="">
 		       		<div class="conf-db-pop">
-		       		<form>
+		       		<form id="mysqldbForm">
 		       			<table class="popup-table table table-responsive">
 		       		
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       					<label>Saved DB</label>
-			       					<select id="savedb_id">
-										<option value="database_1">Database 1</option>
-										<option value="database_2">Database 2</option>
-			                   		</select>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database"></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Host</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name="dbhost"></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Port </label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name="dbport"></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-		       					<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<td class="popup-td-wd">
+			       					<label>Database Table</label>
+			       					<input type="text" value="" name="dbtable"></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Username</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name="dbuser"></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Password</label>
-			       					<input type="password" value="" id=""></input>
+			       					<input type="password" value="" name="dbpass"></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Database</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				
-			       				<td class="popup-td-wd">
-			       					<label>Database Table</label>
-			       					<input type="text" value="" id=""></input>
-			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Column</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name="dbtableCol"></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-				       			<td>
-				       			<div style="float: left; margin-right: 10px;"><input type="button" name="save" value="Save" class="btn btn-primary"></input></div>
-				       			<div><input type="button" name="connect" value="Connect" class="btn btn-primary"></input></div></td>
+			       				<td><input type="hidden" name="dBServer" value="mysql"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mysqldbaction" value="connect"/></td>
 		       				</tr>
 		       			</table>
+		       			<div style="display: block; float:right; margin-right: 30px;">
+		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       				<input id="mysqlFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
 		       			</form>
 		       		</div>
 		       </div>
 		    </div>
 		</div>
 	</div>
+	<!-- Database (mongodb) popups content -->
+    <div class="popup pop-custom-mongodb" data-popup="popup-config-database-mongo" >
+		<div class="popup-inner">
+		    <div class="popup-heading"><span id="">Configure MongoDb Database</span><a class="popup-close" data-popup-close="popup-config-database-mongo" href="#">x</a></div>
+		    <div class="popup-in">
+		       <div style="">
+		       		<div class="conf-db-pop">
+		       		<form id="mongodbForm">
+		       			<table class="popup-table table table-responsive">
+		       		
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database"></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Host</label>
+			       					<input type="text" value="" name="dbhost"></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port </label>	
+			       				<input type="text" value="" name="dbport"></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Collection</label>
+			       					<input type="text" value="" name="dbcollection"></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Username</label>	
+			       				<input type="text" value="" name="dbuser"></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Password</label>
+			       					<input type="password" value="" name="dbpass"></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Field</label>
+			       					<input type="text" value="" name="dbfield"></input>
+			       				</td>
+			       				<td><input type="hidden" name="dBServer" value="mongodb"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mongodbaction" value="connect"/></td>
+		       				</tr>
+		       			</table>
+		       			<div style="display: block; float:right; margin-right: 30px;">
+		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       				<input id="mongodbFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
+		       			</form>
+		       		</div>
+		       </div>
+		    </div>
+		</div>
+	</div>
+	
 	<!-- Elastic search popups content -->
 	<div  class="popup pop-custom-es" data-popup="popup-config-es" >
 		    <div class="popup-inner" >
