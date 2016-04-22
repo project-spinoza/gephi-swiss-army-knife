@@ -5,7 +5,8 @@
 		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default						
 		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
 		//$("#parameters_panel").mCustomScrollbar();// Parameters_panel
-		$("#layout-contents").mCustomScrollbar();// Layout contents
+		//$("#layout-contents").mCustomScrollbar();// Layout contents
+		$(".lay-container").mCustomScrollbar();// Layout contents
 		//$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		//$("#dynamic_panel").mCustomScrollbar();// Network Overview
 		$(".popup-in").mCustomScrollbar();//  popup-box statistics 
@@ -320,7 +321,7 @@ $(".degree-selectm #selectdeg").change(function(){
             		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-db").css("display","none");
-            		$(".pop-custom-es").css("display","none");  
+            		$(".pop-custom-es").css("display","none");
             	});
             }
             else if ($(this).attr("value")=="graphfile") {
@@ -776,7 +777,7 @@ $(".degree-selectm #selectdeg").change(function(){
 $(".fullscreen_icon").click(function(){
 	$("body").toggleClass("full-screen");
 	if ($("body").hasClass("full-screen")) {
-		$(".zoom-container").css({"top":"10px","right":"30px"});
+		$(".zoom-container").css({"top":"30px","right":"30px"});
 	}
 	else if (!$("body").hasClass("full-screen")){
 		$(".zoom-container").css({"top":"155px","right":"302px"});

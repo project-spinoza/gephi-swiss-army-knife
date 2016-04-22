@@ -370,7 +370,13 @@ a {
 }
 #layout-contents{
   height: 160px;
+}
+.lay-container{
+  height: 115px;
   overflow:auto;
+}
+.btn-run-div{
+  margin-top:10px;
 }
 .input_layout{
   padding: 0;
@@ -818,7 +824,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 /***********************/
 #selectlayout-boxitSelectBoxItOptions{
-  height: 160px;
+  height: 170px;
   overflow: auto;
 }
 #selectlayout-boxitSelectBoxIt {
@@ -1060,6 +1066,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
     background-image: url("images/fullsc.png");
     width: 32px;
     height: 30px;
+    margin-bottom: 20px;
 }
 .scroll-btn-zoom{
 }

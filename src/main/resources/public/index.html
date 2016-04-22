@@ -148,8 +148,9 @@
 						</div>
 						<div id="layout-contents">
 						<!-- clockwise rotation container -->
-						<div class="rotation-container Rotate">
+						<div class="rotation-container Rotate" >
 						    <form action="/layout" method="get" class="layout_form" id="Rotation">
+						    <div class="lay-container">
 								<div class="rotate-label layout-label">Rotate</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -170,15 +171,17 @@
 									</table>
 								</div>
 								<input type="hidden" value="Rotation" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div> <!-- end of clockwise rotation container -->
 						<!-- scale container -->
 						<div class="scale-container Scale">
 							<form action="/layout" method="get" class="layout_form" id="Scale">
+							<div class="lay-container">
 								<div class="scale-label layout-label">Scale</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -199,9 +202,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="Scale" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
@@ -209,6 +213,7 @@
 						<!-- Force Atlas container -->
 						<div class="force-atlas-container forceAtlas">
 							<form action="/layout" method="get" class="layout_form" id="ForceAtlas">
+							<div class="lay-container">
 								<div class="force-atlas-label layout-label">Force Atlas</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -289,16 +294,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="ForceAtlas" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
 						<!-- End of Force Atlas container -->
 						<!-- Start of Fruchterman Reigngold -->
-						<div class="fruchterman-reigngold-container fruchtermanReigngold">
+						<div class="fruchterman-reigngold-container fruchtermanReigngold ">
 							<form action="/layout" method="get" class="layout_form" id="FruchtermanReingoldLayout">
+							<div class="lay-container">
 								<div class="fruchterman-reigngold-label layout-label">Fruchterman Reigngold</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -332,9 +339,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="FruchtermanReingold" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
@@ -342,6 +350,7 @@
 						<!-- Start of Label Adjust -->
 						<div class="label-adjust-container labelAdjust">
 							<form action="/layout" method="get" class="layout_form" id="LabelAdjust">
+							<div class="lay-container">
 								<div class="scale-label layout-label">Label Adjust</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -368,9 +377,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="LabelAdjust" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
@@ -378,6 +388,7 @@
 						<!-- Start of noverlap -->
 						<div class="noverlap-container noverLap">
 						    <form action="/layout" method="get" class="layout_form" id="NoverLap">
+						    <div class="lay-container">
 								<div class="noverlap-label layout-label">Noverlap</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -410,9 +421,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="NoverLap" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
@@ -420,6 +432,7 @@
 						<!-- Start of OpenOrd -->
 						<div class="open-ord-container openOrd">
 						    <form action="/layout" method="get" class="layout_form" id="OpenOrd">
+						    <div class="lay-container">
 								<div class="open-ord-label layout-label">Stages</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -493,10 +506,11 @@
 										</tbody>
 									</table>
 								</div>
+								</div>
 								<input type="hidden" value="OpenOrd" name="layout">
-								<div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div>
@@ -504,6 +518,7 @@
 						<!-- Start of Random Layout -->
 						<div class="random-layout-container randomLayout">
 						    <form action="/layout" method="get" class="layout_form" id="RandomLayout">
+						    <div class="lay-container">
 								<div class="random-layout-label layout-label">Properties</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -524,9 +539,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="RandomLayout" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div> 
@@ -534,6 +550,7 @@
 						<!-- Start of Yifan Hu -->
 						<div class="yifan-hu-container yifanHu">
 						    <form action="/layout" method="get" class="layout_form" id="YafinHu">
+						    <div class="lay-container">
 								<div class="rotate-label layout-label">Yifan Hu</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -596,9 +613,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="YafinHu" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10">
 								</div>
 							</form>
 						</div> 
@@ -606,6 +624,7 @@
 						<!-- Start of Yifan Hu Proportional -->
 						<div class="yifan-hu-proportional-container yifanhuProportional">
 						    <form action="/layout" method="get" class="layout_form" id="YafinHuProportional">
+						    <div class="lay-container">
 								<div class="yifanhu-proportional-label layout-label">Yifan Hu Proportional</div>
 									<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -668,9 +687,10 @@
 									</table>
 								</div>
 								<input type="hidden" value="YafinHuProportional" name="layout">
-								<div>
+								</div>
+								<div class="btn-run-div">
 								  <img src="./images/ringloader.gif" class="graphLoader-run">
-								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
 								</div>
 							</form>
 						</div> 

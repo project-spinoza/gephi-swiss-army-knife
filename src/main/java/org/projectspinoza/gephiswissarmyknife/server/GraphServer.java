@@ -24,6 +24,7 @@ import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
+import org.projectspinoza.gephiswissarmyknife.utils.DataImporter;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
 import com.google.inject.Inject;
@@ -41,12 +42,14 @@ public class GraphServer {
   private DtoConfig dtoConfig;
   private GephiGraph gephiGraphWs;
   private GraphGenerator graphGen;
+  private DataImporter dataImporter;
   
   public GraphServer() {
     setVertx(Vertx.vertx());
     router = Router.router(vertx);
     this.gephiGraphWs = new GephiGraph();
-    dtoConfig = new DtoConfig();
+    this.dtoConfig = new DtoConfig();
+    this.dataImporter = new DataImporter();
   }
 
   /*
@@ -163,8 +166,21 @@ public class GraphServer {
      * */
     router.getWithRegex("/connectDB.*").method(HttpMethod.POST).handler(routingContext -> {
       if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mysql")){
-        System.out.println("Mysql Submitted");
-        routingContext.response().end("true");
+        
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setMysqlDatabaseName(routingContext.request().getParam("database"));
+          dtoConfig.setMysqlTableName(routingContext.request().getParam("dbtable"));
+          dtoConfig.setMysqlDataColumnName(routingContext.request().getParam("dbtableCol"));
+          dtoConfig.setMysqlHost(routingContext.request().getParam("dbhost"));
+          dtoConfig.setMysqlPort(Integer.parseInt(routingContext.request().getParam("dbport")));
+          dtoConfig.setMysqlUserName(routingContext.request().getParam("dbuser"));
+          dtoConfig.setMysqlUserPassword(routingContext.request().getParam("dbpass"));
+          boolean resp =this.dataImporter.connectMysql();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectMysql();
+          routingContext.response().end("true");
+        }
       }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mongodb")){
         System.out.println("Monogdb submitted");
         routingContext.response().end("true");
@@ -181,9 +197,8 @@ public class GraphServer {
     router.getWithRegex("/search.*").method(HttpMethod.POST).handler(routingContext -> {
       dtoConfig.setDataSource(routingContext.request().getParam("datasource"));
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
-      this.graphGen = new GraphGenerator();
-      graphGen.setGraphModel(GephiGraph.getGraphModel());
-      this.gephiGraph = graphGen.createGraph();
+      this.graphGen.setGraphModel(GephiGraph.getGraphModel());
+      this.gephiGraph = this.graphGen.createGraph();
       System.out.println("#Node: " +this.gephiGraph.getNodeCount());
       responseSigmaGraph(this.gephiGraph, routingContext);
    });   
@@ -303,8 +318,27 @@ public class GraphServer {
     return dtoConfig;
   }
 
+  @Inject
   public void setDtoConfig(DtoConfig dtoConfig) {
     this.dtoConfig = dtoConfig;
+  }
+
+  public DataImporter getDataImporter() {
+    return dataImporter;
+  }
+
+  @Inject
+  public void setDataImporter(DataImporter dataImporter) {
+    this.dataImporter = dataImporter;
+  }
+
+  public GraphGenerator getGraphGen() {
+    return graphGen;
+  }
+
+  @Inject
+  public void setGraphGen(GraphGenerator graphGen) {
+    this.graphGen = graphGen;
   }
 
 }

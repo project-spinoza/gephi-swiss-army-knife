@@ -70,20 +70,24 @@ $("#textfileUploadForm").submit(function (e) {
 *
 *Database mysql connecting form submit
 */
+$('.dbLoader').css('visibility','hidden');
 $("#mysqldbForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
   e.preventDefault();
   requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
-    alert(Boolean(resp));
-    isMysqlConnected = Boolean(resp);
+    isMysqlConnected = resp == "true" ? true : false;
     if (isMysqlConnected) {
       if ($('#mysqlFormSubmit').val() == 'Connect') {
+        $('#mysqldbaction').val('disconnect');
         $('#mysqlFormSubmit').val("Disconnect");  
       }else {
+        $('#mysqldbaction').val('connect');
         $('#mysqlFormSubmit').val("Connect");
       }
     } else {
-      alert("Error connecting Database.")
+      alert("Database service is down.")
     }
+    $('.dbLoader').css('visibility','hidden');
   });
 });
 

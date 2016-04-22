@@ -29,10 +29,11 @@ public class GraphGenerator {
     edgesMap = new HashMap<String, List<Object>>();
   }
   
+  @SuppressWarnings("unchecked")
   public Graph createGraph() {
     List<String> tweets = null;
     try {
-      tweets = new DataImporter().importDataList();
+      tweets = (List<String>) new DataImporter().importGraphData();
     } catch (IOException e) {
       e.printStackTrace();
     }
