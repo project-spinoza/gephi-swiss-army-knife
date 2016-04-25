@@ -20,6 +20,7 @@ var isMysqlConnected = false;
 var isMongoDbConnected = false;
 
 
+
 /*
 *
 *Layouts Submit Operations
@@ -97,9 +98,22 @@ $("#mysqldbForm").submit(function (e) {
 *Database mongodb connecting form submit
 */
 $("#mongodbForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
   e.preventDefault();
   requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
-    alert(resp)
+    isMongoDbConnected = resp == "true" ? true : false;
+    if (isMongoDbConnected) {
+      if ($('#mongodbFormSubmit').val() == 'Connect') {
+        $('#mongodbaction').val('disconnect');
+        $('#mongodbFormSubmit').val("Disconnect");  
+      }else {
+        $('#mongodbaction').val('connect');
+        $('#mongodbFormSubmit').val("Connect");
+      }
+    } else {
+      alert("Database service is down.")
+    }
+    $('.dbLoader').css('visibility','hidden');
   });
 });
 

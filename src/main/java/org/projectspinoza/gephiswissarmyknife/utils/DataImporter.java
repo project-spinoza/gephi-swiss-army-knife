@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.Document;
@@ -33,6 +34,8 @@ import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import com.google.inject.Singleton;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
@@ -45,6 +48,7 @@ public class DataImporter {
 	private Settings clientSettings;
   private static Connection mysqlConnection;
   private Statement statement;
+  private static MongoClient mongoClient;
 	List<String> responseListStrContainer = null;
 
 	public DataImporter() {
@@ -93,7 +97,6 @@ public class DataImporter {
                 + settingsConf.getMysqlDatabaseName(),
             settingsConf.getMysqlUserName(),
             settingsConf.getMysqlUserPassword());
-        System.out.println(mysqlConnection);
       if (mysqlConnection != null) {
         return true;
       } else {
@@ -114,11 +117,8 @@ public class DataImporter {
   }
 
 	private List<String> mysqlDataReader() {
-
 		List<String> responseList = new ArrayList<String>();
-
 		try {
-		  System.out.println(mysqlConnection);
 			if (mysqlConnection != null ) {
 				String[] query_terms = settingsConf.getSearchValue().trim().split(" ");
 				String query_like = " LIKE '%" + query_terms[0] + "%' ";
@@ -137,7 +137,6 @@ public class DataImporter {
 
 				statement = mysqlConnection.createStatement();
 				ResultSet results_set = statement.executeQuery(query_mysql);
-System.out.println("reachere here");
 				while (results_set.next()) {
 					String tweet = results_set.getString(settingsConf.getMysqlDataColumnName());
 					try{
@@ -158,19 +157,33 @@ System.out.println("reachere here");
 		return responseList;
 	}
 
+	
+	public boolean connectMongoDb(){
+	  MongoCredential credential = MongoCredential.createCredential(settingsConf.getMongdbUserName(), settingsConf.getMongodbDatabaseName(), settingsConf.getMongodbUserPassword().toCharArray());
+	  mongoClient = new MongoClient(new ServerAddress(settingsConf.getMongodbHost(), settingsConf.getMongodbPort()), Arrays.asList(credential));
+	  return (mongoClient == null)? false:true;
+	}
+	
 	private List<String> mongodb_search() {
-
-		MongoClient mongoClient = new MongoClient(settingsConf.getMongodbHost(), settingsConf.getMongodbPort());
-		MongoDatabase db = mongoClient.getDatabase(settingsConf.getMongodbDatabaseName());
-
-		FindIterable<Document> iterable = db.getCollection(
-				settingsConf.getMongodbCollectionName()).find(
-				new Document("$text", new Document("$search", settingsConf.getSearchValue())));
-
-		responseListStrContainer = new ArrayList<String>();
-		iterable.forEach(new TgBlock());
-		mongoClient.close();
+	  
+		if (mongoClient != null) {
+  		MongoDatabase db = mongoClient.getDatabase(settingsConf.getMongodbDatabaseName());
+  		
+  		FindIterable<Document> iterable = db.getCollection(
+  				settingsConf.getMongodbCollectionName()).find(
+  				new Document("$text", new Document("$search", settingsConf.getSearchValue())));
+  
+  		responseListStrContainer = new ArrayList<String>();
+  		iterable.forEach(new TgBlock());
+		}
 		return responseListStrContainer;
+	}
+	
+	public boolean disconnectMongoDb (){
+	  if (mongoClient != null){
+	    mongoClient.close();
+	  }
+	  return true;
 	}
 
 	private class TgBlock implements Block<Document> {

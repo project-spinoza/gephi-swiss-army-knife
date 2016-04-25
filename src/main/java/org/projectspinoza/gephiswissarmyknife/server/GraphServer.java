@@ -166,7 +166,6 @@ public class GraphServer {
      * */
     router.getWithRegex("/connectDB.*").method(HttpMethod.POST).handler(routingContext -> {
       if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mysql")){
-        
         if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
           dtoConfig.setMysqlDatabaseName(routingContext.request().getParam("database"));
           dtoConfig.setMysqlTableName(routingContext.request().getParam("dbtable"));
@@ -182,8 +181,20 @@ public class GraphServer {
           routingContext.response().end("true");
         }
       }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mongodb")){
-        System.out.println("Monogdb submitted");
-        routingContext.response().end("true");
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setMongodbDatabaseName(routingContext.request().getParam("database"));
+          dtoConfig.setMongodbCollectionName(routingContext.request().getParam("dbcollection"));
+          dtoConfig.setMongodbFieldName(routingContext.request().getParam("dbfield"));
+          dtoConfig.setMongodbHost(routingContext.request().getParam("dbhost"));
+          dtoConfig.setMongodbPort(Integer.parseInt(routingContext.request().getParam("dbport")));
+          dtoConfig.setMongdbUserName(routingContext.request().getParam("dbuser"));
+          dtoConfig.setMongodbUserPassword(routingContext.request().getParam("dbpass"));
+          boolean resp =this.dataImporter.connectMongoDb();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectMongoDb();
+          routingContext.response().end("true");
+        }
       }else {
         routingContext.response().end("Unknown DB server.!");
       }

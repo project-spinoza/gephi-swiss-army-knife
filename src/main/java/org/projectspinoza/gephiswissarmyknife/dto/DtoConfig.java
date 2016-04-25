@@ -20,6 +20,9 @@ public class DtoConfig {
   public static String mongodbDatabaseName;
   public static String mongodbCollectionName;
   public static String mongodbFieldName;
+  public static String mongdbUserName;
+  public static String mongodbUserPassword;
+
 
   // server conf
   public static int serverPort;
@@ -200,6 +203,22 @@ public class DtoConfig {
   public void setMongodbFieldName(String mongodbFieldName) {
     DtoConfig.mongodbFieldName = mongodbFieldName;
   }
+  
+  public String getMongdbUserName() {
+    return mongdbUserName;
+  }
+
+  public void setMongdbUserName(String mongdbUserName) {
+    DtoConfig.mongdbUserName = mongdbUserName;
+  }
+
+  public String getMongodbUserPassword() {
+    return mongodbUserPassword;
+  }
+
+  public void setMongodbUserPassword(String mongodbUserPassword) {
+    DtoConfig.mongodbUserPassword = mongodbUserPassword;
+  }
 
   public int getMysqlPort() {
     return mysqlPort;
@@ -212,6 +231,7 @@ public class DtoConfig {
   public String getMysqlUserName() {
     return mysqlUserName;
   }
+  
 
   @Override
   public String toString() {
