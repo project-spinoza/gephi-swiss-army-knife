@@ -39,6 +39,10 @@ public class GraphGenerator {
     }
     // clear the existing graph
     this.graphModel.getGraph().clear();
+    if (tweets == null || tweets.isEmpty()) {
+      System.out.println("Graph cannot be generated. i.e. No data found related to given Keywords.!");
+      return this.graphModel.getGraph(); 
+    }
     for (String tweet : tweets) {
       List<String[]> edges = buildEdges(tweet);
       hashTagGraph(edges);

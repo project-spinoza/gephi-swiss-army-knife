@@ -1446,59 +1446,41 @@
 		    <div class="popup-in">
 		       <div   >
 		       	<div class="conf-db-pop">
-		       		<form>
+		       		<form id="elasticsearchForm">
 		       			<table class="popup-table table table-responsive">
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       					<label>Saved Host</label>
-			       					<select id="savehost_id">
-										<option value="host_1">Host 1</option>
-										<option value="host_2">Host 2</option>
-			                   		</select>
-			       				</td>
+
 			       				<td class="popup-td-wd">
 			       					<label>Host</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" name= "es_host" placeholder="localhost"  value="" id=""></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Port</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" placeholder="9300" name="es_port" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Cluster Name</label>	
+			       				<input type="text" value="" placeholder="elasticsearch" name ="es_cluster" id=""></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-		       					<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Index</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name = "es_index" id=""></input>
 			       				</td>
 			       				
 			       				<td class="popup-td-wd">
 			       					<label>Type</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name = "es_type" id=""></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Cluster Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				
-			       				<td class="popup-td-wd">
-			       					
-			       				</td>
-			       				<td class="popup-td-wd">
-			       					
-			       				</td>
-		       				</tr>
-		       				<tr>
-				       			<td>
-				       			<div style="float: left; margin-right: 10px;"><input type="button" name="save" value="Save" class="btn btn-primary"></input></div>
-				       			<div><input type="button" name="connect" value="Connect" class="btn btn-primary"></input></div></td>
+			       				<td><input type="hidden" name="dBServer" value="elasticsearch"/></td>
+			       				<td><input type="hidden" name="dbAction" id="elasticsearchAction" value="connect"/></td>
 		       				</tr>
 		       			</table>
+		       			<div style="display: block; float:right; margin-right: 30px;">
+		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       				<input id="elasticsearchFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
 		       			</form>
 		       		</div>
 		       </div>

@@ -195,6 +195,19 @@ public class GraphServer {
           this.dataImporter.disconnectMongoDb();
           routingContext.response().end("true");
         }
+      }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("elasticsearch")){
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setElasticsearchHost(routingContext.request().getParam("es_host"));
+          dtoConfig.setElasticsearchPort(Integer.parseInt(routingContext.request().getParam("es_port")));
+          dtoConfig.setElasticsearchClusterName(routingContext.request().getParam("es_cluster"));
+          dtoConfig.setElasticsearchIndexType(routingContext.request().getParam("es_type"));
+          dtoConfig.setElasticsearchIndex(routingContext.request().getParam("es_index"));
+          boolean resp =this.dataImporter.connectElasticsearch();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectElasticsearch();
+          routingContext.response().end("true");
+        }
       }else {
         routingContext.response().end("Unknown DB server.!");
       }

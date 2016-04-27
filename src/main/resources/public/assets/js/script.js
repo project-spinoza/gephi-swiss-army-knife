@@ -18,7 +18,7 @@ var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 var isMysqlConnected = false;
 var isMongoDbConnected = false;
-
+var isElasticsearchConnected = false;
 
 
 /*
@@ -117,6 +117,31 @@ $("#mongodbForm").submit(function (e) {
   });
 });
 
+
+/*
+*
+*Elasticsearch connecting form submit
+*/
+$("#elasticsearchForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    isElasticsearchConnected = resp == "true" ? true : false;
+    if (isElasticsearchConnected) {
+      if ($('#elasticsearchFormSubmit').val() == 'Connect') {
+        $('#elasticsearchAction').val('disconnect');
+        $('#elasticsearchFormSubmit').val("Disconnect");  
+      }else {
+        $('#elasticsearchAction').val('connect');
+        $('#elasticsearchFormSubmit').val("Connect");
+      }
+    } else {
+      alert("Elasticsearch service is down.")
+    }
+    $('.dbLoader').css('visibility','hidden');
+  });
+});
+
 /*
 *
 *Search Form Submit
@@ -128,8 +153,8 @@ $("#search-form").submit(function (e) {
   var searchVal = $('#search-form input[type=text]').val();
   var datasource = $('#datasources select#selectdata').val();
   requestAjax ("/search","searchStr="+searchVal+"&datasource="+datasource+"", function(graphData) {
-    graphJsonHandler(graphData);
     $("img#searchLoader").css('visibility','hidden');
+    graphJsonHandler(graphData);
   });
 });
 /*
@@ -154,7 +179,8 @@ function requestAjax (ajaxURL, formData, callBackFun) {
       },
       //on error in ajax request
       error: function(a, b, c){
-        alert ('Error requested graph Operation.');
+        $("img#searchLoader , img.dbLoader, img#graphLoader").css('visibility','hidden');
+        alert ('Error completing request.');
         return false;
       }
    });

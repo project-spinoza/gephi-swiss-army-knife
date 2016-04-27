@@ -44,7 +44,7 @@ public class DataImporter {
 	
 	
 	private DtoConfig settingsConf;
-  private TransportClient elasticSearchClient;
+  private static TransportClient elasticSearchClient;
 	private Settings clientSettings;
   private static Connection mysqlConnection;
   private Statement statement;
@@ -63,7 +63,7 @@ public class DataImporter {
 		
 		case "elasticsearch":
 			
-			if (elasticsearch_connect()) {
+			if (getElasticSearchClient() != null) {
 				response_tweets_list = elasticsearch_search(
 						settingsConf.getElasticsearchIndex(),
 						settingsConf.getElasticsearchIndexType(),
@@ -236,7 +236,7 @@ public class DataImporter {
 		return responseList;
 	}
 
-	private boolean elasticsearch_connect() {
+	public boolean connectElasticsearch() {
 
 		if (settingsConf.getElasticsearchClusterName() != null
 				&& !settingsConf.getElasticsearchClusterName().trim().isEmpty()) {
@@ -251,12 +251,15 @@ public class DataImporter {
 
 		setElasticSearchClient(new TransportClient(this.clientSettings));
 		getElasticSearchClient().addTransportAddress(new InetSocketTransportAddress(settingsConf.getElasticsearchHost(), settingsConf.getElasticsearchPort()));
-		
 		return verifyConnection();
 	}
 
+	public void disconnectElasticsearch () {
+	  DataImporter.elasticSearchClient.close();
+	}
+	
 	private boolean verifyConnection() {
-		ImmutableList<DiscoveryNode> nodes = this.elasticSearchClient
+		ImmutableList<DiscoveryNode> nodes = DataImporter.elasticSearchClient
 				.connectedNodes();
 		if (nodes.isEmpty()) {
 			return false;
@@ -287,7 +290,7 @@ public class DataImporter {
   }
 
   public void setElasticSearchClient(TransportClient elasticSearchClient) {
-    this.elasticSearchClient = elasticSearchClient;
+    DataImporter.elasticSearchClient = elasticSearchClient;
   }
 
   public DtoConfig getSettingsConf() {
