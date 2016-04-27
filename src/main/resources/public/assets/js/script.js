@@ -416,7 +416,7 @@ function graphJsonHandler (graphData){
   if(nodesCount > 0){
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
-    alert ('no graph found data found');
+    alert ('No Graph Data found.!');
   }
 }
 

@@ -255,7 +255,10 @@ public class DataImporter {
 	}
 
 	public void disconnectElasticsearch () {
-	  DataImporter.elasticSearchClient.close();
+	  try {
+	    DataImporter.elasticSearchClient.close();
+	  }catch (Exception e) {}
+	  setElasticSearchClient(null);
 	}
 	
 	private boolean verifyConnection() {
@@ -276,7 +279,7 @@ public class DataImporter {
 		SearchResponse response = getElasticSearchClient()
 				.prepareSearch(indexname).setTypes(typename)
 				.setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-				.setQuery(QueryBuilders.queryString(query_terms)).setFrom(0)
+				.setQuery((query_terms.trim().isEmpty())?QueryBuilders.queryString(query_terms):QueryBuilders.matchAllQuery()).setFrom(0)
 				.setSize(size).setExplain(true).execute().actionGet();
 
 		for (SearchHit hit : response.getHits()) {
