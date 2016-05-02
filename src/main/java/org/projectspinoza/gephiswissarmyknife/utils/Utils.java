@@ -38,24 +38,7 @@ public class Utils {
           String label = (String) n.getLabel();
           double x = n.x();
           double y = n.y();
-          double size = n.size();
-
-          /*
-           * assigning Nodes sizes by pageranks
-           * 
-           * */
-//        Statistics statistics = new Statistics();
-//        statistics.setGraphModel(GephiGraph.getGraphModel());
-//        statistics.pageRank();
-//        size = (Double) nodeArray[i].getAttribute("pageranks");
-          
-          
-//          if (nodeSizeBy.equals("pr")) {
-//                  size = (Double) nodeArray[i].getAttribute("pagerank");
-//          } else if (nodeSizeBy.equals("exp_pr")) {
-//                  size = (Double) nodeArray[i].getAttribute("pagerank");
-//                  size = Math.exp(size);
-//          }
+          double size = n.size()+10;
           
           int R = (int)(Math.random()*256);
           int G = (int)(Math.random()*256);
@@ -99,7 +82,7 @@ public class Utils {
 
           SigmaEdge sigmaEdge = new SigmaEdge(sourceId, targetId);
           sigmaEdge.setSize(e.getWeight());
-          
+          sigmaEdge.setLabel(e.getLabel());
           /*
            * To be used when graph setting need to be passed from UI
            * 
@@ -110,7 +93,7 @@ public class Utils {
           /*
            * Temp edge colors
            * */
-        String color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+           String color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
        
               if (e.r() == -1 || e.g() == -1 || e.b() == -1) {
                   Color result = colorMixer.getColor(null, e.getSource().getColor(), e.getTarget().getColor());

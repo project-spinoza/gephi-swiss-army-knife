@@ -25,9 +25,11 @@ import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.utils.DataImporter;
+import org.projectspinoza.gephiswissarmyknife.utils.GraphBackup;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
 import com.google.inject.Inject;
+
 
 public class GraphServer {
 
@@ -43,6 +45,7 @@ public class GraphServer {
   private GephiGraph gephiGraphWs;
   private GraphGenerator graphGen;
   private DataImporter dataImporter;
+  private GraphBackup graphBackup;
   
   public GraphServer() {
     setVertx(Vertx.vertx());
@@ -129,6 +132,16 @@ public class GraphServer {
      * */
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
+      this.graphBackup.saveGraph(this.gephiGraph);
+      responseSigmaGraph(this.gephiGraph, routingContext);
+    });
+    
+    /*
+     * Original/unmodified/initial Graph request route
+     * 
+     * */
+    router.getWithRegex("/originalGraph.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraph = this.graphBackup.retrieveGraph(GephiGraph.getGraphModel());
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
@@ -211,7 +224,7 @@ public class GraphServer {
       }else {
         routingContext.response().end("Unknown DB server.!");
       }
-      
+
     });
     
     /*
@@ -363,6 +376,15 @@ public class GraphServer {
   @Inject
   public void setGraphGen(GraphGenerator graphGen) {
     this.graphGen = graphGen;
+  }
+
+  public GraphBackup getGraphBackup() {
+    return graphBackup;
+  }
+  
+  @Inject
+  public void setGraphBackup(GraphBackup graphBackup) {
+    this.graphBackup = graphBackup;
   }
 
 }

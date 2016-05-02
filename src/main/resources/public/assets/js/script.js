@@ -58,6 +58,23 @@ $("#graphFileUploadForm").submit(function (e) {
   });
 });
 
+
+
+/*
+*
+*Loading original graph after different operations
+*/
+$('#original_graph_load_form input[type="submit"]').prop('disabled', true);
+$("#original_graph_load_form").submit(function (e) {
+  e.preventDefault();
+  $('.dbLoader').css('visibility','visible');
+  requestAjax ("/originalGraph", {}, function(graphData) {
+    graphJsonHandler(graphData);
+  $('.dbLoader').css('visibility','hidden');
+  });
+});
+
+
 /*
 *
 *Tweets File Upload Options Operations
@@ -412,8 +429,11 @@ function canvasGraph (container, gtitle, data, xLabel, yLabel){
 */
 function graphJsonHandler (graphData){
   nodesObject = JSON.parse(graphData);
+//  alert(nodesObject);
+//  console.log(nodesObject);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
+      $('#original_graph_load_form input[type="submit"]').prop('disabled', false);
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
     alert ('No Graph Data found.!');
