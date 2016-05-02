@@ -19,6 +19,9 @@ var statistics_btn;
 var isMysqlConnected = false;
 var isMongoDbConnected = false;
 var isElasticsearchConnected = false;
+var isGraphExists = false;
+var zoomValCurrent;
+var zoomValPrevious = 3;
 
 
 /*
@@ -434,6 +437,9 @@ function graphJsonHandler (graphData){
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
       $('#original_graph_load_form input[type="submit"]').prop('disabled', false);
+      isGraphExists = true;
+      $("#slider-vertical").slider("value", 3);
+      zoomValCurrent = 3;
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
     alert ('No Graph Data found.!');
@@ -551,8 +557,6 @@ function waitUntilValChange(variable, value) {
 /*************************************************************
               VERTICAL SLIDER JS
 *************************************************************/
-var zoomValCurrent;
-var zoomValPrevious = 3;
 
   $(function() {
     $( "#slider-vertical" ).slider({
@@ -563,8 +567,10 @@ var zoomValPrevious = 3;
       step: 1,
       value: 3,
       slide: function( event, ui ) {
-          zoomValCurrent = ui.value;
-          zoomCalculator ();
+          if (isGraphExists){
+            zoomValCurrent = ui.value;
+            zoomCalculator ();
+          }
       }
     });
   });
@@ -590,43 +596,51 @@ function zoomCalculator () {
 
 $('#zoomin-btn').click (function (e){
   var sVal = parseInt($("#slider-vertical").slider("value"));
-  if (sVal < 10) {
-    $("#slider-vertical").slider("value", sVal+1)
-    zoomValCurrent = sVal+1;
-    zoomCalculator();
+  if (isGraphExists) {
+    if (sVal < 10) {
+      $("#slider-vertical").slider("value", sVal+1);
+        zoomValCurrent = sVal+1;
+        zoomCalculator();
+    }
   }
 });
 
 $('#zoomout-btn').click (function (e){
   var sVal = parseInt($("#slider-vertical").slider("value"));
-  if (sVal > 0) {
-    $("#slider-vertical").slider("value", sVal-1)
-    zoomValCurrent = sVal-1;
-    zoomCalculator();
+  if (isGraphExists) {
+    if (sVal > 0) {
+      $("#slider-vertical").slider("value", sVal-1);
+        zoomValCurrent = sVal-1;
+        zoomCalculator();
+    }
   }
 });
 
 
  //Firefox
  $('#container').bind('DOMMouseScroll', function(e){
-     if(e.originalEvent.detail > 0) {
-         $('#zoomout-btn').click();
-     }else {
-         //scroll up
-         $('#zoomin-btn').click();
-     }
+    if (isGraphExists) {
+       if(e.originalEvent.detail > 0) {
+           $('#zoomout-btn').click();
+       }else {
+           //scroll up
+           $('#zoomin-btn').click();
+       }
+    }
      return false;
  });
 
  //IE, Opera, Safari
  $('#container').bind('mousewheel', function(e){
-     if(e.originalEvent.deltaY > 0) {
-         //scroll down
-         $('#zoomout-btn').click();
-     }else {
-         //scroll up
-         $('#zoomin-btn').click();
-     }
+    if (isGraphExists) {
+       if(e.originalEvent.deltaY > 0) {
+           //scroll down
+           $('#zoomout-btn').click();
+       }else {
+           //scroll up
+           $('#zoomin-btn').click();
+       }
+    }
      return false;
  });
 
