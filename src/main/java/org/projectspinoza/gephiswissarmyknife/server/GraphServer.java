@@ -236,6 +236,7 @@ public class GraphServer {
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
       this.graphGen.setGraphModel(GephiGraph.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
+      this.graphBackup.saveGraph(this.gephiGraph);
       System.out.println("#Node: " +this.gephiGraph.getNodeCount());
       responseSigmaGraph(this.gephiGraph, routingContext);
    });   
