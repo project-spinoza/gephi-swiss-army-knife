@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.gephi.graph.api.Graph;
+import org.gephi.graph.api.GraphModel;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
@@ -115,6 +116,7 @@ public class GraphServer {
      * */
     router.getWithRegex("/gsak.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraphWs = new GephiGraph();
+      this.gephiGraphWs.setGraphModel(GraphModel.Factory.newInstance());
       routingContext.response().sendFile("public/index.html");
     });
     
@@ -251,7 +253,6 @@ public class GraphServer {
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph);
-      System.out.println("#Node: " +this.gephiGraph.getNodeCount());
       responseSigmaGraph(this.gephiGraph, routingContext);
    });   
   }

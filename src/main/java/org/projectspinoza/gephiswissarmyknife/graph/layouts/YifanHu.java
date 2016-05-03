@@ -41,7 +41,7 @@ public class YifanHu {
     this.yifanHuLayout.setConvergenceThreshold(Float.parseFloat(layoutParams.get("convergenceThreshold")));
 
     this.yifanHuLayout.initAlgo();
-    for (int i = 0; i < 100 && this.yifanHuLayout.canAlgo(); i++) {
+    for (int i = 0; i < 500 && this.yifanHuLayout.canAlgo(); i++) {
       this.yifanHuLayout.goAlgo();
     }
     this.yifanHuLayout.endAlgo();
