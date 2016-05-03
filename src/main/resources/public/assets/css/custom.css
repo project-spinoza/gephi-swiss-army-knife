@@ -119,9 +119,8 @@ body .user-nav-slide-right {
   padding-left: 6px;
 }
 .orange {
-  background: #f5ab28 none repeat scroll 0 0;
+  background: #f5ab28 none repeat scroll 0 0 !important;
   border: medium none #f5ab28;
-  color: #fff;
   height: 30px;
   width: 75px;
   line-height:15px;
@@ -129,7 +128,6 @@ body .user-nav-slide-right {
 #search-form .btn-default:hover{
   background-color: #f5ab28 !important;
   border: medium none #f5ab28;
-  color: #fff;
 }
 .header-search .search-submit {
   vertical-align: top;

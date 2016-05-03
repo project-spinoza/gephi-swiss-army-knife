@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.gephi.graph.api.Graph;
+import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.statistics.Statistics;
 
 import com.google.inject.Inject;
@@ -20,6 +20,7 @@ public class StatisticsWrap {
 
   private Statistics statistics;
   JsonObject rootRespJson;
+  private GraphModel graphModel;
 
   public StatisticsWrap() {
   }
@@ -30,17 +31,17 @@ public class StatisticsWrap {
   public String applyStatistics(MultiMap layoutParams) {
     String responseJson = "";
     JsonObject root;
-    this.statistics.setGraphModel(GephiGraph.getGraphModel());
+    this.statistics.setGraphModel(this.graphModel);
     
     switch (layoutParams.get("statistics")) {
     case "averageDegree":
       this.statistics.averageDegree();
-      responseJson = averageDegreeStatistics(GephiGraph.getGraphModel().getGraphVisible(), false);
+      responseJson = averageDegreeStatistics(this.graphModel.getGraphVisible(), false);
       break;
       
     case "averageWeightedDegree":
       this.statistics.averageWeightedDegree();
-      responseJson = averageDegreeStatistics(GephiGraph.getGraphModel().getGraphVisible(), true);
+      responseJson = averageDegreeStatistics(this.graphModel.getGraphVisible(), true);
       break;
     case "graphDensity":
       double gDensity = this.statistics.graphDensity();
@@ -50,33 +51,33 @@ public class StatisticsWrap {
       break;
     case "Modularity":
       this.statistics.modularityClass(); //calculate modularity with default params
-      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "modularity_class");
+      responseJson = colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "modularity_class");
       break;
     case "pageRank":
       this.statistics.pageRank(); //calculate pagerank with default params
-      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "pageranks");
+      responseJson = colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "pageranks");
       break;
     case "connectedComponents":
       this.statistics.connectedComponents();
-      responseJson = connectedComponentsStatistics(GephiGraph.getGraphModel().getGraphVisible());
+      responseJson = connectedComponentsStatistics(this.graphModel.getGraphVisible());
       break;
       
     case "avgClusterCoeficients":
       this.statistics.avgClusterCoeficients();
-      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "clustering");
+      responseJson = colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "clustering");
       break;
       
     case "eigenVectorCentrality":
       this.statistics.eigenVectorCentrality();
-      responseJson = colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eigencentrality");
+      responseJson = colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "eigencentrality");
       break;
       
     case "avgPathLength":
       this.statistics.graphDistance();
       root = new JsonObject();
-      JsonObject eccentricity = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "eccentricity")).getJsonObject("eccentricity");
-      JsonObject closnesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "closnesscentrality")).getJsonObject("closnesscentrality");
-      JsonObject betweenesscentrality = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "betweenesscentrality")).getJsonObject("betweenesscentrality");
+      JsonObject eccentricity = new JsonObject(colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "eccentricity")).getJsonObject("eccentricity");
+      JsonObject closnesscentrality = new JsonObject(colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "closnesscentrality")).getJsonObject("closnesscentrality");
+      JsonObject betweenesscentrality = new JsonObject(colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "betweenesscentrality")).getJsonObject("betweenesscentrality");
       root.put("eccentricity", eccentricity);
       root.put("closnesscentrality", closnesscentrality);
       root.put("betweenesscentrality", betweenesscentrality);
@@ -85,8 +86,8 @@ public class StatisticsWrap {
     case "hits":
       this.statistics.calculateHits();
       root = new JsonObject();
-      JsonObject authority = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "authority")).getJsonObject("authority");
-      JsonObject hub = new JsonObject(colValNodesStatisticsJson(GephiGraph.getGraphModel().getGraphVisible(), "hub")).getJsonObject("hub");
+      JsonObject authority = new JsonObject(colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "authority")).getJsonObject("authority");
+      JsonObject hub = new JsonObject(colValNodesStatisticsJson(this.graphModel.getGraphVisible(), "hub")).getJsonObject("hub");
       root.put("authority", authority);
       root.put("hub", hub);      
       responseJson = root.toString();
@@ -125,7 +126,7 @@ public class StatisticsWrap {
     double stronglyConnected = 0;
     
     //calculating the weekly connected components.
-    for (Node node : GephiGraph.getGraphModel().getGraphVisible().getNodes()) {
+    for (Node node : this.graphModel.getGraphVisible().getNodes()) {
       int componentId = Integer.parseInt(node.getAttribute("componentnumber").toString());
       if (componentsMap.containsKey(componentId)) {
         int val = componentsMap.get(componentId);
@@ -234,6 +235,14 @@ public class StatisticsWrap {
   @Inject
   public void setStatistics(Statistics statistics) {
     this.statistics = statistics;
+  }
+
+  public GraphModel getGraphModel() {
+    return graphModel;
+  }
+
+  public void setGraphModel(GraphModel graphModel) {
+    this.graphModel = graphModel;
   }
 
 }

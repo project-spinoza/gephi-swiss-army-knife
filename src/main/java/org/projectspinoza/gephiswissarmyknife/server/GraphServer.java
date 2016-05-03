@@ -50,7 +50,6 @@ public class GraphServer {
   public GraphServer() {
     setVertx(Vertx.vertx());
     router = Router.router(vertx);
-    this.gephiGraphWs = new GephiGraph();
     this.dtoConfig = new DtoConfig();
     this.dataImporter = new DataImporter();
   }
@@ -91,7 +90,10 @@ public class GraphServer {
   
   private void deployGsakRoutes() {
     
-    // static resources CSS/JS files
+    /*
+     *  static resources CSS/JS files
+     *  
+     * */
     router.getWithRegex(".*/css/.*|.*/js/.*|.*/images/.*|.*/assets/.*").handler(
         StaticHandler.create("public").setCachingEnabled(false));
 
@@ -107,13 +109,23 @@ public class GraphServer {
       request.response().end("Welcome to <a href=\"/gsak\">Twitter-Grapher.</a>");
     });
     
+    /*
+     *  base UI route
+     *  
+     * */
     router.getWithRegex("/gsak.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraphWs = new GephiGraph();
       routingContext.response().sendFile("public/index.html");
     });
     
+    /*
+     * graph Layouts route
+     *  
+     * */
     router.getWithRegex("/layout.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.layoutsWrap.setGraphModel(this.gephiGraphWs.getGraphModel());
       this.layoutsWrap.applyLayout(routingContext.request().params());
-      responseSigmaGraph (GephiGraph.getGraphModel().getGraphVisible(), routingContext);
+      responseSigmaGraph (gephiGraphWs.getGraphModel().getGraphVisible(), routingContext);
     });
 
     
@@ -122,6 +134,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/statistics.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.statisticsWrap.setGraphModel(this.gephiGraphWs.getGraphModel());
       String resp = this.statisticsWrap.applyStatistics(routingContext.request().params());
       routingContext.response().end(resp);
     });
@@ -131,6 +144,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
       this.graphBackup.saveGraph(this.gephiGraph);
       responseSigmaGraph(this.gephiGraph, routingContext);
@@ -141,7 +155,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/originalGraph.*").method(HttpMethod.GET).handler(routingContext -> {
-      this.gephiGraph = this.graphBackup.retrieveGraph(GephiGraph.getGraphModel());
+      this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel());
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
@@ -231,10 +245,10 @@ public class GraphServer {
      * search
      * 
      * */
-    router.getWithRegex("/search.*").method(HttpMethod.POST).handler(routingContext -> {
+    router.getWithRegex("/search.*").method(HttpMethod.GET).handler(routingContext -> {
       dtoConfig.setDataSource(routingContext.request().getParam("datasource"));
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
-      this.graphGen.setGraphModel(GephiGraph.getGraphModel());
+      this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph);
       System.out.println("#Node: " +this.gephiGraph.getNodeCount());

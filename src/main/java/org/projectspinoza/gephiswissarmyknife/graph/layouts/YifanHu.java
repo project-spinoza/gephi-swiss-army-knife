@@ -5,7 +5,6 @@ import java.util.Map;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.force.StepDisplacement;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class YifanHu {
 
@@ -23,7 +22,7 @@ public class YifanHu {
    * */
   public void applyLayout(Map<String, String> layoutParams ) {
     this.yifanHuLayout = (this.yifanHuLayout == null)? new YifanHuLayout(null,new StepDisplacement(1f)): this.yifanHuLayout;
-    this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.yifanHuLayout.setGraphModel(this.getGraphModel());
     this.yifanHuLayout.resetPropertiesValues();
     yifanHuAlgo(layoutParams);
   }

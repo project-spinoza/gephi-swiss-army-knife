@@ -5,7 +5,6 @@ import java.util.Map;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuProportional;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class YifanHuProportionalLayout {
 
@@ -24,7 +23,7 @@ public class YifanHuProportionalLayout {
   public void applyLayout(Map<String, String> layoutParams ) {
     this.yifanHuPropertional = (this.yifanHuPropertional == null)? new YifanHuProportional(): this.yifanHuPropertional;
     this.yifanHuLayout = this.yifanHuPropertional.buildLayout();
-    this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.yifanHuLayout.setGraphModel(this.getGraphModel());
     this.yifanHuLayout.resetPropertiesValues();
     yifanHuAlgo(layoutParams);
   }

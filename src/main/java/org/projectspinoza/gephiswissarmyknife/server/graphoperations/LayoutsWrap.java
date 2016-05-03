@@ -3,7 +3,6 @@ package org.projectspinoza.gephiswissarmyknife.server.graphoperations;
 import io.vertx.core.MultiMap;
 
 import org.gephi.graph.api.GraphModel;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.ForceAtlas;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.FruchtermanReingoldLayout;
 import org.projectspinoza.gephiswissarmyknife.graph.layouts.LabelAdjustLayout;
@@ -35,7 +34,6 @@ public class LayoutsWrap {
   private GraphModel graphModel;
 
   public LayoutsWrap() {
-    this.graphModel = GephiGraph.getGraphModel();
   }
 
   /*
@@ -55,34 +53,42 @@ public class LayoutsWrap {
       this.layoutScale.scale();
       break;
     case "ForceAtlas":
+      this.forceAtlas.setGraphModel(this.graphModel);
       this.forceAtlas.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     case "FruchtermanReingold":
-      this.fruchtermanReingoldLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.fruchtermanReingoldLayout.setGraphModel(this.graphModel);
+      this.fruchtermanReingoldLayout.setGraphModel(this.graphModel);
       this.fruchtermanReingoldLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "LabelAdjust":
-      this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
+      this.labelAdjust.setGraphModel(this.graphModel);
+      this.labelAdjust.setGraphModel(this.graphModel);
       this.labelAdjust.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "NoverLap":
-      this.noverLapLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.noverLapLayout.setGraphModel(this.graphModel);
+      this.noverLapLayout.setGraphModel(this.graphModel);
       this.noverLapLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "OpenOrd":
-      this.openOrd.setGraphModel(GephiGraph.getGraphModel());
+      this.openOrd.setGraphModel(this.graphModel);
+      this.openOrd.setGraphModel(this.graphModel);
       this.openOrd.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "RandomLayout":
-      this.randomLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.randomLayout.setGraphModel(this.graphModel);
+      this.randomLayout.setGraphModel(this.graphModel);
       this.randomLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break;
     case "YafinHu":
-      this.yifanHuLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.yifanHuLayout.setGraphModel(this.graphModel);
+      this.yifanHuLayout.setGraphModel(this.graphModel);
       this.yifanHuLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     case "YafinHuProportional":
-      this.yifanHuProportionalLayout.setGraphModel(GephiGraph.getGraphModel());
+      this.yifanHuProportionalLayout.setGraphModel(this.graphModel);
+      this.yifanHuProportionalLayout.setGraphModel(this.graphModel);
       this.yifanHuProportionalLayout.applyLayout(Utils.multiMapToHashMap(layoutParams));
       break; 
     default:

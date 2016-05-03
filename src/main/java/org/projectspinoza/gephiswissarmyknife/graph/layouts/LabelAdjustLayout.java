@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.labelAdjust.LabelAdjust;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class LabelAdjustLayout {
   
@@ -16,7 +15,7 @@ public class LabelAdjustLayout {
   
   public void applyLayout (Map<String, String> layoutParams) {
     this.labelAdjust = (this.labelAdjust == null) ? new LabelAdjust(null): this.labelAdjust;
-    this.labelAdjust.setGraphModel(GephiGraph.getGraphModel());
+    this.labelAdjust.setGraphModel(this.getGraphModel());
     this.labelAdjust.resetPropertiesValues();
     LabelAdustAlgo(layoutParams);
   }

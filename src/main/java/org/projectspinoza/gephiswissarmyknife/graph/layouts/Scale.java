@@ -2,7 +2,6 @@ package org.projectspinoza.gephiswissarmyknife.graph.layouts;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.scale.ScaleLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 import com.google.inject.Singleton;
 
@@ -19,7 +18,7 @@ public class Scale {
   public void scale() {
     this.sclaeLayout = (this.sclaeLayout == null) ? new ScaleLayout(null,
         getScale()) : sclaeLayout;
-    this.sclaeLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.sclaeLayout.setGraphModel(this.getGraphModel());
     this.sclaeLayout.setScale(getScale());
     this.sclaeLayout.goAlgo();
     this.sclaeLayout.endAlgo();

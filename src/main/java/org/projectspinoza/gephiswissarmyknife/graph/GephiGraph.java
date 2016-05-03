@@ -21,7 +21,7 @@ public class GephiGraph {
 
   private ProjectController projectController;
   private Workspace workspace;
-  private static GraphModel graphModel;
+  private GraphModel graphModel;
   private GraphImporter graphImporter;
   private Container container;
   private Graph graph;
@@ -37,7 +37,7 @@ public class GephiGraph {
     this.projectController.newProject();
     setWorkspace(this.projectController.getCurrentWorkspace());
     this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getGraphModel());
-    this.graphImporter = (this.graphImporter == null)? new GraphImporter(): this.graphImporter;
+    this.graphImporter = new GraphImporter();
     this.graphImporter.setWorkspace(getWorkspace());
   }
 
@@ -52,19 +52,20 @@ public class GephiGraph {
 
     switch (edgeType) {
     case DIRECTED:
-      graphImported = this.graphImporter.importGraph(this.container, graphFile,EdgeDirectionDefault.DIRECTED);
+      graphImported = this.graphImporter.importGraph(graphFile,EdgeDirectionDefault.DIRECTED);
       this.graph = (graphImported == true) ? graphModel.getDirectedGraph(): null;
       System.out.println("Nodes: " + graph.getNodeCount());
       System.out.println("Edges: " + graph.getEdgeCount());
+
       break;
 
     case UNDIRECTED:
-      graphImported = this.graphImporter.importGraph(this.container, graphFile,EdgeDirectionDefault.UNDIRECTED);
+      graphImported = this.graphImporter.importGraph(graphFile,EdgeDirectionDefault.UNDIRECTED);
       this.graph = (graphImported == true) ? graphModel.getUndirectedGraph(): null;
       break;
 
     case MIXED:
-      graphImported = this.graphImporter.importGraph(this.container, graphFile,
+      graphImported = this.graphImporter.importGraph( graphFile,
           EdgeDirectionDefault.MIXED);
       this.graph = (graphImported == true) ? graphModel.getGraph() : null;
       break;
@@ -83,12 +84,12 @@ public class GephiGraph {
   }
 
 
-  public static GraphModel getGraphModel() {
+  public GraphModel getGraphModel() {
     return graphModel;
   }
 
   public void setGraphModel(GraphModel graphModel) {
-    GephiGraph.graphModel = graphModel;
+    this.graphModel = graphModel;
   }
 
   public Graph getGraph() {

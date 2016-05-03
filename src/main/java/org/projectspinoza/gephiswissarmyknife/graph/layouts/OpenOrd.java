@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.openord.OpenOrdLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class OpenOrd {
 
@@ -22,7 +21,7 @@ public class OpenOrd {
    * */
   public void applyLayout(Map<String, String> layoutParams ) {
     this.openOrdLayout = (this.openOrdLayout == null)? new OpenOrdLayout(null): this.openOrdLayout;
-    this.openOrdLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.openOrdLayout.setGraphModel(this.getGraphModel());
     this.openOrdLayout.resetPropertiesValues();
     openOrdAlgo(layoutParams);
   }

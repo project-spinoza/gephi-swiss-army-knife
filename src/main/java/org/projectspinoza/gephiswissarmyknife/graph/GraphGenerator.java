@@ -71,7 +71,9 @@ public class GraphGenerator {
     yifanParams.put("adaptiveCooling", "true");
     yifanParams.put("convergenceThreshold", "1.0E-4");
     // YifanLayout
-    new YifanHu().applyLayout(yifanParams);
+    YifanHu yafinHuLayout = new YifanHu();
+    yafinHuLayout.setGraphModel(this.getGraphModel());
+    yafinHuLayout.applyLayout(yifanParams);
     
     return this.graphModel.getGraph();
   }

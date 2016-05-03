@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.random.RandomLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class Random {
 
@@ -16,7 +15,7 @@ public class Random {
   
   public void applyLayout (Map <String, String> layoutParams) {
     this.randomLayout = (this.randomLayout == null) ? new RandomLayout(null, 0.0) : this.randomLayout;
-    this.randomLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.randomLayout.setGraphModel(this.getGraphModel());
     this.randomLayout.resetPropertiesValues();
     randomLayoutAlgo(layoutParams);
   }

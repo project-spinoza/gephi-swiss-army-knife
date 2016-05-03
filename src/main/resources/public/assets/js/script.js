@@ -1,3 +1,8 @@
+var isMysqlConnected = false;
+var isMongoDbConnected = false;
+var isElasticsearchConnected = false;
+var isFileUploaded = false;
+
 $( document ).ready(function() {
 
 sigma.classes.graph.addMethod('neighbors', function(nodeId) {
@@ -16,13 +21,12 @@ for (k in index)
 var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
-var isMysqlConnected = false;
-var isMongoDbConnected = false;
-var isElasticsearchConnected = false;
 var isGraphExists = false;
 var zoomValCurrent;
 var zoomValPrevious = 3;
 
+//disable search button intially
+$('#search-form input[type="submit"]').prop('disabled', true);
 
 /*
 *
@@ -100,10 +104,15 @@ $("#mysqldbForm").submit(function (e) {
     if (isMysqlConnected) {
       if ($('#mysqlFormSubmit').val() == 'Connect') {
         $('#mysqldbaction').val('disconnect');
-        $('#mysqlFormSubmit').val("Disconnect");  
+        $('#mysqlFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: Mysql");   
       }else {
         $('#mysqldbaction').val('connect');
         $('#mysqlFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isMysqlConnected = false;
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to Mysql Server."); 
       }
     } else {
       alert("Database service is down.")
@@ -125,10 +134,15 @@ $("#mongodbForm").submit(function (e) {
     if (isMongoDbConnected) {
       if ($('#mongodbFormSubmit').val() == 'Connect') {
         $('#mongodbaction').val('disconnect');
-        $('#mongodbFormSubmit').val("Disconnect");  
+        $('#mongodbFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: Mongodb"); 
       }else {
         $('#mongodbaction').val('connect');
         $('#mongodbFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isMysqlConnected = false;
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to MongoDb Server."); 
       }
     } else {
       alert("Database service is down.")
@@ -150,10 +164,16 @@ $("#elasticsearchForm").submit(function (e) {
     if (isElasticsearchConnected) {
       if ($('#elasticsearchFormSubmit').val() == 'Connect') {
         $('#elasticsearchAction').val('disconnect');
-        $('#elasticsearchFormSubmit').val("Disconnect");  
+        $('#elasticsearchFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: ElasticSearch");  
       }else {
         $('#elasticsearchAction').val('connect');
         $('#elasticsearchFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isElasticsearchConnected = false;
+        alert("here "+isElasticsearchConnected);
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to ES server.");
       }
     } else {
       alert("Elasticsearch service is down.")
@@ -424,6 +444,16 @@ function canvasGraph (container, gtitle, data, xLabel, yLabel){
     ]
   };
   $("#"+container).CanvasJSChart(options);
+}
+
+function enableDisableSearchBtn(enable){
+  if (enable){
+    $('#search-form input[type="submit"]').prop('disabled', false);
+    $('#search-form input[type="text"]').prop('disabled', false);
+  }else {
+    $('#search-form input[type="submit"]').prop('disabled', true);
+    $('#search-form input[type="text"]').prop('disabled', true);
+  }
 }
 
 /*
