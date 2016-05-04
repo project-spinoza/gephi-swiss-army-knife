@@ -1,10 +1,14 @@
 package org.projectspinoza.gephiswissarmyknife.graph.filters;
 
 
+import java.awt.Color;
+
+import org.gephi.filters.plugin.attribute.AttributeEqualBuilder;
 import org.gephi.filters.plugin.attribute.AttributeEqualBuilder.EqualNumberFilter;
 import org.gephi.filters.plugin.attribute.AttributeEqualBuilder.EqualStringFilter;
 import org.gephi.graph.api.Column;
 import org.gephi.graph.api.Edge;
+import org.gephi.graph.api.EdgeIterable;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
@@ -15,25 +19,9 @@ public class Filters {
   private GraphModel graphModel;
  
   private Column attributeColumn;
-  private EqualStringFilter EqualStrfilter;
+  private EqualStringFilter<Node> equalStrFilter;
   private EqualNumberFilter EqualNumberfilter;
   
-  public EqualNumberFilter getEqualNumberfilter() {
-    return EqualNumberfilter;
-	
-}
-
-public void setEqualNumberfilter(EqualNumberFilter equalNumberfilter) {
-	EqualNumberfilter = equalNumberfilter;
-}
-
-public EqualStringFilter getEqualStrfilter() {
-    return EqualStrfilter;
-  }
-
-  public void setEqualStrfilter(EqualStringFilter equalStrfilter) {
-    EqualStrfilter = equalStrfilter;
-  }
 
   public Filters() {
   //  setAttributable(Lookup.getDefault().lookup(Attributable.class));
@@ -43,6 +31,9 @@ public EqualStringFilter getEqualStrfilter() {
     this();
     this.setGraphModel(graphModel);
   }
+  
+  
+  
 
   /*
    * @return void
@@ -56,36 +47,45 @@ public EqualStringFilter getEqualStrfilter() {
    * Contains the specified ID when 'useRegex' is set to true.
    * 
    * */
-  public void idNodeFilter(String id, boolean useRegex) {
+  public void idNodeFilter(String id, boolean useRegex, boolean removeNode) {
     this.attributeColumn = graphModel.getNodeTable().getColumn("id");
-    this.EqualStrfilter.setColumn(attributeColumn);
-    this.EqualStrfilter.setPattern(id);
-    this.EqualStrfilter.setUseRegex(useRegex);
+    this.equalStrFilter = new AttributeEqualBuilder.EqualStringFilter.Node(attributeColumn);
+    this.equalStrFilter.setColumn(attributeColumn);
+    this.equalStrFilter.setPattern(id);
+    this.equalStrFilter.setUseRegex(useRegex);
 
     Graph graph = this.graphModel.getGraph();
     Node[] nodes = graph.getNodes().toArray();
     boolean nodeMatched = false;
     for (int i = 0; i < nodes.length; i++) {
-      nodeMatched = this.EqualStrfilter.evaluate(graph, nodes[i]);
+      nodeMatched = this.equalStrFilter.evaluate(graph, nodes[i]);
       /*
        * See if node Matched then Remove it.
        */
-      if (!nodeMatched) {
-        graph.removeNode(nodes[i]);
+      if (nodeMatched) {
+        if (removeNode){
+          graph.removeNode(nodes[i]);
+          continue;
+        }
+        EdgeIterable edges = graph.getEdges(nodes[i]);
+        for (Edge e : edges){
+          e.setColor(Color.red);
+        }
+        nodes[i].setColor(Color.white);
       }
     }
   }
   
   public void idEdgeFilter (String id, boolean useRegex) {
 	 this.attributeColumn = graphModel.getEdgeTable().getColumn("id");
-	 this.EqualStrfilter.setColumn(attributeColumn);
-	 this.EqualStrfilter.setPattern(id);
-	 this.EqualStrfilter.setUseRegex(useRegex);
+	 this.equalStrFilter.setColumn(attributeColumn);
+	 this.equalStrFilter.setPattern(id);
+	 this.equalStrFilter.setUseRegex(useRegex);
 	 Graph graph = this.graphModel.getGraph();
 	    Edge[] edges = graph.getEdges().toArray();
 	    boolean edgeMatched = false;
 	    for (int i = 0; i < edges.length; i++) {
-	      edgeMatched = this.EqualStrfilter.evaluate(graph, edges[i]);
+	      edgeMatched = this.equalStrFilter.evaluate(graph, edges[i]);
 	      /*
 	       * See if node Matched then Remove it.
 	       */
@@ -97,14 +97,14 @@ public EqualStringFilter getEqualStrfilter() {
   
   public void labelNodeFilter (String label, boolean useRegex) {
 	  this.attributeColumn = graphModel.getNodeTable().getColumn("label");
-	  this.EqualStrfilter.setColumn(attributeColumn);
-	  this.EqualStrfilter.setPattern(label);
-	  this.EqualStrfilter.setUseRegex(useRegex);
+	  this.equalStrFilter.setColumn(attributeColumn);
+	  this.equalStrFilter.setPattern(label);
+	  this.equalStrFilter.setUseRegex(useRegex);
 	  Graph graph = this.graphModel.getGraph();
 	  Node[] nodes = graph.getNodes().toArray();
 	  boolean nodeMatched = false;
 	  for (int i = 0; i < nodes.length; i++) {
-		  nodeMatched = this.EqualStrfilter.evaluate(graph, nodes[i]);
+		  nodeMatched = this.equalStrFilter.evaluate(graph, nodes[i]);
 		  /*
 		   * See if node Matched then Remove it.
 		   */
@@ -116,14 +116,14 @@ public EqualStringFilter getEqualStrfilter() {
   
   public void labelEdgeFilter (String label, boolean useRegex) {
 		this.attributeColumn = graphModel.getEdgeTable().getColumn("label");
-		this.EqualStrfilter.setColumn(attributeColumn);
-		this.EqualStrfilter.setPattern(label);
-		this.EqualStrfilter.setUseRegex(useRegex);
+		this.equalStrFilter.setColumn(attributeColumn);
+		this.equalStrFilter.setPattern(label);
+		this.equalStrFilter.setUseRegex(useRegex);
 		Graph graph = this.graphModel.getGraph();
 		Edge[] edges = graph.getEdges().toArray();
 		boolean edgeMatched = false;
 		for (int i = 0; i < edges.length; i++) {
-			edgeMatched = this.EqualStrfilter.evaluate(graph, edges[i]);
+			edgeMatched = this.equalStrFilter.evaluate(graph, edges[i]);
 			/*
 			 * See if node Matched then Remove it.
 			 */
@@ -175,14 +175,14 @@ public EqualStringFilter getEqualStrfilter() {
   
   public void equalStringNodeFilter (String column, String str,boolean useRegex) {
 		this.attributeColumn = graphModel.getNodeTable().getColumn(column);
-		this.EqualStrfilter.setColumn(attributeColumn);
-		this.EqualStrfilter.setPattern(str);
-		this.EqualStrfilter.setUseRegex(useRegex);
+		this.equalStrFilter.setColumn(attributeColumn);
+		this.equalStrFilter.setPattern(str);
+		this.equalStrFilter.setUseRegex(useRegex);
 		Graph graph = this.graphModel.getGraph();
 		Node[] nodes = graph.getNodes().toArray();
 		boolean edgeMatched = false;
 		for (int i = 0; i < nodes.length; i++) {
-			edgeMatched = this.EqualStrfilter.evaluate(graph, nodes[i]);
+			edgeMatched = this.equalStrFilter.evaluate(graph, nodes[i]);
 			/*
 			 * See if node Matched then Remove it.
 			 */
@@ -194,14 +194,14 @@ public EqualStringFilter getEqualStrfilter() {
   
   public void equalStringEdgeFilter (String column, String str,boolean useRegex) {
 		this.attributeColumn = graphModel.getEdgeTable().getColumn(column);
-		this.EqualStrfilter.setColumn(attributeColumn);
-		this.EqualStrfilter.setPattern(str);
-		this.EqualStrfilter.setUseRegex(useRegex);
+		this.equalStrFilter.setColumn(attributeColumn);
+		this.equalStrFilter.setPattern(str);
+		this.equalStrFilter.setUseRegex(useRegex);
 		Graph graph = this.graphModel.getGraph();
 		Edge[] edges = graph.getEdges().toArray();
 		boolean edgeMatched = false;
 		for (int i = 0; i < edges.length; i++) {
-			edgeMatched = this.EqualStrfilter.evaluate(graph, edges[i]);
+			edgeMatched = this.equalStrFilter.evaluate(graph, edges[i]);
 			/*
 			 * See if node Matched then Remove it.
 			 */

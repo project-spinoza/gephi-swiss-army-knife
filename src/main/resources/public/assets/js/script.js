@@ -463,7 +463,7 @@ function enableDisableSearchBtn(enable){
 function graphJsonHandler (graphData){
   nodesObject = JSON.parse(graphData);
 //  alert(nodesObject);
-//  console.log(nodesObject);
+ //  console.log(nodesObject);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
       $('#original_graph_load_form input[type="submit"]').prop('disabled', false);

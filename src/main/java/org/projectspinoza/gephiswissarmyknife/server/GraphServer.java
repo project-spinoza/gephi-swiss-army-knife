@@ -22,6 +22,7 @@ import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
+import org.projectspinoza.gephiswissarmyknife.graph.filters.Filters;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
@@ -127,7 +128,7 @@ public class GraphServer {
     router.getWithRegex("/layout.*").method(HttpMethod.GET).handler(routingContext -> {
       this.layoutsWrap.setGraphModel(this.gephiGraphWs.getGraphModel());
       this.layoutsWrap.applyLayout(routingContext.request().params());
-      responseSigmaGraph (gephiGraphWs.getGraphModel().getGraphVisible(), routingContext);
+      responseSigmaGraph (gephiGraphWs.getGraphModel().getGraphVisible(), routingContext, false);
     });
 
     
@@ -149,7 +150,7 @@ public class GraphServer {
       this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
       this.graphBackup.saveGraph(this.gephiGraph);
-      responseSigmaGraph(this.gephiGraph, routingContext);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
     /*
@@ -158,7 +159,7 @@ public class GraphServer {
      * */
     router.getWithRegex("/originalGraph.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel());
-      responseSigmaGraph(this.gephiGraph, routingContext);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
     /*
@@ -253,14 +254,17 @@ public class GraphServer {
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph);
-      responseSigmaGraph(this.gephiGraph, routingContext);
+      Filters f = new Filters();
+      f.setGraphModel(gephiGraphWs.getGraphModel());
+      f.idNodeFilter("datascience", true);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
    });   
   }
   
   
   
-  private void responseSigmaGraph (Graph graph, RoutingContext routingContext) {
-    this.sigmaGraph = Utils.toSigmaGraph(this.gephiGraph );
+  private void responseSigmaGraph (Graph graph, RoutingContext routingContext, boolean autoColor) {
+    this.sigmaGraph = Utils.toSigmaGraph(this.gephiGraph, autoColor);
     HashMap<String, Object> result = new HashMap<String, Object>();
     result.put("nodes", this.sigmaGraph);
     routingContext.response().end(new JsonObject(result).toString());

@@ -20,15 +20,15 @@ import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaNode;
 public class Utils {
   private static Logger log = LogManager.getLogger(Utils.class);
   
-  public static SigmaGraph toSigmaGraph(Graph graph){
+  public static SigmaGraph toSigmaGraph(Graph graph, boolean autoColor){
       SigmaGraph sigmaGraph = new SigmaGraph();
-      createSigmaNodes(graph, sigmaGraph);
-      createSigmaEdges(graph, sigmaGraph);
+      createSigmaNodes(graph, sigmaGraph, autoColor);
+      createSigmaEdges(graph, sigmaGraph, autoColor);
       log.debug("SigmaGraph[nodes: {}, edges: {}]", sigmaGraph.getNodes().size(), sigmaGraph.getEdges().size());
       return sigmaGraph;
   }
   
-  private static void createSigmaNodes(Graph graph, SigmaGraph sigmaGraph){
+  private static void createSigmaNodes(Graph graph, SigmaGraph sigmaGraph, boolean autoColor){
 //      String nodeSizeBy = settings.get("nsb").toString();
       Node[] nodeArray = graph.getNodes().toArray();      
       for (int i = 0; i < nodeArray.length; i++) {
@@ -39,17 +39,23 @@ public class Utils {
           double x = n.x();
           double y = n.y();
           double size = n.size()+10;
-          
-          int R = (int)(Math.random()*256);
-          int G = (int)(Math.random()*256);
-          int B= (int)(Math.random()*256);
-          String color = "rgb(" + R + "," + G + "," + B + ")";
-          
-          /*
-           * Skipping origin nodes colors
-           * 
-           * */
-//          String color = "rgb(" + (int) (n.r()) + "," + (int) (n.g()) + "," + (int) (n.b()) + ")";
+          String color;
+          if (autoColor) {
+            int R = (int)(Math.random()*256);
+            int G = (int)(Math.random()*256);
+            int B= (int)(Math.random()*256);
+            color = "rgb(" + R + "," + G + "," + B + ")"; 
+          }else {
+ 
+            //original colors
+            color = "rgb(" + (int)((n.r()*255)) + "," + (int)(n.g()*255) + "," + (int)(n.b()*255) + ")";
+            if (n.getLabel().equalsIgnoreCase("datascience")) {
+              System.out.println(n.getColor());
+              System.out.println(color+ " " + n.r());
+            }
+            
+
+          }
           
           SigmaNode sigmaNode = new SigmaNode(id);
           sigmaNode.setLabel(label);
@@ -57,6 +63,9 @@ public class Utils {
           sigmaNode.setY(y);
           sigmaNode.setSize(size);
           sigmaNode.setColor(color);
+         // System.out.println(color);
+          
+          //System.out.println(sigmaNode.getColor());
 
           for (String attrKey : n.getAttributeKeys()) {
               Object attrValue = n.getAttribute(attrKey);
@@ -71,7 +80,7 @@ public class Utils {
       }
   } 
   
-  private static void createSigmaEdges(Graph graph, SigmaGraph sigmaGraph){
+  private static void createSigmaEdges(Graph graph, SigmaGraph sigmaGraph, boolean autoColor){
       EdgeColor colorMixer = new EdgeColor(EdgeColor.Mode.MIXED);
       Edge[] edgeArray = graph.getEdges().toArray();
 
@@ -83,17 +92,14 @@ public class Utils {
           SigmaEdge sigmaEdge = new SigmaEdge(sourceId, targetId);
           sigmaEdge.setSize(e.getWeight());
           sigmaEdge.setLabel(e.getLabel());
-          /*
-           * To be used when graph setting need to be passed from UI
-           * 
-           * */
-//        String color = "rgb(" + (int) (e.r()) + "," + (int) (e.g()) + "," + (int) (e.b()) + ")";
-
           
-          /*
-           * Temp edge colors
-           * */
-           String color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+          String color;
+          if (autoColor) {
+            color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+          }else {
+            //original colors
+            color = "rgb(" + (int)((e.r()*255)) + "," + (int)(e.g()*255) + "," + (int)(e.b()*255) + ")";
+          }
        
               if (e.r() == -1 || e.g() == -1 || e.b() == -1) {
                   Color result = colorMixer.getColor(null, e.getSource().getColor(), e.getTarget().getColor());
