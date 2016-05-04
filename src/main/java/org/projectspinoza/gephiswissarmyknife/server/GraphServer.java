@@ -16,16 +16,21 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.gephi.graph.api.Graph;
+import org.gephi.graph.api.GraphModel;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
+import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
+import org.projectspinoza.gephiswissarmyknife.utils.DataImporter;
+import org.projectspinoza.gephiswissarmyknife.utils.GraphBackup;
 import org.projectspinoza.gephiswissarmyknife.utils.Utils;
 
 import com.google.inject.Inject;
+
 
 public class GraphServer {
 
@@ -39,11 +44,15 @@ public class GraphServer {
   private SigmaGraph sigmaGraph;
   private DtoConfig dtoConfig;
   private GephiGraph gephiGraphWs;
+  private GraphGenerator graphGen;
+  private DataImporter dataImporter;
+  private GraphBackup graphBackup;
   
-
   public GraphServer() {
     setVertx(Vertx.vertx());
     router = Router.router(vertx);
+    this.dtoConfig = new DtoConfig();
+    this.dataImporter = new DataImporter();
   }
 
   /*
@@ -82,14 +91,12 @@ public class GraphServer {
   
   private void deployGsakRoutes() {
     
-    // static resources CSS/JS files
+    /*
+     *  static resources CSS/JS files
+     *  
+     * */
     router.getWithRegex(".*/css/.*|.*/js/.*|.*/images/.*|.*/assets/.*").handler(
         StaticHandler.create("public").setCachingEnabled(false));
-    
-    /*
-     * Upload Files Directory
-     * */
-   // router.route().handler(BodyHandler.create().setUploadsDirectory(System.getProperty("./uploads")));
 
     /*
      * GSAK specific Routes
@@ -100,16 +107,27 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/").method(HttpMethod.GET).handler(request -> {
-      request.response().end("Welcome to Twitter-Grapher");
+      request.response().end("Welcome to <a href=\"/gsak\">Twitter-Grapher.</a>");
     });
     
+    /*
+     *  base UI route
+     *  
+     * */
     router.getWithRegex("/gsak.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraphWs = new GephiGraph();
+      this.gephiGraphWs.setGraphModel(GraphModel.Factory.newInstance());
       routingContext.response().sendFile("public/index.html");
     });
     
+    /*
+     * graph Layouts route
+     *  
+     * */
     router.getWithRegex("/layout.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.layoutsWrap.setGraphModel(this.gephiGraphWs.getGraphModel());
       this.layoutsWrap.applyLayout(routingContext.request().params());
-      responseSigmaGraph (GephiGraph.getGraphModel().getGraphVisible(), routingContext);
+      responseSigmaGraph (gephiGraphWs.getGraphModel().getGraphVisible(), routingContext);
     });
 
     
@@ -118,6 +136,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/statistics.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.statisticsWrap.setGraphModel(this.gephiGraphWs.getGraphModel());
       String resp = this.statisticsWrap.applyStatistics(routingContext.request().params());
       routingContext.response().end(resp);
     });
@@ -129,27 +148,37 @@ public class GraphServer {
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
+      this.graphBackup.saveGraph(this.gephiGraph);
       responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
     /*
-     * Upload file route
+     * Original/unmodified/initial Graph request route
      * 
      * */
-    router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
-      File uploadsDir = new File ("uploads");
-      try {
-        if (!uploadsDir.exists()) {
-          uploadsDir.mkdir();
-        }
-      } catch (SecurityException se) {
-        System.out.println("Permission denied to create uploads directroy.");
-      }
-      uploadGraphFile(routingContext);
+    router.getWithRegex("/originalGraph.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel());
+      responseSigmaGraph(this.gephiGraph, routingContext);
     });
     
     /*
-     * Upload file route
+     * Upload graph file route
+     * 
+     * */
+    router.getWithRegex("/graphFileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
+      uploadGraphFile(routingContext, true);
+    });
+
+    /*
+     * general file Upload route
+     * 
+     * */
+    router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
+      uploadGraphFile(routingContext, false);
+    });
+    
+    /*
+     * remove uploaded file route
      * 
      * */
     router.getWithRegex("/removeUpload.*").method(HttpMethod.GET).handler(routingContext -> {
@@ -157,28 +186,75 @@ public class GraphServer {
       if (uploadDel.exists()) {
         uploadDel.delete();
       }
+      routingContext.response().end();
     });
     
     /*
-     * Temp route for demo
+     * Database connections
+     * 
      * */
-//    router.getWithRegex("/ajax.*").method(HttpMethod.GET).handler(routingContext -> {
-//      GephiGraph gephiGraph = new GephiGraph();
-//      this.gephiGraph = gephiGraph.loadGraph(Main.graphfile, EdgeDirectionDefault.DIRECTED);
-//      Map <String, String> yifanParams = new HashMap<String, String>();
-//      yifanParams.put("quadtreeMaxLevel", "10.0");
-//      yifanParams.put("theta", "1.2");
-//      yifanParams.put("optimalDistance", "100.0");
-//      yifanParams.put("relativeStrength", "0.2");
-//      yifanParams.put("initialStepSize", "20.0");
-//      yifanParams.put("stepRatio", "0.95");
-//      yifanParams.put("adaptiveCooling", "true");
-//      yifanParams.put("convergenceThreshold", "1.0E-4");
-//      //YifanLayout
-//      new YifanHu().applyLayout(yifanParams);
-//      responseSigmaGraph(this.gephiGraph, routingContext);
-//    });
-//    
+    router.getWithRegex("/connectDB.*").method(HttpMethod.POST).handler(routingContext -> {
+      if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mysql")){
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setMysqlDatabaseName(routingContext.request().getParam("database"));
+          dtoConfig.setMysqlTableName(routingContext.request().getParam("dbtable"));
+          dtoConfig.setMysqlDataColumnName(routingContext.request().getParam("dbtableCol"));
+          dtoConfig.setMysqlHost(routingContext.request().getParam("dbhost"));
+          dtoConfig.setMysqlPort(Integer.parseInt(routingContext.request().getParam("dbport")));
+          dtoConfig.setMysqlUserName(routingContext.request().getParam("dbuser"));
+          dtoConfig.setMysqlUserPassword(routingContext.request().getParam("dbpass"));
+          boolean resp =this.dataImporter.connectMysql();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectMysql();
+          routingContext.response().end("true");
+        }
+      }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("mongodb")){
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setMongodbDatabaseName(routingContext.request().getParam("database"));
+          dtoConfig.setMongodbCollectionName(routingContext.request().getParam("dbcollection"));
+          dtoConfig.setMongodbFieldName(routingContext.request().getParam("dbfield"));
+          dtoConfig.setMongodbHost(routingContext.request().getParam("dbhost"));
+          dtoConfig.setMongodbPort(Integer.parseInt(routingContext.request().getParam("dbport")));
+          dtoConfig.setMongdbUserName(routingContext.request().getParam("dbuser"));
+          dtoConfig.setMongodbUserPassword(routingContext.request().getParam("dbpass"));
+          boolean resp =this.dataImporter.connectMongoDb();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectMongoDb();
+          routingContext.response().end("true");
+        }
+      }else if (routingContext.request().getParam("dBServer").equalsIgnoreCase("elasticsearch")){
+        if (routingContext.request().getParam("dbAction").equalsIgnoreCase("connect")){
+          dtoConfig.setElasticsearchHost(routingContext.request().getParam("es_host"));
+          dtoConfig.setElasticsearchPort(Integer.parseInt(routingContext.request().getParam("es_port")));
+          dtoConfig.setElasticsearchClusterName(routingContext.request().getParam("es_cluster"));
+          dtoConfig.setElasticsearchIndexType(routingContext.request().getParam("es_type"));
+          dtoConfig.setElasticsearchIndex(routingContext.request().getParam("es_index"));
+          boolean resp =this.dataImporter.connectElasticsearch();
+          routingContext.response().end(""+resp);
+        }else {
+          this.dataImporter.disconnectElasticsearch();
+          routingContext.response().end("true");
+        }
+      }else {
+        routingContext.response().end("Unknown DB server.!");
+      }
+
+    });
+    
+    /*
+     * search
+     * 
+     * */
+    router.getWithRegex("/search.*").method(HttpMethod.GET).handler(routingContext -> {
+      dtoConfig.setDataSource(routingContext.request().getParam("datasource"));
+      dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
+      this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
+      this.gephiGraph = this.graphGen.createGraph();
+      this.graphBackup.saveGraph(this.gephiGraph);
+      responseSigmaGraph(this.gephiGraph, routingContext);
+   });   
   }
   
   
@@ -191,27 +267,43 @@ public class GraphServer {
   }
   
 
-  private void uploadGraphFile (RoutingContext routingContext){
+  private void uploadGraphFile(RoutingContext routingContext, boolean isGraphFile) {
 
-    routingContext.request().setExpectMultipart(true);
-
-    routingContext.request().uploadHandler(new Handler<HttpServerFileUpload>() {
-      @Override
-      public void handle(final HttpServerFileUpload upload) {
-        upload.exceptionHandler(new Handler<Throwable>() {
-          @Override
-          public void handle(Throwable event) {}
-        });
-        upload.endHandler(new Handler<Void>() {
-          @Override
-          public void handle(Void event) {
-            routingContext.request().response().end("1");
-          }
-        });
-        upload.streamToFileSystem("uploads/" + upload.filename());
-        dtoConfig.setGraphfileName(upload.filename());
+    File uploadsDir = new File("uploads");
+    try {
+      if (!uploadsDir.exists()) {
+        uploadsDir.mkdir();
       }
-    });
+
+      routingContext.request().setExpectMultipart(true);
+
+      routingContext.request().uploadHandler(
+          new Handler<HttpServerFileUpload>() {
+            @Override
+            public void handle(final HttpServerFileUpload upload) {
+              upload.exceptionHandler(new Handler<Throwable>() {
+                @Override
+                public void handle(Throwable event) {
+                }
+              });
+              upload.endHandler(new Handler<Void>() {
+                @Override
+                public void handle(Void event) {
+                  routingContext.request().response().end("1");
+                }
+              });
+              upload.streamToFileSystem("uploads/" + upload.filename());
+              if (isGraphFile) {
+                dtoConfig.setGraphfileName(upload.filename());
+              } else {
+                dtoConfig.setTextfileName(upload.filename());
+              }
+            }
+          });
+
+    } catch (SecurityException se) {
+      System.out.println("Permission denied to create uploads directroy.");
+    }
   }
   
   
@@ -282,6 +374,33 @@ public class GraphServer {
   @Inject
   public void setDtoConfig(DtoConfig dtoConfig) {
     this.dtoConfig = dtoConfig;
+  }
+
+  public DataImporter getDataImporter() {
+    return dataImporter;
+  }
+
+  @Inject
+  public void setDataImporter(DataImporter dataImporter) {
+    this.dataImporter = dataImporter;
+  }
+
+  public GraphGenerator getGraphGen() {
+    return graphGen;
+  }
+
+  @Inject
+  public void setGraphGen(GraphGenerator graphGen) {
+    this.graphGen = graphGen;
+  }
+
+  public GraphBackup getGraphBackup() {
+    return graphBackup;
+  }
+  
+  @Inject
+  public void setGraphBackup(GraphBackup graphBackup) {
+    this.graphBackup = graphBackup;
   }
 
 }

@@ -2,7 +2,6 @@ package org.projectspinoza.gephiswissarmyknife.graph.layouts;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.rotate.RotateLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 import com.google.inject.Singleton;
 
@@ -19,7 +18,7 @@ public class Rotation {
   public void rotate() {
     this.rotateLayout = (this.rotateLayout == null) ? new RotateLayout(null,
         getAngle()) : rotateLayout;
-    this.rotateLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.rotateLayout.setGraphModel(this.getGraphModel());
     this.rotateLayout.setAngle(getAngle());
     for (int i = 0; i < 100 && this.rotateLayout.canAlgo(); i++) {
       this.rotateLayout.goAlgo();

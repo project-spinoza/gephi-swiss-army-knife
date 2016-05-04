@@ -8,9 +8,8 @@ import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
-import org.openide.util.Lookup;
 
-public class Equal {
+public class Filters {
   
   
   private GraphModel graphModel;
@@ -36,11 +35,11 @@ public EqualStringFilter getEqualStrfilter() {
     EqualStrfilter = equalStrfilter;
   }
 
-  public Equal() {
+  public Filters() {
   //  setAttributable(Lookup.getDefault().lookup(Attributable.class));
   }
   
-  public Equal (GraphModel graphModel) {
+  public Filters (GraphModel graphModel) {
     this();
     this.setGraphModel(graphModel);
   }

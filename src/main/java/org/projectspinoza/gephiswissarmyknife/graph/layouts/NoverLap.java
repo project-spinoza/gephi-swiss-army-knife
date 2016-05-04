@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.noverlap.NoverlapLayout;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 public class NoverLap {
 
@@ -21,7 +20,7 @@ public class NoverLap {
    * */
   public void applyLayout(Map<String, String> layoutParams ) {
     this.noverlapLayout = (this.noverlapLayout == null)? new NoverlapLayout(null): this.noverlapLayout;
-    this.noverlapLayout.setGraphModel(GephiGraph.getGraphModel());
+    this.noverlapLayout.setGraphModel(this.getGraphModel());
     this.noverlapLayout.resetPropertiesValues();
     OpenOrdAlgo (layoutParams);
   }

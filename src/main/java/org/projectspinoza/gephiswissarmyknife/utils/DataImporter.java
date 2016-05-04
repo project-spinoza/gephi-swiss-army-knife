@@ -1,4 +1,4 @@
-package org.projectspinoza.gephiswissarmyknife.dto;
+package org.projectspinoza.gephiswissarmyknife.utils;
 
 import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonObject;
@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.Document;
@@ -28,24 +29,33 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 
+import com.google.inject.Singleton;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
+@Singleton
 public class DataImporter {
 	
 	
 	private DtoConfig settingsConf;
-	
-	private TransportClient elasticSearchClient;
+  private static TransportClient elasticSearchClient;
 	private Settings clientSettings;
+  private static Connection mysqlConnection;
+  private Statement statement;
+  private static MongoClient mongoClient;
 	List<String> responseListStrContainer = null;
 
-	public DataImporter() {}
+	public DataImporter() {
+	  settingsConf = new DtoConfig();
+	}
 
-	public List<String> importDataList() throws IOException {
+	public Object importGraphData() throws IOException {
 
 		List<String> response_tweets_list = null;
 
@@ -53,7 +63,7 @@ public class DataImporter {
 		
 		case "elasticsearch":
 			
-			if (elasticsearch_connect()) {
+			if (getElasticSearchClient() != null) {
 				response_tweets_list = elasticsearch_search(
 						settingsConf.getElasticsearchIndex(),
 						settingsConf.getElasticsearchIndexType(),
@@ -78,22 +88,38 @@ public class DataImporter {
 		return response_tweets_list;
 	}
 
+  public boolean connectMysql() {
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        mysqlConnection = DriverManager.getConnection(
+            "jdbc:mysql://" + settingsConf.getMysqlHost() + ":"
+                + settingsConf.getMysqlPort() + "/"
+                + settingsConf.getMysqlDatabaseName(),
+            settingsConf.getMysqlUserName(),
+            settingsConf.getMysqlUserPassword());
+      if (mysqlConnection != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+  
+  public void disconnectMysql () {
+    try {
+      DataImporter.mysqlConnection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
 	private List<String> mysqlDataReader() {
-
 		List<String> responseList = new ArrayList<String>();
-		Connection connection = null;
-		Statement statement = null;
-
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://"
-					+ settingsConf.getMysqlHost() + ":"
-					+ settingsConf.getMysqlPort() + "/"
-					+ settingsConf.getMysqlDatabaseName(), "root", "");
-
-			if (connection != null) {
-
+			if (mysqlConnection != null ) {
 				String[] query_terms = settingsConf.getSearchValue().trim().split(" ");
 				String query_like = " LIKE '%" + query_terms[0] + "%' ";
 
@@ -101,7 +127,6 @@ public class DataImporter {
 					query_like.concat("or " + settingsConf.getMysqlDataColumnName()
 							+ " LIKE '%" + query_terms[i] + "%' ");
 				}
-
 				String query_mysql = "SELECT "
 						+ settingsConf.getMysqlDataColumnName()
 						+ " from "
@@ -110,9 +135,8 @@ public class DataImporter {
 						+ settingsConf.getMysqlDataColumnName()
 						+ query_like;
 
-				statement = connection.createStatement();
+				statement = mysqlConnection.createStatement();
 				ResultSet results_set = statement.executeQuery(query_mysql);
-
 				while (results_set.next()) {
 					String tweet = results_set.getString(settingsConf.getMysqlDataColumnName());
 					try{
@@ -120,13 +144,12 @@ public class DataImporter {
 								.toString());
 					} catch (JSONException | DecodeException e) {
 					}
-
 				}
-
 			} else {
+			  return null;
 			}
 
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -134,19 +157,33 @@ public class DataImporter {
 		return responseList;
 	}
 
+	
+	public boolean connectMongoDb(){
+	  MongoCredential credential = MongoCredential.createCredential(settingsConf.getMongdbUserName(), settingsConf.getMongodbDatabaseName(), settingsConf.getMongodbUserPassword().toCharArray());
+	  mongoClient = new MongoClient(new ServerAddress(settingsConf.getMongodbHost(), settingsConf.getMongodbPort()), Arrays.asList(credential));
+	  return (mongoClient == null)? false:true;
+	}
+	
 	private List<String> mongodb_search() {
-
-		MongoClient mongoClient = new MongoClient(settingsConf.getMongodbHost(), settingsConf.getMongodbPort());
-		MongoDatabase db = mongoClient.getDatabase(settingsConf.getMongodbDatabaseName());
-
-		FindIterable<Document> iterable = db.getCollection(
-				settingsConf.getMongodbCollectionName()).find(
-				new Document("$text", new Document("$search", settingsConf.getSearchValue())));
-
-		responseListStrContainer = new ArrayList<String>();
-		iterable.forEach(new TgBlock());
-		mongoClient.close();
+	  
+		if (mongoClient != null) {
+  		MongoDatabase db = mongoClient.getDatabase(settingsConf.getMongodbDatabaseName());
+  		
+  		FindIterable<Document> iterable = db.getCollection(
+  				settingsConf.getMongodbCollectionName()).find(
+  				new Document("$text", new Document("$search", settingsConf.getSearchValue())));
+  
+  		responseListStrContainer = new ArrayList<String>();
+  		iterable.forEach(new TgBlock());
+		}
 		return responseListStrContainer;
+	}
+	
+	public boolean disconnectMongoDb (){
+	  if (mongoClient != null){
+	    mongoClient.close();
+	  }
+	  return true;
 	}
 
 	private class TgBlock implements Block<Document> {
@@ -169,7 +206,7 @@ public class DataImporter {
 		BufferedReader reader = null;
 		String[] search_keywords = settingsConf.getSearchValue().split("\\s");
  		try {
-			reader = new BufferedReader(new FileReader(new File(settingsConf.getGraphfileName())));
+			reader = new BufferedReader(new FileReader(new File("uploads/"+settingsConf.getTextfileName())));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String tweet_text = null;
@@ -189,6 +226,7 @@ public class DataImporter {
 				}
 			}
 		} catch (IOException e) {
+		  e.printStackTrace();
 		} finally {
 			if (reader != null) {
 				reader.close();
@@ -198,7 +236,7 @@ public class DataImporter {
 		return responseList;
 	}
 
-	private boolean elasticsearch_connect() {
+	public boolean connectElasticsearch() {
 
 		if (settingsConf.getElasticsearchClusterName() != null
 				&& !settingsConf.getElasticsearchClusterName().trim().isEmpty()) {
@@ -213,12 +251,18 @@ public class DataImporter {
 
 		setElasticSearchClient(new TransportClient(this.clientSettings));
 		getElasticSearchClient().addTransportAddress(new InetSocketTransportAddress(settingsConf.getElasticsearchHost(), settingsConf.getElasticsearchPort()));
-		
 		return verifyConnection();
 	}
 
+	public void disconnectElasticsearch () {
+	  try {
+	    DataImporter.elasticSearchClient.close();
+	  }catch (Exception e) {}
+	  setElasticSearchClient(null);
+	}
+	
 	private boolean verifyConnection() {
-		ImmutableList<DiscoveryNode> nodes = this.elasticSearchClient
+		ImmutableList<DiscoveryNode> nodes = DataImporter.elasticSearchClient
 				.connectedNodes();
 		if (nodes.isEmpty()) {
 			return false;
@@ -235,7 +279,7 @@ public class DataImporter {
 		SearchResponse response = getElasticSearchClient()
 				.prepareSearch(indexname).setTypes(typename)
 				.setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-				.setQuery(QueryBuilders.queryString(query_terms)).setFrom(0)
+				.setQuery((query_terms.trim().isEmpty())?QueryBuilders.matchAllQuery():QueryBuilders.queryString(query_terms)).setFrom(0)
 				.setSize(size).setExplain(true).execute().actionGet();
 
 		for (SearchHit hit : response.getHits()) {
@@ -246,9 +290,26 @@ public class DataImporter {
 
 	public TransportClient getElasticSearchClient() {
 		return elasticSearchClient;
-	}
+  }
 
-	public void setElasticSearchClient(TransportClient elasticSearchClient) {
-		this.elasticSearchClient = elasticSearchClient;
-	}
+  public void setElasticSearchClient(TransportClient elasticSearchClient) {
+    DataImporter.elasticSearchClient = elasticSearchClient;
+  }
+
+  public DtoConfig getSettingsConf() {
+    return settingsConf;
+  }
+
+  public void setSettingsConf(DtoConfig settingsConf) {
+    this.settingsConf = settingsConf;
+  }
+
+  public Connection getMysqlConnection() {
+    return mysqlConnection;
+  }
+
+  public void setMysqlConnection(Connection mysqlConnection) {
+    DataImporter.mysqlConnection = mysqlConnection;
+  }
+
 }

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.gephi.graph.api.GraphModel;
 import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
-import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 
 import com.google.inject.Singleton;
 
@@ -15,7 +14,6 @@ public class FruchtermanReingoldLayout {
   private GraphModel graphModel;
   
   public FruchtermanReingoldLayout() {
-    this.graphModel = GephiGraph.getGraphModel();
   }
   
   /*
@@ -25,7 +23,7 @@ public class FruchtermanReingoldLayout {
    * */
   public void applyLayout( Map<String, String> layoutParams ) {
     this.fruchtermanReingold = (this.fruchtermanReingold == null)? new FruchtermanReingold(null): this.fruchtermanReingold;
-    this.fruchtermanReingold.setGraphModel(GephiGraph.getGraphModel());
+    this.fruchtermanReingold.setGraphModel(this.getGraphModel());
     this.fruchtermanReingold.resetPropertiesValues();
     fruchtermanReigGoldAlgo(layoutParams);
   }

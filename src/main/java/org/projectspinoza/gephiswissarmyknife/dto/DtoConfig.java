@@ -6,50 +6,54 @@ import com.google.inject.Singleton;
 public class DtoConfig {
   
   // mysql cred properties
-  private String mysqlHost;
-  private int mysqlPort;
-  private String mysqlUserName;
-  private String mysqlUserPassword;
-  private String mysqlDatabaseName;
-  private String mysqlTableName;
-  private String mysqlDataColumnName;
+  public static String mysqlHost;
+  public static int mysqlPort;
+  public static String mysqlUserName;
+  public static String mysqlUserPassword;
+  public static String mysqlDatabaseName;
+  public static String mysqlTableName;
+  public static String mysqlDataColumnName;
 
   // mongodb cred properties
-  private String mongodbHost;
-  private int mongodbPort;
-  private String mongodbDatabaseName;
-  private String mongodbCollectionName;
-  private String mongodbFieldName;
+  public static String mongodbHost;
+  public static int mongodbPort;
+  public static String mongodbDatabaseName;
+  public static String mongodbCollectionName;
+  public static String mongodbFieldName;
+  public static String mongdbUserName;
+  public static String mongodbUserPassword;
+
 
   // server conf
-  private int serverPort;
-  private String serverHost;
+  public static int serverPort;
+  public static String serverHost;
 
   // elasticsearch conf
-  private String elasticsearchHost;
-  private int elasticsearchPort;
-  private String elasticSearchClusterName;
-  private String elasticsearchIndex;
-  private String elasticsearchIndexType;
+  public static String elasticsearchHost;
+  public static int elasticsearchPort;
+  public static String elasticSearchClusterName;
+  public static String elasticsearchIndex;
+  public static String elasticsearchIndexType;
 
   // input file (standard Graph Format)
-  private String graphfileName;
+  public static String graphfileName;
   
   // raw Text file
-  private String textfileName;
+  public static String textfileName;
 
   // custom
-  private String dataSource;
-  private String searchValue;
+  public static String dataSource;
+  public static String searchValue;
 
-  DtoConfig() {}
+  public DtoConfig() {
+  }
   
   public String getMysqlUserPassword() {
     return mysqlUserPassword;
   }
 
   public void setMysqlUserPassword(String mysqlUserPassword) {
-    this.mysqlUserPassword = mysqlUserPassword;
+    DtoConfig.mysqlUserPassword = mysqlUserPassword;
   }
 
   public String getMysqlDatabaseName() {
@@ -57,7 +61,7 @@ public class DtoConfig {
   }
 
   public void setMysqlDatabaseName(String mysqlDatabaseName) {
-    this.mysqlDatabaseName = mysqlDatabaseName;
+    DtoConfig.mysqlDatabaseName = mysqlDatabaseName;
   }
 
   public String getMysqlTableName() {
@@ -65,7 +69,7 @@ public class DtoConfig {
   }
 
   public void setMysqlTableName(String mysqlTableName) {
-    this.mysqlTableName = mysqlTableName;
+    DtoConfig.mysqlTableName = mysqlTableName;
   }
 
   public String getMysqlDataColumnName() {
@@ -73,11 +77,11 @@ public class DtoConfig {
   }
 
   public void setMysqlDataColumnName(String mysqlDataColumnName) {
-    this.mysqlDataColumnName = mysqlDataColumnName;
+    DtoConfig.mysqlDataColumnName = mysqlDataColumnName;
   }
 
   public void setMysqlUserName(String mysqlUserName) {
-    this.mysqlUserName = mysqlUserName;
+    DtoConfig.mysqlUserName = mysqlUserName;
   }
 
   public String getDataSource() {
@@ -85,7 +89,7 @@ public class DtoConfig {
   }
 
   public void setDataSource(String dataSource) {
-    this.dataSource = dataSource;
+    DtoConfig.dataSource = dataSource;
   }
 
   public String getSearchValue() {
@@ -93,7 +97,7 @@ public class DtoConfig {
   }
 
   public void setSearchValue(String searchValue) {
-    this.searchValue = searchValue;
+    DtoConfig.searchValue = searchValue;
   }
 
   public String getMysqlHost() {
@@ -101,7 +105,7 @@ public class DtoConfig {
   }
 
   public void setMysqlHost(String mysqlHost) {
-    this.mysqlHost = mysqlHost;
+    DtoConfig.mysqlHost = mysqlHost;
   }
 
   public String getElasticsearchHost() {
@@ -109,7 +113,7 @@ public class DtoConfig {
   }
 
   public void setElasticsearchHost(String elasticsearchHost) {
-    this.elasticsearchHost = elasticsearchHost;
+    DtoConfig.elasticsearchHost = elasticsearchHost;
   }
 
   public String getMongodbHost() {
@@ -117,7 +121,7 @@ public class DtoConfig {
   }
 
   public void setMongodbHost(String mongodbHost) {
-    this.mongodbHost = mongodbHost;
+    DtoConfig.mongodbHost = mongodbHost;
   }
 
   public int getServerPort() {
@@ -125,7 +129,7 @@ public class DtoConfig {
   }
 
   public void setServerPort(int serverPort) {
-    this.serverPort = serverPort;
+    DtoConfig.serverPort = serverPort;
   }
 
   public String getServerHost() {
@@ -133,7 +137,7 @@ public class DtoConfig {
   }
 
   public void setServerHost(String serverhost) {
-    this.serverHost = serverhost;
+    DtoConfig.serverHost = serverhost;
   }
 
   public int getElasticsearchPort() {
@@ -141,7 +145,7 @@ public class DtoConfig {
   }
 
   public void setElasticsearchPort(int elasticsearchPort) {
-    this.elasticsearchPort = elasticsearchPort;
+    DtoConfig.elasticsearchPort = elasticsearchPort;
   }
 
   public String getElasticsearchClusterName() {
@@ -149,7 +153,7 @@ public class DtoConfig {
   }
 
   public void setElasticsearchClusterName(String clusterName) {
-    this.elasticSearchClusterName = clusterName;
+    DtoConfig.elasticSearchClusterName = clusterName;
   }
 
   public String getElasticsearchIndex() {
@@ -157,7 +161,7 @@ public class DtoConfig {
   }
 
   public void setElasticsearchIndex(String elasticsearchIndex) {
-    this.elasticsearchIndex = elasticsearchIndex;
+    DtoConfig.elasticsearchIndex = elasticsearchIndex;
   }
 
   public String getElasticsearchIndexType() {
@@ -165,7 +169,7 @@ public class DtoConfig {
   }
 
   public void setElasticsearchIndexType(String elasticsearchIndexType) {
-    this.elasticsearchIndexType = elasticsearchIndexType;
+    DtoConfig.elasticsearchIndexType = elasticsearchIndexType;
   }
 
   public int getMongodbPort() {
@@ -173,7 +177,7 @@ public class DtoConfig {
   }
 
   public void setMongodbPort(int mongodbPort) {
-    this.mongodbPort = mongodbPort;
+    DtoConfig.mongodbPort = mongodbPort;
   }
 
   public String getMongodbDatabaseName() {
@@ -181,7 +185,7 @@ public class DtoConfig {
   }
 
   public void setMongodbDatabaseName(String mongodbDatabaseName) {
-    this.mongodbDatabaseName = mongodbDatabaseName;
+    DtoConfig.mongodbDatabaseName = mongodbDatabaseName;
   }
 
   public String getMongodbCollectionName() {
@@ -189,7 +193,7 @@ public class DtoConfig {
   }
 
   public void setMongodbCollectionName(String mongodbCollectionName) {
-    this.mongodbCollectionName = mongodbCollectionName;
+    DtoConfig.mongodbCollectionName = mongodbCollectionName;
   }
 
   public String getMongodbFieldName() {
@@ -197,7 +201,23 @@ public class DtoConfig {
   }
 
   public void setMongodbFieldName(String mongodbFieldName) {
-    this.mongodbFieldName = mongodbFieldName;
+    DtoConfig.mongodbFieldName = mongodbFieldName;
+  }
+  
+  public String getMongdbUserName() {
+    return mongdbUserName;
+  }
+
+  public void setMongdbUserName(String mongdbUserName) {
+    DtoConfig.mongdbUserName = mongdbUserName;
+  }
+
+  public String getMongodbUserPassword() {
+    return mongodbUserPassword;
+  }
+
+  public void setMongodbUserPassword(String mongodbUserPassword) {
+    DtoConfig.mongodbUserPassword = mongodbUserPassword;
   }
 
   public int getMysqlPort() {
@@ -205,12 +225,13 @@ public class DtoConfig {
   }
 
   public void setMysqlPort(int mysqlPort) {
-    this.mysqlPort = mysqlPort;
+    DtoConfig.mysqlPort = mysqlPort;
   }
 
   public String getMysqlUserName() {
     return mysqlUserName;
   }
+  
 
   @Override
   public String toString() {
@@ -247,7 +268,7 @@ public class DtoConfig {
   }
 
   public void setGraphfileName(String graphfileName) {
-    this.graphfileName = graphfileName;
+    DtoConfig.graphfileName = graphfileName;
   }
 
   public String getTextfileName() {
@@ -255,7 +276,7 @@ public class DtoConfig {
   }
 
   public void setTextfileName(String textfileName) {
-    this.textfileName = textfileName;
+    DtoConfig.textfileName = textfileName;
   }
 
 }
