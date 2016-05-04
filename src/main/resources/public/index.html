@@ -80,7 +80,7 @@
 						</a>
 						</h4>
 					</div>
-					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true" style="">
+					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
 								<li class=""><a href="#nodes" data-toggle="tab" aria-expanded="false">Nodes</a></li>
@@ -731,7 +731,7 @@
 						<br></br>
 						<form id="original_graph_load_form">
 						<input class="btn btn-primary marginbottom10" type="submit" value="Load Original Graph">
-						<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+						<img src="./images/ringloader.gif" class="dbLoader">
 						</form>
 					</div>
                 </div>
@@ -841,10 +841,12 @@
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Pattren:<input type="number" max="8" min="0" value="0"></td>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td><input type="checkbox" max="8" min="0" value="0">Use Regex</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
 									</form>
@@ -856,10 +858,12 @@
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Pattren:<input type="number" max="8" min="0" value="0"></td>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td><input type="checkbox" max="8" min="0" value="0">Use Regex</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
 									</form>
@@ -871,10 +875,12 @@
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Pattren:<input type="number" max="8" min="0" value="0"></td>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td><input type="checkbox" max="8" min="0" value="0">Use Regex</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
 									</form>
@@ -886,10 +892,12 @@
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Pattren:<input type="number" max="8" min="0" value="0"></td>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td><input type="checkbox" max="8" min="0" value="0">Use Regex</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
 									</form>
@@ -899,20 +907,12 @@
 								<div class="heading_parameter"><h6>Weight Float (Edge) Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
 									<form>
-										<table class="table table-parameter">
-											<tr>
-												<td>Value</td>
-												<td><input type="number" max="36" min="1" value="1"></td>
-											</tr>
-											<tr>
-												<td>Minimum</td>
-												<td>1</td>
-											</tr>
-											<tr>
-												<td>Maximum</td>
-												<td>36</td>
-											</tr>
-										</table>
+									<table class="table table-parameter">
+										<tr>
+											<td>Value:</td>
+											<td><input  type="number" id="spinner-weight" min="1.0" max="3.0" value="1"></td>
+										</tr>
+									</table>	
 									</form>
 								</div>
 							</div>
@@ -1079,7 +1079,8 @@
           </div>
 		  <!-- End of Panel parameters -->
 
-			<div class="filter_btn_div"><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
+			<div class="filter_btn_div" ><input  class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
+			<div class="select_btn_div" ><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Select"></div>
 						</div>
 						<div class="tab-pane fade " id="statistics">
 						
@@ -1107,7 +1108,7 @@
 										    <div class="popup-inner">
 										    <div class="popup-heading"><span id="canvasTitle"></span><a class="popup-close" data-popup-close="popup-1" href="#">x</a></div>
 										    <div class="popup-in">
-										       <div id="chartContainer" style="height: 100%; min-width: 100% !important;"></div>
+										       <div id="chartContainer"></div>
 										        </div>
 										    </div>
 										</div>
@@ -1265,7 +1266,7 @@
 				<form id="search-form" action="#" method="get">
 					<input type="text" placeholder="DataSource not Selected" class="grey search-box">
 					<input type="submit" value="Search" name="" class="btn btn-default orange search-submit"> 
-					<img src="./images/ringloader.gif" id="searchLoader" style="">
+					<img src="./images/ringloader.gif" id="searchLoader">
 				</form>               
 				</div>
    		  </div>
@@ -1300,7 +1301,7 @@
 		<div class="popup-inner">
 		    <div class="popup-heading"><span id="">Configure Mysql Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
 		    <div class="popup-in">
-		       <div style="">
+		       <div>
 		       		<div class="conf-db-pop">
 		       		<form id="mysqldbForm">
 		       			<table class="popup-table table table-responsive">
@@ -1342,8 +1343,8 @@
 			       				<td><input type="hidden" name="dbAction" id="mysqldbaction" value="connect"/></td>
 		       				</tr>
 		       			</table>
-		       			<div style="display: block; float:right; margin-right: 30px;">
-		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
 		       				<input id="mysqlFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
 		       			</div>
 		       			</form>
@@ -1357,7 +1358,7 @@
 		<div class="popup-inner">
 		    <div class="popup-heading"><span id="">Configure MongoDb Database</span><a class="popup-close" data-popup-close="popup-config-database-mongo" href="#">x</a></div>
 		    <div class="popup-in">
-		       <div style="">
+		       <div>
 		       		<div class="conf-db-pop">
 		       		<form id="mongodbForm">
 		       			<table class="popup-table table table-responsive">
@@ -1399,8 +1400,8 @@
 			       				<td><input type="hidden" name="dbAction" id="mongodbaction" value="connect"/></td>
 		       				</tr>
 		       			</table>
-		       			<div style="display: block; float:right; margin-right: 30px;">
-		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
 		       				<input id="mongodbFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
 		       			</div>
 		       			</form>
@@ -1448,8 +1449,8 @@
 			       				<td><input type="hidden" name="dbAction" id="elasticsearchAction" value="connect"/></td>
 		       				</tr>
 		       			</table>
-		       			<div style="display: block; float:right; margin-right: 30px;">
-		       				<img src="./images/ringloader.gif" class="dbLoader" style="margin-right:3px; margin-top: 5px;">
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
 		       				<input id="elasticsearchFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
 		       			</div>
 		       			</form>
@@ -1463,11 +1464,11 @@
 		    <div class="popup-inner">
 			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file-up" href="#">x</a></div>
 			    <div class="popup-in">
-			       <div   style="">
+			       <div>
 			       	<div class="conf-db-pop">
 			       		<form action="#" method="post" enctype="multipart/form-data" id="textfileUploadForm">
 			              <input type="file" name="files[]" id="filer_input_graph" multiple="multiple">
-			              <input style="margin-left: 340px;" type="submit" value="Submit" class="btn btn-primary">
+			              <input id="filer_input_graph-inp"  type="submit" value="Submit" class="btn btn-primary">
 				        </form>
 			       	</div>
 			       </div>
@@ -1479,12 +1480,12 @@
 		    <div class="popup-inner">
 			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file" href="#">x</a></div>
 			    <div class="popup-in">
-			       <div   style="">
+			       <div>
 			       	<div class="conf-db-pop">
 			       		<form action="#" method="post" enctype="multipart/form-data" id="graphFileUploadForm">
 			              <input type="file" name="files[]" id="filer_input" multiple="multiple">
-			              <img src="./images/ringloader.gif" id="graphLoader" style="">
-			              <input style="margin-left: 306px;" type="submit" value="Generate Graph" class="btn btn-primary">
+			              <img src="./images/ringloader.gif" id="graphLoader">
+			              <input id="filer_input-inp" type="submit" value="Generate Graph" class="btn btn-primary">
 				        </form>
 			       	</div>
 			       </div>
@@ -1494,7 +1495,7 @@
       </header>
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">
+      <div class="content-wrapper"  id ="container">
       	  
 		<div class="zoom-container">
 			<div class="fullscreen_icon" title="">

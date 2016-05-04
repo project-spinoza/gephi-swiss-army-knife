@@ -804,6 +804,12 @@ $(".degree-selectm #selectdeg").change(function(){
             }
             
     });
+//spinner for incrementing
+ $('#spinner-weight').spinner({
+               step: 0.1, 
+               min: 1, 
+               max: 3
+            });
 //jquery for full screen
 $(".fullscreen_icon").click(function(){
 	$("body").toggleClass("full-screen");
