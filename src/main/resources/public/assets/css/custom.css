@@ -119,12 +119,15 @@ body .user-nav-slide-right {
   padding-left: 6px;
 }
 .orange {
-  background: #f5ab28 none repeat scroll 0 0;
+  background: #f5ab28 none repeat scroll 0 0 !important;
   border: medium none #f5ab28;
-  color: #fff;
   height: 30px;
   width: 75px;
   line-height:15px;
+}
+#search-form .btn-default:hover{
+  background-color: #f5ab28 !important;
+  border: medium none #f5ab28;
 }
 .header-search .search-submit {
   vertical-align: top;
@@ -365,7 +368,13 @@ a {
 }
 #layout-contents{
   height: 160px;
+}
+.lay-container{
+  height: 115px;
   overflow:auto;
+}
+.btn-run-div{
+  margin-top:10px;
 }
 .input_layout{
   padding: 0;
@@ -813,8 +822,14 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 /***********************/
 #selectlayout-boxitSelectBoxItOptions{
-  height: 160px;
+  height: 170px;
   overflow: auto;
+}
+#selectlayout-boxitSelectBoxIt {
+  background-color: #3b3b3b !important;
+}
+#selectdataSelectBoxIt{
+  background-color: #3b3b3b !important;
 }
 /****************parameter content***************/
 .gsak-home .table-parameter td{
@@ -1049,6 +1064,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
     background-image: url("images/fullsc.png");
     width: 32px;
     height: 30px;
+    margin-bottom: 20px;
 }
 .scroll-btn-zoom{
 }
@@ -1157,6 +1173,58 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
     background-image: url("images/closefullsc.png");
     width: 32px;
     height: 30px;
+}
+/*******************graphLoader**********/
+#graphLoader, #searchLoader, .dbLoader{
+  width:20px;
+  height:20px;
+  display:none;
+  margin:0 auto;
+  margin-bottom: 5px;
+}
+
+#searchLoader, .dbLoader {
+  display: inline;
+}
+
+.graphLoader-run{
+  width:20px;
+  height:20px;
+  display:none;
+  float: left;
+  margin-left: 150px;
+  margin-top: 5px;
+}
+.select_btn_div input{
+  margin-right: 5px;
+}
+/******************Inline css code goes here*****************/
+#chartContainer{
+  height: 100%;
+  min-width: 100% !important;
+}
+.form_datasource_sub{
+  display: block;
+  float:right;
+  margin-right: 30px;
+}
+#original_graph_load_form .dbLoader{
+  margin-right:3px;
+  margin-top: 5px;
+}
+.form_datasource_sub .dbLoader{
+  margin-right:3px;
+  margin-top: 5px;
+}
+#filer_input_graph-inp{
+  margin-left: 340px;
+}
+#filer_input-inp{
+  margin-left: 306px;
+}
+#container{
+  height: 695px;
+  display: block;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

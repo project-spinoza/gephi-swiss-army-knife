@@ -5,7 +5,8 @@
 		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default						
 		$("#jstree_demo_div").mCustomScrollbar();// Network operations.
 		//$("#parameters_panel").mCustomScrollbar();// Parameters_panel
-		$("#layout-contents").mCustomScrollbar();// Layout contents
+		//$("#layout-contents").mCustomScrollbar();// Layout contents
+		$(".lay-container").mCustomScrollbar();// Layout contents
 		//$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		//$("#dynamic_panel").mCustomScrollbar();// Network Overview
 		$(".popup-in").mCustomScrollbar();//  popup-box statistics 
@@ -266,15 +267,20 @@ $(".degree-selectm #selectdeg").change(function(){
 	});
     $("#selectdata").change(function(){
         $(this).find("option:selected").each(function(){
-            if($(this).attr("value")=="config_pop_database"){
-            	//alert('this is datasource2');
+            if($(this).attr("value")=="mysql"){
             	$(".setting-text").attr('data-popup-open','popup-config-database');
-            	
-            	//$("#selectdataSelectBoxItText").attr('data-popup-open','popup-database');
-            	//$(".pop-custom").show();
-            	//console.log($(this).attr('data-popup-open'));
+            	if (isMysqlConnected) {
+            		$('#search-form input[type="text"]').prop('disabled', false);
+            		$('#search-form input[type="submit"]').prop('disabled', false);
+            		$('#search-form input[type="text"]').attr("placeholder", "Search Source: Mysql");
+            	}else {
+            		$('#search-form input[type="text"]').prop('disabled', true);
+            		$('#search-form input[type="submit"]').prop('disabled', true);
+            		$('#search-form input[type="text"]').attr("placeholder", "Not connected to Mysql Server.");
+            	}
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-es").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
@@ -282,35 +288,75 @@ $(".degree-selectm #selectdeg").change(function(){
             	});
 
             }
-            else if ($(this).attr("value")=="config_pop_elasticsearch") {
+            if($(this).attr("value")=="mongodb"){
+            	$(".setting-text").attr('data-popup-open','popup-config-database-mongo');
+            	if (isMongoDbConnected) {
+            		$('#search-form input[type="text"]').prop('disabled', false);
+            		$('#search-form input[type="submit"]').prop('disabled', false);
+            		$('#search-form input[type="text"]').attr("placeholder", "Search Source: MongoDB");
+            	}else {
+            		$('#search-form input[type="text"]').prop('disabled', true);
+            		$('#search-form input[type="submit"]').prop('disabled', true);
+            		$('#search-form input[type="text"]').attr("placeholder", "Not connected to MongoDb Server.");
+            	}
+            	$(".setting-text" ).click( function( ){
+            		$(".pop-custom-mongodb").css("display","block");
+            		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-es").css("display","none");
+            		$(".pop-custom-file").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
+            		//alert('teststs');
+            	});
+
+            }
+            else if ($(this).attr("value")=="elasticsearch") {
+            	if (isElasticsearchConnected) {
+            		$('#search-form input[type="text"]').prop('disabled', false);
+            		$('#search-form input[type="submit"]').prop('disabled', false);
+            		$('#search-form input[type="text"]').attr("placeholder", "Search Source: ElasticSearch");
+            	}else {
+            		$('#search-form input[type="text"]').prop('disabled', true);
+            		$('#search-form input[type="submit"]').prop('disabled', true);
+            		$('#search-form input[type="text"]').attr("placeholder", "Not connected to ES Server.");
+            	}
             	$(".setting-text").attr('data-popup-open','popup-config-es');
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-es").css("display","block");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-file-up").css("display","none");
             		//alert('teststs');
             	});
             }
-            else if ($(this).attr("value")=="config_file_upload") {
-            	$(".setting-text").attr('data-popup-open','popup-config-file');
-            	$(".setting-text" ).click( function( ){
-            		$(".pop-custom-file").css("display","block");
-            		$(".pop-custom-db").css("display","none");
-            		$(".pop-custom-es").css("display","none");
-            		$(".pop-custom-file-up").css("display","none");
-            		//alert('teststs');
-            		  
-            	});
-            }
-             else if ($(this).attr("value")=="file_upload_data") {
+             else if ($(this).attr("value")=="inputfile") {
             	$(".setting-text").attr('data-popup-open','popup-config-file-up');
+            	if (!isFileUploaded) {
+					$('#search-form input[type="text"]').prop('disabled', true);
+            		$('#search-form input[type="submit"]').prop('disabled', true);
+	            	$('#search-form input[type="text"]').attr("placeholder", "No File Uploaded.");
+            	}
             	$(".setting-text" ).click( function( ){
             		$(".pop-custom-file-up").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
             		$(".pop-custom-file").css("display","none");
             		$(".pop-custom-db").css("display","none");
             		$(".pop-custom-es").css("display","none");
-            		//alert('teststs');
+            	});
+            }
+            else if ($(this).attr("value")=="graphfile") {
+
+            	$('#search-form input[type="text"]').prop('disabled', true);
+            	$('#search-form input[type="submit"]').attr("disabled", "disabled");
+            	$('#search-form input[type="submit"]').css("background-color","#f5ab28");
+            	$('#search-form input[type="text"]').attr("placeholder", "Graph Files are not searchable."); 
+            	$(".setting-text").attr('data-popup-open','popup-config-file');
+            	$(".setting-text" ).click( function( ){
+            		$(".pop-custom-file").css("display","block");
+            		$(".pop-custom-mongodb").css("display","none");
+            		$(".pop-custom-db").css("display","none");
+            		$(".pop-custom-es").css("display","none");
+            		$(".pop-custom-file-up").css("display","none");
             		  
             	});
             }
@@ -387,7 +433,7 @@ $(".degree-selectm #selectdeg").change(function(){
             drop: null,
         },
         uploadFile: {
-            url: "/fileUpload",
+            url: "/graphFileUpload",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -400,9 +446,9 @@ $(".degree-selectm #selectdeg").change(function(){
                 });
             },
             error: function(el){
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
-                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                	var parent = el.find(".jFiler-jProgressBar").parent();
+                	el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                	$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
             },
             statusCode: null,
@@ -443,9 +489,10 @@ $(".degree-selectm #selectdeg").change(function(){
 
 	 /***********************file upload popup end****************/
 	 /*********************** Graph file upload popup start****************/
+	$('#textfileUploadForm input[type="submit"]').prop('disabled', true);
     $("#filer_input_graph").filer({
         limit: 1,
-        maxSize:1,
+        maxSize: null,
         extensions: null,
         changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
         showThumbs: true,
@@ -512,22 +559,31 @@ $(".degree-selectm #selectdeg").change(function(){
             drop: null,
         },
         uploadFile: {
-            url: "./php/upload.php",
+            url: "/fileUpload",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
             beforeSend: function(){},
             success: function(data, el){
+            	$('#textfileUploadForm input[type="submit"]').prop('disabled', false);
                 var parent = el.find(".jFiler-jProgressBar").parent();
                 el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
                     $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
+                $('#search-form input[type="text"]').prop('disabled', false);
+                $('#search-form input[type="submit"]').prop('disabled', false);
+            	$('#search-form input[type="text"]').attr("placeholder", "Search Source: File");
+            	isFileUploaded = true;
             },
             error: function(el){
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
-                    //$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
+                	var parent = el.find(".jFiler-jProgressBar").parent();
+                	el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                	$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");    
                 });
+                $('#search-form input[type="text"]').prop('disabled', true);
+                $('#search-form input[type="submit"]').prop('disabled', true);
+                $('#search-form input[type="text"]').attr("placeholder", "No File uploaded.");
+                isFileUploaded = false;
             },
             statusCode: null,
             onProgress: null,
@@ -543,7 +599,13 @@ $(".degree-selectm #selectdeg").change(function(){
         beforeSelect: null,
         onSelect: null,
         afterShow: null,
-        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){},
+        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
+            var file = file.name;
+            $.get('/removeUpload', {file: file});
+            $('#search-form input[type="text"]').prop('disabled', true);
+            $('#search-form input[type="submit"]').prop('disabled', true);
+            isFileUploaded = false;
+        },
         onEmpty: null,
         options: null,
         captions: {
@@ -687,54 +749,54 @@ $(".degree-selectm #selectdeg").change(function(){
     	
   	  //var content_id = $(this).attr('href');
       //$('#parameter_load').hide().html($(content_id).html()).show(500);
-        if($(this).attr('href')=="#equal_mod_class"){
+        if($(this).attr('href')=="#id_str_edge"){
         	
-            $("#equal_mod_class_cont").show();
-            $('#range_mod_class_cont, #parameter_load, #mask_edge_operator_filter_cont, #equal_degree_class_cont, #edge_weight_edges_filter_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $("#id_str_edge_cont").show();
+            $('#id_str_node_cont, #parameter_load, #label_str_edge_cont,label_str_node_cont,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
-        else if($(this).attr('href')=="#range_mod_class"){
-			$("#range_mod_class_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #mask_edge_operator_filter_cont,#equal_degree_class_cont, #edge_weight_edges_filter_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+        else if($(this).attr('href')=="#id_str_node"){
+			$("#id_str_node_cont").show();
+            $('#id_str_edge_cont, #parameter_load, #label_str_edge_cont,label_str_node_cont ,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         } 
-        else if($(this).attr('href')=="#mask_edge_operator_filter"){
-			$("#mask_edge_operator_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #range_mod_class_cont,#equal_degree_class_cont, #edge_weight_edges_filter_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+        else if($(this).attr('href')=="#label_str_edge"){
+			$("#label_str_edge_cont").show();
+            $('#id_str_node_cont, #parameter_load, #id_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
-        else if($(this).attr('href')=="#equal_degree_class"){
-			$("#equal_degree_class_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #range_mod_class_cont,#mask_edge_operator_filter_cont, #edge_weight_edges_filter_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+        else if($(this).attr('href')=="#label_str_node"){
+			$("#label_str_node_cont").show();
+            $('#id_str_edge_cont, #parameter_load, #label_str_edge_cont,#id_str_node_cont,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
-        else if($(this).attr('href')=="#edge_weight_edges_filter"){
-			$("#edge_weight_edges_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+        else if($(this).attr('href')=="#weight_float_edge"){
+			$("#weight_float_edge_cont").show();
+            $('#id_str_node_cont, #parameter_load, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#deg_range_topology_filter"){
 			$("#deg_range_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load,#ego_net_topology_filter_cont, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont, #edge_weight_edges_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load,#ego_net_topology_filter_cont, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont,  #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#ego_net_topology_filter"){
 			$("#ego_net_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont,#edge_weight_edges_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#in_deg_topology_filter"){
 			$("#in_deg_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load,#ego_net_topology_filter_cont, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont, #edge_weight_edges_filter_cont, #deg_range_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load,#ego_net_topology_filter_cont, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont, #deg_range_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#kcore_topology_filter"){
 			$("#kcore_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load,#ego_net_topology_filter_cont, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont, #edge_weight_edges_filter_cont, #deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #mutualdeg_range_topology_filter_cont , #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load,#ego_net_topology_filter_cont, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont, #weight_float_edge_cont, #deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #mutualdeg_range_topology_filter_cont , #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#mutualdeg_range_topology_filter"){
 			$("#mutualdeg_range_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load,#ego_net_topology_filter_cont, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont, #edge_weight_edges_filter_cont, #deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #kcore_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load,#ego_net_topology_filter_cont,#id_str_edge_cont,#label_str_edge_cont, #label_str_node_cont,#weight_float_edge_cont,#deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #kcore_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#neighbrs_net_topology_filter"){
 			$("#neighbrs_net_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load,#ego_net_topology_filter_cont, #range_mod_class_cont,#mask_edge_operator_filter_cont, #equal_degree_class_cont,#edge_weight_edges_filter_cont, #deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load,#ego_net_topology_filter_cont, #id_str_edge_cont,#label_str_edge_cont,#label_str_node_cont, #weight_float_edge_cont,#deg_range_topology_filter_cont,#in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#out_degree_range_topology_filter"){
 			$("#out_degree_range_topology_filter_cont").show();
-            $('#equal_mod_class_cont, #parameter_load, #ego_net_topology_filter_cont, #range_mod_class_cont, #mask_edge_operator_filter_cont, #equal_degree_class_cont,#edge_weight_edges_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load, #ego_net_topology_filter_cont, #id_str_edge_cont, #label_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont').hide();
         }
         else{
               
@@ -742,11 +804,17 @@ $(".degree-selectm #selectdeg").change(function(){
             }
             
     });
+//spinner for incrementing
+ $('#spinner-weight').spinner({
+               step: 0.1, 
+               min: 1, 
+               max: 3
+            });
 //jquery for full screen
 $(".fullscreen_icon").click(function(){
 	$("body").toggleClass("full-screen");
 	if ($("body").hasClass("full-screen")) {
-		$(".zoom-container").css({"top":"10px","right":"30px"});
+		$(".zoom-container").css({"top":"30px","right":"30px"});
 	}
 	else if (!$("body").hasClass("full-screen")){
 		$(".zoom-container").css({"top":"155px","right":"302px"});

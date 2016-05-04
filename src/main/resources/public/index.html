@@ -80,7 +80,7 @@
 						</a>
 						</h4>
 					</div>
-					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true" style="">
+					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
 								<li class=""><a href="#nodes" data-toggle="tab" aria-expanded="false">Nodes</a></li>
@@ -95,7 +95,6 @@
 							<div class="tab-content">
 								<div class="tab-pane fade" id="unique">
 									<div class="unique">Unique</div>
-									<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 								</div>
 								<div class="tab-pane fade active in" id="attributes">
 									<div class="margin30 degree-select-container">
@@ -114,7 +113,6 @@
 						</div>
 						<div class="tab-pane fade active in" id="edegs">
 						  <div class="edges">Edegs</div>
-						  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						</div>   
 					</div>
                 </div>
@@ -150,8 +148,9 @@
 						</div>
 						<div id="layout-contents">
 						<!-- clockwise rotation container -->
-						<div class="rotation-container Rotate">
+						<div class="rotation-container Rotate" >
 						    <form action="/layout" method="get" class="layout_form" id="Rotation">
+						    <div class="lay-container">
 								<div class="rotate-label layout-label">Rotate</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -172,12 +171,17 @@
 									</table>
 								</div>
 								<input type="hidden" value="Rotation" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div> <!-- end of clockwise rotation container -->
 						<!-- scale container -->
 						<div class="scale-container Scale">
 							<form action="/layout" method="get" class="layout_form" id="Scale">
+							<div class="lay-container">
 								<div class="scale-label layout-label">Scale</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -198,13 +202,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="Scale" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right ">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- end of scale container -->
 						<!-- Force Atlas container -->
 						<div class="force-atlas-container forceAtlas">
 							<form action="/layout" method="get" class="layout_form" id="ForceAtlas">
+							<div class="lay-container">
 								<div class="force-atlas-label layout-label">Force Atlas</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -285,13 +294,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="ForceAtlas" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- End of Force Atlas container -->
 						<!-- Start of Fruchterman Reigngold -->
-						<div class="fruchterman-reigngold-container fruchtermanReigngold">
+						<div class="fruchterman-reigngold-container fruchtermanReigngold ">
 							<form action="/layout" method="get" class="layout_form" id="FruchtermanReingoldLayout">
+							<div class="lay-container">
 								<div class="fruchterman-reigngold-label layout-label">Fruchterman Reigngold</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -325,13 +339,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="FruchtermanReingold" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- End of Fruchterman Reigngold -->
 						<!-- Start of Label Adjust -->
 						<div class="label-adjust-container labelAdjust">
 							<form action="/layout" method="get" class="layout_form" id="LabelAdjust">
+							<div class="lay-container">
 								<div class="scale-label layout-label">Label Adjust</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -358,13 +377,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="LabelAdjust" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- End of Label Adjust -->
 						<!-- Start of noverlap -->
 						<div class="noverlap-container noverLap">
 						    <form action="/layout" method="get" class="layout_form" id="NoverLap">
+						    <div class="lay-container">
 								<div class="noverlap-label layout-label">Noverlap</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -397,13 +421,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="NoverLap" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- End of noverlap -->
 						<!-- Start of OpenOrd -->
 						<div class="open-ord-container openOrd">
 						    <form action="/layout" method="get" class="layout_form" id="OpenOrd">
+						    <div class="lay-container">
 								<div class="open-ord-label layout-label">Stages</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -477,14 +506,19 @@
 										</tbody>
 									</table>
 								</div>
+								</div>
 								<input type="hidden" value="OpenOrd" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div>
 						<!-- End of OpenOrd -->
 						<!-- Start of Random Layout -->
 						<div class="random-layout-container randomLayout">
 						    <form action="/layout" method="get" class="layout_form" id="RandomLayout">
+						    <div class="lay-container">
 								<div class="random-layout-label layout-label">Properties</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -505,13 +539,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="RandomLayout" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div> 
 						<!-- End of Random Layout -->
 						<!-- Start of Yifan Hu -->
 						<div class="yifan-hu-container yifanHu">
 						    <form action="/layout" method="get" class="layout_form" id="YafinHu">
+						    <div class="lay-container">
 								<div class="rotate-label layout-label">Yifan Hu</div>
 								<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -574,13 +613,18 @@
 									</table>
 								</div>
 								<input type="hidden" value="YafinHu" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10">
+								</div>
 							</form>
 						</div> 
 						<!-- End of Yifan Hu -->
 						<!-- Start of Yifan Hu Proportional -->
 						<div class="yifan-hu-proportional-container yifanhuProportional">
 						    <form action="/layout" method="get" class="layout_form" id="YafinHuProportional">
+						    <div class="lay-container">
 								<div class="yifanhu-proportional-label layout-label">Yifan Hu Proportional</div>
 									<div class="table-responsive">          
 									<table class=" table table-bordered">
@@ -643,7 +687,11 @@
 									</table>
 								</div>
 								<input type="hidden" value="YafinHuProportional" name="layout">
-								<input type="submit" value="Run" class="btn btn-primary  marginbottom10 pull-right">
+								</div>
+								<div class="btn-run-div">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								</div>
 							</form>
 						</div> 
 						<!-- End of Yifan Hu Proportional -->
@@ -679,6 +727,11 @@
 							<input type="checkbox" name="showlabel" value="showlabel"><span class="showlabel-title labelcheckbox">Show label</span><br>
 							<input type="checkbox" name="showedge" value="showedge"><span class="showedge-title labelcheckbox">Show edge</span><br>
 							<input type="checkbox" name="endablehover" value="enablehover"><span class="enablehover-title labelcheckbox">Enable hover</span><br>
+						</form>
+						<br></br>
+						<form id="original_graph_load_form">
+						<input class="btn btn-primary marginbottom10" type="submit" value="Load Original Graph">
+						<img src="./images/ringloader.gif" class="dbLoader">
 						</form>
 					</div>
                 </div>
@@ -720,76 +773,13 @@
         <li class="isFolder isExpanded" title="Bookmarks">
             Library
             <ul>
-               <li class="isFolder" title="Bookmarks">
-			   Attributes
-				   <ul> 
-						<li id="equal_filter" class="isFolder" >
-							Equal
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#equal_mod_class" > Equal (Modularity class)</a></li>
-							</ul>
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#equal_degree_class" > Equal (Degree)</a></li>
-							</ul>
-						</li>
-						<li id="inter_edges_filter"  class="isFolder">
-							Inter Edges
-						</li>
-						<li id="intra_edges_filter" class="isFolder">
-							Intra Edges
-						</li>
-						<li id="non_null_filter" class="isFolder">
-							Non-null
-							<ul>
-								<li id="" class="ui-widget-content filterdrag"><a href="#non_null_mod_class" > Modularity class (Non Null)</a> </li>
-							</ul>
-						</li>
-						<li id="partition_filter" class="isFolder" >
-							Partition
-						</li>
-						<li id="partition_count_filter" class="isFolder" >
-							Partition Count
-						</li>
-						<li id="range_filter" class="isFolder">
-							Range
-							<ul>
-								<li id="testright" class="ui-widget-content filterdrag"><a href="#range_mod_class" > Modularity class (Range)</a></li>
-
-							</ul>
-						</li>
-				   </ul>
-			   </li>
-			   <li class="isFolder isExpanded">
-				<ul>
-				Dynamic
-				</ul>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_edge"> Id String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_node"> Id String (Node)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_edge"> Label String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_node"> Label String (Node)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#weight_float_edge"> Weight Float (Edge)</a></li>
 			   
-			   </li>
-			   <li id="edges_filter" class="isFolder">
-				<ul>
-				Edges
-					<li id="" class="ui-widget-content filterdrag"><a href="#edge_type_edges_filter"> Edge Type</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#edge_weight_edges_filter"> Edge Weight</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#mutual_edge_edges_filter"> Mutual Edge</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#self_loop_edges_filter"> Self Loop</a></li>
-				</ul>
-			   
-			   </li>
-			   <li id="operator_filter" class="isFolder">
-				<ul>
-				Operator
-					<li id="" class="ui-widget-content filterdrag"><a href="#intersection_operator_filter"> Intersection</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#mask_edge_operator_filter"> Mask (edges)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#not_edge_operator_filter"> Not (edges)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#not_node_operator_filter"> Not (nodes)</a></li>
-					<li id="" class="ui-widget-content filterdrag"><a href="#union__operatorfilter"> Union</a></li>
-				</ul>
-			   
-			   </li>
-			   <li id="topology_filter" class="isFolder">
-				<ul>
-				Topology
-					<li id="" class="ui-widget-content filterdrag"><a href="#deg_range_topology_filter"> Degree Range</a></li>
+			   <li id="" class="ui-widget-content filterdrag"><a href="#deg_range_topology_filter"> Degree Range</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#ego_net_topology_filter"> Ego Network</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#giant_topology_filter"> Giant Component</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#selfloop_topology_filter"> Has Self-loop</a></li>
@@ -798,17 +788,6 @@
 					<li id="" class="ui-widget-content filterdrag"><a  href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a id="" href="#neighbrs_net_topology_filter"> Neighbors Network</a></li>
 					<li id="" class="ui-widget-content filterdrag"><a href="#out_degree_range_topology_filter"> Out Degree Range</a></li>
-					
-				</ul>
-			   
-			   </li>
-			   <li id="saved_queries_filter" class="isFolder">
-
-				<ul>
-				  Saved Queries
-				</ul>
-			   </li>
-			   
             </ul>
         </li>
     </ul>
@@ -855,45 +834,85 @@
 
 							<div id="parameter_load">Query Parameters will load here..</div>
 
-							<div id="equal_mod_class_cont" class="parameter_load_class">
-								<div class="heading_parameter"><h6>Equal (Modularity) Settings</h6></div>
+							
+							<div id="id_str_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (ID) Edge Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Value</td>
+												<td>Pattren:</td>
 												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td>Minimum</td>
-												<td>0</td>
-											</tr>
-											<tr>
-												<td>Maximum</td>
-												<td>8</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
 									</form>
 								</div>
 							</div>
-							<div id="equal_degree_class_cont" class="parameter_load_class">
-								<div class="heading_parameter"><h6>Equal (Degree) Settings</h6></div>
+							<div id="id_str_node_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (ID) Node Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
 									<form>
 										<table class="table table-parameter">
 											<tr>
-												<td>Value</td>
-												<td><input type="number" max="36" min="1" value="1"></td>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
 											</tr>
 											<tr>
-												<td>Minimum</td>
-												<td>1</td>
-											</tr>
-											<tr>
-												<td>Maximum</td>
-												<td>36</td>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
 											</tr>
 										</table>
+									</form>
+								</div>
+							</div>
+							<div id="label_str_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (Label) Edge Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form>
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="label_str_node_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (Label) Node Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form>
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="number" max="8" min="0" value="0"></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" max="8" min="0" value="0"></td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="weight_float_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Weight Float (Edge) Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form>
+									<table class="table table-parameter">
+										<tr>
+											<td>Value:</td>
+											<td><input  type="number" id="spinner-weight" min="1.0" max="3.0" value="1"></td>
+										</tr>
+									</table>	
 									</form>
 								</div>
 							</div>
@@ -1060,7 +1079,8 @@
           </div>
 		  <!-- End of Panel parameters -->
 
-			<div class="filter_btn_div"><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
+			<div class="filter_btn_div" ><input  class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
+			<div class="select_btn_div" ><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Select"></div>
 						</div>
 						<div class="tab-pane fade " id="statistics">
 						
@@ -1088,7 +1108,7 @@
 										    <div class="popup-inner">
 										    <div class="popup-heading"><span id="canvasTitle"></span><a class="popup-close" data-popup-close="popup-1" href="#">x</a></div>
 										    <div class="popup-in">
-										       <div id="chartContainer" style="height: 100%; min-width: 100% !important;"></div>
+										       <div id="chartContainer"></div>
 										        </div>
 										    </div>
 										</div>
@@ -1243,21 +1263,26 @@
 					<div class="site-name"><img src="assets/css/images/gsak_logo.png"></div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 header-search">
-					<input type="text" placeholder="Search Keywords" class="grey search-box">
-					<input type="submit" value="Search" name="" class="btn btn-default orange search-submit">                
+				<form id="search-form" action="#" method="get">
+					<input type="text" placeholder="DataSource not Selected" class="grey search-box">
+					<input type="submit" value="Search" name="" class="btn btn-default orange search-submit"> 
+					<img src="./images/ringloader.gif" id="searchLoader">
+				</form>               
 				</div>
    		  </div>
    		 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
     	 	<div class="margin30 select-container-test col-sm-12">
 				<div class="header-selecttest custom-select col-sm-8">
+				<form id="datasources">
 					<select id="selectdata">
 						<option value="" selected="selected" disabled="disabled">Select DataSource</option>
-						<option value="config_pop_elasticsearch">ElasticSearch</option>
-						<option value="config_pop_database">MySql</option>
-						<option value="config_pop_database">MongoDB</option>
-						<option value="file_upload_data">File</option>
-						<option value="config_file_upload">Graph File</option>
+						<option value="elasticsearch">ElasticSearch</option>
+						<option value="mysql">MySql</option>
+						<option value="mongodb">MongoDB</option>
+						<option value="inputfile">File</option>
+						<option value="graphfile">Graph File</option>
                    </select> 
+                </form>
 				</div>
 				
 				<div class="setting-container-test col-sm-4">
@@ -1271,74 +1296,121 @@
             
    		 </div>	
     </div>
-    <!-- Database popups content -->
+    <!-- Database (mysql) popups content -->
     <div class="popup pop-custom-db" data-popup="popup-config-database" >
 		<div class="popup-inner">
-		    <div class="popup-heading"><span id="">Configure Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
+		    <div class="popup-heading"><span id="">Configure Mysql Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
 		    <div class="popup-in">
-		       <div style="">
+		       <div>
 		       		<div class="conf-db-pop">
-		       		<form>
+		       		<form id="mysqldbForm">
 		       			<table class="popup-table table table-responsive">
 		       		
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       					<label>Saved DB</label>
-			       					<select id="savedb_id">
-										<option value="database_1">Database 1</option>
-										<option value="database_2">Database 2</option>
-			                   		</select>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database" required></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Host</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name="dbhost" required></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Port </label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name="dbport" required></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-		       					<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<td class="popup-td-wd">
+			       					<label>Database Table</label>
+			       					<input type="text" value="" name="dbtable" required></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Username</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name="dbuser" required></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Password</label>
-			       					<input type="password" value="" id=""></input>
+			       					<input type="password" value="" name="dbpass"></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Database</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				
-			       				<td class="popup-td-wd">
-			       					<label>Database Table</label>
-			       					<input type="text" value="" id=""></input>
-			       				</td>
 			       				<td class="popup-td-wd">
 			       					<label>Column</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name="dbtableCol" required></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-				       			<td>
-				       			<div style="float: left; margin-right: 10px;"><input type="button" name="save" value="Save" class="btn btn-primary"></input></div>
-				       			<div><input type="button" name="connect" value="Connect" class="btn btn-primary"></input></div></td>
+			       				<td><input type="hidden" name="dBServer" value="mysql"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mysqldbaction" value="connect"/></td>
 		       				</tr>
 		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="mysqlFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
 		       			</form>
 		       		</div>
 		       </div>
 		    </div>
 		</div>
 	</div>
+	<!-- Database (mongodb) popups content -->
+    <div class="popup pop-custom-mongodb" data-popup="popup-config-database-mongo" >
+		<div class="popup-inner">
+		    <div class="popup-heading"><span id="">Configure MongoDb Database</span><a class="popup-close" data-popup-close="popup-config-database-mongo" href="#">x</a></div>
+		    <div class="popup-in">
+		       <div>
+		       		<div class="conf-db-pop">
+		       		<form id="mongodbForm">
+		       			<table class="popup-table table table-responsive">
+		       		
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Host</label>
+			       					<input type="text" value="" name="dbhost" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port </label>	
+			       				<input type="text" value="" name="dbport" required></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Collection</label>
+			       					<input type="text" value="" name="dbcollection" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Username</label>	
+			       				<input type="text" value="" name="dbuser" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Password</label>
+			       					<input type="password" value="" name="dbpass"></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Field</label>
+			       					<input type="text" value="" name="dbfield" required></input>
+			       				</td>
+			       				<td><input type="hidden" name="dBServer" value="mongodb"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mongodbaction" value="connect"/></td>
+		       				</tr>
+		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="mongodbFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
+		       			</form>
+		       		</div>
+		       </div>
+		    </div>
+		</div>
+	</div>
+	
 	<!-- Elastic search popups content -->
 	<div  class="popup pop-custom-es" data-popup="popup-config-es" >
 		    <div class="popup-inner" >
@@ -1346,59 +1418,41 @@
 		    <div class="popup-in">
 		       <div   >
 		       	<div class="conf-db-pop">
-		       		<form>
+		       		<form id="elasticsearchForm">
 		       			<table class="popup-table table table-responsive">
 		       				<tr>
-			       				<td class="popup-td-wd">
-			       					<label>Saved Host</label>
-			       					<select id="savehost_id">
-										<option value="host_1">Host 1</option>
-										<option value="host_2">Host 2</option>
-			                   		</select>
-			       				</td>
+
 			       				<td class="popup-td-wd">
 			       					<label>Host</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" name= "es_host" placeholder="localhost"  value="localhost" id=""></input>
 			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Port</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="9300" placeholder="9300" name="es_port" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Cluster Name</label>	
+			       				<input type="text" value="elasticsearch" placeholder="elasticsearch" name ="es_cluster" id=""></input>
 			       				</td>
 		       				</tr>
 		       				<tr>
-		       					<td class="popup-td-wd">
-			       				<label>Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
 			       				<td class="popup-td-wd">
 			       				<label>Index</label>	
-			       				<input type="text" value="" id=""></input>
+			       				<input type="text" value="" name = "es_index" id=""></input>
 			       				</td>
 			       				
 			       				<td class="popup-td-wd">
 			       					<label>Type</label>
-			       					<input type="text" value="" id=""></input>
+			       					<input type="text" value="" name = "es_type" id=""></input>
 			       				</td>
-		       				</tr>
-		       				<tr>
-			       				<td class="popup-td-wd">
-			       				<label>Cluster Name</label>	
-			       				<input type="text" value="" id=""></input>
-			       				</td>
-			       				
-			       				<td class="popup-td-wd">
-			       					
-			       				</td>
-			       				<td class="popup-td-wd">
-			       					
-			       				</td>
-		       				</tr>
-		       				<tr>
-				       			<td>
-				       			<div style="float: left; margin-right: 10px;"><input type="button" name="save" value="Save" class="btn btn-primary"></input></div>
-				       			<div><input type="button" name="connect" value="Connect" class="btn btn-primary"></input></div></td>
+			       				<td><input type="hidden" name="dBServer" value="elasticsearch"/></td>
+			       				<td><input type="hidden" name="dbAction" id="elasticsearchAction" value="connect"/></td>
 		       				</tr>
 		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="elasticsearchFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
 		       			</form>
 		       		</div>
 		       </div>
@@ -1410,11 +1464,11 @@
 		    <div class="popup-inner">
 			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file-up" href="#">x</a></div>
 			    <div class="popup-in">
-			       <div   style="">
+			       <div>
 			       	<div class="conf-db-pop">
-			       		<form action="" method="post" enctype="multipart/form-data">
+			       		<form action="#" method="post" enctype="multipart/form-data" id="textfileUploadForm">
 			              <input type="file" name="files[]" id="filer_input_graph" multiple="multiple">
-			              <input style="margin-left: 340px;" type="submit" value="Submit" class="btn btn-primary">
+			              <input id="filer_input_graph-inp"  type="submit" value="Submit" class="btn btn-primary">
 				        </form>
 			       	</div>
 			       </div>
@@ -1426,12 +1480,12 @@
 		    <div class="popup-inner">
 			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file" href="#">x</a></div>
 			    <div class="popup-in">
-			       <div   style="">
+			       <div>
 			       	<div class="conf-db-pop">
-			       		<form action="" method="post" enctype="multipart/form-data" id="graphFileUploadForm">
+			       		<form action="#" method="post" enctype="multipart/form-data" id="graphFileUploadForm">
 			              <input type="file" name="files[]" id="filer_input" multiple="multiple">
-			              <img src="./images/ringloader.gif" id="graphLoader" style="width:20px;height:20px; display:none; margin:0 auto; margin-bottom: 5px">
-			              <input style="margin-left: 306px;" type="submit" value="Generate Graph" class="btn btn-primary">
+			              <img src="./images/ringloader.gif" id="graphLoader">
+			              <input id="filer_input-inp" type="submit" value="Generate Graph" class="btn btn-primary">
 				        </form>
 			       	</div>
 			       </div>
@@ -1441,7 +1495,7 @@
       </header>
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="height: 695px; display: block;" id ="container">
+      <div class="content-wrapper"  id ="container">
       	  
 		<div class="zoom-container">
 			<div class="fullscreen_icon" title="">

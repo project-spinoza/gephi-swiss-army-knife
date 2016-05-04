@@ -1,3 +1,8 @@
+var isMysqlConnected = false;
+var isMongoDbConnected = false;
+var isElasticsearchConnected = false;
+var isFileUploaded = false;
+
 $( document ).ready(function() {
 
 sigma.classes.graph.addMethod('neighbors', function(nodeId) {
@@ -16,7 +21,12 @@ for (k in index)
 var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
+var isGraphExists = false;
+var zoomValCurrent;
+var zoomValPrevious = 3;
 
+//disable search button intially
+$('#search-form input[type="submit"]').prop('disabled', true);
 
 /*
 *
@@ -24,7 +34,9 @@ var statistics_btn;
 */
 $(".layout_form").submit(function (e) {
     e.preventDefault();
+    $(".graphLoader-run").css('display','block');
     requestAjax ("/layout", $("#" + this.id).serialize(), graphJsonHandler);
+    $(".graphLoader-run").css('display','none');
 });
 
 /*
@@ -41,7 +53,7 @@ $(".statistics_form").submit(function (e) {
 
 /*
 *
-*Statistics Submit Operations
+*Graph File Upload Options Operations
 */
 $("#graphFileUploadForm").submit(function (e) {
   e.preventDefault();
@@ -53,6 +65,138 @@ $("#graphFileUploadForm").submit(function (e) {
   });
 });
 
+
+
+/*
+*
+*Loading original graph after different operations
+*/
+$('#original_graph_load_form input[type="submit"]').prop('disabled', true);
+$("#original_graph_load_form").submit(function (e) {
+  e.preventDefault();
+  $('.dbLoader').css('visibility','visible');
+  requestAjax ("/originalGraph", {}, function(graphData) {
+    graphJsonHandler(graphData);
+  $('.dbLoader').css('visibility','hidden');
+  });
+});
+
+
+/*
+*
+*Tweets File Upload Options Operations
+*/
+$("#textfileUploadForm").submit(function (e) {
+  e.preventDefault();
+  $(".popup-close").click();
+});
+
+/*
+*
+*Database mysql connecting form submit
+*/
+$('.dbLoader').css('visibility','hidden');
+$("#mysqldbForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    isMysqlConnected = resp == "true" ? true : false;
+    if (isMysqlConnected) {
+      if ($('#mysqlFormSubmit').val() == 'Connect') {
+        $('#mysqldbaction').val('disconnect');
+        $('#mysqlFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: Mysql");   
+      }else {
+        $('#mysqldbaction').val('connect');
+        $('#mysqlFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isMysqlConnected = false;
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to Mysql Server."); 
+      }
+    } else {
+      alert("Database service is down.")
+    }
+    $('.dbLoader').css('visibility','hidden');
+  });
+});
+
+
+/*
+*
+*Database mongodb connecting form submit
+*/
+$("#mongodbForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    isMongoDbConnected = resp == "true" ? true : false;
+    if (isMongoDbConnected) {
+      if ($('#mongodbFormSubmit').val() == 'Connect') {
+        $('#mongodbaction').val('disconnect');
+        $('#mongodbFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: Mongodb"); 
+      }else {
+        $('#mongodbaction').val('connect');
+        $('#mongodbFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isMysqlConnected = false;
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to MongoDb Server."); 
+      }
+    } else {
+      alert("Database service is down.")
+    }
+    $('.dbLoader').css('visibility','hidden');
+  });
+});
+
+
+/*
+*
+*Elasticsearch connecting form submit
+*/
+$("#elasticsearchForm").submit(function (e) {
+  $('.dbLoader').css('visibility','visible');
+  e.preventDefault();
+  requestAjax ("/connectDB", $("#" + this.id).serialize(), function (resp) {
+    isElasticsearchConnected = resp == "true" ? true : false;
+    if (isElasticsearchConnected) {
+      if ($('#elasticsearchFormSubmit').val() == 'Connect') {
+        $('#elasticsearchAction').val('disconnect');
+        $('#elasticsearchFormSubmit').val("Disconnect");
+        enableDisableSearchBtn(true);
+        $('#search-form input[type="text"]').attr("placeholder", "Search Source: ElasticSearch");  
+      }else {
+        $('#elasticsearchAction').val('connect');
+        $('#elasticsearchFormSubmit').val("Connect");
+        enableDisableSearchBtn(false);
+        isElasticsearchConnected = false;
+        alert("here "+isElasticsearchConnected);
+        $('#search-form input[type="text"]').attr("placeholder", "Not connected to ES server.");
+      }
+    } else {
+      alert("Elasticsearch service is down.")
+    }
+    $('.dbLoader').css('visibility','hidden');
+  });
+});
+
+/*
+*
+*Search Form Submit
+*/
+$("img#searchLoader").css('visibility','hidden');
+$("#search-form").submit(function (e) {
+  e.preventDefault();
+  $("img#searchLoader").css('visibility','visible');
+  var searchVal = $('#search-form input[type=text]').val();
+  var datasource = $('#datasources select#selectdata').val();
+  requestAjax ("/search","searchStr="+searchVal+"&datasource="+datasource+"", function(graphData) {
+    $("img#searchLoader").css('visibility','hidden');
+    graphJsonHandler(graphData);
+  });
+});
 /*
 *
 *Load Test graph
@@ -75,7 +219,8 @@ function requestAjax (ajaxURL, formData, callBackFun) {
       },
       //on error in ajax request
       error: function(a, b, c){
-        alert ('Error requested graph Operation.');
+        $("img#searchLoader , img.dbLoader, img#graphLoader").css('visibility','hidden');
+        alert ('Error completing request.');
         return false;
       }
    });
@@ -301,17 +446,33 @@ function canvasGraph (container, gtitle, data, xLabel, yLabel){
   $("#"+container).CanvasJSChart(options);
 }
 
+function enableDisableSearchBtn(enable){
+  if (enable){
+    $('#search-form input[type="submit"]').prop('disabled', false);
+    $('#search-form input[type="text"]').prop('disabled', false);
+  }else {
+    $('#search-form input[type="submit"]').prop('disabled', true);
+    $('#search-form input[type="text"]').prop('disabled', true);
+  }
+}
+
 /*
 * @retrun none
 * Usage: Forward parsed graph data received from server to Showgraph
 */
 function graphJsonHandler (graphData){
   nodesObject = JSON.parse(graphData);
+//  alert(nodesObject);
+//  console.log(nodesObject);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
+      $('#original_graph_load_form input[type="submit"]').prop('disabled', false);
+      isGraphExists = true;
+      $("#slider-vertical").slider("value", 3);
+      zoomValCurrent = 3;
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
-    alert ('no graph found data found');
+    alert ('No Graph Data found.!');
   }
 }
 
@@ -426,8 +587,6 @@ function waitUntilValChange(variable, value) {
 /*************************************************************
               VERTICAL SLIDER JS
 *************************************************************/
-var zoomValCurrent;
-var zoomValPrevious = 3;
 
   $(function() {
     $( "#slider-vertical" ).slider({
@@ -438,8 +597,10 @@ var zoomValPrevious = 3;
       step: 1,
       value: 3,
       slide: function( event, ui ) {
-          zoomValCurrent = ui.value;
-          zoomCalculator ();
+          if (isGraphExists){
+            zoomValCurrent = ui.value;
+            zoomCalculator ();
+          }
       }
     });
   });
@@ -465,43 +626,51 @@ function zoomCalculator () {
 
 $('#zoomin-btn').click (function (e){
   var sVal = parseInt($("#slider-vertical").slider("value"));
-  if (sVal < 10) {
-    $("#slider-vertical").slider("value", sVal+1)
-    zoomValCurrent = sVal+1;
-    zoomCalculator();
+  if (isGraphExists) {
+    if (sVal < 10) {
+      $("#slider-vertical").slider("value", sVal+1);
+        zoomValCurrent = sVal+1;
+        zoomCalculator();
+    }
   }
 });
 
 $('#zoomout-btn').click (function (e){
   var sVal = parseInt($("#slider-vertical").slider("value"));
-  if (sVal > 0) {
-    $("#slider-vertical").slider("value", sVal-1)
-    zoomValCurrent = sVal-1;
-    zoomCalculator();
+  if (isGraphExists) {
+    if (sVal > 0) {
+      $("#slider-vertical").slider("value", sVal-1);
+        zoomValCurrent = sVal-1;
+        zoomCalculator();
+    }
   }
 });
 
 
  //Firefox
  $('#container').bind('DOMMouseScroll', function(e){
-     if(e.originalEvent.detail > 0) {
-         $('#zoomout-btn').click();
-     }else {
-         //scroll up
-         $('#zoomin-btn').click();
-     }
+    if (isGraphExists) {
+       if(e.originalEvent.detail > 0) {
+           $('#zoomout-btn').click();
+       }else {
+           //scroll up
+           $('#zoomin-btn').click();
+       }
+    }
      return false;
  });
 
  //IE, Opera, Safari
  $('#container').bind('mousewheel', function(e){
-     if(e.originalEvent.deltaY > 0) {
-         //scroll down
-         $('#zoomout-btn').click();
-     }else {
-         //scroll up
-         $('#zoomin-btn').click();
-     }
+    if (isGraphExists) {
+       if(e.originalEvent.deltaY > 0) {
+           //scroll down
+           $('#zoomout-btn').click();
+       }else {
+           //scroll up
+           $('#zoomin-btn').click();
+       }
+    }
      return false;
  });
 
