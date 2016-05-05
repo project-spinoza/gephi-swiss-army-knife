@@ -22,7 +22,6 @@ import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
-import org.projectspinoza.gephiswissarmyknife.graph.filters.Filters;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
@@ -254,9 +253,10 @@ public class GraphServer {
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph);
-      Filters f = new Filters();
-      f.setGraphModel(gephiGraphWs.getGraphModel());
-      f.idNodeFilter("datascience", true);
+//Test Filterations
+//      Filters f = new Filters();
+//      f.setGraphModel(gephiGraphWs.getGraphModel());
+//      f.idNodeFilter("datascience", true);
       responseSigmaGraph(this.gephiGraph, routingContext, false);
    });   
   }
