@@ -38,23 +38,21 @@ public class Utils {
           String label = (String) n.getLabel();
           double x = n.x();
           double y = n.y();
-          double size = n.size()+10;
+          double size = n.size();
           String color;
           if (autoColor) {
-            int R = (int)(Math.random()*256);
-            int G = (int)(Math.random()*256);
-            int B= (int)(Math.random()*256);
-            color = "rgb(" + R + "," + G + "," + B + ")"; 
+            int R = (int)(Math.random()*200);
+            int G = (int)(Math.random()*200);
+            int B= (int)(Math.random()*200);
+            color = "rgb(" + R + "," + G + "," + B + ")";
+            n.setColor(new Color(R,G,B));
           }else {
- 
+            //System.out.println(n.r()+"\t"+n.g()+"\t"+n.b());
             //original colors
             color = "rgb(" + (int)((n.r()*255)) + "," + (int)(n.g()*255) + "," + (int)(n.b()*255) + ")";
             if (n.getLabel().equalsIgnoreCase("datascience")) {
-              System.out.println(n.getColor());
               System.out.println(color+ " " + n.r());
             }
-            
-
           }
           
           SigmaNode sigmaNode = new SigmaNode(id);
@@ -96,6 +94,7 @@ public class Utils {
           String color;
           if (autoColor) {
             color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+            e.setColor(new Color(205,220,213));
           }else {
             //original colors
             color = "rgb(" + (int)((e.r()*255)) + "," + (int)(e.g()*255) + "," + (int)(e.b()*255) + ")";

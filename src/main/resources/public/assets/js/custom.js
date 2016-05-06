@@ -62,7 +62,6 @@ $( document ).ready(function() {
 		checkboxClass: 'icheckbox_square-grey',
 		increaseArea: '20%' // optional
    }); // End of checkbox.
-    console.log( "ready!" );
 	$(".user-nav-slide").click(function () {
 		if ($(".user-menu-container").hasClass("closed")) {
 			$(".user-menu-container").animate({"left": "0px"});
@@ -107,6 +106,7 @@ $(".degree-selectm #selectdeg").change(function(){
 
 		if($(this).attr("value")=="degree_1"){
 					var $left = $(".left-grad");
+					e.preventDefault();
 					$("#ex1").gradientPicker({
 						change: function(points, styles) {
 							for (i = 0; i < styles.length; ++i) {
@@ -649,19 +649,37 @@ $(".degree-selectm #selectdeg").change(function(){
             var me = ui.draggable.clone();
             ui.draggable.draggable("disable");
             me.appendTo(this)
-                .addClass("filternewClass");
+
 	        //Add remove icon
 			$("#filter_querycontainer span:last-child.easytree-node").append("<span class='removebtn'></span>");
+			$('#filter_btn_id').prop("disabled", false);
 			//onclick remove  
 			$('.removebtn').on('click',function(){
-	   		  $(this).parents('.easytree-node').remove();
 	   		  ui.draggable.draggable("enable");
+	   		  var href = $(this).prev('span.easytree-title').find('a').attr('href');
+	   		  var href_cont = href+'_cont';
+	   		  $(href_cont).hide();
+	   		  $(this).parents('.easytree-node').remove();
+	   		  $('#select_btn_id').prop("disabled", true);
+	   		  //$('#filter_btn_id').prop("disabled", true);
+	 	 	});
 
-	 	 	});  		
+	 	 	$('#filter_querycontainer .easytree-title a').on('click',function(){
+   			  $('#select_btn_id').prop("disabled", false);
+	 	 	}); 
+	 	 		
         }
 
     });
-   
+	//Filter button operations
+    $('#filter_btn_id').on('click',function(e){
+    	e.preventDefault();
+		$('#filter_querycontainer').find('a').each(function() {	
+		    var filter_href = $(this).attr('href');
+		    console.log(filter_href);
+	  	});
+	  
+	});
 
      ///////Range slider for range///////////
      //Range slider for Attributes Range filter 
@@ -745,18 +763,18 @@ $(".degree-selectm #selectdeg").change(function(){
      // }
   	//});
     //Parameter load content
-    $("#queries_panel").on('click', 'a', function() {
+    $("#filter_querycontainer").on('click', 'a', function() {
     	
   	  //var content_id = $(this).attr('href');
       //$('#parameter_load').hide().html($(content_id).html()).show(500);
         if($(this).attr('href')=="#id_str_edge"){
         	
             $("#id_str_edge_cont").show();
-            $('#id_str_node_cont, #parameter_load, #label_str_edge_cont,label_str_node_cont,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_node_cont, #parameter_load, #label_str_edge_cont,#label_str_node_cont,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         }
         else if($(this).attr('href')=="#id_str_node"){
 			$("#id_str_node_cont").show();
-            $('#id_str_edge_cont, #parameter_load, #label_str_edge_cont,label_str_node_cont ,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
+            $('#id_str_edge_cont, #parameter_load, #label_str_edge_cont,#label_str_node_cont ,#weight_float_edge_cont, #ego_net_topology_filter_cont, #deg_range_topology_filter_cont, #in_deg_topology_filter_cont, #kcore_topology_filter_cont, #mutualdeg_range_topology_filter_cont, #neighbrs_net_topology_filter_cont, #out_degree_range_topology_filter_cont').hide();
         } 
         else if($(this).attr('href')=="#label_str_edge"){
 			$("#label_str_edge_cont").show();

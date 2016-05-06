@@ -18,7 +18,7 @@ for (k in index)
 /*
 * GLOBAL variables/settings
 */
-var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.2, "labelThreshold": 3, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 1, "maxEdgeSize": 20, "minNodeSize": 5, "maxNodeSize": 60, "labelThreshold": 2, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 var isGraphExists = false;
@@ -37,6 +37,27 @@ $(".layout_form").submit(function (e) {
     $(".graphLoader-run").css('display','block');
     requestAjax ("/layout", $("#" + this.id).serialize(), graphJsonHandler);
     $(".graphLoader-run").css('display','none');
+});
+
+
+/*
+*
+* Select Filter Submit Operations
+*/
+$('#filter_querycontainer').selectable();
+$('#select_btn_id').on('click',function(e){
+  $('.filterLoader').css('display','block');
+  e.preventDefault();
+    $('#filter_querycontainer .ui-widget-content.ui-selected').find('a').each(function() {
+       var selected_filter = $(this).attr('href');
+      //  console.log(selected_filter);
+        //send ajax request to see filter selection $("#" + this.id).serialize()
+        requestAjax ("/selectFilter", $(selected_filter+'_form').serialize(), function(graphData){
+          graphJsonHandler(graphData);
+          $('.filterLoader').css('display','none');
+        });
+  });
+      
 });
 
 /*
@@ -463,7 +484,7 @@ function enableDisableSearchBtn(enable){
 function graphJsonHandler (graphData){
   nodesObject = JSON.parse(graphData);
 //  alert(nodesObject);
- //  console.log(nodesObject);
+//   console.log(nodesObject);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
       $('#original_graph_load_form input[type="submit"]').prop('disabled', false);

@@ -773,9 +773,9 @@
         <li class="isFolder isExpanded" title="Bookmarks">
             Library
             <ul>
-               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_edge"> Id String (Edge)</a></li>
-               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_node"> Id String (Node)</a></li>
-               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_edge"> Label String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_edge" class="info_link"> Id String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_node" class="info_link"> Id String (Node)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_edge" class="info_link"> Label String (Edge)</a></li>
                <li id="" class="ui-widget-content filterdrag"><a href="#label_str_node"> Label String (Node)</a></li>
                <li id="" class="ui-widget-content filterdrag"><a href="#weight_float_edge"> Weight Float (Edge)</a></li>
 			   
@@ -838,16 +838,18 @@
 							<div id="id_str_edge_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (ID) Edge Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
-									<form>
+									<form id="id_str_edge_form">
 										<table class="table table-parameter">
 											<tr>
 												<td>Pattren:</td>
-												<td><input type="number" max="8" min="0" value="0"></td>
+												<td><input type="text" placeholder="Edge ID"  value="" name="edgeid" required></td>
 											</tr>
 											<tr>
 												<td>Use Regex</td>
-												<td><input type="checkbox" max="8" min="0" value="0"></td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="edgeIdStr"></td>
 											</tr>
+											
 										</table>
 									</form>
 								</div>
@@ -855,16 +857,18 @@
 							<div id="id_str_node_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (ID) Node Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
-									<form>
+									<form id="id_str_node_form">
 										<table class="table table-parameter">
 											<tr>
 												<td>Pattren:</td>
-												<td><input type="number" max="8" min="0" value="0"></td>
+												<td><input type="text" placeholder="Node ID"  value="" name="nodeid" required></td>
 											</tr>
 											<tr>
 												<td>Use Regex</td>
-												<td><input type="checkbox" max="8" min="0" value="0"></td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="nodeIdStr"></td>
 											</tr>
+											
 										</table>
 									</form>
 								</div>
@@ -872,16 +876,18 @@
 							<div id="label_str_edge_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (Label) Edge Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
-									<form>
+									<form id="label_str_edge_form">
 										<table class="table table-parameter">
 											<tr>
 												<td>Pattren:</td>
-												<td><input type="number" max="8" min="0" value="0"></td>
+												<td><input type="text" placeholder="Edge Label"  value="" name="edgelabel" required></td>
 											</tr>
 											<tr>
 												<td>Use Regex</td>
-												<td><input type="checkbox" max="8" min="0" value="0"></td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="edgeLabelStr"></td>
 											</tr>
+											
 										</table>
 									</form>
 								</div>
@@ -889,15 +895,16 @@
 							<div id="label_str_node_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Equal (Label) Node Settings</h6></div>
 								<div class="table-responsive equal_filter_div">
-									<form>
+									<form id="label_str_node_form">
 										<table class="table table-parameter">
 											<tr>
 												<td>Pattren:</td>
-												<td><input type="number" max="8" min="0" value="0"></td>
+												<td><input type="text" placeholder="Node Label"  value="" name="nodelabel" required></td>
 											</tr>
 											<tr>
 												<td>Use Regex</td>
-												<td><input type="checkbox" max="8" min="0" value="0"></td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="nodeLabelStr"></td>
 											</tr>
 										</table>
 									</form>
@@ -910,7 +917,8 @@
 									<table class="table table-parameter">
 										<tr>
 											<td>Value:</td>
-											<td><input  type="number" id="spinner-weight" min="1.0" max="3.0" value="1"></td>
+											<td><input  type="text" id="spinner-weight" placeholder="Weight Float Edge" value="" name="WeightFloatEdge" required></td>
+
 										</tr>
 									</table>	
 									</form>
@@ -1079,10 +1087,16 @@
           </div>
 		  <!-- End of Panel parameters -->
 
-			<div class="filter_btn_div" ><input  class="btn btn-primary marginbottom10 pull-right" type="submit" value="Filter"></div>
-			<div class="select_btn_div" ><input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Select"></div>
-						</div>
-						<div class="tab-pane fade " id="statistics">
+			<div class="filter_btn_div" >
+				<input  class="btn btn-primary marginbottom10 pull-right" id="filter_btn_id" type="submit" value="Filter" disabled="disable">
+				
+			</div>
+			<div class="select_btn_div" >
+			<img src="./images/ringloader.gif" class="filterLoader">
+				<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Select" disabled="disable" id="select_btn_id">
+			</div>
+		</div>
+		<div class="tab-pane fade " id="statistics">
 						
 		  <div class="panel-group">
 			<div class="panel panel-default margin10">

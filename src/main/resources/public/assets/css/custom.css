@@ -789,6 +789,10 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   border:none;
   background-color: none;
 }
+
+#filter_querycontainer .easytree-title a{
+  
+}
 #filter_querycontainer span.easytree-node {
   border:0 none;
   display: inline-block;
@@ -1195,8 +1199,10 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   margin-left: 150px;
   margin-top: 5px;
 }
+
 .select_btn_div input{
   margin-right: 5px;
+  
 }
 /******************Inline css code goes here*****************/
 #chartContainer{
@@ -1225,6 +1231,20 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 #container{
   height: 695px;
   display: block;
+}
+/********************css for selectable***********/
+#filter_querycontainer .ui-selected a{ 
+  font-weight: bold;
+  color: #ffffff !important;
+  font-style: italic;
+}
+.filterLoader{
+  width:20px;
+  height:20px;
+  display:none;
+  float: left;
+  margin-left: 100px;
+  margin-top: 5px;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

@@ -22,6 +22,7 @@ import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
+import org.projectspinoza.gephiswissarmyknife.server.graphoperations.FiltersWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
@@ -47,6 +48,7 @@ public class GraphServer {
   private GraphGenerator graphGen;
   private DataImporter dataImporter;
   private GraphBackup graphBackup;
+  private FiltersWrap filters;
   
   public GraphServer() {
     setVertx(Vertx.vertx());
@@ -243,6 +245,18 @@ public class GraphServer {
 
     });
     
+    
+    /*
+     * selection filters
+     * 
+     * */
+    router.getWithRegex("/selectFilter.*").method(HttpMethod.GET).handler(routingContext -> {
+      filters.setGraphModel(this.gephiGraphWs.getGraphModel());
+      filters.applyFilter(routingContext.request().params(), false);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
+    });
+    
+    
     /*
      * search
      * 
@@ -253,11 +267,7 @@ public class GraphServer {
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph);
-//Test Filterations
-//      Filters f = new Filters();
-//      f.setGraphModel(gephiGraphWs.getGraphModel());
-//      f.idNodeFilter("datascience", true);
-      responseSigmaGraph(this.gephiGraph, routingContext, false);
+      responseSigmaGraph(this.gephiGraph, routingContext, true);
    });   
   }
   
@@ -272,13 +282,11 @@ public class GraphServer {
   
 
   private void uploadGraphFile(RoutingContext routingContext, boolean isGraphFile) {
-
     File uploadsDir = new File("uploads");
     try {
       if (!uploadsDir.exists()) {
         uploadsDir.mkdir();
       }
-
       routingContext.request().setExpectMultipart(true);
 
       routingContext.request().uploadHandler(
@@ -405,6 +413,15 @@ public class GraphServer {
   @Inject
   public void setGraphBackup(GraphBackup graphBackup) {
     this.graphBackup = graphBackup;
+  }
+
+  public FiltersWrap getFilters() {
+    return filters;
+  }
+
+  @Inject
+  public void setFilters(FiltersWrap filters) {
+    this.filters = filters;
   }
 
 }

@@ -72,51 +72,79 @@ public class Filters {
     Node[] nodes = graph.getNodes().toArray();
     boolean nodeMatched = false;
     for (int i = 0; i < nodes.length; i++) {
-      nodeMatched = this.equalStrFilterNode.evaluate(graph, nodes[i]);
-      /*
-       * See if node Matched then Remove it.
-       */
-      if (nodeMatched) {
-        if (removeNode){
-          graph.removeNode(nodes[i]);
-          continue;
+      
+      //regex exp are not working properly so we are doing it manually
+      if(useRegex){
+        if (nodes[i].getAttribute(this.attributeColumn).toString().contains(id)){
+          applyFilterNode(nodes[i]);
         }
-        EdgeIterable edges = graph.getEdges(nodes[i]);
-        for (Edge e : edges){
-          e.setColor(Color.red);
+      }else {
+        nodeMatched = this.equalStrFilterNode.evaluate(graph, nodes[i]);
+        /*
+         * See if node Matched then Remove it.
+         */
+        if (nodeMatched) {
+          if (removeNode){
+            graph.removeNode(nodes[i]);
+            continue;
+          }
+          applyFilterNode(nodes[i]);
         }
-        nodes[i].setColor(Color.white);
       }
     }
   }
   
-  public void edgeColFilter (String column, String id, boolean useRegex, boolean removeEdge) {
-	 this.attributeColumn = graphModel.getEdgeTable().getColumn(column);
-	 this.equalStrFilterEdge = new AttributeEqualBuilder.EqualStringFilter.Edge(attributeColumn);
-	 this.equalStrFilterEdge.setColumn(attributeColumn);
-	 this.equalStrFilterEdge.setPattern(id);
-	 this.equalStrFilterEdge.setUseRegex(useRegex);
-	 this.graph = this.graphModel.getGraph();
-	    Edge[] edges = graph.getEdges().toArray();
-	    boolean edgeMatched = false;
-	    for (int i = 0; i < edges.length; i++) {
-	      edgeMatched = this.equalStrFilterEdge.evaluate(graph, edges[i]);
-	      /*
-	       * See if node Matched.
-	       */
-	      if (edgeMatched) {
-	        if (removeEdge) {
-	          graph.removeEdge(edges[i]);
-	        }else {
-	          edges[i].setColor(Color.red);
-	          edges[i].setWeight(10d);
-	          edges[i].getSource().setColor(Color.red);
-	          edges[i].getTarget().setColor(Color.red);
-	        }
-	      }
-	    }
+  private void applyFilterNode (Node node){
+    EdgeIterable edges = graph.getEdges(node);
+    for (Edge e : edges){
+      e.setColor(Color.red);
+      e.setWeight(e.getWeight()+5);
+    }
+    node.setColor(Color.red);
+    node.setSize(10f);
   }
   
+  public void edgeColFilter(String column, String id, boolean useRegex,boolean removeEdge) {
+    
+    this.attributeColumn = graphModel.getEdgeTable().getColumn(column);
+    this.equalStrFilterEdge = new AttributeEqualBuilder.EqualStringFilter.Edge(
+        attributeColumn);
+    this.equalStrFilterEdge.setColumn(attributeColumn);
+    this.equalStrFilterEdge.setPattern(id);
+    this.equalStrFilterEdge.setUseRegex(useRegex);
+    this.graph = this.graphModel.getGraph();
+    Edge[] edges = graph.getEdges().toArray();
+    boolean edgeMatched = false;
+    for (int i = 0; i < edges.length; i++) {
+      
+      // regex exp are not working properly so we are doing it manually
+      if (useRegex) {
+        if (edges[i].getAttribute(this.attributeColumn).toString().contains(id)) {
+          applyFilterEdge(edges[i]);
+        }
+      } else {
+
+        edgeMatched = this.equalStrFilterEdge.evaluate(graph, edges[i]);
+        /*
+         * See if node Matched.
+         */
+        if (edgeMatched) {
+          if (removeEdge) {
+            graph.removeEdge(edges[i]);
+          } else {
+            applyFilterEdge(edges[i]);
+          }
+        }
+      }
+    }
+  }
+  
+  private void applyFilterEdge (Edge edge){
+    edge.setColor(Color.red);
+    edge.setWeight(edge.getWeight()+10);
+    edge.getSource().setColor(Color.red);
+    edge.getTarget().setColor(Color.red);
+  }
   
   public Graph removePercentageNodes(String column, double threshhold, String columnValue) {
     
