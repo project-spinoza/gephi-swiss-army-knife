@@ -1,6 +1,11 @@
 package org.projectspinoza.gephiswissarmyknife.graph.statistics;
 
+import java.util.Arrays;
+
+import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
+import org.gephi.graph.api.Node;
+import org.gephi.graph.api.NodeIterable;
 import org.gephi.statistics.plugin.ClusteringCoefficient;
 import org.gephi.statistics.plugin.ConnectedComponents;
 import org.gephi.statistics.plugin.Degree;
@@ -91,6 +96,34 @@ public class Statistics {
     pagerank.setUseEdgeWeight(false);
     pagerank.execute(this.graphModel);
   }
+  
+  public String calculateMaxDegrees (){
+    averageDegree();
+    Graph graph = this.graphModel.getGraph();
+    double[] degree = new double[graph.getNodeCount()];
+    double[] indegree = new double[graph.getNodeCount()];
+    double[] outdegree = new double[graph.getNodeCount()];
+    
+    int counter = 0;
+    
+    NodeIterable nodes = graph.getNodes();
+    for (Node node : nodes){
+      degree[counter] = Double.parseDouble(node.getAttribute("degree").toString());
+      indegree[counter] = Double.parseDouble(node.getAttribute("indegree").toString());
+      outdegree[counter] = Double.parseDouble(node.getAttribute("outdegree").toString());
+      counter++;
+    }
+    Arrays.sort(degree);
+    Arrays.sort(indegree);
+    Arrays.sort(outdegree);
+    
+    String respJson = "{\"degree\":"+"\""+(int)degree[0]+","+(int)degree[degree.length-1]+"\","+
+                        "\"indegree\":"+"\""+(int)indegree[0]+","+(int)indegree[indegree.length-1]+"\","+
+                        "\"outdegree\":"+"\""+(int)outdegree[0]+","+(int)outdegree[outdegree.length-1]+
+                        "\"}";
+    return respJson;
+  }
+  
   
   public GraphModel getGraphModel() {
     return graphModel;

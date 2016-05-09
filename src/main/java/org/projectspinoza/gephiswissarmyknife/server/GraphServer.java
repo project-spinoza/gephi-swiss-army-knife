@@ -22,6 +22,7 @@ import org.projectspinoza.gephiswissarmyknife.configurations.ServerConfig;
 import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.graph.GephiGraph;
 import org.projectspinoza.gephiswissarmyknife.graph.GraphGenerator;
+import org.projectspinoza.gephiswissarmyknife.graph.statistics.Statistics;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.FiltersWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.LayoutsWrap;
 import org.projectspinoza.gephiswissarmyknife.server.graphoperations.StatisticsWrap;
@@ -49,6 +50,7 @@ public class GraphServer {
   private DataImporter dataImporter;
   private GraphBackup graphBackup;
   private FiltersWrap filters;
+  private Statistics statistics;
   
   public GraphServer() {
     setVertx(Vertx.vertx());
@@ -256,6 +258,15 @@ public class GraphServer {
       responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
+    /*
+     * filter ranges for degree, indegree, outdegree
+     * 
+     * */
+    router.getWithRegex("/filterRanges.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.statistics.setGraphModel(this.gephiGraphWs.getGraphModel());
+      String resp = this.statistics.calculateMaxDegrees();
+      routingContext.response().end(resp);
+    });
     
     /*
      * search
@@ -422,6 +433,15 @@ public class GraphServer {
   @Inject
   public void setFilters(FiltersWrap filters) {
     this.filters = filters;
+  }
+
+  public Statistics getStatistics() {
+    return statistics;
+  }
+
+  @Inject
+  public void setStatistics(Statistics statistics) {
+    this.statistics = statistics;
   }
 
 }

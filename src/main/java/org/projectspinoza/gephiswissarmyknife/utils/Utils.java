@@ -51,7 +51,6 @@ public class Utils {
             //original colors
             color = "rgb(" + (int)((n.r()*255)) + "," + (int)(n.g()*255) + "," + (int)(n.b()*255) + ")";
             if (n.getLabel().equalsIgnoreCase("datascience")) {
-              System.out.println(color+ " " + n.r());
             }
           }
           

@@ -87,7 +87,7 @@ public class GraphGenerator {
 	    if (nodesMap.containsKey(node[0])) {
 	      List <Object> list = nodesMap.get(node[0]);
 	      source = (Node) list.get(0);
-	      int size = Integer.parseInt(list.get(1).toString())+2;
+        float size = (float) (Double.parseDouble(list.get(1).toString())+1);
 	      source.setSize(size);
 	      list.add(0,source);
 	      list.add(1,size);
@@ -97,17 +97,17 @@ public class GraphGenerator {
 	       source.setLabel(node[0]);
          source.setX((float) (Math.random() * ( 200 - 0 )));
          source.setY((float) (Math.random() * ( 200 - 0 )));
-	       source.setSize(5f);
+	       source.setSize(3f);
 	       List <Object> list = new ArrayList<Object>();
 	       list.add(0,source);
-	       list.add(1,5);
+	       list.add(1,3);
 	       nodesMap.put(node[0], list);
 	    }
 	    
       if (nodesMap.containsKey(node[1])) {
         List <Object> list = nodesMap.get(node[1]);
         target = (Node) list.get(0);
-        int size = Integer.parseInt(list.get(1).toString())+2;
+        float size = (float) (Double.parseDouble(list.get(1).toString())+1);
         target.setSize(size);
         list.add(0,target);
         list.add(1,size);
@@ -117,16 +117,16 @@ public class GraphGenerator {
         target.setLabel(node[1]);
         target.setX((float) (Math.random() * ( 200 - 0 )));
         target.setY((float) (Math.random() * ( 200 - 0 )));
-        target.setSize(5f);
+        target.setSize(3f);
         List <Object> list = new ArrayList<Object>();
         list.add(0,target);
-        list.add(1,5);
+        list.add(1,3);
         nodesMap.put(node[1], list);
      }
       if (edgesMap.containsKey(node[0]+"-"+node[1])) {
         List <Object> list = edgesMap.get(node[0]+"-"+node[1]);
         edge = (Edge) list.get(0);
-        int weight = Integer.parseInt(list.get(1).toString())+2;
+        Double weight = Double.parseDouble(list.get(1).toString())+0.5;
         edge.setWeight(weight);
         list.add(0,edge);
         list.add(1,weight);
@@ -134,10 +134,10 @@ public class GraphGenerator {
       }else {
         edge = graphModel.factory().newEdge(source, target,1, true);
         edge.setLabel(node[0]+"-"+node[1]);
-        edge.setWeight(2f);
+        edge.setWeight(1f);
         List <Object> list = new ArrayList<Object>();
         list.add(0,edge);
-        list.add(1,2);
+        list.add(1,1);
         edgesMap.put(node[0]+"-"+node[1], list);
      }
 	  }

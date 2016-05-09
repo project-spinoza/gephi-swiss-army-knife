@@ -11,6 +11,7 @@ import org.gephi.filters.plugin.attribute.AttributeEqualBuilder.EqualNumberFilte
 import org.gephi.filters.plugin.attribute.AttributeEqualBuilder.EqualStringFilter;
 import org.gephi.filters.plugin.edge.EdgeWeightBuilder.EdgeWeightFilter;
 import org.gephi.filters.plugin.edge.SelfLoopFilterBuilder.SelfLoopFilter;
+import org.gephi.filters.plugin.graph.DegreeRangeBuilder.DegreeRangeFilter;
 import org.gephi.filters.plugin.graph.EgoBuilder.EgoFilter;
 import org.gephi.filters.plugin.graph.GiantComponentBuilder.GiantComponentFilter;
 import org.gephi.filters.plugin.graph.InDegreeRangeBuilder.InDegreeRangeFilter;
@@ -24,6 +25,8 @@ import org.gephi.graph.api.EdgeIterable;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
+import org.gephi.graph.api.NodeIterable;
+import org.gephi.statistics.plugin.Degree;
 
 public class Filters {
   
@@ -146,6 +149,59 @@ public class Filters {
     edge.getTarget().setColor(Color.red);
   }
   
+  
+  /*
+   * 
+   * Filters edges within specified range.
+   * 
+   * */
+  public Graph edgeWeightBuilder(Range range, boolean removeEdge){
+    EdgeWeightFilter edgeWeightFilter =new EdgeWeightFilter();
+    this.graph = this.graphModel.getGraph();
+    edgeWeightFilter.init(this.graph);
+    edgeWeightFilter.setRange(range);
+    Edge[] edges = this.graph.getEdges().toArray();
+    boolean boolInRange=false;
+    for(int i=0;i<edges.length;i++){
+      boolInRange = edgeWeightFilter.evaluate(this.graph, edges[i]);
+      if(boolInRange){
+          if (removeEdge) {
+            this.graph.removeEdge(edges[i]);
+          } else {
+            edges[i].setColor(Color.red);
+          }   
+      }
+    }
+    return this.graph;
+  }
+  
+  
+  /*
+   * 
+   * Degree range filter
+   * 
+   * */
+  
+  public Graph degreeRangeFilter(Range range, boolean remove){
+    boolean boolInRange =false;
+    DegreeRangeFilter degreeFilter = new DegreeRangeFilter();
+    this.graph = this.graphModel.getGraph();
+    degreeFilter.init(this.graph);
+    degreeFilter.setRange(range);
+    Node[] nodes = this.graph.getNodes().toArray();
+    for(int i=0;i<nodes.length;i++){
+      boolInRange = degreeFilter.evaluate(this.graph, nodes[i]);
+      if(boolInRange == true){
+        if (remove){
+          this.graph.removeNode(nodes[i]);
+        }else{
+          nodes[i].setColor(Color.red);
+        }
+      }
+    }
+    return this.graph;
+  }
+  
   public Graph removePercentageNodes(String column, double threshhold, String columnValue) {
     
     this.attributeColumn = graphModel.getEdgeTable().getColumn(column);
@@ -203,27 +259,7 @@ public class Filters {
     return graph;
   }
   
-  /*
-   * 
-   * TO BE REFINED.
-   * */
-  public Graph edgeWeightBuilder(Graph graph,Range range){
-    EdgeWeightFilter filter =new EdgeWeightFilter();
-    filter.init(graph);
-    filter.setRange(range);
-    Edge[] edges = graph.getEdges().toArray();
-    boolean boolInRange=false;
-    for(int i=0;i<edges.length;i++){
-      boolInRange = filter.evaluate(graph, edges[i]);
-      if(boolInRange){
-        continue;
-      }
-      else{
-        graph.removeEdge(edges[i]);
-      }
-    }
-    return graph;
-  }
+
   
   public Graph kCoreFilter(Graph graph,int kvalue){
     KCoreFilter filter = new KCoreFilter();
@@ -360,6 +396,17 @@ public class Filters {
 //  }
   
   public void weightFilter (float weight) {
+    Degree d = new Degree();
+    graph = this.graphModel.getGraph();
+    d.execute(graph);
+    
+    NodeIterable nodes = this.graph.getNodes();
+    for (Node node : nodes){
+      for (String attrKey : node.getAttributeKeys()) {
+        System.out.println(attrKey);
+      }
+      break;
+    }
     
   }
   

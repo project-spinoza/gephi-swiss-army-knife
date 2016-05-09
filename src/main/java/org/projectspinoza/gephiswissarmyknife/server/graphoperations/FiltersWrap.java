@@ -2,6 +2,7 @@ package org.projectspinoza.gephiswissarmyknife.server.graphoperations;
 
 import io.vertx.core.MultiMap;
 
+import org.gephi.filters.api.Range;
 import org.gephi.graph.api.GraphModel;
 import org.projectspinoza.gephiswissarmyknife.graph.filters.Filters;
 
@@ -48,7 +49,15 @@ public class FiltersWrap {
        } else {
          filters.nodeColFilter("label", params.get("nodelabel"), false , remove);
        }
-       break;       
+       break;
+     case "weightFloatEdge":
+       filters.edgeWeightBuilder(new Range(0d,Double.parseDouble(params.get("weightFloatEdge"))), remove);
+       break;
+     case "degreeRange":
+       int lowerLmt = Integer.parseInt(params.get("degreeRange").split(",")[0]);
+       int upperLmt = Integer.parseInt(params.get("degreeRange").split(",")[1]);
+       filters.degreeRangeFilter(new Range(lowerLmt, upperLmt), remove);
+       break;
      }
   }
 

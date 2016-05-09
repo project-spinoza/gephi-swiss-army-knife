@@ -1246,6 +1246,24 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   margin-left: 100px;
   margin-top: 5px;
 }
+/***************css for spinner ****************/
+.spinner-table .td-spinner-label{
+  width: 50px;
+}
+.spinner-table .td-spinner-val{
+  width: 190px;
+}
+.spinner-table .ui-spinner-input{
+  width: 120px;
+  padding: 5x;
+}
+.spinner-table .tr-spinner-wd{
+  width: 240px;
+  height: 38px;
+}
+.spinner-table .ui-spinner-button .ui-icon-triangle-1-s{
+  margin-left: 0px;
+}
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #bababa;

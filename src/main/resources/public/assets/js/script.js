@@ -18,7 +18,7 @@ for (k in index)
 /*
 * GLOBAL variables/settings
 */
-var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 1, "maxEdgeSize": 20, "minNodeSize": 5, "maxNodeSize": 60, "labelThreshold": 2, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.5, "maxEdgeSize": 5, "minNodeSize": 3, "maxNodeSize": 25, "labelThreshold": 2, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 var isGraphExists = false;
@@ -38,8 +38,6 @@ $(".layout_form").submit(function (e) {
     requestAjax ("/layout", $("#" + this.id).serialize(), graphJsonHandler);
     $(".graphLoader-run").css('display','none');
 });
-
-
 /*
 *
 * Select Filter Submit Operations
@@ -52,6 +50,8 @@ $('#select_btn_id').on('click',function(e){
        var selected_filter = $(this).attr('href');
       //  console.log(selected_filter);
         //send ajax request to see filter selection $("#" + this.id).serialize()
+        // alert($('#range-slider-degree').val());
+        //alert($(selected_filter+'_form').serialize());
         requestAjax ("/selectFilter", $(selected_filter+'_form').serialize(), function(graphData){
           graphJsonHandler(graphData);
           $('.filterLoader').css('display','none');
@@ -59,7 +59,6 @@ $('#select_btn_id').on('click',function(e){
   });
       
 });
-
 /*
 *
 *Statistics Submit Operations
@@ -83,6 +82,7 @@ $("#graphFileUploadForm").submit(function (e) {
     graphJsonHandler(graphData);
     $(".popup-close").click();
     $("#graphLoader").css('display','none');
+    getDegreeRanges();
   });
 });
 
@@ -193,7 +193,6 @@ $("#elasticsearchForm").submit(function (e) {
         $('#elasticsearchFormSubmit').val("Connect");
         enableDisableSearchBtn(false);
         isElasticsearchConnected = false;
-        alert("here "+isElasticsearchConnected);
         $('#search-form input[type="text"]').attr("placeholder", "Not connected to ES server.");
       }
     } else {
@@ -216,14 +215,78 @@ $("#search-form").submit(function (e) {
   requestAjax ("/search","searchStr="+searchVal+"&datasource="+datasource+"", function(graphData) {
     $("img#searchLoader").css('visibility','hidden');
     graphJsonHandler(graphData);
+    getDegreeRanges();
   });
 });
 /*
 *
 *Load Test graph
 */
-
 //requestAjax ("http://localhost:9090/ajax", {}, graphJsonHandler);
+
+/*
+*
+* get Degree ranges.
+*/
+
+function getDegreeRanges(){
+  requestAjax ("/filterRanges", {}, function (ranges){
+    resp = JSON.parse(ranges);
+    var from = parseInt(resp.degree.split(',')[0]);
+    var to = parseInt(resp.degree.split(',')[1]);
+
+    $('#deg_range_topology_filter_form').empty();
+    $('#deg_range_topology_filter_form').append('<input type="hidden" id="range-slider-degree" class="range-slider" name="degreeRange"/>');
+    $('#deg_range_topology_filter_form').append('<input type="hidden" name="filterId" value="degreeRange">');
+    $('#range-slider-degree').jRange({
+     from: from,
+     to: to,
+     step: 1,
+     format: '%s',
+     width: 150,
+     showLabels: true,
+     isRange : true,
+    }); 
+    $('#range-slider-degree').jRange('setValue', resp.degree);
+
+
+    //indegree
+    var from = parseInt(resp.indegree.split(',')[0]);
+    var to = parseInt(resp.indegree.split(',')[1]);
+
+    $('#in_deg_topology_filter_form').empty();
+    $('#in_deg_topology_filter_form').append('<input type="hidden" id="range-slider-in-degree" class="range-slider" name="inDegreerange" value="1" />');
+    $('#in_deg_topology_filter_form').append('<input type="hidden" name="filterId" value="indegreeRange">');
+    $('#range-slider-in-degree').jRange({
+     from: from,
+     to: to,
+     step: 1,
+     format: '%s',
+     width: 150,
+     showLabels: true,
+     isRange : true,
+    }); 
+    $('#range-slider-degree').jRange('setValue', resp.indegree);
+
+    var from = parseInt(resp.outdegree.split(',')[0]);
+    var to = parseInt(resp.outdegree.split(',')[1]);
+
+    $('#out_degree_range_topology_filter_form').empty();
+    $('#out_degree_range_topology_filter_form').append('<input type="hidden" id="range-slider-out-degree" class="range-slider" name="outDegreerange" value="1" />');
+    $('#out_degree_range_topology_filter_form').append('<input type="hidden" name="filterId" value="outdegreeRange">');
+    $('#range-slider-out-degree').jRange({
+     from: from,
+     to: to,
+     step: 1,
+     format: '%s',
+     width: 150,
+     showLabels: true,
+     isRange : true,
+    }); 
+    $('#range-slider-degree').jRange('setValue', resp.outdegree);
+
+  });
+}
 
 /*
 * @retrun ajax response

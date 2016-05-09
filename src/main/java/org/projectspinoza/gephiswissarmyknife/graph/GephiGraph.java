@@ -35,7 +35,7 @@ public class GephiGraph {
 
   private void init() {
     this.projectController.newProject();
-    setWorkspace(this.projectController.newWorkspace(projectController.getCurrentProject()));
+    setWorkspace(this.projectController.getCurrentWorkspace());
     this.setGraphModel(Lookup.getDefault().lookup(GraphController.class).getGraphModel());
     this.graphImporter = new GraphImporter();
     this.graphImporter.setWorkspace(getWorkspace());
