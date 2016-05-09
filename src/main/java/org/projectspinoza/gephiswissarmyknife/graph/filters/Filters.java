@@ -19,7 +19,6 @@ import org.gephi.filters.plugin.graph.KCoreBuilder.KCoreFilter;
 import org.gephi.filters.plugin.graph.MutualDegreeRangeBuilder.MutualDegreeRangeFilter;
 import org.gephi.filters.plugin.graph.OutDegreeRangeBuilder.OutDegreeRangeFilter;
 import org.gephi.graph.api.Column;
-import org.gephi.graph.api.DirectedGraph;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.EdgeIterable;
 import org.gephi.graph.api.Graph;
@@ -175,13 +174,11 @@ public class Filters {
     return this.graph;
   }
   
-  
   /*
    * 
    * Degree range filter
    * 
    * */
-  
   public Graph degreeRangeFilter(Range range, boolean remove){
     boolean boolInRange =false;
     DegreeRangeFilter degreeFilter = new DegreeRangeFilter();
@@ -202,8 +199,74 @@ public class Filters {
     return this.graph;
   }
   
+  /*
+   * 
+   * indegree range filter
+   * 
+   * */
+  public Graph inDegreeRangeFilter(Range range, boolean remove){
+    boolean boolInRange =false;
+    this.graph = this.graphModel.getGraph();
+    InDegreeRangeFilter inDegreeRangeFilter = new InDegreeRangeFilter();
+    inDegreeRangeFilter.init(this.graph);
+    inDegreeRangeFilter.setRange(range);
+    Node[] nodes = this.graph.getNodes().toArray();
+    for(int i=0;i<nodes.length;i++){
+      boolInRange = inDegreeRangeFilter.evaluate(this.graph, nodes[i]);
+      if(boolInRange == true){
+        if (remove){
+          this.graph.removeNode(nodes[i]);
+        }else{
+          nodes[i].setColor(Color.red);
+        }
+      }
+    }
+    return this.graph;
+  }
+  
+  /*
+   * 
+   * outdegree range filter
+   * 
+   * */
+  public Graph outDegreeRangeFilter(Range range, boolean remove){
+    boolean boolInRange =false;
+    this.graph = this.graphModel.getGraph();
+    OutDegreeRangeFilter outDegreeRangeFilter = new OutDegreeRangeFilter();
+    outDegreeRangeFilter.init(this.graph);
+    outDegreeRangeFilter.setRange(range);
+    Node[] nodes = this.graph.getNodes().toArray();
+    for(int i=0;i<nodes.length;i++){
+      boolInRange = outDegreeRangeFilter.evaluate(this.graph, nodes[i]);
+      if(boolInRange == true){
+        if (remove){
+          this.graph.removeNode(nodes[i]);
+        }else{
+          nodes[i].setColor(Color.red);
+        }
+      }
+    }
+    return this.graph;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   public Graph removePercentageNodes(String column, double threshhold, String columnValue) {
-    
     this.attributeColumn = graphModel.getEdgeTable().getColumn(column);
     this.graph = this.graphModel.getGraph();
     Node[] nodesN = sortgraphBasedonColoumnValue(this.getGraphModel().getGraphVisible(), attributeColumn);
@@ -306,47 +369,7 @@ public class Filters {
     return graph;
   }
   
-  public Graph inDegreeRangeFilter(Graph graph, Range range){
-    boolean boolInRange =false;
-    //DegreeRangeFilter degreeFilter = new DegreeRangeFilter();
-    InDegreeRangeFilter indegreerangeFilter = new InDegreeRangeFilter();
-    indegreerangeFilter.init(graph);
-    indegreerangeFilter.setRange(range);
-    Node[] nodes = graph.getNodes().toArray();
-    for(int i=0;i<nodes.length;i++){
-      boolInRange = indegreerangeFilter.evaluate(graph, nodes[i]);
-      if(boolInRange == true){
-        continue;
-      }
-      else{
-        graph.removeNode(nodes[i]);
-      }
-    }
-    return graph;
-  }
-  
-  public Graph outDegreeRangeFilter(Graph graph, Range range){
-    boolean boolInRange =false;
-    int count=0;
-    //DegreeRangeFilter degreeFilter = new DegreeRangeFilter();
-    OutDegreeRangeFilter outdegreerangeFilter = new OutDegreeRangeFilter();
-    outdegreerangeFilter.init(graph);
-    outdegreerangeFilter.setRange(range);
-    Node[] nodes = graph.getNodes().toArray();
-    for(int i=0;i<nodes.length;i++){
-      boolInRange = outdegreerangeFilter.evaluate(graph, nodes[i]);
-      if(boolInRange == true){
-        continue;
-      }
-      else{
-        count++;
-        System.out.println("Nodes outDegree :\t"+ count + "\t" + ((DirectedGraph)graph).getOutDegree(nodes[i]));
-        graph.removeNode(nodes[i]);
-      }
-    }
-    return graph;
-  }
-  
+
   public Graph egoFilter(Graph graph,String pattern, boolean boolSelfloop,int depth){
     EgoFilter filter = new EgoFilter();
     filter.setPattern(pattern);

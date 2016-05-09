@@ -20,7 +20,7 @@ public class FiltersWrap {
   public void applyFilter (MultiMap params, boolean remove){
 
     filters.setGraphModel(this.graphModel);
-
+    int lowerLmt,upperLmt;
     switch (params.get("filterId")) {
      case "edgeIdStr":
        if (params.contains("useregex")) {
@@ -54,9 +54,19 @@ public class FiltersWrap {
        filters.edgeWeightBuilder(new Range(0d,Double.parseDouble(params.get("weightFloatEdge"))), remove);
        break;
      case "degreeRange":
-       int lowerLmt = Integer.parseInt(params.get("degreeRange").split(",")[0]);
-       int upperLmt = Integer.parseInt(params.get("degreeRange").split(",")[1]);
+       lowerLmt = Integer.parseInt(params.get("degreeRange").split(",")[0]);
+       upperLmt = Integer.parseInt(params.get("degreeRange").split(",")[1]);
        filters.degreeRangeFilter(new Range(lowerLmt, upperLmt), remove);
+       break;
+     case "indegreeRange":
+       lowerLmt = Integer.parseInt(params.get("inDegreerange").split(",")[0]);
+       upperLmt = Integer.parseInt(params.get("inDegreerange").split(",")[1]);
+       filters.inDegreeRangeFilter(new Range(lowerLmt, upperLmt), remove);
+       break;
+     case "outdegreeRange":
+       lowerLmt = Integer.parseInt(params.get("outDegreerange").split(",")[0]);
+       upperLmt = Integer.parseInt(params.get("outDegreerange").split(",")[1]);
+       filters.outDegreeRangeFilter(new Range(lowerLmt, upperLmt), remove);
        break;
      }
   }
