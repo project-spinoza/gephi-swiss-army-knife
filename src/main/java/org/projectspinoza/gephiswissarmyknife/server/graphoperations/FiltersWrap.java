@@ -75,6 +75,9 @@ public class FiltersWrap {
          filters.egoFilter(params.get("node_id_ego"), false, Integer.parseInt(params.get("egoDepth").toString()));
        }
        break;
+     case "giantCompFilter":
+       filters.giantComponentFilter(remove);
+       break;
      }
   }
 

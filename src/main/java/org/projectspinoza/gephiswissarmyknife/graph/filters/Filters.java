@@ -265,7 +265,29 @@ public class Filters {
     return this.graph;
   }
 
-  
+  /*
+   * 
+   * giant component filter
+   * 
+   * */
+  public Graph giantComponentFilter(boolean remove){
+    GiantComponentFilter giantCompfilter = new GiantComponentFilter();
+    this.graph = this.graphModel.getGraph();
+    boolean boolStronglyConnected= false;
+    giantCompfilter.init(graph);
+    Node[] nodes = graph.getNodes().toArray();
+    for(int i=0;i<nodes.length;i++){
+      boolStronglyConnected = giantCompfilter.evaluate(this.graph, nodes[i]);
+      if(boolStronglyConnected){
+        if (remove){
+          this.graph.removeNode(nodes[i]);
+        }else{
+          nodes[i].setColor(Color.red);
+        }
+      }
+    }
+    return this.graph;
+  }
   
   
   
@@ -367,22 +389,7 @@ public class Filters {
   }
   
   
-  public Graph giantcomponentFilter(Graph graph){
-    GiantComponentFilter filter = new GiantComponentFilter();
-    boolean boolStronglyConnected= false;
-    filter.init(graph);
-    Node[] nodes = graph.getNodes().toArray();
-    for(int i=0;i<nodes.length;i++){
-      boolStronglyConnected = filter.evaluate(graph, nodes[i]);
-      if(boolStronglyConnected == true){
-        continue;
-      }
-      else{
-        graph.removeNode(nodes[i]);
-      }
-    }
-    return graph;
-  }
+
   
 
 
