@@ -250,6 +250,21 @@ public class Filters {
   }
   
   
+  /*
+   * 
+   * ego network filter
+   * 
+   * */
+  public Graph egoFilter(String id, boolean boolSelfloop,int depth){
+    EgoFilter egoFilter = new EgoFilter();
+    this.graph = this.graphModel.getGraph();
+    egoFilter.setPattern(id);
+    egoFilter.setDepth(depth);
+    egoFilter.setSelf(boolSelfloop);
+    this.graph = egoFilter.filter(this.graph);
+    return this.graph;
+  }
+
   
   
   
@@ -370,14 +385,6 @@ public class Filters {
   }
   
 
-  public Graph egoFilter(Graph graph,String pattern, boolean boolSelfloop,int depth){
-    EgoFilter filter = new EgoFilter();
-    filter.setPattern(pattern);
-    filter.setDepth(depth);
-    filter.setSelf(boolSelfloop);
-    graph = filter.filter(graph);
-    return graph;
-  }
 
 
 //  public void labelNodeFilter (String label, boolean useRegex) {

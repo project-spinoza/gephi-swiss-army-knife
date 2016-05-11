@@ -232,6 +232,8 @@ function getDegreeRanges(){
     var from = parseInt(resp.degree.split(',')[0]);
     var to = parseInt(resp.degree.split(',')[1]);
 
+    $('#maxDegree').val(to);
+    
     $('#deg_range_topology_filter_form').empty();
     $('#deg_range_topology_filter_form').append('<input type="hidden" id="range-slider-degree" class="range-slider" name="degreeRange"/>');
     $('#deg_range_topology_filter_form').append('<input type="hidden" name="filterId" value="degreeRange">');

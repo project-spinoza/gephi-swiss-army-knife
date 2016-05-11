@@ -929,7 +929,7 @@
 								<div>
 									<div class="parameter_content_range ">
 										<form id="deg_range_topology_filter_form">
-										 	<input type="hidden" id="range-slider-degree" class="range-slider" name="DegreeRange"/>
+										 	<input type="hidden" id="range-slider-degree" class="range-slider" name="degreeRange"/>
 											<input type="hidden" name="filterId" value="degreeRange">
 										</form>
 									</div>
@@ -939,21 +939,21 @@
 							<div id="ego_net_topology_filter_cont" class="parameter_load_class">
 								<div class="heading_parameter"><h6>Ego Network Settings</h6></div>
 								<div>
-								<form action="">
+								<form id="ego_net_topology_filter_form">
 									<table class="table-responsive table-parameter equal_filter_div">
 											<tr>
-												<td>Node ID:</td>
-												<td><input id="ego_id" type="text" name="node_id_ego" value=""></td>
-												<td><input type="button" name="ok_ego" value="OK" class="btn"> </td>
+											<td>Node ID:</td>
+											<td><input id="ego_id" type="text" name="node_id_ego" value=""></td>
+											<td><input type="hidden" name="filterId" value="egoNetwork"></td>
 											</tr>
 											<tr>
 												<td>Depth:</td>
-												<td><select id="select-depth_ego">
+												<td><select id="select-depth_ego" name="egoDepth">
 														<option value="1">1</option>
 														<option value="2">2</option>
 														<option value="3">3</option>
-														<option value="">Max</option>
-								                   </select> 
+														<option id="maxDegree">Max</option>
+								                   </select>
 								                </td>
 											</tr>
 											<tr>

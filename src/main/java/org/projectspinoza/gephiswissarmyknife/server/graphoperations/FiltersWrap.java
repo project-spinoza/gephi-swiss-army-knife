@@ -68,6 +68,13 @@ public class FiltersWrap {
        upperLmt = Integer.parseInt(params.get("outDegreerange").split(",")[1]);
        filters.outDegreeRangeFilter(new Range(lowerLmt, upperLmt), remove);
        break;
+     case "egoNetwork":
+       if (params.contains("withself_ego")){
+         filters.egoFilter(params.get("node_id_ego"), true, Integer.parseInt(params.get("egoDepth").toString()));
+       }else {
+         filters.egoFilter(params.get("node_id_ego"), false, Integer.parseInt(params.get("egoDepth").toString()));
+       }
+       break;
      }
   }
 
