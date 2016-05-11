@@ -982,9 +982,8 @@
 								
 								<div>
 									<div class="">
-										<form>
-										 	
-											
+										<form id="selfloop_topology_filter_form">
+										 	<input type="hidden" name="filterId" value="selfLoopFilter">
 										</form>
 									</div>
 								</div>
@@ -1006,14 +1005,14 @@
 								<div class="heading_parameter"><h6>K core Settings</h6></div>
 								<div>
 									<div class="parameter_content_range ">
-										<form>
-										 	
+										<form id="kcore_topology_filter_form">
 											<table class="table table-parameter spinner-table">
-										<tr class="tr-spinner-wd">
-											<td class="td-spinner-label">Value:</td>
-											<td class="td-spinner-val"><input type="text"  id="spinner-kcore" placeholder="Kcore" value="1" name="Kcore"></td>
-										</tr>
-									</table>
+											<tr class="tr-spinner-wd">
+												<td class="td-spinner-label">Value:</td>
+												<td class="td-spinner-val"><input type="text"  id="spinner-kcore" value="1" name="Kcore"></td>
+												<td><input type="hidden" name="filterId" value="kCoreFilter"></td>
+											</tr>
+											</table>
 										</form>
 									</div>
 								</div>
@@ -1023,9 +1022,9 @@
 								<div class="heading_parameter"><h6>Mutual Degree Range Settings</h6></div>
 								<div>
 									<div class="parameter_content_range ">
-										<form>
-										 	<input type="hidden" id="range-slider-mutual-degree" class="range-slider" value="1" />
-											
+										<form id="mutualdeg_range_topology_filter_form">
+										 	<input type="hidden" id="range-slider-mutual-degree" class="range-slider" name="mdegreeRange" value="1" />
+											<input type="hidden" name="filterId" value="mutualDegreeRange">
 										</form>
 									</div>
 								</div>

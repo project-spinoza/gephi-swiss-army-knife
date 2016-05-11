@@ -295,6 +295,23 @@ function getDegreeRanges(){
     }); 
     $('#range-slider-degree').jRange('setValue', resp.outdegree);
 
+
+    $('#mutualdeg_range_topology_filter_form').empty();
+    $('#mutualdeg_range_topology_filter_form').append('<input type="hidden" id="range-slider-mutual-degree" class="range-slider" name="mdegreeRange" value="1" />');
+    $('#mutualdeg_range_topology_filter_form').append('<input type="hidden" name="filterId" value="mutualDegreeRange">');
+    var from = parseInt(resp.mutualdegree.split(',')[0]);
+    var to = parseInt(resp.mutualdegree.split(',')[1]);
+    $('#range-slider-mutual-degree').jRange({
+      from: from,
+      to: to,
+      step: 1,
+      format: '%s',
+      width: 180,
+      showLabels: true,
+      isRange : true,
+    }); 
+    $('#range-slider-mutual-degree').jRange('setValue', resp.mutualdegree);
+
   });
 }
 

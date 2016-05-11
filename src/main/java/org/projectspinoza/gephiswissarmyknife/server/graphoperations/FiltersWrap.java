@@ -78,7 +78,19 @@ public class FiltersWrap {
      case "giantCompFilter":
        filters.giantComponentFilter(remove);
        break;
+     case "kCoreFilter":
+       filters.kCoreFilter(Integer.parseInt(params.get("Kcore").toString()));
+       break;
+     case "mutualDegreeRange":
+       lowerLmt = Integer.parseInt(params.get("mdegreeRange").split(",")[0]);
+       upperLmt = Integer.parseInt(params.get("mdegreeRange").split(",")[1]);
+       filters.mutualDegreeRange(new Range(lowerLmt, upperLmt), remove);
+       break;
+     case "selfLoopFilter":
+       filters.edgeSelfLoop(remove);
+       break;
      }
+    
   }
 
   public GraphModel getGraphModel() {
