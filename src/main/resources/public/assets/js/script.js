@@ -40,7 +40,7 @@ $(".layout_form").submit(function (e) {
 });
 /*
 *
-* Select Filter Submit Operations
+* Select Filter Submit Operations 
 */
 $('#filter_querycontainer').selectable();
 $('#select_btn_id').on('click',function(e){
@@ -52,10 +52,21 @@ $('#select_btn_id').on('click',function(e){
         requestAjax ("/selectFilter", $(selected_filter+'_form').serialize(), function(graphData){
           graphJsonHandler(graphData);
           $('.filterLoader').css('display','none');
+          $('#filterUndo').prop('disabled', false);
         });
-  });
-      
+    });   
 });
+
+$('#filterUndo').on('click',function(e){
+  $('.filterLoader').css('display','block');
+  e.preventDefault();
+  requestAjax ("/unselectFilter", {}, function(graphData){
+    graphJsonHandler(graphData);
+    $('.filterLoader').css('display','none');
+    $('#filterUndo').prop('disabled', true);
+  });
+});
+
 /*
 *
 *Statistics Submit Operations
@@ -233,7 +244,7 @@ function getDegreeRanges(){
     var to = parseInt(resp.degree.split(',')[1]);
 
     $('#maxDegree').val(to);
-    
+
     $('#deg_range_topology_filter_form').empty();
     $('#deg_range_topology_filter_form').append('<input type="hidden" id="range-slider-degree" class="range-slider" name="degreeRange"/>');
     $('#deg_range_topology_filter_form').append('<input type="hidden" name="filterId" value="degreeRange">');

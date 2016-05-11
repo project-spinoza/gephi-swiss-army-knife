@@ -152,7 +152,7 @@ public class GraphServer {
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
-      this.graphBackup.saveGraph(this.gephiGraph);
+      this.graphBackup.saveGraph(this.gephiGraph, false);
       responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
@@ -161,7 +161,7 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/originalGraph.*").method(HttpMethod.GET).handler(routingContext -> {
-      this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel());
+      this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel(), false);
       responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
@@ -253,8 +253,14 @@ public class GraphServer {
      * 
      * */
     router.getWithRegex("/selectFilter.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.graphBackup.saveGraph(this.gephiGraph, true);
       filters.setGraphModel(this.gephiGraphWs.getGraphModel());
       filters.applyFilter(routingContext.request().params(), false);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
+    });
+    
+    router.getWithRegex("/unselectFilter.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraph = this.graphBackup.retrieveGraph(gephiGraphWs.getGraphModel(), true);
       responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
@@ -277,7 +283,7 @@ public class GraphServer {
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
-      this.graphBackup.saveGraph(this.gephiGraph);
+      this.graphBackup.saveGraph(this.gephiGraph, false);
       responseSigmaGraph(this.gephiGraph, routingContext, true);
    });   
   }

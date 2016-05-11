@@ -98,11 +98,11 @@ public class Utils {
             //original colors
             color = "rgb(" + (int)((e.r()*255)) + "," + (int)(e.g()*255) + "," + (int)(e.b()*255) + ")";
           }
-       
-              if (e.r() == -1 || e.g() == -1 || e.b() == -1) {
-                  Color result = colorMixer.getColor(null, e.getSource().getColor(), e.getTarget().getColor());
-                  color = "rgb(" + result.getRed() + "," + result.getGreen() + "," + result.getBlue() + ")";
-              }
+          
+          if (e.r() == -1 || e.g() == -1 || e.b() == -1) {
+             Color result = colorMixer.getColor(null, e.getSource().getColor(), e.getTarget().getColor());
+             color = "rgb(" + result.getRed() + "," + result.getGreen() + "," + result.getBlue() + ")";
+          }
           sigmaEdge.setColor(color);
           sigmaGraph.addEdge(sigmaEdge);
       }
