@@ -57,6 +57,41 @@ $('#select_btn_id').on('click',function(e){
     });   
 });
 
+var filters_len = 0 ;
+var filters_array = [];
+  //Filter button operations
+$('#filter_btn_id').on('click',function(e){
+    $('.filterLoader').css('display','block');
+    e.preventDefault();
+    if ( $('input[name="filtercheck"]').is(':checked') ) {
+        $('#filter_querycontainer').find('a').each(function() { 
+            var filter_href = $(this).attr('href');
+            filters_array[filters_array.length] = filter_href;
+        });
+    }else {
+        $('#filter_querycontainer .ui-widget-content.ui-selected').find('a').each(function() {
+            var selected_filter = $(this).attr('href');
+            filters_array[filters_array.length] = selected_filter;
+        });
+    }
+
+    filterGraph(filters_array.pop());
+
+});
+
+
+function filterGraph(filter){
+  requestAjax ("/filterGraph", $(filter+'_form').serialize(), function(graphData) {
+      filters_len = filters_array.length;
+      if (filters_len == 0) {
+        graphJsonHandler(graphData);
+        $('.filterLoader').css('display','none');            
+      } else {
+        filterGraph(filters_array.pop());
+      }
+  });
+}
+
 $('#filterUndo').on('click',function(e){
   $('.filterLoader').css('display','block');
   e.preventDefault();

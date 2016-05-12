@@ -10,7 +10,7 @@
 		//$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		//$("#dynamic_panel").mCustomScrollbar();// Network Overview
 		$(".popup-in").mCustomScrollbar();//  popup-box statistics 
-	    //$("#queries_panel").mCustomScrollbar();//queries panel
+	    $("#queries_panel").mCustomScrollbar();//queries panel
 	    $("#selectlayout-boxitSelectBoxItOptions").mCustomScrollbar();
 	});
 })(jQuery);	
@@ -58,6 +58,11 @@ $( document ).ready(function() {
 		});
 	// Decorating Checkbox
 	$('#collapse3 input').iCheck({
+		radioClass: 'iradio_square-grey',
+		checkboxClass: 'icheckbox_square-grey',
+		increaseArea: '20%' // optional
+   });
+   $('.filtercheckbox input').iCheck({
 		radioClass: 'iradio_square-grey',
 		checkboxClass: 'icheckbox_square-grey',
 		increaseArea: '20%' // optional
@@ -640,7 +645,7 @@ $(".degree-selectm #selectdeg").change(function(){
         opacity: "0.5"
     });
 	//$("#queries_panel").mCustomScrollbar();//queries panel
-	$("#queries_panel").mCustomScrollbar();//queries panel
+	
     $("#filter_querycontainer").droppable({
         accept: $(".filterdrag"),
         hoverClass: "dropHover",
@@ -651,7 +656,8 @@ $(".degree-selectm #selectdeg").change(function(){
             me.appendTo(this)
 	        //Add remove icon
 			$("#filter_querycontainer span:last-child.easytree-node").append("<span class='removebtn'></span>");
-			$('#filter_btn_id').prop("disabled", false);
+			//
+
 			//onclick remove  
 			$('.removebtn').on('click',function(){
 	   		  ui.draggable.draggable("enable");
@@ -660,37 +666,40 @@ $(".degree-selectm #selectdeg").change(function(){
 	   		  $(href_cont).hide();
 	   		  $(this).parents('.easytree-node').remove();
 	   		  $('#select_btn_id').prop("disabled", true);
-	 	 	});
-	 	 	
-	 	 	/*$('#filter_querycontainer a').on('click',function(){
-		    	if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
-		    		$('#select_btn_id').prop("disabled", false);
-		    	}
-		    	else{
-		    		$('#select_btn_id').prop("disabled", true);
-		    	}     
-			});*/
-	 	 		
+	 	 	});	
         }
     });
-    $("#filter_querycontainer").click(function(e) {
-        if($(e.target).is('a')){
-        	 e.preventDefault();
-        	$('#select_btn_id').prop("disabled", false);
-            return;
-        }
-        $('#select_btn_id').prop("disabled", true);
-    }); 
-	//Filter button operations
-    $('#filter_btn_id').on('click',function(e){
-    	e.preventDefault();
-		$('#filter_querycontainer').find('a').each(function() {	
-		    var filter_href = $(this).attr('href');
-		    console.log(filter_href);
-
-	  	});
-	  
+	$('.filtercheckbox .iCheck-helper').click(function() {
+	        
+	    	if ( $('input[name="filtercheck"]').is(':checked') ) {
+				$('#filter_btn_id').prop("disabled", false);
+			}
+			else if (!$('input[name="filtercheck"]').is(':checked') ){
+					if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
+						$('#filter_btn_id').prop("disabled", false);
+					}
+					else{
+						$('#filter_btn_id').prop("disabled", true);
+					}
+			}
 	});
+	$('#filter_querycontainer ').click(function(a){
+		if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
+			$('#filter_btn_id').prop("disabled", false);
+		}
+		else{
+			$('#filter_btn_id').prop("disabled", true);
+		}   
+	});
+
+	$("#filter_querycontainer").click(function(e) {
+	    if($(e.target).is('a')){
+	    	 e.preventDefault();
+	    	$('#select_btn_id').prop("disabled", false);
+	        return;
+	    }
+	    $('#select_btn_id').prop("disabled", true);
+	}); 
 
      ///////Range slider for range///////////
      //Range slider for Attributes Range filter 
@@ -764,15 +773,7 @@ $(".degree-selectm #selectdeg").change(function(){
     //Disable all links in filters
     $("#jstree_demo_div a").click(function(e){ e.preventDefault(); });
 
-   	//$("#queries_panel").on('click', 'a', function(){
-   		//$("#contentwo").css({"display":"none"});
-	//});
-	//$("#equal_mod_class").mousedown(function(ev){
-      //if(ev.which == 3)
-     // {
-          //  alert("Right mouse button clicked on element with id myId");
-     // }
-  	//});
+   	
     //Parameter load content
     $("#filter_querycontainer").on('click', 'a', function() {
     	

@@ -346,6 +346,25 @@ a {
   line-height: 23px;
   vertical-align: top;
 }
+/**********all filter checkbox*************/
+#collapse_Queries .filtercheckbox .filtercheckbox-cont .icheckbox_square-grey{
+  background-image:url("../../images/chk.png");
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:20px;
+}
+#collapse_Queries  .filtercheckbox .filtercheckbox-cont .icheckbox_square-grey.hover{
+  background-image:url("../../images/chk.png");
+  background-position:0px 0px;
+}
+#collapse_Queries .filtercheckbox .filtercheckbox-cont .icheckbox_square-grey.checked{
+  background-position:-33px 0px;
+}
+#collapse_Queries .filtercheckbox .filtercheckbox-cont .labelcheckbox{
+  line-height: 23px;
+  vertical-align: top;
+}
+/**************all filter checkbox end**************/
 #collapse2 .table input{
   border:0px;
   background:transparent;

@@ -265,6 +265,16 @@ public class GraphServer {
     });
     
     /*
+     * actual filters
+     * 
+     * */
+    router.getWithRegex("/filterGraph.*").method(HttpMethod.GET).handler(routingContext -> {
+      filters.setGraphModel(this.gephiGraphWs.getGraphModel());
+      filters.applyFilter(routingContext.request().params(), true);
+      responseSigmaGraph(this.gephiGraph, routingContext, false);
+    });
+    
+    /*
      * filter ranges for degree, indegree, outdegree
      * 
      * */

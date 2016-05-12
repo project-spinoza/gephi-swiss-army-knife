@@ -108,30 +108,33 @@ public class Statistics {
     double[] degree = new double[graph.getNodeCount()];
     double[] indegree = new double[graph.getNodeCount()];
     double[] outdegree = new double[graph.getNodeCount()];
-    int mdegree = 0;
+    Integer[] mdegree = new Integer[graph.getNodeCount()];
    
     int counter = 0;
     
     NodeIterable nodes = dgraph.getNodes();
     for (Node node : nodes){
+      int nMutualdegree = 0;
       degree[counter] = Double.parseDouble(node.getAttribute("degree").toString());
       indegree[counter] = Double.parseDouble(node.getAttribute("indegree").toString());
       outdegree[counter] = Double.parseDouble(node.getAttribute("outdegree").toString());
       for (Edge e : dgraph.getOutEdges(node)) {
         if (dgraph.getMutualEdge(e) != null) {
-          mdegree++;
+          nMutualdegree++;
         }
       }
+      mdegree[counter] = nMutualdegree;
       counter++;
     }
     Arrays.sort(degree);
     Arrays.sort(indegree);
     Arrays.sort(outdegree);
+    Arrays.sort(mdegree);
     
     String respJson = "{\"degree\":"+"\""+(int)degree[0]+","+(int)degree[degree.length-1]+"\","+
                         "\"indegree\":"+"\""+(int)indegree[0]+","+(int)indegree[indegree.length-1]+"\","+
                         "\"outdegree\":"+"\""+(int)outdegree[0]+","+(int)outdegree[outdegree.length-1]+"\","+
-                        "\"mutualdegree\":"+"\""+0+","+mdegree+
+                        "\"mutualdegree\":"+"\""+mdegree[0]+","+mdegree[mdegree.length-1]+
                         "\"}";
     return respJson;
   }
