@@ -27,7 +27,7 @@
 	<!-- file upload in popup css -->
 	<link rel="stylesheet" href="assets/css/jqueryfiler/jquery.filer.css">
 	<link rel="stylesheet" href="assets/css/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css">
-
+	 <!-- MiniColors css -->
 	
 
     <!--[if lt IE 9]>
@@ -72,55 +72,6 @@
     <!-- Start of leftsidebar -->
 	<div class="user-menu-container">
 		<div class="user-menu-left-container">
-			<div class="panel-group panel-appearance">
-				<div class="panel panel-default margin10">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-						<a href="#collapse1" data-toggle="collapse" aria-expanded="true" class="">Appearance 
-						</a>
-						</h4>
-					</div>
-					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
-						<div class="panel-body">
-							<ul class="nav nav-tabs">
-								<li class=""><a href="#nodes" data-toggle="tab" aria-expanded="false">Nodes</a></li>
-								<li class="active"><a href="#edegs" data-toggle="tab" aria-expanded="true">Edges</a></li>    
-							</ul>
-						<div class="tab-content">
-						<div class="tab-pane fade" id="nodes">
-							<ul class="nav nav-tabs">
-								<li class=""><a href="#unique" data-toggle="tab" aria-expanded="false">Unique</a></li>
-								<li class="active"><a href="#attributes" data-toggle="tab" aria-expanded="false">Attributes</a></li>    
-							</ul>
-							<div class="tab-content">
-								<div class="tab-pane fade" id="unique">
-									<div class="unique">Unique</div>
-								</div>
-								<div class="tab-pane fade active in" id="attributes">
-									<div class="margin30 degree-select-container">
-										<div class="degree-selectm" >
-											<select id="selectdeg">
-												<option value="degree_1" selected="selected">Degree1</option>
-												<option value="degree_2">Degree2</option>	
-											</select> 
-										</div>
-									</div>
-									<div>
-										<div class="grad_ex grad_ex_div" id="ex1"></div>
-									</div>
-								</div>   
-							</div>  
-						</div>
-						<div class="tab-pane fade active in" id="edegs">
-						  <div class="edges">Edegs</div>
-						</div>   
-					</div>
-                </div>
-                
-              </div>
-            </div>
-          </div> <!-- End of Panel group -->
-		  
 		  <!-- Start of Second panel -->
 		  <div class="panel-group panel-layout">
 			<div class="panel panel-default margin10">
@@ -716,29 +667,55 @@
 						<div class="label-size">Label Size</div>
 						<div class="labelsize-selectm">
 							<select id="select-labelsizeboxit">
-								<option value="13px">13px</option>
-								<option value="14px">14px</option>
-								<option value="15px">15px</option>
+								<option value="fixed">Fixed</option>
+								<option value="proportional">Proportional</option>
 						   </select> 
 						</div>
 					</div>
 					<div class="label-checkbox-container">
-						<form action="">
-							<input type="checkbox" name="showlabel" value="showlabel"><span class="showlabel-title labelcheckbox">Show label</span><br>
-							<input type="checkbox" name="showedge" value="showedge"><span class="showedge-title labelcheckbox">Show edge</span><br>
-							<input type="checkbox" name="endablehover" value="enablehover"><span class="enablehover-title labelcheckbox">Enable hover</span><br>
+						<form id="localGraphSettingsChanger">
+							<input type="checkbox" name="showlabel" value="showlabel" checked><span class="showlabel-title labelcheckbox">Nodes Labels</span><br>
+							<input type="checkbox" name="showedgesLabel" value="showedgesLabel"><span class="enablehover-title labelcheckbox">Edges Labels</span><br>
+							<input type="checkbox" name="showedge" value="showedge" checked><span class="showedge-title labelcheckbox">Edges</span><br>
+							<input type="checkbox" name="shownodes" value="shownodes" checked><span class="showedge-title labelcheckbox">Nodes</span><br>
+							<input type="checkbox" name="endablehover" value="endablehover" checked><span class="enablehover-title labelcheckbox">Enable hover (Nodes, Edges)</span><br>
+							<input type="checkbox" name="nodesrandomcolors" value="nodesrandomcolors" checked><span class="nodesrandomcolors-title labelcheckbox">Nodes Random Color</span><br>
+							<div class="">
+							<div id="colorSelector" class="color-chooser"><div style="background-color: rgb(205, 220, 213)"></div></div>
+                            <span class="edgesdefaultcolors-title labelcheckbox">Edges Default Color's</span>
+	                        </div>
 						</form>
-						<br></br>
-						<form id="original_graph_load_form">
-						<input class="btn btn-primary marginbottom10" type="submit" value="Load Original Graph">
-						<img src="./images/ringloader.gif" class="dbLoader">
-						</form>
+						
 					</div>
                 </div>
               </div>
             </div>
           </div>
 		  <!-- End of Third panel -->
+		  <div class="panel-group panel-appearance">
+				<div class="panel panel-default margin10">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a href="#collapse1" data-toggle="collapse" aria-expanded="true" class="">Graph Information 
+						</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
+						<div class="panel-body">
+							<div class="graph-counts">
+								<span class="">Nodes Count:</span><span class="nodescount">0</span><br>
+	                			<span class="">Edges Count:</span><span class="edgescount">0</span>
+	                			<br></br>
+								<form id="original_graph_load_form">
+								<input class="btn btn-primary marginbottom10" type="submit" value="Load Original Graph">
+								<img src="./images/ringloader.gif" class="dbLoader">
+								</form>
+                			</div>
+
+                		</div>
+              		</div>
+            </div>
+          </div> <!-- End of Panel group -->
 		</div>
 		<div class="user-nav-slide"></div>
 	</div>
@@ -810,10 +787,10 @@
                <div id="collapse_Queries" class="panel-collapse collapse in">
               	<div id="queries_panel" class="panel-body parameter_panel">
 					<div class="parameters-contents">
-                	<div id="filter_querycontainer" class="ui-widget-content"><ul class="replace_me"><li>Drag Filter here to run Queries</li></ul></div>
+                	<div id="filter_querycontainer" class="ui-widget-content"><div class="replace_me"><ul><li>Drag Filter here to run Queries</li></ul></div></div>
                 	</div>
                 </div>
-                <div class="filtercheckbox" style="background-color: #434343;">
+                <div class="filtercheckbox">
                 	<div class="filtercheckbox-cont"><input type="checkbox" name="filtercheck" id="filtercheck1">
                 	<span class="labelcheckbox">Apply all filters</span></div>
                 </div>
@@ -1543,6 +1520,10 @@
     <script src="assets/sigmajs/sigma.misc.bindEvents.js"></script>
     <script src="assets/sigmajs/sigma.misc.bindDOMEvents.js"></script>
     <script src="assets/sigmajs/sigma.misc.drawHovers.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
 
 	<!-- canvasjs script -->
 	<script src="assets/js/canvasjs/jquery.canvasjs.min.js"></script>

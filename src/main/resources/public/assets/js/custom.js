@@ -10,7 +10,7 @@
 		//$("#network_overview_panel").mCustomScrollbar();// Network Overview
 		//$("#dynamic_panel").mCustomScrollbar();// Network Overview
 		$(".popup-in").mCustomScrollbar();//  popup-box statistics 
-	    $("#queries_panel").mCustomScrollbar();//queries panel
+	    
 	    $("#selectlayout-boxitSelectBoxItOptions").mCustomScrollbar();
 	});
 })(jQuery);	
@@ -18,6 +18,8 @@
 
 // A $( document ).ready() block.
 $( document ).ready(function() {
+		$.mCustomScrollbar.defaults.scrollButtons.enable=true; //enable scrolling buttons by default
+		$.mCustomScrollbar.defaults.axis="yx"; //enable 2 axis scrollbars by default	
 	
 					$( '.tree li' ).each( function() {
 						if( $( this ).children( 'ul' ).length > 0 ) {
@@ -643,22 +645,23 @@ $(".degree-selectm #selectdeg").change(function(){
         cursor: 'move',
         revert: 'invalid',
         opacity: "0.5"
+
     });
-	//$("#queries_panel").mCustomScrollbar();//queries panel
+	
 	
     $("#filter_querycontainer").droppable({
         accept: $(".filterdrag"),
         hoverClass: "dropHover",
         drop: function (ev, ui) {
-        	$(this).find(".replace_me").remove();
+        	$(".replace_me").hide();
             var me = ui.draggable.clone();
             ui.draggable.draggable("disable");
             me.appendTo(this)
 	        //Add remove icon
 			$("#filter_querycontainer span:last-child.easytree-node").append("<span class='removebtn'></span>");
-			//
-
-			//onclick remove  
+			$("#queries_panel").mCustomScrollbar();
+			$("#mCSB_19_dragger_vertical").show();
+			//onclick remove 
 			$('.removebtn').on('click',function(){
 	   		  ui.draggable.draggable("enable");
 	   		  var href = $(this).prev('span.easytree-title').find('a').attr('href');
@@ -666,22 +669,33 @@ $(".degree-selectm #selectdeg").change(function(){
 	   		  $(href_cont).hide();
 	   		  $(this).parents('.easytree-node').remove();
 	   		  $('#select_btn_id').prop("disabled", true);
+	   		  if ($("#filter_querycontainer a").length==0) {
+	   		  	$(".replace_me").show();
+	   		  	$("#mCSB_19_dragger_vertical").hide();
+	   		  }
 	 	 	});	
         }
     });
+
 	$('.filtercheckbox .iCheck-helper').click(function() {
 	        
-	    	if ( $('input[name="filtercheck"]').is(':checked') ) {
-				$('#filter_btn_id').prop("disabled", false);
-			}
-			else if (!$('input[name="filtercheck"]').is(':checked') ){
-					if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
-						$('#filter_btn_id').prop("disabled", false);
-					}
-					else{
-						$('#filter_btn_id').prop("disabled", true);
-					}
-			}
+    	if ( $('input[name="filtercheck"]').is(':checked') ) {
+			
+			if ($("#filter_querycontainer a").length==0) {
+   		  		$('#filter_btn_id').prop("disabled", true);
+   		  	}
+   		  	else{
+   		  		$('#filter_btn_id').prop("disabled", false);
+   		  	}
+		}
+		else if (!$('input[name="filtercheck"]').is(':checked') ){
+				if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
+					$('#filter_btn_id').prop("disabled", false);
+				}
+				else{
+					$('#filter_btn_id').prop("disabled", true);
+				}
+		}
 	});
 	$('#filter_querycontainer ').click(function(a){
 		if($('#filter_querycontainer .ui-widget-content').hasClass("ui-selected")){
@@ -773,7 +787,6 @@ $(".degree-selectm #selectdeg").change(function(){
     //Disable all links in filters
     $("#jstree_demo_div a").click(function(e){ e.preventDefault(); });
 
-   	
     //Parameter load content
     $("#filter_querycontainer").on('click', 'a', function() {
     	
@@ -861,5 +874,4 @@ $(".fullscreen_icon").click(function(){
 				});
 	}
 });
-
 });  // End of document ready function.

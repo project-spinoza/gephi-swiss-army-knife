@@ -347,6 +347,9 @@ a {
   vertical-align: top;
 }
 /**********all filter checkbox*************/
+#collapse_Queries .filtercheckbox{
+  background-color: #434343;
+}
 #collapse_Queries .filtercheckbox .filtercheckbox-cont .icheckbox_square-grey{
   background-image:url("../../images/chk.png");
   margin-bottom:10px;
@@ -361,7 +364,7 @@ a {
   background-position:-33px 0px;
 }
 #collapse_Queries .filtercheckbox .filtercheckbox-cont .labelcheckbox{
-  line-height: 23px;
+  line-height: 20px;
   vertical-align: top;
 }
 /**************all filter checkbox end**************/
@@ -379,8 +382,7 @@ a {
 }
 #queries_panel{
   height: 130px;
-  overflow: auto;
-  
+  overflow: hidden;
 }
 #parameters_panel{
   height: 165px;
@@ -744,7 +746,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 
 .gsak-home #select-labelsizeboxitSelectBoxItContainer #select-labelsizeboxitSelectBoxIt{
-  width: 100px !important;
+  width: 124px !important;
 }  
 .gsak-home .selectboxit-list {
   background-color:#3b3b3b;
@@ -797,8 +799,9 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   border: 0 none;
   float: left;
   width: 100%;
-  height: 500px;
+  height: 320px;
   padding-left: 7px;
+  
 }
 .filterdrag {
   position: relative;
@@ -1248,7 +1251,7 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
   margin-left: 306px;
 }
 #container{
-  height: 695px;
+  height: 750px;
   display: block;
 }
 /********************css for selectable***********/
@@ -1282,6 +1285,23 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 .spinner-table .ui-spinner-button .ui-icon-triangle-1-s{
   margin-left: 0px;
+}
+/*****************graph information ******************/
+.graph-counts{
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.nodescount{
+  padding: 5px;
+}
+.edgescount{
+  padding: 5px;
+}
+.colorpicker-edges{
+  
+}
+#colorSelector{
+  float: left;
 }
 /***************** CSS for placeholder **********************/
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

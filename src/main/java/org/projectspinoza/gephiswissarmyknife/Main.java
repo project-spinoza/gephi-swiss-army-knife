@@ -19,10 +19,8 @@ public class Main {
   @SuppressWarnings("unused")
   private static Logger log = LogManager.getLogger(Main.class);
   private static Injector injector = Guice.createInjector();
-
   
   public static void main(String[] args) {
-   
     try {
       GraphServer server = injector.getInstance(GraphServer.class);
       server.deployServer(true);

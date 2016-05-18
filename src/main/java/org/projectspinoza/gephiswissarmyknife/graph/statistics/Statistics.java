@@ -134,6 +134,8 @@ public class Statistics {
     String respJson = "{\"degree\":"+"\""+(int)degree[0]+","+(int)degree[degree.length-1]+"\","+
                         "\"indegree\":"+"\""+(int)indegree[0]+","+(int)indegree[indegree.length-1]+"\","+
                         "\"outdegree\":"+"\""+(int)outdegree[0]+","+(int)outdegree[outdegree.length-1]+"\","+
+                        "\"numNodes\":"+"\""+graph.getNodeCount()+"\","+
+                        "\"numEdges\":"+"\""+graph.getEdgeCount()+"\","+
                         "\"mutualdegree\":"+"\""+mdegree[0]+","+mdegree[mdegree.length-1]+
                         "\"}";
     return respJson;

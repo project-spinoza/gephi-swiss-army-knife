@@ -56,7 +56,7 @@ public class SigmaEdge extends GraphElement{
     @Override
     public String toString() {
         return "SigmaEdge [source=" + source + ", target=" + target + ", attributes=" + getAttributes()
-                + ", color=" + getColor() + ", size=" + getSize() + ", label=" + getLabel()
+            + ", color=" + getColor()+ ", size=" + getSize() + ", label=" + getLabel()
                 + ", id=" + getId() + "]";
     } 
      

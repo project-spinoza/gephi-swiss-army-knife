@@ -2,6 +2,8 @@ var isMysqlConnected = false;
 var isMongoDbConnected = false;
 var isElasticsearchConnected = false;
 var isFileUploaded = false;
+var enableEdgeHovering = true;
+var respGraphData;
 
 $( document ).ready(function() {
 
@@ -18,7 +20,7 @@ for (k in index)
 /*
 * GLOBAL variables/settings
 */
-var sigmaSettings = '{ "mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "rgb(205, 220, 213)", "minEdgeSize": 0.5, "maxEdgeSize": 5, "minNodeSize": 3, "maxNodeSize": 25, "labelThreshold": 2, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true }';
+var sigmaSettings = '{ "defaultEdgeLabelColor": "#f90", "drawEdgeLabels": false, "enableHovering": true,"drawNodes": true,"drawEdges": true,"labelSize":"fixed","mouseWheelEnabled": false, "eventsEnabled": true, "doubleClickEnabled": false, "enableEdgeHovering": true, "singleHover": true, "edgeHoverColor" : "edge", "edgeHoverColor": "default", "defaultEdgeHoverColor": "#777", "edgeHoverSizeRatio": 10, "edgeColor": "default", "defaultHoverLabelBGColor": "#fff", "defaultEdgeColor": "#00f", "minEdgeSize": 0.5, "edgeLabelThreshold": 0.5, "maxEdgeSize": 5, "minNodeSize": 3, "maxNodeSize": 25, "labelThreshold": 2, "defaultLabelColor": "#fff", "animationsTime": 1000, "borderSize": 2, "outerBorderSize": 3, "defaultNodeOuterBorderColor": "rgb(72,227,236)", "edgeHoverHighlightNodes": "circle", "sideMargin": 10, "edgeHoverExtremities": true, "scalingMode": "outside", "enableCamera": true, "minArrowSize":5 }';
 var Gsetting = JSON.parse(sigmaSettings);
 var statistics_btn;
 var isGraphExists = false;
@@ -27,6 +29,105 @@ var zoomValPrevious = 3;
 
 //disable search button intially
 $('#search-form input[type="submit"]').prop('disabled', true);
+
+/*
+*
+*Local graph setting changer [Check boxes]
+*/
+$("#localGraphSettingsChanger .iCheck-helper").click(function() {
+      var refreshgraph = false;
+      $('#localGraphSettingsChanger input[type="checkbox"]').each(function() {
+            var chk_name = $(this).attr("name");
+            if (chk_name === "nodesrandomcolors") {
+                if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                  //alert(chk_name+" is checked");
+                }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                  //alert(chk_name+" is unchecked");
+                }
+            }else {
+                refreshgraph = true;
+                switch (chk_name) {
+                  case "showlabel":
+                      if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                        Gsetting.labelThreshold = 2;
+                      }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                        Gsetting.labelThreshold = 100;
+                      }
+                  break;
+                 case "showedge":
+                      if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                        Gsetting.drawEdges = true;
+                      }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                        Gsetting.drawEdges = false;
+                      }
+                  break;
+                  case "shownodes":
+                      if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                        Gsetting.drawNodes = true;
+                      }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                        Gsetting.drawNodes = false;
+                      }
+                  break;
+                  case "endablehover":
+                      if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                        Gsetting.enableEdgeHovering = true;
+                      }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                        Gsetting.enableEdgeHovering = false;
+                      }
+                  break;
+                  case "showedgesLabel":
+                      if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
+                        Gsetting.drawEdgeLabels = true;
+                      }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
+                        Gsetting.drawEdgeLabels = false;
+                      }
+                  break;
+                  default:
+                  break;  
+                }
+            }
+        });
+      if (refreshgraph) {
+        showGraph(respGraphData, document.getElementById('container'), Gsetting);        
+      }
+	});
+
+//Color picker for edges
+$('#colorSelector').ColorPicker({
+  color: '#0000ff',
+  onShow: function (colpkr) {
+    $(colpkr).fadeIn(500);
+    return false;
+  },
+  onHide: function (colpkr) {
+    $(colpkr).fadeOut(500);
+    //alert($('#colorSelector div').css('backgroundColor'));
+    Gsetting.defaultEdgeColor = $('#colorSelector div').css('backgroundColor');
+    showGraph(respGraphData, document.getElementById('container'), Gsetting);
+    return false;
+  },
+  onChange: function (hsb, hex, rgb) {
+    $('#colorSelector div').css('backgroundColor', '#' + hex);
+  },
+  onSubmit: function(hsb, hex, rgb, el) {
+    Gsetting.defaultEdgeColor = $('#colorSelector div').css('backgroundColor');
+    showGraph(respGraphData, document.getElementById('container'), Gsetting);
+  }
+});
+
+//Label size Select
+$(".labelsize-selectm #select-labelsizeboxit").change(function(){
+  $(this).find("option:selected").each(function(){
+    if($(this).attr("value")=="fixed"){
+         Gsetting.labelSize = "fixed";
+    }
+    else if($(this).attr("value")=="proportional"){
+        Gsetting.labelSize = "proportional";
+    }
+    else{}
+  });
+  showGraph(respGraphData, document.getElementById('container'), Gsetting);
+});
 
 /*
 *
@@ -275,6 +376,10 @@ $("#search-form").submit(function (e) {
 function getDegreeRanges(){
   requestAjax ("/filterRanges", {}, function (ranges){
     resp = JSON.parse(ranges);
+
+    $('.nodescount').text(resp.numNodes);
+    $('.edgescount').text(resp.numEdges);
+
     var from = parseInt(resp.degree.split(',')[0]);
     var to = parseInt(resp.degree.split(',')[1]);
 
@@ -616,6 +721,9 @@ function graphJsonHandler (graphData){
       isGraphExists = true;
       $("#slider-vertical").slider("value", 3);
       zoomValCurrent = 3;
+      respGraphData = nodesObject.nodes;
+      var Gsetting = JSON.parse(sigmaSettings);
+      console.log(nodesObject);
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
     alert ('No Graph Data found.!');

@@ -10,16 +10,18 @@
 }
 
 .color-chooser {
-	width: 30px;
-	height: 30px;
-	margin-top: 5px;
+	width: 22px;
+	height: 22px;
 	background: url("../images/select.png") center;
+	margin-right: 10px;
+
 }
 
 .color-chooser > div {
-	width: 30px;
-	height: 30px;
+	width: 22px;
+	height: 22px;
 	background: url("../images/select.png") center;
+	border-radius:2px; 
 }
 
 .colorpicker_color {
