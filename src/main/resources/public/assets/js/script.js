@@ -113,6 +113,8 @@ $('#colorSelector').ColorPicker({
   },
   onSubmit: function(hsb, hex, rgb, el) {
     Gsetting.defaultEdgeColor = $('#colorSelector div').css('backgroundColor');
+    rgb = Gsetting.defaultEdgeColor.replace(/[^\d,]/g, '').split(',');
+    requestAjax ("/defaultEdgeColor", {'edgeColor': rgb[0]+','+rgb[1]+','+rgb[2]}, function (resp) {});
   }
 });
 
