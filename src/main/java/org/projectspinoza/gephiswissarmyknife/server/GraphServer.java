@@ -295,7 +295,25 @@ public class GraphServer {
       this.gephiGraph = this.graphGen.createGraph();
       this.graphBackup.saveGraph(this.gephiGraph, false);
       responseSigmaGraph(this.gephiGraph, routingContext, true);
-   });   
+   }); 
+    
+    /*
+     * autocolor check
+     * 
+     * */
+    router.getWithRegex("/autoColor.*").method(HttpMethod.GET).handler(routingContext -> {
+      DtoConfig.autoColor = Boolean.parseBoolean(routingContext.request().getParam("autoColor"));
+      routingContext.response().end();
+    });
+    
+    router.getWithRegex("/defaultEdgeColor.*").method(HttpMethod.GET).handler(routingContext -> {
+      String[] edgeColor = routingContext.request().getParam("edgeColor").split(",");
+      DtoConfig.R = Integer.parseInt(edgeColor[0]);
+      DtoConfig.G = Integer.parseInt(edgeColor[1]);
+      DtoConfig.B = Integer.parseInt(edgeColor[2]);
+      routingContext.response().end();
+    });
+    
   }
   
   

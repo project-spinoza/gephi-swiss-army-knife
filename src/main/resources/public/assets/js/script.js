@@ -34,18 +34,20 @@ $('#search-form input[type="submit"]').prop('disabled', true);
 *
 *Local graph setting changer [Check boxes]
 */
+var nodeRandomColorPState = true;
+var nodeRandomColorCState;
+
 $("#localGraphSettingsChanger .iCheck-helper").click(function() {
-      var refreshgraph = false;
+
       $('#localGraphSettingsChanger input[type="checkbox"]').each(function() {
             var chk_name = $(this).attr("name");
-            if (chk_name === "nodesrandomcolors") {
+            if (chk_name == "nodesrandomcolors") {
                 if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
-                  //alert(chk_name+" is checked");
+                  requestAjax ("/autoColor", {'autoColor': 'true'}, function (resp) {});
                 }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
-                  //alert(chk_name+" is unchecked");
+                  requestAjax ("/autoColor", {'autoColor': 'false'}, function (resp) {});
                 }
             }else {
-                refreshgraph = true;
                 switch (chk_name) {
                   case "showlabel":
                       if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
@@ -76,6 +78,7 @@ $("#localGraphSettingsChanger .iCheck-helper").click(function() {
                       }
                   break;
                   case "showedgesLabel":
+
                       if ( $('input[name="'+chk_name+'"]').is(':checked') ) {
                         Gsetting.drawEdgeLabels = true;
                       }else if (!$('input[name="'+chk_name+'"]').is(':checked') ){
@@ -87,9 +90,7 @@ $("#localGraphSettingsChanger .iCheck-helper").click(function() {
                 }
             }
         });
-      if (refreshgraph) {
-        showGraph(respGraphData, document.getElementById('container'), Gsetting);        
-      }
+        showGraph(respGraphData, document.getElementById('container'), Gsetting);
 	});
 
 //Color picker for edges
@@ -103,7 +104,8 @@ $('#colorSelector').ColorPicker({
     $(colpkr).fadeOut(500);
     //alert($('#colorSelector div').css('backgroundColor'));
     Gsetting.defaultEdgeColor = $('#colorSelector div').css('backgroundColor');
-    showGraph(respGraphData, document.getElementById('container'), Gsetting);
+    rgb = Gsetting.defaultEdgeColor.replace(/[^\d,]/g, '').split(',');
+    requestAjax ("/defaultEdgeColor", {'edgeColor': rgb[0]+','+rgb[1]+','+rgb[2]}, function (resp) {});
     return false;
   },
   onChange: function (hsb, hex, rgb) {
@@ -111,7 +113,6 @@ $('#colorSelector').ColorPicker({
   },
   onSubmit: function(hsb, hex, rgb, el) {
     Gsetting.defaultEdgeColor = $('#colorSelector div').css('backgroundColor');
-    showGraph(respGraphData, document.getElementById('container'), Gsetting);
   }
 });
 
@@ -135,9 +136,11 @@ $(".labelsize-selectm #select-labelsizeboxit").change(function(){
 */
 $(".layout_form").submit(function (e) {
     e.preventDefault();
-    $(".graphLoader-run").css('display','block');
-    requestAjax ("/layout", $("#" + this.id).serialize(), graphJsonHandler);
-    $(".graphLoader-run").css('display','none');
+    $(".graphLoader-run").css('visibility','visible');
+    requestAjax ("/layout", $("#" + this.id).serialize(), function (graphData) {
+      graphJsonHandler(graphData);
+      $(".graphLoader-run").css('visibility','hidden');
+    });
 });
 /*
 *
@@ -713,7 +716,6 @@ function enableDisableSearchBtn(enable){
 */
 function graphJsonHandler (graphData){
   nodesObject = JSON.parse(graphData);
-//  alert(nodesObject);
 //   console.log(nodesObject);
   var nodesCount = nodesObject.nodes.nodes.length;
   if(nodesCount > 0){
@@ -723,7 +725,6 @@ function graphJsonHandler (graphData){
       zoomValCurrent = 3;
       respGraphData = nodesObject.nodes;
       var Gsetting = JSON.parse(sigmaSettings);
-      console.log(nodesObject);
       showGraph(nodesObject.nodes, document.getElementById('container'), Gsetting);
   } else {
     alert ('No Graph Data found.!');

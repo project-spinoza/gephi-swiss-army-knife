@@ -44,6 +44,12 @@ public class DtoConfig {
   // custom
   public static String dataSource;
   public static String searchValue;
+  
+  public static boolean autoColor = true;
+  public static int R = 205;
+  public static int G = 220;
+  public static int B = 213;
+  
 
   public DtoConfig() {
   }

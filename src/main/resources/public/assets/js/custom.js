@@ -102,7 +102,6 @@ var $left = $(".left-grad");
 						change: function(points, styles) {
 							for (i = 0; i < styles.length; ++i) {
 								$left.css("background-image", styles[i]);
-								console.log(styles[i]);
 							}
 						},
 						fillDirection: "45deg",
@@ -118,7 +117,6 @@ $(".degree-selectm #selectdeg").change(function(){
 						change: function(points, styles) {
 							for (i = 0; i < styles.length; ++i) {
 								$left.css("background-image", styles[i]);
-								console.log(styles[i]);
 							}
 						},
 						fillDirection: "45deg",
@@ -132,8 +130,6 @@ $(".degree-selectm #selectdeg").change(function(){
 		}
 		
 		else{
-			
-			console.log("No value is selected");
 		}
 	});
 });
@@ -263,7 +259,6 @@ $(".degree-selectm #selectdeg").change(function(){
 			
             else{
                 //$(".box").hide();
-				console.log("No value is selected");
             }
         });
     }).change();
@@ -847,7 +842,6 @@ $(".degree-selectm #selectdeg").change(function(){
         }
         else{
               
-				//console.log("No value is selected");
             }
             
     });
@@ -874,4 +868,7 @@ $(".fullscreen_icon").click(function(){
 				});
 	}
 });
+//Tooltip
+$('[data-toggle="tooltip"]').tooltip();
+
 });  // End of document ready function.

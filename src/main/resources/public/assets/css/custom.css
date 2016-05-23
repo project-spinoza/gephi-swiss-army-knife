@@ -1216,10 +1216,9 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 .graphLoader-run{
   width:20px;
   height:20px;
-  display:none;
-  float: left;
-  margin-left: 150px;
+  visibility: hidden;
   margin-top: 5px;
+  margin-left: 5px;
 }
 
 .select_btn_div input{
@@ -1288,14 +1287,15 @@ body.gsak-home .mCSB_container_wrapper > .mCSB_container {
 }
 /*****************graph information ******************/
 .graph-counts{
-  margin-left: 20px;
-  margin-top: 10px;
+  margin: 10px 0px 29px 20px;
+
 }
-.nodescount{
-  padding: 5px;
+.graph-counts .count-wd{
+  
+  margin-left: 5px;
 }
-.edgescount{
-  padding: 5px;
+.graph-counts .text-count-wd{
+  
 }
 .colorpicker-edges{
   

@@ -13,6 +13,7 @@ import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
 import org.gephi.preview.types.EdgeColor;
+import org.projectspinoza.gephiswissarmyknife.dto.DtoConfig;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaEdge;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaGraph;
 import org.projectspinoza.gephiswissarmyknife.sigma.model.SigmaNode;
@@ -40,7 +41,7 @@ public class Utils {
           double y = n.y();
           double size = n.size();
           String color;
-          if (autoColor) {
+          if (autoColor && DtoConfig.autoColor) {
             int R = (int)(Math.random()*200);
             int G = (int)(Math.random()*200);
             int B= (int)(Math.random()*200);
@@ -92,7 +93,7 @@ public class Utils {
           
           String color;
           if (autoColor) {
-            color = "rgb(" + 205 + "," + 220 + "," + 213 + ")";
+            color = "rgb(" + DtoConfig.R  + "," + DtoConfig.G + "," + DtoConfig.B + ")";
             e.setColor(new Color(205,220,213));
           }else {
             //original colors
