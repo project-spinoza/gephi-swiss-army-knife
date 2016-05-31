@@ -55,6 +55,7 @@ public class GraphBackup {
       for (String attrKey : node.getAttributeKeys()) {
         attrJson.put(attrKey, node.getAttribute(attrKey));
       }
+
       attrJson.put("x", node.x());
       attrJson.put("y", node.y());
       attrJson.put("cR", node.r());
@@ -82,6 +83,7 @@ public class GraphBackup {
       }
       attrJson.put("source", edge.getSource().getId());
       attrJson.put("target", edge.getTarget().getId());
+
       attrJson.put("cR", edge.r());
       attrJson.put("cG", edge.g());
       attrJson.put("cB", edge.b());

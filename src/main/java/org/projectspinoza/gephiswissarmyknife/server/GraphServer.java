@@ -152,8 +152,8 @@ public class GraphServer {
     router.getWithRegex("/extractGraph.*").method(HttpMethod.GET).handler(routingContext -> {
       this.gephiGraphWs = new GephiGraph();
       this.gephiGraph = gephiGraphWs.loadGraph("uploads/"+dtoConfig.getGraphfileName(), EdgeDirectionDefault.DIRECTED);
-      this.graphBackup.saveGraph(this.gephiGraph, false);
       responseSigmaGraph(this.gephiGraph, routingContext, false);
+      this.graphBackup.saveGraph(this.gephiGraph, false);
     });
     
     /*
@@ -179,6 +179,24 @@ public class GraphServer {
      * */
     router.getWithRegex("/fileUpload.*").method(HttpMethod.POST).handler(routingContext -> {
       uploadGraphFile(routingContext, false);
+      System.out.println("uploaded");
+    });
+    
+    /*
+     * for Proxy use only
+     * */
+    router.getWithRegex("/proxyFileUpload.*").method(HttpMethod.GET).handler(routingContext -> {
+      dtoConfig.setTextfileName(routingContext.request().getParam("file"));
+      routingContext.response().end();
+    });
+    router.getWithRegex("/proxyGraphFileUpload.*").method(HttpMethod.GET).handler(routingContext -> {
+      dtoConfig.setGraphfileName(routingContext.request().getParam("file"));
+      routingContext.response().end();
+    });
+    router.getWithRegex("/proxyPageOnLoad.*").method(HttpMethod.GET).handler(routingContext -> {
+      this.gephiGraphWs = new GephiGraph();
+      this.gephiGraphWs.setGraphModel(GraphModel.Factory.newInstance());
+      routingContext.response().end();
     });
     
     /*
@@ -247,7 +265,6 @@ public class GraphServer {
 
     });
     
-    
     /*
      * selection filters
      * 
@@ -274,6 +291,7 @@ public class GraphServer {
       responseSigmaGraph(this.gephiGraph, routingContext, false);
     });
     
+    
     /*
      * filter ranges for degree, indegree, outdegree
      * 
@@ -293,8 +311,8 @@ public class GraphServer {
       dtoConfig.setSearchValue(routingContext.request().getParam("searchStr"));
       this.graphGen.setGraphModel(gephiGraphWs.getGraphModel());
       this.gephiGraph = this.graphGen.createGraph();
-      this.graphBackup.saveGraph(this.gephiGraph, false);
       responseSigmaGraph(this.gephiGraph, routingContext, true);
+      this.graphBackup.saveGraph(this.gephiGraph, false);
    }); 
     
     /*
@@ -306,6 +324,10 @@ public class GraphServer {
       routingContext.response().end();
     });
     
+    /*
+     * Edge default Color
+     * 
+     * */
     router.getWithRegex("/defaultEdgeColor.*").method(HttpMethod.GET).handler(routingContext -> {
       String[] edgeColor = routingContext.request().getParam("edgeColor").split(",");
       DtoConfig.R = Integer.parseInt(edgeColor[0]);

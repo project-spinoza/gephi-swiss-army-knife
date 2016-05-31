@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>GSAK / Gephi Swiss Army Knife</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-blue.min.css">
+	<link rel="stylesheet" href="assets/css/custom.css">
+	<link rel="stylesheet" href="assets/css/icheck/grey.css">
+	<link rel="stylesheet" href="assets/css/mCustomScrollbar/jquery.mCustomScrollbar.css">
+	<!-- lightweight tree -->
+	<link href="assets/css/lightweight_tree/jquery.treemenu.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/plugin/lightweight_tree/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<link type="text/css" class="skins" rel="stylesheet" href="assets/css/easytree/ui.easytree.css">
+	<!-- Selectbox css -->
+	<link rel="stylesheet" href="assets/css/selectBoxIt/jquery.selectBoxIt.css">
+	<!-- Selectbox css -->
+	<link rel="stylesheet" href="assets/css/rangeSlide/jquery.range.css">
+	<!-- color gradient css -->
+	<link rel="stylesheet" href="assets/css/jquery.gradientPicker.css">
+	<link rel="stylesheet" href="assets/js/colorpicker/css/colorpicker.css">
+	<!-- file upload in popup css -->
+	<link rel="stylesheet" href="assets/css/jqueryfiler/jquery.filer.css">
+	<link rel="stylesheet" href="assets/css/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css">
+	 <!-- MiniColors css -->
+	
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="assets/js/core-js/jQuery-2.1.4.min.js"></script>
+
+    
+    <!--jquery for file upload-->
+	<script src="assets/js/jqueryfiler/jquery.filer.min.js"></script>
+    <!-- AdminLTE App -->
+    <!-- <script src="assets/js/app.js"></script> -->
+	<script src="assets/js/custom.js"></script>
+	<!-- icheck -->
+	<script src="assets/js/icheck/icheck.js"></script>
+	<!-- Nicescroll -->
+	<script src="assets/js/nicescroll/jquery.nicescroll.js"></script>
+	<script src="assets/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- Dtree -->
+	<script src="assets/js/lightweight_tree/jquery.treemenu.js"></script> 
+	<script src="assets/js/easytree/jquery.easytree.js"></script>
+	<!-- Jquery for Select -->
+	<script src="assets/js/selectBoxIt/jquery-ui.js"></script>
+	<script src="assets/js/selectBoxIt/jquery.selectBoxIt.js"></script>
+	<!-- Bootstrap 3.3.4 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	<!-- Jquery for Slider-->
+	<script src="assets/js/rangeSlide/jquery.range.js"></script>
+	<!--color gradient picker-->
+	<script src="assets/js/jqueryUI-custom.js"></script>
+	<script src="assets/js/colorpicker/js/colorpicker.js"></script>
+	<script src="assets/js/jquery.gradientPicker.js"></script>
+	
+
+  </head>
+
+  <body class="skin-blue sidebar-mini gsak-home">
+    <!-- Start of leftsidebar -->
+	<div class="user-menu-container">
+		<div class="user-menu-left-container">
+		  <!-- Start of Second panel -->
+		  <div class="panel-group panel-layout">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a href="#collapse2" data-toggle="collapse">Layout 
+						</a>
+					</h4>
+				</div>
+				<div class="panel-collapse collapse in" id="collapse2">
+					<div class="panel-body layout_panel">
+						<div class="layout-select">
+							<select id="selectlayout-boxit">
+								<option value="rotation">Rotate</option>
+								<option value="scale">Scale</option>
+								<option value="forceatlas">Force Atlas</option>
+								<option value="fruchtermanReigngold">Fruchterman Reigngold</option>
+								<option value="labelAdjust">Label Adjust</option>
+								<option value="noverLap">Noverlap</option>
+								<option value="openOrd">OpenOrd</option>
+								<option value="randomLayout">Random Layout</option>
+								<option value="yifanHu">Yifan Hu</option>
+								<option value="yifanhuProportional">Yifan Hu Proportional</option>
+							</select> 
+						</div>
+						<div id="layout-contents">
+						<!-- clockwise rotation container -->
+						<div class="rotation-container Rotate" >
+						    <form action="/layout" method="get" class="layout_form" id="Rotation">
+						    <div class="lay-container">
+								<div class="rotate-label layout-label">Rotate</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Rotate</td>
+												<td>
+													<input type="text" value="90" placeholder="90" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="angle">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="Rotation" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div> <!-- end of clockwise rotation container -->
+						<!-- scale container -->
+						<div class="scale-container Scale">
+							<form action="/layout" method="get" class="layout_form" id="Scale">
+							<div class="lay-container">
+								<div class="scale-label layout-label">Scale</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Scale</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="scale">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="Scale" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- end of scale container -->
+						<!-- Force Atlas container -->
+						<div class="force-atlas-container forceAtlas">
+							<form action="/layout" method="get" class="layout_form" id="ForceAtlas">
+							<div class="lay-container">
+								<div class="force-atlas-label layout-label">Force Atlas</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Insertia</td>
+												<td>
+													<input type="text" value="0.1" placeholder="0.1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="intertia">
+												</td>
+											</tr>
+											<tr>       
+												<td>Repulsion strength</td>
+												<td>
+													<input type="text" value="200.0" placeholder="200.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="repulsion_strength">
+												</td>
+											</tr>
+											<tr>       
+												<td>Attraction strength</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="attraction_strength">
+												</td>
+											</tr>
+											<tr>       
+												<td>Maximum displacement</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="max_displacement">
+												</td>
+											</tr>
+											 <tr>       
+												<td>Adjust Sizes</td>
+												<td>
+													<input type="checkbox" name="adjust_sizes" value="true">
+												</td>
+											</tr>
+											<tr>       
+												<td>Gravity</td>
+												<td>
+													<input type="text" value="30.0" placeholder="30.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="gravity">
+												</td>
+											</tr>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="ForceAtlas" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- End of Force Atlas container -->
+						<!-- Start of Fruchterman Reigngold -->
+						<div class="fruchterman-reigngold-container fruchtermanReigngold ">
+							<form action="/layout" method="get" class="layout_form" id="FruchtermanReingoldLayout">
+							<div class="lay-container">
+								<div class="fruchterman-reigngold-label layout-label">Fruchterman Reigngold</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Area</td>
+												<td>
+													<input type="text" value="100000.0" placeholder="100000.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="area">
+												</td>
+											</tr>
+											<tr>
+												<td>Gravity</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="gravity">
+												</td>
+											
+											</tr>
+											<tr>
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="FruchtermanReingold" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- End of Fruchterman Reigngold -->
+						<!-- Start of Label Adjust -->
+						<div class="label-adjust-container labelAdjust">
+							<form action="/layout" method="get" class="layout_form" id="LabelAdjust">
+							<div class="lay-container">
+								<div class="scale-label layout-label">Label Adjust</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="1.0" placeholder="1.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+												</td>
+											</tr>
+											<tr>       
+												<td>Include Node size</td>
+												<td>
+													<input type="checkbox" name="includenodesize" value="true">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="LabelAdjust" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- End of Label Adjust -->
+						<!-- Start of noverlap -->
+						<div class="noverlap-container noverLap">
+						    <form action="/layout" method="get" class="layout_form" id="NoverLap">
+						    <div class="lay-container">
+								<div class="noverlap-label layout-label">Noverlap</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Speed</td>
+												<td>
+													<input type="text" value="3.0" placeholder="3.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="speed">
+												</td>
+											</tr>
+											<tr>       
+												<td>Ratio</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="ratio">
+												</td>
+											</tr>
+											<tr>       
+												<td>Margin</td>
+												<td>
+													<input type="text" value="5.0" placeholder="5.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="margin">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="NoverLap" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- End of noverlap -->
+						<!-- Start of OpenOrd -->
+						<div class="open-ord-container openOrd">
+						    <form action="/layout" method="get" class="layout_form" id="OpenOrd">
+						    <div class="lay-container">
+								<div class="open-ord-label layout-label">Stages</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Liquid (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="liquid">
+												</td>
+											</tr>
+											<tr>       
+												<td>Expansion (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="expansion">
+												</td>
+											</tr>
+											<tr>       
+												<td>Cooldown (%)</td>
+												<td>
+													<input type="text" value="25" placeholder="25" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="cooldown">
+												</td>
+											</tr>
+											<tr>       
+												<td>Crunch (%)</td>
+												<td>
+													<input type="text" value="10" placeholder="10" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="crunch">
+												</td>
+											</tr>
+											<tr>       
+												<td>Simmer (%)</td>
+												<td>
+													<input type="text" value="15" placeholder="15" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="simmer">
+												</td>
+											</tr>
+											<tr>       
+												<td>Edge Cut</td>
+												<td>
+													<input type="text" value="0.8" placeholder="0.8" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="edgeCut">
+												</td>
+											</tr>
+											<tr>       
+												<td>Num Threads</td>
+												<td>
+													<input type="text" value="3" placeholder="3" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="numThreads">
+												</td>
+											</tr>
+											<tr>       
+												<td>Num Iterations</td>
+												<td>
+													<input type="text" value="750" placeholder="750" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="numIterations">
+												</td>
+											</tr>
+											<tr>       
+												<td>Fixed time</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="fixedTime">
+												</td>
+											</tr>
+											<tr>       
+												<td>Random seed</td>
+												<td>
+													<input type="text" value="-90976657116214861" placeholder="-90976657116214861" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="randomSeed">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								</div>
+								<input type="hidden" value="OpenOrd" name="layout">
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div>
+						<!-- End of OpenOrd -->
+						<!-- Start of Random Layout -->
+						<div class="random-layout-container randomLayout">
+						    <form action="/layout" method="get" class="layout_form" id="RandomLayout">
+						    <div class="lay-container">
+								<div class="random-layout-label layout-label">Properties</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Space Size</td>
+												<td>
+													<input type="text" value="500.0" placeholder="500.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="space_size">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="RandomLayout" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div> 
+						<!-- End of Random Layout -->
+						<!-- Start of Yifan Hu -->
+						<div class="yifan-hu-container yifanHu">
+						    <form action="/layout" method="get" class="layout_form" id="YafinHu">
+						    <div class="lay-container">
+								<div class="rotate-label layout-label">Yifan Hu</div>
+								<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Quadtree Max Level</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="quadtreeMaxLevel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Theta</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="theta">
+												</td>
+											</tr>
+											<tr>       
+												<td>Optimal Distance</td>
+												<td>
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="optimalDistance">
+												</td>
+											</tr>
+											<tr>       
+												<td>Relative Strength</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="relativeStrength">
+												</td>
+											</tr>
+											<tr>       
+												<td>Initial Step size</td>
+												<td>
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="initialStepSize">
+												</td>
+											</tr>
+											<tr>       
+												<td>Step ratio</td>
+												<td>
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="stepRatio">
+												</td>
+											</tr>
+											<tr>       
+												<td>Adaptive Cooling</td>
+												<td>
+													<input type="checkbox" name="adaptiveCooling" value="true">
+												</td>
+											</tr>
+											<tr>       
+												<td>Convergence Threshold</td>
+												<td>
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="convergenceThreshold">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="YafinHu" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div> 
+						<!-- End of Yifan Hu -->
+						<!-- Start of Yifan Hu Proportional -->
+						<div class="yifan-hu-proportional-container yifanhuProportional">
+						    <form action="/layout" method="get" class="layout_form" id="YafinHuProportional">
+						    <div class="lay-container">
+								<div class="yifanhu-proportional-label layout-label">Yifan Hu Proportional</div>
+									<div class="table-responsive">          
+									<table class=" table table-bordered">
+										<thead>
+											<tr>       
+												<th>Property</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>       
+												<td>Quadtree Max Level</td>
+												<td>
+													<input type="text" value="10.0" placeholder="10.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="quadtreeMaxLevel">
+												</td>
+											</tr>
+											<tr>       
+												<td>Theta</td>
+												<td>
+													<input type="text" value="1.2" placeholder="1.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="theta">
+												</td>
+											</tr>
+											<tr>       
+												<td>Optimal Distance</td>
+												<td>
+													<input type="text" value="100.0" placeholder="100.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="optimalDistance">
+												</td>
+											</tr>
+											<tr>       
+												<td>Relative Strength</td>
+												<td>
+													<input type="text" value="0.2" placeholder="0.2" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="relativeStrength">
+												</td>
+											</tr>
+											<tr>       
+												<td>Initial Step size</td>
+												<td>
+													<input type="text" value="20.0" placeholder="20.0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="initialStepSize">
+												</td>
+											</tr>
+											<tr>       
+												<td>Step ratio</td>
+												<td>
+													<input type="text" value="0.95" placeholder="0.95" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="stepRatio">
+												</td>
+											</tr>
+											<tr>       
+												<td>Adaptive Cooling</td>
+												<td>
+													<input type="checkbox" name="adaptiveCooling" value="true">
+												</td>
+											</tr>
+											<tr>       
+												<td>Convergence Threshold</td>
+												<td>
+													<input type="text" value="1.0E-4" placeholder="1.0E-4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 input_layout" name="convergenceThreshold">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<input type="hidden" value="YafinHuProportional" name="layout">
+								</div>
+								<div class="btn-run-div">
+								  <input type="submit" value="Run" class="btn btn-primary  marginbottom10 ">
+								  <img src="./images/ringloader.gif" class="graphLoader-run">
+								</div>
+							</form>
+						</div> 
+						<!-- End of Yifan Hu Proportional -->
+						</div> <!-- End of layoutcontents -->
+						
+                    </div>
+                </div>
+            </div>
+          </div> <!-- End of Second panel -->
+		  <!-- Start of Third panel -->
+		  <div class="panel-group panel-options">
+            <div class="panel panel-default margin10">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a href="#collapse3" data-toggle="collapse">Options 
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse in" id="collapse3">
+				<div class="panel-body option_panel_body_padding_60">
+					<div class="label-container">
+						<div class="label-size">Label Size</div>
+						<div class="labelsize-selectm">
+							<select id="select-labelsizeboxit">
+								<option value="fixed">Fixed</option>
+								<option value="proportional">Proportional</option>
+						   </select> 
+						</div>
+					</div>
+					<div class="label-checkbox-container">
+						<form id="localGraphSettingsChanger">
+							<input type="checkbox" name="showlabel" value="showlabel" checked><span class="showlabel-title labelcheckbox">Nodes Labels</span><br>
+							<input type="checkbox" name="showedgesLabel" value="showedgesLabel"><span class="enablehover-title labelcheckbox">Edges Labels</span><br>
+							<input type="checkbox" name="showedge" value="showedge" checked><span class="showedge-title labelcheckbox">Edges</span><br>
+							<input type="checkbox" name="shownodes" value="shownodes" checked><span class="showedge-title labelcheckbox">Nodes</span><br>
+							<input type="checkbox" name="endablehover" value="endablehover" checked><span class="enablehover-title labelcheckbox">Enable hover (Nodes, Edges)</span><br>
+							<div class=""  data-toggle="tooltip" data-placement="top" title="Applicable on New Graph!">
+							<input type="checkbox" name="nodesrandomcolors" id="nodesrandomcolors" value="nodesrandomcolors" checked><span class="nodesrandomcolors-title labelcheckbox" >Nodes Random Color</span><br></div>
+							<div class="" data-toggle="tooltip" data-placement="top" title="Applicable on New Graph!">
+							<div id="colorSelector" class="color-chooser" ><div style="background-color: rgb(205, 220, 213)" ></div></div>
+                            <span class="edgesdefaultcolors-title labelcheckbox">Edges Default Color's</span>
+	                        </div>
+						</form>
+						
+					</div>
+                </div>
+              </div>
+            </div>
+          </div>
+		  <!-- End of Third panel -->
+		  <div class="panel-group panel-appearance">
+				<div class="panel panel-default margin10">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a href="#collapse1" data-toggle="collapse" aria-expanded="true" class="">Graph Information 
+						</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
+						<div class="panel-body">
+							<div class="graph-counts">
+								<span class="text-count-wd">Nodes Count:</span><span class="count-wd nodescount">0</span><br>
+	                			<span class="text-count-wd">Edges Count:</span><span class="count-wd edgescount">0</span>
+	                			
+                			</div>
+
+                		</div>
+              		</div>
+            </div>
+          </div> <!-- End of Panel group -->
+          <div class="original_graph_load">
+          	<form id="original_graph_load_form">
+				<input class="btn btn-primary marginbottom10" type="submit" value="Load Original Graph">
+				<img src="./images/ringloader.gif" class="dbLoader">
+			</form>
+		  </div>
+		</div>
+		<div class="user-nav-slide"></div>
+	</div>
+	<!-- End of leftsidebar -->
+	    <!-- Start of Rightsidebar -->
+	<div class="user-menu-container-right">
+		<div class="user-menu-left-container-right">
+		<!--Filters and statistics tabs-->
+		<div class="filstat">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#filters" data-toggle="tab" aria-expanded="true">Filters</a></li>
+				<li class=""><a href="#statistics" data-toggle="tab" aria-expanded="false">Statistics</a></li>    
+			</ul>
+		</div>
+		<div class="tab-content">
+						<div class="tab-pane fade active in" id="filters">
+							<!--panel options-->
+            <div class="panel-group">
+				<div class="panel panel-default margin10">
+					<div class="panel-heading" >
+						<h4 class="panel-title">
+						<a href="#collapse_filters" data-toggle="collapse" aria-expanded="true" class="">Libraries 
+						</a>
+						</h4>
+					</div>
+					<div id="collapse_filters" class="panel-collapse collapse in">
+					<div id="jstree_demo_div" class="panel-body network_panel_body">
+						<div id="jstree">
+					    <!-- in this example the tree is populated from inline HTML -->
+                         <div id="networkoperations-folder">
+    <ul>
+        <li class="isFolder isExpanded" title="Bookmarks">
+            Library
+            <ul>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_edge" class="info_link"> Id String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#id_str_node" class="info_link"> Id String (Node)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_edge" class="info_link"> Label String (Edge)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#label_str_node"> Label String (Node)</a></li>
+               <li id="" class="ui-widget-content filterdrag"><a href="#weight_float_edge"> Weight Float (Edge)</a></li>
+			   
+			   <li id="" class="ui-widget-content filterdrag"><a href="#deg_range_topology_filter"> Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#ego_net_topology_filter"> Ego Network</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#giant_topology_filter"> Giant Component</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#selfloop_topology_filter"> Has Self-loop</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#in_deg_topology_filter"> In Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#kcore_topology_filter"> K-core</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a  href="#mutualdeg_range_topology_filter"> Mutual Degree Range</a></li>
+					<li id="" class="ui-widget-content filterdrag"><a href="#out_degree_range_topology_filter"> Out Degree Range</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+					  </div>
+				</div>
+              </div>
+            </div>
+          </div><!--panel options-->
+		  <!-- Queries option -->
+		  <div class="panel-group">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+					  <a data-toggle="collapse" href="#collapse_Queries">Queries 
+					   </a>
+					</h4>
+					
+				</div>
+
+               <div id="collapse_Queries" class="panel-collapse collapse in">
+              	<div id="queries_panel" class="panel-body parameter_panel">
+					<div class="parameters-contents">
+                	<div id="filter_querycontainer" class="ui-widget-content"><div class="replace_me"><ul><li>Drag Filter here to run Queries</li></ul></div></div>
+                	</div>
+                </div>
+                <div class="filtercheckbox">
+                	<div class="filtercheckbox-cont"><input type="checkbox" name="filtercheck" id="filtercheck1">
+                	<span class="labelcheckbox">Apply all filters</span></div>
+                </div>
+                
+              </div>
+            </div>
+          </div> <!-- End of Queries option -->
+		  <!-- Panel parameters -->
+		  <div class="panel-group">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse_parameters">Parameters 
+						</a>
+					</h4>
+				</div>
+				<div id="collapse_parameters" class="panel-collapse collapse in">
+					<div id="parameters_panel" class="panel-body parameter_panel">
+						<div class="parameters-contents">
+
+							<div id="parameter_load">Query Parameters will load here..</div>
+
+							
+							<div id="id_str_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (ID) Edge Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form id="id_str_edge_form">
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="text" placeholder="Edge ID"  value="" name="edgeid" required></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="edgeIdStr"></td>
+											</tr>
+											
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="id_str_node_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (ID) Node Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form id="id_str_node_form">
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="text" placeholder="Node ID"  value="" name="nodeid" required></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="nodeIdStr"></td>
+											</tr>
+											
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="label_str_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (Label) Edge Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form id="label_str_edge_form">
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="text" placeholder="Edge Label"  value="" name="edgelabel" required></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="edgeLabelStr"></td>
+											</tr>
+											
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="label_str_node_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Equal (Label) Node Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form id="label_str_node_form">
+										<table class="table table-parameter">
+											<tr>
+												<td>Pattren:</td>
+												<td><input type="text" placeholder="Node Label"  value="" name="nodelabel" required></td>
+											</tr>
+											<tr>
+												<td>Use Regex</td>
+												<td><input type="checkbox" name="useregex"></td>
+												<td><input type="hidden" name="filterId" value="nodeLabelStr"></td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+							<div id="weight_float_edge_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Weight Float (Edge) Settings</h6></div>
+								<div class="table-responsive equal_filter_div">
+									<form id="weight_float_edge_form">
+									<table class="table table-parameter spinner-table">
+										<tr class="tr-spinner-wd">
+											<td class="td-spinner-label">Value:</td>
+											<td class="td-spinner-val"><input  type="text" id="spinner-weight" placeholder="Weight Float Edge" value="1" name="WeightFloatEdge"></td>
+											<td><input type="hidden" name="filterId" value="weightFloatEdge"></td>
+										</tr>
+									</table>	
+									</form>
+								</div>
+							</div>
+
+							<div id="deg_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form id="deg_range_topology_filter_form">
+										 	<input type="hidden" id="range-slider-degree" class="range-slider" name="degreeRange"/>
+											<input type="hidden" name="filterId" value="degreeRange">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="ego_net_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Ego Network Settings</h6></div>
+								<div>
+								<form id="ego_net_topology_filter_form">
+									<table class="table-responsive table-parameter equal_filter_div">
+											<tr>
+											<td>Node ID:</td>
+											<td><input id="ego_id" type="text" name="node_id_ego" value=""></td>
+											<td><input type="hidden" name="filterId" value="egoNetwork"></td>
+											</tr>
+											<tr>
+												<td>Depth:</td>
+												<td><select id="select-depth_ego" name="egoDepth">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option id="maxDegree">Max</option>
+								                   </select>
+								                </td>
+											</tr>
+											<tr>
+												<td>Withself</td>
+												<td>
+													<input type="checkbox" name="withself_ego" value="true">
+												</td>
+											</tr>
+									</table>
+								</form>
+								</div>
+							</div>
+
+							<div id="giant_topology_filter_cont" class="parameter_load_class">
+								
+								<div>
+									<div class="">
+										<form id="giant_topology_filter_form">
+											<input type="hidden" name="filterId" value="giantCompFilter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="selfloop_topology_filter_cont" class="parameter_load_class">
+								
+								<div>
+									<div class="">
+										<form id="selfloop_topology_filter_form">
+										 	<input type="hidden" name="filterId" value="selfLoopFilter">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="in_deg_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>In Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form id="in_deg_topology_filter_form">
+										 	<input type="hidden" id="range-slider-in-degree" class="range-slider" name="inDegreerange" value="1" />
+											<input type="hidden" name="filterId" value="indegreeRange">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="kcore_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>K core Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form id="kcore_topology_filter_form">
+											<table class="table table-parameter spinner-table">
+											<tr class="tr-spinner-wd">
+												<td class="td-spinner-label">Value:</td>
+												<td class="td-spinner-val"><input type="text"  id="spinner-kcore" value="1" name="Kcore"></td>
+												<td><input type="hidden" name="filterId" value="kCoreFilter"></td>
+											</tr>
+											</table>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="mutualdeg_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Mutual Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range ">
+										<form id="mutualdeg_range_topology_filter_form">
+										 	<input type="hidden" id="range-slider-mutual-degree" class="range-slider" name="mdegreeRange" value="1" />
+											<input type="hidden" name="filterId" value="mutualDegreeRange">
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div id="out_degree_range_topology_filter_cont" class="parameter_load_class">
+								<div class="heading_parameter"><h6>Out Degree Range Settings</h6></div>
+								<div>
+									<div class="parameter_content_range">
+										<form id="out_degree_range_topology_filter_form">
+										 	<input type="hidden" id="range-slider-out-degree" class="range-slider" name="outDegreerange" value="1" />
+											<input type="hidden" name="filterId" value="outdegreeRange">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>                                    	
+					</div>
+                </div>
+            </div>
+          </div>
+		  <!-- End of Panel parameters -->
+
+			<div class="filter_btn_div" >
+				<input  class="btn btn-primary marginbottom10 pull-right" id="filter_btn_id" type="submit" value="Filter" disabled="disable">
+				
+			</div>
+			<div class="select_btn_div" >
+			<img src="./images/ringloader.gif" class="filterLoader">
+				<input class="btn btn-primary marginbottom10 pull-right" type="submit" value="Select" disabled="disable" id="select_btn_id">
+				<button class="btn btn-primary marginbottom10 pull-right" id="filterUndo" style="margin-right:5px" disabled="disable">
+					<img src="./images/undo.png" style="width:15px; height:15px">
+				</button>
+			</div>
+		</div>
+		<div class="tab-pane fade " id="statistics">
+						
+		  <div class="panel-group">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse_network_overview">Network Overview 
+						</a>
+					</h4>
+				</div>
+				<div id="collapse_network_overview" class="panel-collapse collapse in">
+					<div id="network_overview_panel" class="panel-body parameter_panel">
+						<div class="statistics-contents">
+						<div class="table-responsive">          
+							<table class="table-responsive table-stat">
+								<div id="myModal" class="modal fade" role="dialog">
+								<tr>       
+									<td class="td-wd-button">
+										<form action="/statistics" method="get" class="statistics_form" id="averageDegree">
+											<div class="runbtn"><INPUT type="submit" id="average_degree_stats" data-popup-open="popup-1" name="run" value=""></div>
+											<input type="hidden" value="averageDegree" name="statistics">
+										</form>
+										<div class="popup" data-popup="popup-1">
+										    <div class="popup-inner">
+										    <div class="popup-heading"><span id="canvasTitle"></span><a class="popup-close" data-popup-close="popup-1" href="#">x</a></div>
+										    <div class="popup-in">
+										       <div id="chartContainer"></div>
+										        </div>
+										    </div>
+										</div>
+									</td>
+									<td class="td-wd-txt">Average Degree</td>		
+								</tr>
+								<tr>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="averageWeightedDegree">
+										<div class="runbtn"><INPUT type="submit" id="avg_weight_degree_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="averageWeightedDegree" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Avg. Weighted Degree</td>
+								</tr>
+								<tr>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="graphDensity">
+										<div class="runbtn"><INPUT type="submit" id="graph_density_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="graphDensity" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Graph Density</td>
+								</tr>
+								<tr>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="Modularity">
+										<div class="runbtn"><INPUT type="submit" id="modularity_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="Modularity" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Modularity</td>
+								</tr>
+								<tr>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="pageRank">
+										
+										<div class="runbtn"><INPUT type="submit" id="page_rank_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="pageRank" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Page Rank</td>
+								</tr>
+								<tr>
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="connectedComponents">
+										<div class="runbtn"><INPUT type="submit" id="connected_comp_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="connectedComponents" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Connected Components</td>
+								</tr>
+								<tr> 	
+									<td class="td-wd-button">
+										<form action="/statistics" method="get" class="statistics_form" id="hits">
+											<div class="runbtn"><INPUT type="submit" id="hits_centrality_stats" data-popup-open="popup-1" name="run" value=""></div>
+											<input type="hidden" value="hits" name="statistics">
+										</form>
+									</td>
+									<td class="td-wd-txt">HITS</td>
+								</tr>
+							</table>
+						</div>		
+						</div>                                    	
+					</div>
+                </div>
+            </div>
+          </div>
+		  <!-- End of Panel parameters -->
+		  <div class="panel-group">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse_node_overview">Node Overview 
+						</a>
+					</h4>
+				</div>
+				<div id="collapse_node_overview" class="panel-collapse collapse in">
+					<div id="node_overview_panel" class="panel-body parameter_panel">
+						<div class="statistics-contents">
+							<div class="table-responsive">          
+								<table class="table-responsive table-stat">
+									<tr>       
+										<td class="td-wd-button">
+											<form action="/statistics" method="get" class="statistics_form" id="avgClusterCoeficients">
+												<div class="runbtn"><INPUT type="submit" id="avg_clustering_stats" data-popup-open="popup-1" name="run" value=""></div>
+												<input type="hidden" value="avgClusterCoeficients" name="statistics">
+											</form>
+										</td>
+										<td class="td-wd-txt">Avg. Clustering Coefficient</td>
+									</tr>
+									<tr>
+										<td class="td-wd-button">
+											<form action="/statistics" method="get" class="statistics_form" id="eigenVectorCentrality">
+												<div class="runbtn"><INPUT type="submit" id="eigenvector_centrality_stats" data-popup-open="popup-1" name="run" value=""></div>
+												<input type="hidden" value="eigenVectorCentrality" name="statistics">
+											</form>
+										</td>       
+										<td class="td-wd-txt">EigenVector Centrality</td>
+									</tr>	
+								</table>
+							</div>
+						</div>                                    	
+					</div>
+                </div>
+            </div>
+          </div>
+		  <!-- End of Panel parameters -->
+		  <div class="panel-group">
+			<div class="panel panel-default margin10">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse_edge_overview">Edge Overview 
+						</a>
+					</h4>
+				</div>
+				<div id="collapse_edge_overview" class="panel-collapse collapse in">
+					<div id="edge_overview_panel" class="panel-body parameter_panel">
+						<div class="statistics-contents">
+							<table class="table-responsive table-stat">
+										
+								<tr>       
+									<td class="td-wd-button">
+									<form action="/statistics" method="get" class="statistics_form" id="avgPathLength">
+										<div class="runbtn"><INPUT type="submit" id="avg_path_length_stats" data-popup-open="popup-1" name="run" value=""></div>
+										<input type="hidden" value="avgPathLength" name="statistics">
+									</form>
+									</td>
+									<td class="td-wd-txt">Avg. Path Length</td>
+								</tr>
+											
+							</table>
+						</div>                                    	
+					</div>
+                </div>
+            </div>
+          </div>
+		  <!-- End of Panel parameters -->
+	</div>   
+  </div>
+			
+		</div>
+		<div class="user-nav-slide-right"></div>
+	</div>
+	<!-- End of Rightsidebar -->
+    <div class="wrapper">
+    <!-- Main Header -->
+     <header class="main-header">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 margin20 header-logo">
+					<div class="site-name"><img src="assets/css/images/gsak_logo.png"></div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 header-search">
+				<form id="search-form" action="#" method="get">
+					<input type="text" placeholder="DataSource not Selected" class="grey search-box">
+					<input type="submit" value="Search" name="" class="btn btn-default orange search-submit"> 
+					<img src="./images/ringloader.gif" id="searchLoader">
+				</form>               
+				</div>
+   		  </div>
+   		 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+    	 	<div class="margin30 select-container-test col-sm-12">
+				<div class="header-selecttest custom-select col-sm-8">
+				<form id="datasources">
+					<select id="selectdata">
+						<option value="" selected="selected" disabled="disabled">Select DataSource</option>
+						<option value="elasticsearch">ElasticSearch</option>
+						<option value="mysql">MySql</option>
+						<option value="mongodb">MongoDB</option>
+						<option value="inputfile">File</option>
+						<option value="graphfile">Graph File</option>
+                   </select> 
+                </form>
+				</div>
+				
+				<div class="setting-container-test col-sm-4">
+					<h5>
+						<img alt="" src="images/setting.png" class="setting-img">
+						<a href="#" class="setting-text">Configure Sources</a>
+					</h5>
+            </div>
+            </div>
+            <!-- Datasource popups content -->
+            
+   		 </div>	
+    </div>
+    <!-- Database (mysql) popups content -->
+    <div class="popup pop-custom-db" data-popup="popup-config-database" >
+		<div class="popup-inner">
+		    <div class="popup-heading"><span id="">Configure Mysql Database</span><a class="popup-close" data-popup-close="popup-config-database" href="#">x</a></div>
+		    <div class="popup-in">
+		       <div>
+		       		<div class="conf-db-pop">
+		       		<form id="mysqldbForm">
+		       			<table class="popup-table table table-responsive">
+		       		
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Host</label>
+			       					<input type="text" value="" name="dbhost" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port </label>	
+			       				<input type="text" value="" name="dbport" required></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Database Table</label>
+			       					<input type="text" value="" name="dbtable" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Username</label>	
+			       				<input type="text" value="" name="dbuser" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Password</label>
+			       					<input type="password" value="" name="dbpass"></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Column</label>
+			       					<input type="text" value="" name="dbtableCol" required></input>
+			       				</td>
+			       				<td><input type="hidden" name="dBServer" value="mysql"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mysqldbaction" value="connect"/></td>
+		       				</tr>
+		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="mysqlFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
+		       			</form>
+		       		</div>
+		       </div>
+		    </div>
+		</div>
+	</div>
+	<!-- Database (mongodb) popups content -->
+    <div class="popup pop-custom-mongodb" data-popup="popup-config-database-mongo" >
+		<div class="popup-inner">
+		    <div class="popup-heading"><span id="">Configure MongoDb Database</span><a class="popup-close" data-popup-close="popup-config-database-mongo" href="#">x</a></div>
+		    <div class="popup-in">
+		       <div>
+		       		<div class="conf-db-pop">
+		       		<form id="mongodbForm">
+		       			<table class="popup-table table table-responsive">
+		       		
+		       				<tr>
+		       					<td class="popup-td-wd">
+			       				<label>Database</label>	
+			       				<input type="text" value="" name="database" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Host</label>
+			       					<input type="text" value="" name="dbhost" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port </label>	
+			       				<input type="text" value="" name="dbport" required></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Collection</label>
+			       					<input type="text" value="" name="dbcollection" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Username</label>	
+			       				<input type="text" value="" name="dbuser" required></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       					<label>Password</label>
+			       					<input type="password" value="" name="dbpass"></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       					<label>Field</label>
+			       					<input type="text" value="" name="dbfield" required></input>
+			       				</td>
+			       				<td><input type="hidden" name="dBServer" value="mongodb"/></td>
+			       				<td><input type="hidden" name="dbAction" id="mongodbaction" value="connect"/></td>
+		       				</tr>
+		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="mongodbFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
+		       			</form>
+		       		</div>
+		       </div>
+		    </div>
+		</div>
+	</div>
+	
+	<!-- Elastic search popups content -->
+	<div  class="popup pop-custom-es" data-popup="popup-config-es" >
+		    <div class="popup-inner" >
+		    <div class="popup-heading"><span id="">Configure Elasticsearch</span><a class="popup-close" data-popup-close="popup-config-es" href="#">x</a></div>
+		    <div class="popup-in">
+		       <div   >
+		       	<div class="conf-db-pop">
+		       		<form id="elasticsearchForm">
+		       			<table class="popup-table table table-responsive">
+		       				<tr>
+
+			       				<td class="popup-td-wd">
+			       					<label>Host</label>
+			       					<input type="text" name= "es_host" placeholder="localhost"  value="localhost" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Port</label>	
+			       				<input type="text" value="9300" placeholder="9300" name="es_port" id=""></input>
+			       				</td>
+			       				<td class="popup-td-wd">
+			       				<label>Cluster Name</label>	
+			       				<input type="text" value="elasticsearch" placeholder="elasticsearch" name ="es_cluster" id=""></input>
+			       				</td>
+		       				</tr>
+		       				<tr>
+			       				<td class="popup-td-wd">
+			       				<label>Index</label>	
+			       				<input type="text" value="" name = "es_index" id=""></input>
+			       				</td>
+			       				
+			       				<td class="popup-td-wd">
+			       					<label>Type</label>
+			       					<input type="text" value="" name = "es_type" id=""></input>
+			       				</td>
+			       				<td><input type="hidden" name="dBServer" value="elasticsearch"/></td>
+			       				<td><input type="hidden" name="dbAction" id="elasticsearchAction" value="connect"/></td>
+		       				</tr>
+		       			</table>
+		       			<div class="form_datasource_sub">
+		       				<img src="./images/ringloader.gif" class="dbLoader">
+		       				<input id="elasticsearchFormSubmit" type="submit" name="connect" value="Connect" class="btn btn-primary"></input>
+		       			</div>
+		       			</form>
+		       		</div>
+		       </div>
+		        </div>
+		    </div>
+		</div>
+			<!-- File Upload popups content -->
+		<div class="popup pop-custom-file-up" data-popup="popup-config-file-up" >
+		    <div class="popup-inner">
+			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file-up" href="#">x</a></div>
+			    <div class="popup-in">
+			       <div>
+			       	<div class="conf-db-pop">
+			       		<form action="#" method="post" enctype="multipart/form-data" id="textfileUploadForm">
+			              <input type="file" name="files[]" id="filer_input_graph" multiple="multiple">
+			              <input id="filer_input_graph-inp"  type="submit" value="Submit" class="btn btn-primary">
+				        </form>
+			       	</div>
+			       </div>
+			    </div>
+		    </div>
+		</div>
+		<!-- Graph File Upload popups content -->
+		<div class="popup pop-custom-file" data-popup="popup-config-file" >
+		    <div class="popup-inner">
+			    <div class="popup-heading"><span id="">Upload File</span><a class="popup-close" data-popup-close="popup-config-file" href="#">x</a></div>
+			    <div class="popup-in">
+			       <div>
+			       	<div class="conf-db-pop">
+			       		<form action="#" method="post" enctype="multipart/form-data" id="graphFileUploadForm">
+			              <input type="file" name="files[]" id="filer_input" multiple="multiple">
+			              <img src="./images/ringloader.gif" id="graphLoader">
+			              <input id="filer_input-inp" type="submit" value="Generate Graph" class="btn btn-primary">
+				        </form>
+			       	</div>
+			       </div>
+			    </div>
+		    </div>
+		</div>
+      </header>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper"  id ="container">
+      	  
+		<div class="zoom-container">
+			<div class="fullscreen_icon" title="">
+			</div>  
+			<div class="scroll-btn-zoom">
+				<a class="zoom-btn" id="zoomin-btn"><span class=""><img src="assets/css/images/plus.png"></span></a>
+			<div class="zoomslider-outer">
+				<div id="slider-vertical"></div>
+			</div>
+				<a class="zoom-btn" id="zoomout-btn"><span class=""><img src="assets/css/images/minus.png"></span></a>
+			</div>
+		</div>
+	<!-- Content Header (Page header) -->
+        <!-- <img src="./images/loader1.gif" id="graphLoaderImg" style="width:30px;height:30px; display:block; margin:0 auto;"> -->
+        
+      </div><!-- /.content-wrapper -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+	
+			<!-- sigma libs -->
+    <script src="assets/sigmajs/sigma.core.js"></script>
+    <script src="assets/sigmajs/conrad.js"></script>
+    <script src="assets/sigmajs/sigma.utils.js"></script>
+    <script src="assets/sigmajs/sigma.polyfills.js"></script>
+    <script src="assets/sigmajs/sigma.settings.js"></script>
+    <script src="assets/sigmajs/sigma.classes.dispatcher.js"></script>
+    <script src="assets/sigmajs/sigma.classes.configurable.js"></script>
+    <script src="assets/sigmajs/sigma.classes.graph.js"></script>
+    <script src="assets/sigmajs/sigma.classes.camera.js"></script>
+    <script src="assets/sigmajs/sigma.classes.quad.js"></script>
+    <script src="assets/sigmajs/sigma.classes.edgequad.js"></script>
+    <script src="assets/sigmajs/sigma.captors.mouse.js"></script>
+    <script src="assets/sigmajs/sigma.captors.touch.js"></script>
+    <script src="assets/sigmajs/sigma.renderers.canvas.js"></script>
+    <script src="assets/sigmajs/sigma.renderers.webgl.js"></script>
+    <script src="assets/sigmajs/sigma.renderers.svg.js"></script>
+    <script src="assets/sigmajs/sigma.renderers.def.js"></script>
+    <script src="assets/sigmajs/sigma.webgl.nodes.def.js"></script>
+    <script src="assets/sigmajs/sigma.webgl.nodes.fast.js"></script>
+    <script src="assets/sigmajs/sigma.webgl.edges.def.js"></script>
+    <script src="assets/sigmajs/sigma.webgl.edges.fast.js"></script>
+    <script src="assets/sigmajs/sigma.webgl.edges.arrow.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.labels.def.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.hovers.def.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.nodes.def.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edges.def.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edges.curve.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edges.arrow.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edgehovers.def.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="assets/sigmajs/sigma.canvas.extremities.def.js"></script>
+    <script src="assets/sigmajs/sigma.svg.utils.js"></script>
+    <script src="assets/sigmajs/sigma.svg.nodes.def.js"></script>
+    <script src="assets/sigmajs/sigma.svg.edges.def.js"></script>
+    <script src="assets/sigmajs/sigma.svg.edges.curve.js"></script>
+    <script src="assets/sigmajs/sigma.svg.labels.def.js"></script>
+    <script src="assets/sigmajs/sigma.svg.hovers.def.js"></script>
+    <script src="assets/sigmajs/sigma.middlewares.rescale.js"></script>
+    <script src="assets/sigmajs/sigma.middlewares.copy.js"></script>
+    <script src="assets/sigmajs/sigma.misc.animation.js"></script>
+    <script src="assets/sigmajs/sigma.misc.bindEvents.js"></script>
+    <script src="assets/sigmajs/sigma.misc.bindDOMEvents.js"></script>
+    <script src="assets/sigmajs/sigma.misc.drawHovers.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+	<script src="assets/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+	<!-- canvasjs script -->
+	<script src="assets/js/canvasjs/jquery.canvasjs.min.js"></script>
+	<!-- GSAK ajax-server script -->
+	<script src="assets/js/script.js"></script>
+  </body>
+</html>
