@@ -10,7 +10,7 @@
     *$gsak_upload_dir = 'C:\\uploads\\'; // Last '\\' required.
     */
 
-    $gsak_upload_dir = 'E:\\eclipse\\Workspace\\gephi-swiss-army-knife\\uploads\\'; // Last '/' required.
+    $gsak_upload_dir = ''; 
 
     $uploader = new Uploader();
     $data = $uploader->upload($_FILES['files'], array(
