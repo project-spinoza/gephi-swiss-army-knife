@@ -1,0 +1,15 @@
+/****************************************************************
+*								*
+*		       INSTRUCTIONS				*
+*								*
+*****************************************************************/
+
+1) copy gsak directory to http server root directory (i.e. htdocs, www, etc.).
+2) open upload.php with any editor.
+3) set $gsak_upload_dir to GSAK upload directory. i.e. Directory to which GSAK uploads file.
+NOTE: GSAK automatically creates a directory 'uploads' where GSAK .jar file exits or from where it is executed.
+if you don't have uploads directory, create one in directory containing jar file or in the directory from where you gonna run .jar file.
+set its path in upload.php file as mentioned above.
+4) Run GSAK `java -jar gsak-*.jar` 
+5) Access GSAK via 'www.localhost/gsak';
+6) direct path without proxy 'www.localhost:9090/gsak'
