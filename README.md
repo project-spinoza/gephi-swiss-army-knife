@@ -34,8 +34,8 @@ Download zip file [- download](https://github.com/project-spinoza/gephi-swiss-ar
 * Run `startup.sh` linux/mac
 * Run `startup.bat` windows
 <br>OR<br>
-* Run `java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar sample.gexf`
-* navigate to `localhost:9090/graph`
+* Run `java -jar target/gephi-swiss-army-knife-1.0.0-jar-with-dependencies.jar`
+* navigate to `localhost:9090/gsak`
 
 ### Note
 the project is under development
