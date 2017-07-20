@@ -5,18 +5,18 @@ The purpose of this project is to provide a simple and interactive web based gra
 
 <br/>
 <hr>
-#### Layout
+<h4>Layout</h4>
 
 ![GSAK](screenshots/final_gsak.jpg)
 
 <br/>
 <hr>
-#### Degree Distribution Network Overview 
+<h4>Degree Distribution Network Overview</h4>
 
 ![GSAK](screenshots/gsak_degree_dist.png)  <br/><br/><br/>
 <hr>
 
-### Purpose
+<h4>Purpose</h4>
 The purpose of this project is to provide a simple and interactive web based graph analysis and visualization platform, inspired by [Gephi](https://gephi.org/)<br>
 
 ### Prerequisites
